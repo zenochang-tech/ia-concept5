@@ -1,0 +1,487 @@
+/* ============================================================================
+   ia-shared.jsx — SHARED UI for all pages (single source).
+   Loaded as the FIRST babel script on every page, BEFORE the page's own bundle.
+   Exposes: Nav, Footer, Arrow, HexCursor, BackToTop, prefersReduced,
+            useSmoothScroll(), useScrollReveal().
+   NOTE: the homepage (ia-bundle.jsx) still carries its own copies for now;
+   migrating it to load this file is a planned follow-up.
+   ============================================================================ */
+
+const prefersReduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const NAV = [
+  { label: 'For Advertisers', href: '/advertisers/', tone: 'adv',
+    feature: { kicker: "I'm an Advertiser", title: 'Reach 800,000+ partners', body: 'Acquire new customers through creators, content sites and affiliates across Asia.', cta: 'List Your Brand', href: '/advertisers/' },
+    items: [
+      { t: 'Overview', d: 'Why brands grow with Involve', href: '/advertisers/' },
+      { t: 'How We Track', d: 'Attribution & reporting', href: '/advertisers/how-we-track/' },
+      { t: 'Partner Discovery', d: 'Find the right creators', href: '/advertisers/partner-discovery/' },
+      { t: 'Automation', d: 'Onboard partners at scale', href: '/advertisers/automation/' },
+      { t: 'Case Studies', d: 'Brand success stories', href: '/advertisers/case-studies/' },
+    ]},
+  { label: 'For Publishers', href: '/partners/overview', tone: 'pub',
+    feature: { kicker: "I'm a Creator or Publisher", title: 'Turn your audience into earnings', body: 'Promote 4,000+ brands and get fast local-currency payouts. Free to join.', cta: 'Start Earning', href: '/partners/' },
+    items: [
+      { t: 'Overview', d: 'Start earning with Involve', href: '/partners/overview' },
+      { t: 'Content Creators', d: 'Monetise your audience', href: '/partners/content-creators/' },
+      { t: 'All Brands Directory', d: '4,000+ programs — high intent', href: 'https://app.involve.asia/directory', promote: true },
+      { t: 'Express Withdrawal', d: 'Fast local payouts', href: '/partners/express-withdrawal/' },
+      { t: 'Academy', d: 'Learn affiliate marketing', href: '/academy/' },
+    ]},
+  { label: 'Resources', href: '/blog/', items: [
+      { t: 'Blog', d: 'Guides, trends & playbooks', href: '/blog/' },
+      { t: 'Support', d: 'Help centre', href: 'https://helpcentre.involve.asia/' },
+      { t: 'Download App', d: 'iOS & Android', href: '/download-app/' },
+      { t: 'Release Notes', d: "What's new", href: '/release-notes/' },
+      { t: 'API Docs', d: 'For developers', href: '/partners/api-overview/' },
+    ]},
+  { label: 'Company', href: '/about/', items: [
+      { t: 'About Us', d: 'Our story & team', href: '/about/' },
+      { t: 'Careers', d: "We're hiring", href: 'https://career.involve.asia/' },
+    ]},
+];
+
+const LANGS = [
+  { code: 'EN', label: 'English' },
+  { code: 'TH', label: 'ไทย' },
+  { code: 'VN', label: 'Tiếng Việt' },
+  { code: 'ID', label: 'Bahasa Indonesia' },
+  { code: 'MS', label: 'Bahasa Melayu' },
+  { code: 'PH', label: 'Filipino' },
+];
+
+function Caret({ open }) {
+  return <svg width="11" height="11" viewBox="0 0 12 12" style={{ marginLeft: 3, transition: 'transform .2s', transform: open ? 'rotate(180deg)' : 'none' }}><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>;
+}
+
+// Mega-menu item — Concept 3 styling (bold display label → ember on hover) with the
+// live build's real descriptions instead of Concept 3's placeholder "line" bars.
+function MegaItem({ it }) {
+  return (
+    <a href={it.href} role="menuitem" className="mega4-item">
+      <b>{it.t}{it.promote && <span className="tag tag-pub" style={{ marginLeft: 8, padding: '3px 8px', fontSize: 10.5, verticalAlign: 'middle' }}>Popular</span>}</b>
+      <span className="d">{it.d}</span>
+    </a>
+  );
+}
+
+// Featured card shown on the right of each mega panel (Concept 3 image-card design).
+// Uses the real bundled brand imagery (offline, on-brand — no stock photos) + a real
+// destination for every top-level menu.
+const NAV_FEAT = [
+  { img: 'media/webp/success-advertiser-category.webp',    label: 'Reach 800,000+ partners',          href: '/advertisers/' },
+  { img: 'media/webp/Success-story-publisher.webp',        label: 'Turn your audience into earnings', href: '/partners/' },
+  { img: 'media/webp/best-affiliate-program-blog image.webp', label: 'The Involve Blog',              href: '/blog/' },
+  { img: 'media/webp/12-years-success-image-recolor.webp', label: 'Life at Involve Asia',             href: '/about/' },
+];
+
+function Nav({ getStartedTone = 'midnight' }) {
+  const [open, setOpen] = React.useState(null);
+  const [lang, setLang] = React.useState('EN');
+  const [langOpen, setLangOpen] = React.useState(false);
+  const [mobile, setMobile] = React.useState(false);
+  const [scrolled, setScrolled] = React.useState(false);
+  const [onDark, setOnDark] = React.useState(false);   // dark Midnight surface under the nav (Change 3)
+  const navRef = React.useRef(null);
+  const closeT = React.useRef(null);
+  React.useEffect(() => {
+    const f = () => {
+      setScrolled(window.scrollY > 20);
+      const s = document.getElementById('stats');
+      const r = s && s.getBoundingClientRect();
+      // Dark chrome while the dark stats section spans the nav line, OR while a honeycomb
+      // wipe has (nearly) covered the viewport — the wipe stages flag this via a body class
+      // so the logo/links crossfade in step with the Midnight coverage at the top edge.
+      setOnDark((!!r && r.top <= 74 && r.bottom > 74) || document.body.className.indexOf('hexwipe-dark') !== -1);
+      setOpen(null);   // close the mega on scroll (matches Concept 3)
+    };
+    f(); window.addEventListener('scroll', f, { passive: true });
+    window.addEventListener('resize', f);
+    return () => { window.removeEventListener('scroll', f); window.removeEventListener('resize', f); };
+  }, []);
+  // Entrance: nav drops in + fades on load (same fade-up language as the page).
+  React.useLayoutEffect(() => {
+    const gsap = window.gsap;
+    if (!gsap || !navRef.current || prefersReduced()) return;
+    // clearProps: 'transform' so no residual matrix() is left on the header — a transform
+    // would make it a containing block / backdrop root and break the mega's blur in some browsers.
+    const tw = gsap.from(navRef.current, { y: -20, autoAlpha: 0, duration: 0.7, ease: 'power3.out', clearProps: 'transform' });
+    return () => tw.kill();
+  }, []);
+  // Hover-intent open/close (140ms grace, as in Concept 3) so travelling from a link
+  // down into the mega panel doesn't dismiss it.
+  const openMega = (i) => { clearTimeout(closeT.current); setOpen(i); };
+  const scheduleClose = () => { clearTimeout(closeT.current); closeT.current = setTimeout(() => setOpen(null), 140); };
+  const R = (k, fb) => (window.__resources && window.__resources[k]) || fb;
+  const gsClass = getStartedTone === 'adv' ? 'btn-advertiser' : 'btn-primary';  // Concept 3 leads with the ember CTA
+
+  return (
+    <React.Fragment>
+    <header ref={navRef} className={`hdr4${onDark ? ' nav-on-dark' : ''}${scrolled ? ' solid' : ''}`} style={{
+      position: 'sticky', top: 0, zIndex: 100,
+      background: onDark ? 'rgba(15,28,46,.72)' : (scrolled ? 'rgba(248,250,250,.82)' : 'transparent'),
+      backdropFilter: (onDark || scrolled) ? 'saturate(180%) blur(14px)' : 'none',
+      WebkitBackdropFilter: (onDark || scrolled) ? 'saturate(180%) blur(14px)' : 'none',
+      boxShadow: (scrolled && !onDark) ? '0 1px 0 var(--warm-200)' : 'none',
+      borderBottom: `1px solid ${onDark ? 'rgba(255,255,255,.10)' : 'transparent'}`,
+      transition: 'background .3s, border-color .3s, box-shadow .3s',
+    }} onMouseLeave={scheduleClose}>
+      <div className="wrap" style={{ display: 'flex', alignItems: 'center', height: 74, gap: 24, position: 'relative' }}>
+        <a href="#hero" aria-label="Involve Asia home" style={{ display: 'flex', alignItems: 'center', flex: '0 0 auto', zIndex: 2, position: 'relative' }}>
+          <img src={R('logoMidnight', "https://ia-design-system.vercel.app/assets/logo/wordmark-midnight.png")} alt="Involve Asia" width="132" height="28" style={{ height: 28, width: 'auto', transition: 'opacity .35s ease', opacity: onDark ? 0 : 1 }} />
+          <img src={R('logoWhite', "https://ia-design-system.vercel.app/assets/logo/wordmark-white.png")} alt="" aria-hidden="true" width="132" height="28" style={{ height: 28, width: 'auto', position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', transition: 'opacity .35s ease', opacity: onDark ? 1 : 0 }} />
+        </a>
+
+        {/* Left-aligned primary nav (Concept 3) */}
+        <nav className="nav-desk" style={{ display: 'flex', alignItems: 'center', gap: 28, marginLeft: 22, marginRight: 'auto' }} aria-label="Primary">
+          {NAV.map((n, i) => (
+            <a key={n.label} href={n.href} aria-expanded={open === i} aria-haspopup="true"
+              className={open === i ? 'is-open' : ''}
+              onMouseEnter={() => openMega(i)}
+              style={{ display: 'inline-flex', alignItems: 'center', font: '500 14px/1 var(--font-body)',
+                color: open === i ? 'var(--warm-900)' : 'var(--warm-600)', padding: '8px 0', transition: 'color .15s' }}>
+              {n.label}
+            </a>
+          ))}
+        </nav>
+
+        <div className="nav-right" style={{ display: 'flex', alignItems: 'center', gap: 18, zIndex: 2 }}>
+          {/* Language dropdown */}
+          <div style={{ position: 'relative' }} onMouseEnter={() => setLangOpen(true)} onMouseLeave={() => setLangOpen(false)}>
+            <button aria-label="Change language" aria-expanded={langOpen} style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'none', border: 'none', cursor: 'pointer', color: 'var(--warm-600)', font: '600 13px/1 var(--font-body)', padding: '8px 2px' }}>
+              {lang}<Caret open={langOpen} />
+            </button>
+            {langOpen && (
+              <div role="menu" className="lang-menu" style={{ position: 'absolute', top: '100%', right: 0, marginTop: 4, minWidth: 200, background: '#fff', border: '1px solid var(--warm-200)', borderRadius: 'var(--r-md)', boxShadow: 'var(--shadow-xl)', padding: 6 }}>
+                {LANGS.map(l => (
+                  <button key={l.code} role="menuitem" onClick={() => { setLang(l.code); setLangOpen(false); }} className="nav-item" style={{
+                    width: '100%', textAlign: 'left', background: l.code === lang ? 'var(--warm-100)' : 'none', border: 'none', cursor: 'pointer',
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, padding: '10px 12px', borderRadius: 10, font: '500 14px/1.2 var(--font-body)', color: 'var(--warm-900)' }}>
+                    <span>{l.label}</span>
+                    <span style={{ fontSize: 12, fontWeight: 600, color: l.code === lang ? 'var(--ember)' : 'var(--warm-400)' }}>{l.code}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+          <a href="https://app.involve.asia/v2/login" className="nav-login" style={{ font: '600 14px/1 var(--font-body)', color: 'var(--warm-900)', padding: '8px 4px' }}>Login</a>
+          <a href="#hero" className={`btn ${gsClass}`} style={{ padding: '11px 22px', fontSize: 14 }}>Get Started <span className="arw" style={{ transition: 'transform .2s' }}>→</span></a>
+        </div>
+        <button className="nav-burger" aria-label="Open menu" aria-expanded={mobile} onClick={() => setMobile(v => !v)} style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer', padding: 8, color: 'var(--midnight)', marginLeft: 'auto', zIndex: 2 }}>
+          <svg width="26" height="26" viewBox="0 0 24 24"><path d={mobile ? 'M5 5l14 14M19 5L5 19' : 'M4 7h16M4 12h16M4 17h16'} stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+        </button>
+      </div>
+
+      {/* Mobile panel */}
+      {mobile && (
+        <div className="nav-mobile" style={{ borderTop: '1px solid var(--warm-200)', background: 'var(--warm-50)', padding: '12px 0 24px', maxHeight: 'calc(100vh - 74px)', overflowY: 'auto' }}>
+          <div className="wrap">
+            {NAV.map((n) => (
+              <details key={n.label} style={{ borderBottom: '1px solid var(--warm-200)' }}>
+                <summary style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 4px', fontWeight: 600, fontSize: 16, cursor: 'pointer', listStyle: 'none' }}>{n.label}<Caret /></summary>
+                <div style={{ padding: '0 4px 12px' }}>{n.items.map((it) => <a key={it.t} href={it.href} style={{ display: 'block', padding: '10px 12px', color: 'var(--warm-600)', fontSize: 15 }}>{it.t}</a>)}</div>
+              </details>
+            ))}
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', padding: '14px 4px 4px' }}>
+              {LANGS.map(l => <button key={l.code} onClick={() => setLang(l.code)} style={{ padding: '7px 12px', borderRadius: 'var(--r-full)', border: `1.5px solid ${l.code === lang ? 'var(--midnight)' : 'var(--warm-300)'}`, background: l.code === lang ? 'var(--midnight)' : '#fff', color: l.code === lang ? 'var(--warm-50)' : 'var(--warm-600)', font: '600 13px/1 var(--font-body)', cursor: 'pointer' }}>{l.code}</button>)}
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 14 }}>
+              <a href="https://app.involve.asia/v2/login" className="btn btn-secondary btn-block">Login</a>
+              <a href="#hero" className={`btn ${gsClass} btn-block`}>Get Started</a>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <style>{`
+        .lang-menu{transform-origin:top right; animation:navPanel .18s cubic-bezier(.22,1,.36,1) both;}
+        @keyframes navPanel{from{opacity:0;transform:translateY(-8px) scale(.985)}to{opacity:1;transform:none}}
+        .nav-item:hover{background:var(--warm-100);}
+        .nav-desk a{color:var(--warm-600);}
+        .nav-desk a:hover, .nav-desk a.is-open{color:var(--warm-900);}
+        .nav-login:hover{color:var(--ember);}
+        .btn .arw{display:inline-block;margin-left:6px;}
+        .btn:hover .arw{transform:translateX(3px);}
+        /* Mega items — Concept 3 look with real descriptions */
+        .mega4-item b{display:block;font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--warm-900);transition:color .2s cubic-bezier(.4,0,.2,1);}
+        .mega4-item .d{display:block;font-size:13px;color:var(--warm-400);margin-top:6px;line-height:1.45;}
+        .mega4-item:hover b{color:var(--ember);}
+        .mega4-feat img{will-change:transform;}
+        .mega4-feat:hover img{transform:scale(1.05);}
+        /* Nav over the dark Midnight surface: links + icons go light, in lockstep with the white logo. */
+        .nav-on-dark .nav-desk a{color:rgba(255,255,255,.82) !important;}
+        .nav-on-dark .nav-desk a:hover, .nav-on-dark .nav-desk a.is-open{color:#fff !important;}
+        .nav-on-dark .nav-right button, .nav-on-dark .nav-login{color:rgba(255,255,255,.82) !important;}
+        .nav-on-dark .nav-burger{color:#fff !important;}
+        .nav-desk a, .nav-right button, .nav-login{transition:color .3s ease, background .15s;}
+        @media (prefers-reduced-motion: reduce){ .mega4, .mega4-overlay, .lang-menu{transition:none; animation:none;} }
+        @media (max-width: 1040px){
+          .nav-desk{display:none !important;}
+          .nav-right{display:none !important;}
+          .nav-burger{display:inline-flex !important;}
+          .mega4, .mega4-overlay{display:none !important;}
+        }
+      `}</style>
+    </header>
+
+    {/* Frosted full-page blur overlay behind the mega (Concept 3). Rendered as a SIBLING
+        of the header — NOT nested inside it — so the header's stacking context / transform
+        can't clip the backdrop, and the blur reliably applies to the page content. */}
+    <div className="mega4-overlay" onClick={() => setOpen(null)} style={{
+      position: 'fixed', inset: 0, zIndex: 90, background: 'rgba(248,250,250,.35)',
+      backdropFilter: 'blur(9px)', WebkitBackdropFilter: 'blur(9px)',
+      opacity: open !== null ? 1 : 0, visibility: open !== null ? 'visible' : 'hidden',
+      transition: 'opacity .35s cubic-bezier(.4,0,.2,1), visibility .35s cubic-bezier(.4,0,.2,1)',
+    }} />
+
+    {/* Full-width mega panel, drops from the top (Concept 3) */}
+    <div className="mega4" role="region" onMouseEnter={() => clearTimeout(closeT.current)} onMouseLeave={scheduleClose} style={{
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 95, background: 'var(--warm-50)',
+      boxShadow: '0 24px 40px rgba(15,28,46,.10)', borderBottom: '1px solid var(--warm-200)',
+      padding: '92px 0 44px',
+      opacity: open !== null ? 1 : 0, visibility: open !== null ? 'visible' : 'hidden',
+      transform: open !== null ? 'translateY(0)' : 'translateY(-16px)',
+      transition: 'opacity .35s cubic-bezier(.4,0,.2,1), transform .4s cubic-bezier(.4,0,.2,1), visibility .35s cubic-bezier(.4,0,.2,1)',
+    }}>
+      {NAV.map((n, i) => open === i && (
+        <div key={n.label} className="wrap" style={{ display: 'grid', gridTemplateColumns: '1.55fr 1fr', gap: 'clamp(32px,5vw,72px)', alignItems: 'start' }} role="menu">
+          <div className="mega4-cols" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '28px 32px' }}>
+            {n.items.map(it => <MegaItem key={it.t} it={it} />)}
+          </div>
+          <a href={NAV_FEAT[i].href} className="mega4-feat" style={{ position: 'relative', borderRadius: 'var(--r-lg)', overflow: 'hidden', aspectRatio: '16 / 10', display: 'block', boxShadow: 'var(--shadow-md)' }}>
+            <img src={encodeURI(NAV_FEAT[i].img)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform .5s cubic-bezier(.4,0,.2,1)' }} />
+            <span className="mega4-feat-shade" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg,rgba(15,28,46,.15),rgba(15,28,46,.72))' }} />
+            <span className="mf" style={{ position: 'absolute', inset: 'auto 20px 18px 20px', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#fff' }}>
+              <b style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 17 }}>{NAV_FEAT[i].label}</b>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
+            </span>
+          </a>
+        </div>
+      ))}
+    </div>
+    </React.Fragment>
+  );
+}
+
+function Arrow({ s = 16 }) {
+  return <svg width={s} height={s} viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>;
+}
+
+const FOOT = [
+  { h: 'For Publishers', links: [['Overview','/partners/overview'],['Content Creators','/partners/content-creators/'],['All Brands Directory','https://app.involve.asia/directory'],['Express Withdrawal','/partners/express-withdrawal/'],['Academy','/academy/'],['API Overview','/partners/api-overview/']] },
+  { h: 'For Advertisers', links: [['Overview','/advertisers/'],['How We Track','/advertisers/how-we-track/'],['Partner Discovery','/advertisers/partner-discovery/'],['Automation','/advertisers/automation/'],['Case Studies','/advertisers/case-studies/']] },
+  { h: 'Top Programs', links: [['Shopee Affiliate','/blog/shopee-affiliate-program/'],['Lazada Affiliate','/blog/lazada-affiliate-program/'],['Zalora Affiliate','/blog/zalora-affiliate-program/'],['Sephora Affiliate','/blog/sephora-affiliate-program/'],['See all programs','/top-affiliate-programs/']] },
+  { h: 'Company', links: [['About Us','/about/'],['Careers','https://career.involve.asia/'],['Blog','/blog/'],['Support','https://helpcentre.involve.asia/'],['Release Notes','/release-notes/'],['Terms & Privacy','/terms-conditions/']] },
+];
+const SOCIAL = [['Facebook','https://www.facebook.com/involveasia'],['Twitter','https://twitter.com/InvolveAsia'],['Instagram','https://www.instagram.com/involveasia/'],['LinkedIn','https://www.linkedin.com/company/involve-asia/']];
+function Footer() {
+  const year = new Date().getFullYear();
+  return (
+    <footer style={{ background: 'var(--midnight)', color: 'var(--warm-300)', paddingTop: 64 }}>
+      <div className="wrap">
+        <div aria-hidden="true" style={{ height: 1, background: 'linear-gradient(to right, transparent, var(--midnight-mid) 18%, var(--midnight-mid) 82%, transparent)', marginBottom: 56 }}></div>
+        <div className="foot-grid" style={{ display: 'grid', gridTemplateColumns: '1.4fr repeat(4, 1fr)', gap: 32, paddingBottom: 48 }}>
+          <div style={{ maxWidth: 280 }}>
+            <img src={(window.__resources && window.__resources.logoWhite) || "https://ia-design-system.vercel.app/assets/logo/wordmark-white.png"} alt="Involve Asia" width="140" height="30" style={{ height: 30, width: 'auto' }} />
+            <p style={{ marginTop: 16, fontSize: 14, color: '#9aa1a9', lineHeight: 1.6 }}>
+              The affiliate marketing network connecting advertisers with creators and publishers across Asia.
+            </p>
+            <div style={{ display: 'flex', gap: 10, marginTop: 20 }}>
+              {SOCIAL.map(([n, u]) => (
+                <a key={n} href={u} aria-label={`Involve Asia on ${n}`} style={{ width: 38, height: 38, borderRadius: 10, background: 'var(--midnight-mid)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--warm-300)', fontSize: 12, fontWeight: 600, transition: 'background .15s' }}
+                   onMouseEnter={e => e.currentTarget.style.background = 'var(--midnight-soft)'}
+                   onMouseLeave={e => e.currentTarget.style.background = 'var(--midnight-mid)'}>{n[0]}</a>
+              ))}
+            </div>
+          </div>
+          {FOOT.map(col => (
+            <div key={col.h}>
+              <h4 style={{ fontSize: 13, color: '#fff', fontFamily: 'var(--font-body)', fontWeight: 700, letterSpacing: '.04em', textTransform: 'uppercase' }}>{col.h}</h4>
+              <ul style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 11 }}>
+                {col.links.map(([t, u]) => (
+                  <li key={t}><a href={u} style={{ fontSize: 14, color: 'var(--warm-300)', transition: 'color .15s' }}
+                    onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = 'var(--warm-300)'}>{t}</a></li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <div style={{ borderTop: '1px solid var(--midnight-mid)', padding: '24px 0 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
+          <p style={{ fontSize: 13, color: '#9aa1a9' }}>© 2014–{year} Involve Asia Technologies Sdn Bhd · 201201032669 (1017157-V)</p>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            <button aria-label="Change language — English" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'var(--midnight-mid)', border: 'none', borderRadius: 'var(--r-full)', padding: '8px 14px', color: 'var(--warm-300)', font: '500 13px/1 var(--font-body)', cursor: 'pointer' }}>🌐 English</button>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ---------------- Hexagon cursor follower ----------------
+   A small #D2D2CC hexagon trails the real cursor with an eased lag (GSAP quickTo).
+   Over any clickable element it rotates 90°, enlarges and dims. Extras for polish:
+   fades in on first move / out when the pointer leaves the window, a subtle click
+   pulse, and it's disabled on touch + reduced-motion (and never blocks clicks). The
+   native cursor stays visible — the hexagon is a trailing accent, not a replacement. */
+const CURSOR_CLICKABLE = 'a,button,[role="button"],input,textarea,select,label,summary,.nm-door,.offer-card,.offer-rail-tab,[data-cursor="link"]';
+function HexCursor() {
+  const ref = React.useRef(null);
+  React.useEffect(() => {
+    const el = ref.current, gsap = window.gsap;
+    if (!el || !gsap) return;
+    if (!window.matchMedia('(pointer: fine)').matches || prefersReduced()) return;  // skip on touch / reduced-motion
+    gsap.set(el, { xPercent: -50, yPercent: -50, opacity: 0 });
+    const xTo = gsap.quickTo(el, 'x', { duration: 0.36, ease: 'power3' });   // snappier lag
+    const yTo = gsap.quickTo(el, 'y', { duration: 0.36, ease: 'power3' });
+    const poly = el.querySelector('polygon');
+    let shown = false, isHover = false;
+    const base = () => (isHover ? 0.45 : 0.9);
+    const onMove = (e) => {
+      xTo(e.clientX); yTo(e.clientY);
+      if (!shown) { shown = true; gsap.to(el, { opacity: base(), duration: 0.3 }); }
+      const over = !!(e.target.closest && e.target.closest(CURSOR_CLICKABLE));
+      if (over !== isHover) {
+        isHover = over;
+        gsap.to(el, { rotation: over ? 180 : 0, scale: over ? 1.7 : 1, opacity: base(), duration: 0.32, ease: 'power3' });
+        // over a clickable: a light fill → soft adaptive highlight, kept low so text behind stays readable
+        gsap.to(poly, { fillOpacity: over ? 0.22 : 0, duration: 0.32, ease: 'power3' });
+      }
+    };
+    const onLeaveWin = () => gsap.to(el, { opacity: 0, duration: 0.25 });
+    const onEnterWin = () => { if (shown) gsap.to(el, { opacity: base(), duration: 0.25 }); };
+    const onDown = () => gsap.to(el, { scale: isHover ? 1.45 : 0.7, duration: 0.12 });
+    const onUp = () => gsap.to(el, { scale: isHover ? 1.7 : 1, duration: 0.2, ease: 'power2' });
+    window.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseleave', onLeaveWin);
+    document.addEventListener('mouseenter', onEnterWin);
+    window.addEventListener('mousedown', onDown);
+    window.addEventListener('mouseup', onUp);
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseleave', onLeaveWin);
+      document.removeEventListener('mouseenter', onEnterWin);
+      window.removeEventListener('mousedown', onDown);
+      window.removeEventListener('mouseup', onUp);
+    };
+  }, []);
+  return (
+    <div ref={ref} className="hex-cursor" aria-hidden="true">
+      <svg viewBox="0 0 100 100" width="100%" height="100%" style={{ display: 'block', overflow: 'visible' }}>
+        <polygon points="50,5 88.97,27.5 88.97,72.5 50,95 11.03,72.5 11.03,27.5" fill="#D2D2CC" fillOpacity="0" stroke="#D2D2CC" strokeWidth="7" strokeLinejoin="round" />
+      </svg>
+      <style>{`
+        /* hexagon cursor; mix-blend EXCLUSION auto-contrasts against light & dark backdrops
+           but with softer, less harsh tones than difference. Fills in on hover (see JS). */
+        .hex-cursor{position:fixed; left:0; top:0; z-index:9990; width:26px; height:29px; pointer-events:none;
+          mix-blend-mode:exclusion; will-change:transform,opacity;}
+        @media (pointer: coarse){ .hex-cursor{display:none;} }
+        @media (prefers-reduced-motion: reduce){ .hex-cursor{display:none;} }
+      `}</style>
+    </div>
+  );
+}
+
+/* Back-to-top sticky CTA (Figma 1542:59021) — a translucent-grey halo with a white inner
+   circle and a muted up-chevron, fixed bottom-right. Shows ONLY when the user is (a) past
+   the hero AND (b) scrolling up; hides on scroll-down or back in the hero. Subtle fade +
+   rise on enter/exit. Reads scroll from Lenis (falls back to window scroll). */
+function BackToTop() {
+  const [show, setShow] = React.useState(false);
+  React.useEffect(() => {
+    const hero = document.getElementById('hero');
+    let last = -1;
+    // Poll the scroll position (Lenis owns scrolling, so native 'scroll' events don't fire,
+    // and Lenis may init after this mounts) — reading lenis.scroll each tick is timing-proof.
+    const id = setInterval(() => {
+      const l = window.__lenis;
+      const y = (l && typeof l.scroll === 'number') ? l.scroll : (window.scrollY || window.pageYOffset || 0);
+      if (last < 0) { last = y; return; }
+      const heroBottom = hero ? hero.offsetTop + hero.offsetHeight : window.innerHeight;
+      const pastHero = y > heroBottom - 120;
+      if (y > last + 3) setShow(false);                  // scrolling down → hide
+      else if (y < last - 3 && pastHero) setShow(true);  // scrolling up, past hero → show
+      else if (!pastHero) setShow(false);                // back in the hero → hide
+      last = y;
+    }, 100);
+    return () => clearInterval(id);
+  }, []);
+  const toTop = () => {
+    if (window.__lenis) window.__lenis.scrollTo(0, { duration: 0.9 });
+    else window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  return (
+    <React.Fragment>
+      <button type="button" className={'b2t' + (show ? ' b2t-in' : '')} onClick={toTop} aria-label="Back to top" tabIndex={show ? 0 : -1}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6" /></svg>
+      </button>
+      <style>{`
+        .b2t{ position:fixed; right:clamp(16px,2.5vw,28px); bottom:clamp(16px,2.5vw,28px); z-index:90;
+          width:64px; height:64px; padding:0; border:none; background:rgba(222,222,222,.32); border-radius:50%;
+          display:flex; align-items:center; justify-content:center; cursor:pointer;
+          opacity:0; transform:translateY(14px) scale(.92); pointer-events:none; visibility:hidden;
+          transition:opacity .38s ease, transform .42s cubic-bezier(.22,1,.36,1), visibility 0s linear .42s; }
+        .b2t::before{ content:""; position:absolute; width:46px; height:46px; background:#fff; border:1px solid var(--warm-100); border-radius:50%; box-shadow:0 6px 18px rgba(15,28,46,.10); }
+        .b2t svg{ position:relative; z-index:1; width:17px; height:17px; color:#a7a7a1; transition:color .2s ease; }
+        .b2t:hover svg{ color:var(--warm-600); }
+        .b2t:hover::before{ box-shadow:0 8px 22px rgba(15,28,46,.16); }
+        .b2t.b2t-in{ opacity:1; transform:translateY(0) scale(1); pointer-events:auto; visibility:visible;
+          transition:opacity .4s ease, transform .5s cubic-bezier(.22,1,.36,1); }
+        @media (prefers-reduced-motion:reduce){
+          .b2t{ transform:none; transition:opacity .2s linear, visibility 0s linear .2s; }
+          .b2t.b2t-in{ transform:none; transition:opacity .2s linear; }
+        }
+      `}</style>
+    </React.Fragment>
+  );
+}
+
+
+/* Lenis inertia smooth-scroll + smooth in-page anchor scrolling (off under reduced-motion). */
+function useSmoothScroll() {
+  React.useEffect(() => {
+    if (prefersReduced() || !window.Lenis) return;
+    const lenis = new window.Lenis({ duration: 1.05, smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.4 });
+    window.__lenis = lenis;
+    const gsap = window.gsap, ST = window.ScrollTrigger;
+    let raf = null, tick = null;
+    if (gsap && ST) {
+      lenis.on('scroll', ST.update);
+      tick = (time) => lenis.raf(time * 1000);
+      gsap.ticker.add(tick);
+      gsap.ticker.lagSmoothing(0);
+    } else {
+      const loop = (time) => { lenis.raf(time); raf = requestAnimationFrame(loop); };
+      raf = requestAnimationFrame(loop);
+    }
+    const onClick = (e) => {
+      const a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a) return;
+      const id = a.getAttribute('href');
+      if (id.length < 2) return;
+      const el = document.querySelector(id);
+      if (el) { e.preventDefault(); lenis.scrollTo(el, { offset: -80, duration: 1.1 }); }
+    };
+    document.addEventListener('click', onClick);
+    return () => {
+      if (tick && gsap) gsap.ticker.remove(tick);
+      if (raf) cancelAnimationFrame(raf);
+      document.removeEventListener('click', onClick);
+      lenis.destroy();
+    };
+  }, []);
+}
+
+/* Scroll-reveal: add `.in` to [data-reveal] as they enter view (reduced-motion shows all). */
+function useScrollReveal() {
+  React.useEffect(() => {
+    const els = Array.from(document.querySelectorAll('[data-reveal]'));
+    if (prefersReduced()) { els.forEach(e => e.classList.add('in')); return; }
+    const io = new IntersectionObserver((ents) => {
+      ents.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -7% 0px' });
+    els.forEach(e => io.observe(e));
+    return () => io.disconnect();
+  }, []);
+}
+
+Object.assign(window, { prefersReduced, Nav, Arrow, Footer, HexCursor, BackToTop, useSmoothScroll, useScrollReveal });
