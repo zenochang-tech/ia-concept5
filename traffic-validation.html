@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Traffic Validation — animated graphic</title>
+<!--
+  ===========================================================================
+  "Traffic Validation" — self-contained looping canvas animation
+  ===========================================================================
+  Messy/scattered incoming traffic (left) passes a central checkpoint and
+  emerges as clean, orderly, validated traffic (right). White bg, delicate
+  light midnight-blue lines + particles. No dependencies, no build step.
+
+  EMBED
+    <div style="position:relative;width:640px;height:440px">
+      <canvas data-traffic-validation style="width:100%;height:100%;display:block"></canvas>
+    </div>
+    ...then call initTrafficViz(canvasEl) (auto-runs for [data-traffic-validation]).
+
+  TUNING — edit the CONFIG object below (line counts, colors, speed, etc.).
+
+  SEAMLESS LOOP
+    All motion is driven by a single normalized time t in [0,1) that wraps every
+    CONFIG.cycleSeconds. Every animated property is periodic over t (dash offsets
+    advance an integer number of dash-lengths per loop; particle progress uses
+    modulo wrapping with edge-fade; the centre pulse uses cos). So the last
+    rendered frame equals the first → no seam.
+
+  EXPORT TO VIDEO (guaranteed-seamless, deterministic t = i/N)
+    1) Render one loop as PNG frames. Easiest is Puppeteer (see export-frames.js
+       pattern below): for i in 0..N-1, call window.__tvRenderFrame(i / N) then
+       screenshot the canvas. N = fps * cycleSeconds (e.g. 60 * 8 = 480 frames).
+    2) Stitch with ffmpeg:
+         MP4 (H.264):
+           ffmpeg -framerate 60 -i frame_%04d.png -c:v libx264 -pix_fmt yuv420p \
+                  -movflags +faststart traffic-validation.mp4
+         WebM (VP9, smaller for web):
+           ffmpeg -framerate 60 -i frame_%04d.png -c:v libvpx-vp9 -b:v 0 -crf 32 \
+                  -pix_fmt yuv420p traffic-validation.webm
+    window.__tvRenderFrame(t) draws exactly the frame for that t (0..1), so frames
+    are reproducible and the loop is perfect.
+
+  ACCESSIBILITY
+    Honors prefers-reduced-motion: renders a single static frame (no rAF).
+  ===========================================================================
+-->
+<style>
+  html,body{margin:0;height:100%;background:#FFFFFF;}
+  .stage{position:relative;width:min(760px,92vw);height:min(460px,60vh);margin:5vh auto;}
+  canvas{width:100%;height:100%;display:block;}
+</style>
+</head>
+<body>
+<div class="stage">
+  <canvas data-traffic-validation aria-hidden="true"></canvas>
+</div>
+
+<script>
+/* ============================ CONFIG (tune here) ========================== */
+const CONFIG = {
+  leftLineCount:   35,      // many fine lines on the left (raw/unvalidated traffic)
+  rightLineCount:  12,      // noticeably fewer, tidy lines on the right (validated)
+  particleCount:   120,     // total drifting particles (denser left, sparse right)
+  cycleSeconds:    8,       // length of one seamless loop
+  dashCyclesPerLoop: 6,     // integer → dash flow returns to start each loop
+  pulsesPerLoop:   1,       // integer → centre pulse returns to start each loop
+  backgroundColor: '#FFFFFF',
+  lineColor:       '#3A5980', // light midnight-blue base
+  lineOpacity:     0.42,
+  particleColor:   '#4A6A94',
+  centerLineColor: '#2E4A6B', // slightly brighter checkpoint
+  lineThickness:   1,
+  leftDisorderAmount: 1,     // curviness / scatter of the left lines
+  rightSpacing:    1,        // (reserved) evenness of the right lines
+  centerXFrac:     0.46,     // x-position of the checkpoint (fraction of width)
+  transparentBackground: false, // true = draw only lines/particles (for compositing)
+};
+
+/* ============================ ENGINE ===================================== */
+function initTrafficViz(canvas, userConfig) {
+  const C = Object.assign({}, CONFIG, userConfig || {});
+  const ctx = canvas.getContext('2d');
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // hex "#rrggbb" → [r,g,b]
+  const rgb = (h) => { const n = parseInt(h.slice(1), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; };
+  const LINE = rgb(C.lineColor), CENTER = rgb(C.centerLineColor), PART = rgb(C.particleColor);
+  const rgba = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
+  const rnd = (a, b) => a + Math.random() * (b - a);
+
+  let W = 0, H = 0, dpr = 1, cx = 0, my = 0, uh = 0;
+  let leftLines = [], rightLines = [], parts = [];
+  const DASH = 18;
+
+  function layout() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const r = canvas.getBoundingClientRect();
+    W = Math.max(1, r.width); H = Math.max(1, r.height);
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cx = W * C.centerXFrac; my = H * 0.06; uh = H - my * 2;
+
+    // LEFT — many scattered, curvy lines converging on the checkpoint
+    leftLines = [];
+    for (let i = 0; i < C.leftLineCount; i++) {
+      const y0 = my + rnd(-0.05, 1.05) * uh;
+      const y1 = my + (0.5 + rnd(-0.34, 0.34)) * uh;                 // pulled toward the centre band
+      const cy = (y0 + y1) / 2 + rnd(-0.18, 0.18) * uh * C.leftDisorderAmount;
+      leftLines.push({ x0: rnd(-0.04, 0.02) * W, y0, cx1: rnd(0.32, 0.66) * cx, cy1: cy,
+        x1: cx, y1, op: C.lineOpacity * rnd(0.5, 1), ph: Math.random() });
+    }
+    // RIGHT — fewer, evenly spaced, straight lines flowing to the right edge
+    rightLines = [];
+    for (let j = 0; j < C.rightLineCount; j++) {
+      const y = my + uh * ((j + 0.5) / C.rightLineCount);
+      rightLines.push({ y, op: C.lineOpacity * rnd(0.7, 1) });
+    }
+    // PARTICLES — 72% stay in the left band (messy), the rest ride the clean right lanes
+    parts = [];
+    for (let k = 0; k < C.particleCount; k++) {
+      const left = Math.random() < 0.72;
+      const y = left ? my + Math.random() * uh
+        : my + uh * ((Math.floor(Math.random() * C.rightLineCount) + 0.5) / C.rightLineCount) + rnd(-2.5, 2.5);
+      parts.push({ p0: Math.random(), y, r: rnd(0.6, 1.7), sp: rnd(0.6, 1.3), tw: Math.random(), left });
+    }
+  }
+
+  function draw(t) {                                   // t in [0,1)
+    ctx.clearRect(0, 0, W, H);
+    if (!C.transparentBackground) { ctx.fillStyle = C.backgroundColor; ctx.fillRect(0, 0, W, H); }
+
+    const flow = ((t * C.dashCyclesPerLoop) % 1) * DASH;  // seamless dash offset
+    ctx.lineWidth = C.lineThickness; ctx.lineCap = 'round';
+    ctx.setLineDash([2, DASH - 2]);
+
+    for (const L of leftLines) {                        // left: curvy, scattered
+      ctx.strokeStyle = rgba(LINE, L.op);
+      ctx.lineDashOffset = -flow - L.ph * DASH;
+      ctx.beginPath(); ctx.moveTo(L.x0, L.y0); ctx.quadraticCurveTo(L.cx1, L.cy1, L.x1, L.y1); ctx.stroke();
+    }
+    for (const R of rightLines) {                       // right: straight, even
+      ctx.strokeStyle = rgba(LINE, R.op);
+      ctx.lineDashOffset = -flow;
+      ctx.beginPath(); ctx.moveTo(cx, R.y); ctx.lineTo(W * 1.02, R.y); ctx.stroke();
+    }
+    ctx.setLineDash([]);
+
+    // centre checkpoint + vertical pulse of light
+    ctx.strokeStyle = rgba(CENTER, 0.5); ctx.lineWidth = 1.4;
+    ctx.beginPath(); ctx.moveTo(cx, my * 0.6); ctx.lineTo(cx, H - my * 0.6); ctx.stroke();
+    const py = my + (0.5 - 0.5 * Math.cos(2 * Math.PI * t * C.pulsesPerLoop)) * uh;
+    const g = ctx.createRadialGradient(cx, py, 0, cx, py, 24);
+    g.addColorStop(0, rgba(CENTER, 0.13)); g.addColorStop(1, rgba(CENTER, 0));
+    ctx.fillStyle = g; ctx.fillRect(cx - 24, py - 24, 48, 48);
+
+    // particles — drift right within their band, wrap (edge-faded), twinkle
+    for (const P of parts) {
+      const b0 = P.left ? 0 : C.centerXFrac, b1 = P.left ? C.centerXFrac : 1;
+      const prog = (P.p0 + t * P.sp) % 1;
+      const x = (b0 + prog * (b1 - b0)) * W;
+      const edge = Math.min(1, (x - b0 * W) / 34, (b1 * W - x) / 34);
+      const tw = 0.55 + 0.45 * Math.sin(2 * Math.PI * (t * 2 + P.tw));
+      ctx.fillStyle = rgba(PART, Math.max(0, 0.5 * edge) * tw);
+      ctx.beginPath(); ctx.arc(x, P.y, P.r, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+
+  // deterministic single-frame render (used by the video exporter)
+  canvas.__tvRenderFrame = (t) => draw(((t % 1) + 1) % 1);
+  window.__tvRenderFrame = canvas.__tvRenderFrame;
+
+  let raf = 0, start = null, visible = true;
+  function frame(now) {
+    if (start == null) start = now;
+    const t = (((now - start) / 1000) / C.cycleSeconds) % 1;
+    draw(t);
+    if (visible && !reduce) raf = requestAnimationFrame(frame);
+  }
+  function play() { if (!raf && !reduce) { start = null; raf = requestAnimationFrame(frame); } }
+  function stop() { if (raf) { cancelAnimationFrame(raf); raf = 0; } }
+
+  layout();
+  if (reduce) { draw(0); }                              // static first frame
+  else { play(); }
+
+  const onResize = () => { layout(); if (reduce) draw(0); };
+  window.addEventListener('resize', onResize);
+
+  // pause when off-screen (saves CPU)
+  let io = null;
+  if ('IntersectionObserver' in window) {
+    io = new IntersectionObserver((es) => {
+      visible = es[0].isIntersecting;
+      if (visible) play(); else stop();
+    }, { threshold: 0 });
+    io.observe(canvas);
+  }
+
+  return function destroy() { stop(); window.removeEventListener('resize', onResize); if (io) io.disconnect(); };
+}
+
+// auto-init any canvas marked with [data-traffic-validation]
+document.querySelectorAll('canvas[data-traffic-validation]').forEach((c) => initTrafficViz(c));
+</script>
+</body>
+</html>
