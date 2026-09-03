@@ -10,23 +10,29 @@
 const prefersReduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const NAV = [
-  { label: 'For Advertisers', href: '/advertisers/', tone: 'adv',
-    feature: { kicker: "I'm an Advertiser", title: 'Reach 800,000+ partners', body: 'Acquire new customers through creators, content sites and affiliates across Asia.', cta: 'List Your Brand', href: '/advertisers/' },
-    items: [
-      { t: 'Overview', d: 'Why brands grow with Involve', href: '/advertisers/' },
-      { t: 'How We Track', d: 'Attribution & reporting', href: '/advertisers/how-we-track/' },
-      { t: 'Partner Discovery', d: 'Find the right creators', href: '/advertisers/partner-discovery/' },
-      { t: 'Automation', d: 'Onboard partners at scale', href: '/advertisers/automation/' },
-      { t: 'Case Studies', d: 'Brand success stories', href: '/advertisers/case-studies/' },
+  { label: 'For Advertisers', href: 'for-advertisers.html', tone: 'adv',
+    columns: [
+      { links: [ ['Advertiser overview', 'for-advertisers.html'] ] },
+      { head: 'Feature', links: [
+        ['Automation', 'automation.html'],
+        ['Partner Discovery', 'partner-discovery.html'],
+        ['How We Track', 'how-we-track.html'],
+        ['Pricing', 'pricing.html'],
+      ]},
     ]},
-  { label: 'For Publishers', href: '/partners/overview', tone: 'pub',
-    feature: { kicker: "I'm a Creator or Publisher", title: 'Turn your audience into earnings', body: 'Promote 4,000+ brands and get fast local-currency payouts. Free to join.', cta: 'Start Earning', href: '/partners/' },
-    items: [
-      { t: 'Overview', d: 'Start earning with Involve', href: '/partners/overview' },
-      { t: 'Content Creators', d: 'Monetise your audience', href: '/partners/content-creators/' },
-      { t: 'All Brands Directory', d: '4,000+ programs — high intent', href: 'https://app.involve.asia/directory', promote: true },
-      { t: 'Express Withdrawal', d: 'Fast local payouts', href: '/partners/express-withdrawal/' },
-      { t: 'Academy', d: 'Learn affiliate marketing', href: '/academy/' },
+  { label: 'For Publishers', href: 'for-publishers.html', tone: 'pub',
+    columns: [
+      { top: ['Publisher overview', 'for-publishers.html'], head: 'Feature', links: [
+        ['Express Withdrawal', 'express-withdrawal.html'],
+        ['API Overview', 'api-overview.html'],
+        ['Data Feed', 'datafeed.html'],
+      ]},
+      { head: 'Publisher type', links: [
+        ['Content Creators', 'content-creators.html'],
+        ['Affiliate Sites', 'affiliates.html'],
+        ['Websites', 'website.html'],
+        ['App Owners', 'app-owners.html'],
+      ]},
     ]},
   { label: 'Resources', href: '/blog/', items: [
       { t: 'Blog', d: 'Guides, trends & playbooks', href: '/blog/' },
@@ -63,6 +69,14 @@ function MegaItem({ it }) {
       <span className="d">{it.d}</span>
     </a>
   );
+}
+
+// Column-menu link (new grouped dropdowns). A page that isn't live yet is marked
+// `soon` — rendered non-clickable with a grey "(coming soon)" tag.
+function MegaLink({ link }) {
+  const [t, href, soon] = link;
+  if (soon) return <span className="mega4-link mega4-soon"><b>{t}</b><em>(coming soon)</em></span>;
+  return <a href={href} role="menuitem" className="mega4-link"><b>{t}</b></a>;
 }
 
 // Featured card shown on the right of each mega panel (Concept 3 image-card design).
@@ -179,7 +193,19 @@ function Nav({ getStartedTone = 'midnight' }) {
             {NAV.map((n) => (
               <details key={n.label} style={{ borderBottom: '1px solid var(--warm-200)' }}>
                 <summary style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 4px', fontWeight: 600, fontSize: 16, cursor: 'pointer', listStyle: 'none' }}>{n.label}<Caret /></summary>
-                <div style={{ padding: '0 4px 12px' }}>{n.items.map((it) => <a key={it.t} href={it.href} style={{ display: 'block', padding: '10px 12px', color: 'var(--warm-600)', fontSize: 15 }}>{it.t}</a>)}</div>
+                <div style={{ padding: '0 4px 12px' }}>
+                  {n.columns
+                    ? n.columns.map((col, ci) => (
+                        <div key={ci} style={{ marginTop: ci ? 6 : 0 }}>
+                          {col.top && <a href={col.top[1]} style={{ display: 'block', padding: '10px 12px', color: 'var(--warm-600)', fontSize: 15 }}>{col.top[0]}</a>}
+                          {col.head && <div style={{ padding: '8px 12px 4px', font: '700 11px/1 var(--font-body)', letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--warm-400)' }}>{col.head}</div>}
+                          {col.links.map(([t, href, soon]) => soon
+                            ? <span key={t} style={{ display: 'block', padding: '10px 12px', color: 'var(--warm-400)', fontSize: 15 }}>{t} <em style={{ fontStyle: 'normal', fontSize: 13 }}>(coming soon)</em></span>
+                            : <a key={t} href={href} style={{ display: 'block', padding: '10px 12px', color: 'var(--warm-600)', fontSize: 15 }}>{t}</a>)}
+                        </div>
+                      ))
+                    : n.items.map((it) => <a key={it.t} href={it.href} style={{ display: 'block', padding: '10px 12px', color: 'var(--warm-600)', fontSize: 15 }}>{it.t}</a>)}
+                </div>
               </details>
             ))}
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', padding: '14px 4px 4px' }}>
@@ -206,8 +232,16 @@ function Nav({ getStartedTone = 'midnight' }) {
         .mega4-item b{display:block;font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--warm-900);transition:color .2s cubic-bezier(.4,0,.2,1);}
         .mega4-item .d{display:block;font-size:13px;color:var(--warm-400);margin-top:6px;line-height:1.45;}
         .mega4-item:hover b{color:var(--ember);}
+        /* grouped column dropdowns (Advertisers / Publishers) */
+        .mega4-head{display:block;font:700 11px/1 var(--font-body);letter-spacing:.08em;text-transform:uppercase;color:var(--warm-400);margin-bottom:16px;}
+        .mega4-link{display:block;padding:8px 0;}
+        .mega4-link b{font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--warm-900);transition:color .2s cubic-bezier(.4,0,.2,1);}
+        a.mega4-link:hover b{color:var(--ember);}
+        .mega4-soon{cursor:default;}
+        .mega4-soon b{color:var(--warm-400);}
+        .mega4-soon em{font-style:normal;font-size:12px;color:var(--warm-400);margin-left:7px;}
         .mega4-feat img{will-change:transform;}
-        .mega4-feat:hover img{transform:scale(1.05);}
+        .mega4-feat-soon:hover img{transform:none;}
         /* Nav over the dark Midnight surface: links + icons go light, in lockstep with the white logo. */
         .nav-on-dark .nav-desk a{color:rgba(255,255,255,.82) !important;}
         .nav-on-dark .nav-desk a:hover, .nav-on-dark .nav-desk a.is-open{color:#fff !important;}
@@ -245,17 +279,28 @@ function Nav({ getStartedTone = 'midnight' }) {
     }}>
       {NAV.map((n, i) => open === i && (
         <div key={n.label} className="wrap" style={{ display: 'grid', gridTemplateColumns: '1.55fr 1fr', gap: 'clamp(32px,5vw,72px)', alignItems: 'start' }} role="menu">
-          <div className="mega4-cols" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '28px 32px' }}>
-            {n.items.map(it => <MegaItem key={it.t} it={it} />)}
-          </div>
-          <a href={NAV_FEAT[i].href} className="mega4-feat" style={{ position: 'relative', borderRadius: 'var(--r-lg)', overflow: 'hidden', aspectRatio: '16 / 10', display: 'block', boxShadow: 'var(--shadow-md)' }}>
-            <img src={encodeURI(NAV_FEAT[i].img)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform .5s cubic-bezier(.4,0,.2,1)' }} />
+          {n.columns ? (
+            <div className="mega4-cols" style={{ display: 'grid', gridTemplateColumns: `repeat(${n.columns.length},minmax(0,1fr))`, gap: '4px 40px', alignItems: 'start' }}>
+              {n.columns.map((col, ci) => (
+                <div key={ci} style={{ display: 'flex', flexDirection: 'column' }}>
+                  {col.top && <MegaLink link={col.top} />}
+                  {col.head && <span className="mega4-head" style={col.top ? { marginTop: 20 } : undefined}>{col.head}</span>}
+                  {col.links.map(l => <MegaLink key={l[0]} link={l} />)}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="mega4-cols" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '28px 32px' }}>
+              {n.items.map(it => <MegaItem key={it.t} it={it} />)}
+            </div>
+          )}
+          <div className="mega4-feat mega4-feat-soon" style={{ position: 'relative', borderRadius: 'var(--r-lg)', overflow: 'hidden', aspectRatio: '16 / 10', display: 'block', boxShadow: 'var(--shadow-md)', cursor: 'default' }}>
+            <img src={encodeURI(NAV_FEAT[i].img)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             <span className="mega4-feat-shade" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg,rgba(15,28,46,.15),rgba(15,28,46,.72))' }} />
             <span className="mf" style={{ position: 'absolute', inset: 'auto 20px 18px 20px', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#fff' }}>
-              <b style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 17 }}>{NAV_FEAT[i].label}</b>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
+              <b style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 17 }}>Coming soon</b>
             </span>
-          </a>
+          </div>
         </div>
       ))}
     </div>
@@ -278,9 +323,14 @@ function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer style={{ background: 'var(--midnight)', color: 'var(--warm-300)', paddingTop: 64 }}>
+      <style>{`
+        .foot-grid{ display:grid; grid-template-columns:1.4fr repeat(4,1fr); gap:32px; padding-bottom:48px; }
+        @media (max-width:900px){ .foot-grid{ grid-template-columns:repeat(4,1fr) !important; gap:32px 24px !important; } .foot-grid > :first-child{ grid-column:1 / -1; } }
+        @media (max-width:560px){ .foot-grid{ grid-template-columns:1fr 1fr !important; gap:30px 20px !important; } }
+      `}</style>
       <div className="wrap">
         <div aria-hidden="true" style={{ height: 1, background: 'linear-gradient(to right, transparent, var(--midnight-mid) 18%, var(--midnight-mid) 82%, transparent)', marginBottom: 56 }}></div>
-        <div className="foot-grid" style={{ display: 'grid', gridTemplateColumns: '1.4fr repeat(4, 1fr)', gap: 32, paddingBottom: 48 }}>
+        <div className="foot-grid">
           <div style={{ maxWidth: 280 }}>
             <img src={(window.__resources && window.__resources.logoWhite) || "https://ia-design-system.vercel.app/assets/logo/wordmark-white.png"} alt="Involve Asia" width="140" height="30" style={{ height: 30, width: 'auto' }} />
             <p style={{ marginTop: 16, fontSize: 14, color: '#9aa1a9', lineHeight: 1.6 }}>
@@ -476,10 +526,16 @@ function useScrollReveal() {
   React.useEffect(() => {
     const els = Array.from(document.querySelectorAll('[data-reveal]'));
     if (prefersReduced()) { els.forEach(e => e.classList.add('in')); return; }
+    // On mobile, reveal the hero immediately on page load (its fade-in plays on load,
+    // not on scroll into view) — the rest of the page still reveals as it enters view.
+    const heroEls = window.matchMedia('(max-width:900px)').matches
+      ? Array.from(document.querySelectorAll('#pub-hero [data-reveal]')) : [];
+    const heroSet = new Set(heroEls);
+    heroEls.forEach(e => e.classList.add('in'));
     const io = new IntersectionObserver((ents) => {
       ents.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
     }, { threshold: 0.12, rootMargin: '0px 0px -7% 0px' });
-    els.forEach(e => io.observe(e));
+    els.forEach(e => { if (!heroSet.has(e)) io.observe(e); });
     return () => io.disconnect();
   }, []);
 }

@@ -18,16 +18,6 @@ const LinkIcon = () => (
 
 /* ---------- Section 1 — Hero ---------------------------------------------- */
 function PubHero() {
-  // Right-hand visual is a 4-slide fade slider: each slide's photo + its floating UI
-  // cross-fade in/out together every 1.5s. Reduced-motion holds slide 1.
-  const [slide, setSlide] = React.useState(0);
-  const N = 4;
-  React.useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const id = setInterval(() => setSlide((s) => (s + 1) % N), 2000);
-    return () => clearInterval(id);
-  }, []);
-  const on = (i) => 'ph-slide' + (slide === i ? ' is-active' : '');
   return (
     <section id="pub-hero" className="ph-sec">
       <div className="ph-hexdeco" aria-hidden="true">
@@ -39,47 +29,19 @@ function PubHero() {
       <span className="ph-basefade" aria-hidden="true" />
       <div className="wrap ph-wrap">
         <div className="ph-copy">
-          <span className="ph-eyebrow" data-reveal>Affiliate Marketing for Publishers</span>
-          <h1 className="ph-title" data-reveal data-reveal-delay="1">Turn your audience into income.</h1>
-          <p className="ph-sub" data-reveal data-reveal-delay="2">Promote what you love, earn on every sale, and get paid faster.</p>
-          <div className="ph-actions" data-reveal data-reveal-delay="3">
+          <h1 className="ph-title" data-reveal data-reveal-delay="1">List thousands of products, with Involve Datafeed.</h1>
+          <p className="ph-sub" data-reveal data-reveal-delay="1">Add products from your favourite brands to your site, with your affiliate links already built in, and track every sale down to the product.</p>
+          <div className="ph-actions" data-reveal data-reveal-delay="2">
             <a href="/partners/" className="btn btn-primary btn-lg">Start Earning <Arrow /></a>
           </div>
-          <span className="ph-free" data-reveal data-reveal-delay="3">Free to join. No fees, no catch.</span>
         </div>
 
         <div className="ph-visual" data-reveal data-reveal-delay="1">
           <span className="ph-hexglow" aria-hidden="true" />
           <span className="ph-hexplate" aria-hidden="true" />
-
-          <div className={on(0)} aria-hidden={slide !== 0}>
-            <div className="ph-photo"><img className="ph-flip" src="media/figma/pub-hero-creator.png" alt="A creator filming a product review to share with her audience" loading="eager" /></div>
-            <div className="ph-slide-ui">
-              <div className="ph-glass ph-g-link"><div className="ph-link"><span className="ph-link-ic"><LinkIcon /></span>invl.me/yourDeepLink</div></div>
-              <div className="ph-glass ph-g-prod"><span className="ph-prod-lbl">Necklace</span><img className="ph-prod-img" src="media/figma/pub-hero-necklace.png" alt="" /></div>
-            </div>
-          </div>
-
-          <div className={on(1)} aria-hidden={slide !== 1}>
-            <div className="ph-photo"><img src="media/figma/pub-hero-slide2.png" alt="A publisher reviewing their sales in the dashboard" loading="eager" /></div>
-            <div className="ph-slide-ui">
-              <div className="ph-glass ph-g-sales"><div className="ph-stat"><span className="ph-stat-lbl"><span className="ph-stat-cur">$</span> Total Sales</span><span className="ph-stat-row"><b>136,578</b><em>&uarr;36%</em></span></div></div>
-            </div>
-          </div>
-
-          <div className={on(2)} aria-hidden={slide !== 2}>
-            <div className="ph-photo"><img className="ph-flip" src="media/figma/pub-hero-slide3.png" alt="A publisher checking conversion analytics" loading="eager" /></div>
-            <div className="ph-slide-ui">
-              <div className="ph-glass ph-g-conv"><div className="ph-stat"><span className="ph-stat-lbl">Conversion Rate</span><span className="ph-stat-row"><b>12<small>%</small></b><em>&uarr;21%</em></span></div></div>
-            </div>
-          </div>
-
-          <div className={on(3)} aria-hidden={slide !== 3}>
-            <div className="ph-photo"><img src="media/figma/pub-hero-slide4.png" alt="A publisher receiving a payout notification" loading="eager" /></div>
-            <div className="ph-slide-ui">
-              <div className="ph-glass ph-g-pay-a"><div className="ph-pay"><span>Payout Received</span><b>+ $48</b></div></div>
-              <div className="ph-glass ph-g-pay-b"><div className="ph-pay"><span>Payout Received</span><b>+ $61</b></div></div>
-            </div>
+          <div className="ph-photo ph-photo-df"><img src="media/figma/datafeed-hero-1.png" alt="A product list synced to a site through Involve Datafeed" loading="eager" /></div>
+          <div className="ph-static-ui" data-reveal data-reveal-delay="2">
+            <div className="ph-glass ph-g-added"><div className="ph-added">2,087 new products added</div></div>
           </div>
         </div>
       </div>
@@ -100,9 +62,8 @@ function PubHero() {
         .ph-wrap{ position:relative; z-index:1; display:grid; grid-template-columns:1.02fr .98fr; gap:clamp(24px,4vw,60px); align-items:center; }
         /* copy */
         .ph-copy{ min-width:0; }
-        .ph-eyebrow{ display:inline-block; font:600 13px/1 var(--font-body); letter-spacing:.02em; color:var(--ember);
-          background:rgba(240,88,38,.10); border-radius:9999px; padding:8px 15px; }
-        .ph-title{ margin-top:20px; font-size:clamp(28px,4.4vw,50px); line-height:1.0; letter-spacing:-.03em; color:var(--warm-900); }
+        .ph-eyebrow{ display:inline-block; font:700 14px/1 var(--font-body); letter-spacing:-.01em; color:var(--warm-900); }
+        .ph-title{ margin-top:16px; font-size:clamp(28px,4.4vw,50px); line-height:1.0; letter-spacing:-.03em; color:var(--warm-900); }
         .ph-sub{ margin-top:20px; max-width:520px; font-size:clamp(16px,1.4vw,19px); line-height:1.55; color:var(--warm-600); }
         .ph-actions{ margin-top:30px; display:flex; gap:12px; flex-wrap:wrap; }
         .ph-free{ display:block; margin-top:16px; font:500 14px/1 var(--font-body); color:var(--warm-400); }
@@ -114,8 +75,10 @@ function PubHero() {
           background:radial-gradient(circle at 50% 46%, rgba(240,88,38,.20), rgba(240,88,38,0) 62%); filter:blur(6px); }
         /* soft hex plate behind the photo — rounded pointy-top (r≈38.67), ember → midnight gradient */
         .ph-hexplate{ position:absolute; inset:0; z-index:0; background:linear-gradient(158deg,#fbe9df 0%,#f5f2ee 48%,#e6eef9 100%);
-          -webkit-mask:url('media/figma/pub-hero-hexclip.svg') center/contain no-repeat; mask:url('media/figma/pub-hero-hexclip.svg') center/contain no-repeat;
-          filter:drop-shadow(0 26px 54px rgba(15,28,46,.10)); }
+          -webkit-mask:url('media/figma/pub-hero-hexclip.svg') center/contain no-repeat; mask:url('media/figma/pub-hero-hexclip.svg') center/contain no-repeat; }
+        /* hero visual: code-editor card pre-masked to the hexagon (transparent PNG), sits over the hex plate */
+        .ph-heroimg{ position:absolute; inset:0; z-index:2; filter:drop-shadow(0 30px 60px rgba(15,28,46,.24)); }
+        .ph-heroimg img{ width:100%; height:100%; object-fit:contain; display:block; }
         /* ---- fade slider: each slide (photo + its UI) cross-fades in/out ---- */
         .ph-slide{ position:absolute; inset:0; z-index:1; opacity:0; transition:opacity .85s cubic-bezier(.4,0,.2,1); }
         .ph-slide.is-active{ opacity:1; z-index:2; }
@@ -123,6 +86,9 @@ function PubHero() {
         .ph-photo{ position:absolute; inset:0; z-index:1;
           -webkit-mask:url('media/figma/pub-hero-hexclip.svg') center/contain no-repeat; mask:url('media/figma/pub-hero-hexclip.svg') center/contain no-repeat; }
         .ph-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+        /* datafeed hero is a floating product-list mockup: scale it up (clipped to the hexagon
+           by the .ph-photo mask) so it fills the hexagon like a full-bleed photo */
+        .ph-photo-df img{ object-fit:contain; transform:scale(1.04); transform-origin:57% 60%; }
         /* slides 1 & 3 are mirrored horizontally (no zoom) */
         .ph-photo img.ph-flip{ transform:scaleX(-1); }
         /* per-slide UI: subtle rise + fade in, synced with the slide */
@@ -136,9 +102,11 @@ function PubHero() {
         .ph-g-prod{ left:-3%; bottom:12%; width:26%; max-width:120px; }
         .ph-g-sales{ right:-3%; bottom:8%; }
         .ph-g-conv{ right:-7%; top:15%; }
-        .ph-g-pay-a{ left:-8%; top:14%; }
+        .ph-g-pay-a{ left:-7%; top:55%; }
         .ph-g-pay-b{ left:-8%; top:26%; }
         .ph-slide.is-active .ph-slide-ui > .ph-g-pay-b{ opacity:.62; }   /* second payout sits behind, fainter */
+        /* single-image hero: static floating pill (above the photo, no slider fade) */
+        .ph-static-ui{ position:absolute; inset:0; z-index:3; pointer-events:none; }
         /* inner white cards / pills */
         .ph-link{ display:inline-flex; align-items:center; gap:9px; background:#fff; border-radius:9999px; padding:9px 16px 9px 9px;
           box-shadow:0 2px 6px rgba(15,28,46,.08); font:600 14px/1 var(--font-body); color:var(--warm-900); white-space:nowrap; }
@@ -157,6 +125,9 @@ function PubHero() {
         .ph-pay span{ font:500 13px/1 var(--font-body); color:var(--warm-800); }
         .ph-pay b{ font-family:var(--font-display); font-weight:800; font-size:15px; color:var(--warm-900); }
         .ph-g-pay-b .ph-pay{ padding:9px 14px; }
+        /* datafeed hero: "2,087 new products added" pill, top of the product list */
+        .ph-g-added{ top:13%; left:23%; transform:translateX(-40%); }
+        .ph-added{ background:#fff; border-radius:12px; box-shadow:0 2px 6px rgba(15,28,46,.08); padding:11px 18px; white-space:nowrap; font:600 14px/1 var(--font-body); color:var(--warm-900); }
         @media (max-width:900px){
           .ph-wrap{ grid-template-columns:1fr; gap:36px; }
           .ph-copy{ text-align:center; display:flex; flex-direction:column; align-items:center; }
@@ -165,11 +136,6 @@ function PubHero() {
           /* keep the floating UI within the hexagon so the composition stays centred */
           .ph-g-link, .ph-g-sales, .ph-g-conv{ right:0; }
           .ph-g-prod, .ph-g-pay-a, .ph-g-pay-b{ left:0; }
-          /* per-slide UI repositioning for mobile */
-          .ph-g-link{ top:47%; }                 /* slide 1: top-right pill moved down 25% */
-          .ph-g-conv{ top:auto; bottom:9%; }     /* slide 3: moved to the bottom-right of the hexagon */
-          .ph-g-pay-a{ top:54%; }                /* slide 4: large payout pill moved 40% lower */
-          .ph-g-pay-b{ display:none; }           /* slide 4: hide the smaller payout pill */
         }
       `}</style>
     </section>
@@ -188,28 +154,6 @@ const PUB_LOGOS = [
 ];
 function PubLogos() {
   const trackRef = React.useRef(null);
-  const marqRef = React.useRef(null);
-  const [reps, setReps] = React.useState(2);
-  // Repeat the logo set until one loop spans at least the visible strip width, so the
-  // marquee never shows a blank gap before the next copy scrolls in.
-  React.useEffect(() => {
-    const track = trackRef.current, marq = marqRef.current;
-    if (!track || !marq) return;
-    const imgs = Array.prototype.slice.call(track.querySelectorAll('img'));
-    const fit = () => {
-      if (imgs.some((im) => !im.complete)) return;         // wait until the logos are measurable
-      const baseW = track.scrollWidth / (2 * reps);
-      if (baseW < 40) return;
-      const need = Math.min(8, Math.max(1, Math.ceil((marq.clientWidth + 8) / baseW)));
-      if (need !== reps) setReps(need);
-    };
-    fit();
-    imgs.forEach((im) => im.addEventListener('load', fit));
-    window.addEventListener('resize', fit);
-    const ro = window.ResizeObserver ? new ResizeObserver(fit) : null;
-    if (ro) { ro.observe(track); ro.observe(marq); }
-    return () => { imgs.forEach((im) => im.removeEventListener('load', fit)); window.removeEventListener('resize', fit); if (ro) ro.disconnect(); };
-  }, [reps]);
   // Auto-sliding + draggable marquee, ported from the homepage TrustStrip. Content is
   // duplicated so wrapping the offset into (-half, 0] loops seamlessly. Reduced-motion =
   // static, drag-only.
@@ -245,16 +189,14 @@ function PubLogos() {
       window.addEventListener('resize', onResize);
     }
     return () => { if (raf) cancelAnimationFrame(raf); window.removeEventListener('resize', onResize); row.removeEventListener('pointerdown', onDown); row.removeEventListener('pointermove', onMove); row.removeEventListener('pointerup', onUp); row.removeEventListener('pointercancel', onUp); row.removeEventListener('lostpointercapture', onUp); };
-  }, [reps]);
-  const oneLoop = [];
-  for (let k = 0; k < reps; k++) oneLoop.push(...PUB_LOGOS);
-  const dup = [...oneLoop, ...oneLoop];
+  }, []);
+  const dup = [...PUB_LOGOS, ...PUB_LOGOS];
   return (
     <section id="pub-logos" className="pl-sec">
       <div className="wrap">
         <p className="pl-cap" data-reveal>Explore and promote 4,000+ brands who are looking for publishers like you today.</p>
       </div>
-      <div className="pl-marquee" ref={marqRef} data-reveal data-reveal-delay="1">
+      <div className="pl-marquee" data-reveal data-reveal-delay="1">
         <div ref={trackRef} className="pl-track">
           {dup.map(([name, file, h], i) => (
             <img key={i} className="pl-logo" src={`media/figma/${file}`} alt={`${name} logo`} style={{ height: h }} draggable="false" />
@@ -445,7 +387,6 @@ function PubPlatform() {
                   <span className="pf-step-body">
                     <span className="pf-step-t">{s.t}</span>
                     <span className="pf-step-dw"><span className="pf-step-d">{s.d}</span></span>
-                    <span className="pf-step-fig"><span className="pf-step-fig-in"><img className="pf-step-fig-img" src={`media/figma/${s.img}`} alt="" loading="lazy" /></span></span>
                   </span>
                 </button>
               );
@@ -489,23 +430,11 @@ function PubPlatform() {
           object-fit:cover; object-position:left top; border-radius:16px 0 0 0;
           opacity:0; transition:opacity .5s ease; }
         .pf-img.on{ opacity:1; }
-        .pf-step-fig{ display:none; }
         @media (max-width:900px){
-          .pf-grid{ grid-template-columns:1fr; gap:0; }
-          .pf-visual{ display:none; }
-          .pf-step{ gap:0; padding:24px 0; }
-          .pf-rail{ display:none; }
-          .pf-step-fig{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s ease; }
-          .pf-step.on .pf-step-fig{ grid-template-rows:1fr; }
-          .pf-step-fig-in{ overflow:hidden; min-height:0; }
-          /* the source PNGs are bleed compositions (content offset right/down on a wide canvas),
-             so crop to the readable top-left over a warm gradient instead of squashing the whole canvas */
-          .pf-step-fig-img{ display:block; width:100%; aspect-ratio:4/3; object-fit:cover; object-position:13% 15%;
-            margin:18px 0 4px; border-radius:14px;
-            background:linear-gradient(150deg,#fbe9df 0%,#f6f1ec 55%,#fde4d8 100%);
-            box-shadow:0 12px 28px rgba(15,28,46,.12); }
+          .pf-grid{ grid-template-columns:1fr; gap:28px; }
+          .pf-visual{ order:-1; margin-right:0; border-radius:22px; min-height:0; aspect-ratio:1152/632; }
         }
-        @media (prefers-reduced-motion: reduce){ .pf-rail-fill{ animation:none; height:100%; } .pf-img{ transition:none; } .pf-step-fig{ transition:none; } }
+        @media (prefers-reduced-motion: reduce){ .pf-rail-fill{ animation:none; height:100%; } .pf-img{ transition:none; } }
       `}</style>
     </section>
   );
@@ -660,14 +589,13 @@ function PubEarn() {
           <span className="pe-spark pe-spark-bl" aria-hidden="true"><PubSparkle /></span>
           <h2 className="pe-title">See what you could earn.</h2>
           <p className="pe-sub">Drop your link and we'll estimate your earnings in under a minute. No sign up needed.</p>
-          <a href="/partners/" className="btn btn-primary btn-lg pe-cta">Estimate my earnings <Arrow /></a>
+          <a href="/partners/" className="btn btn-primary btn-lg pe-cta">Start Earning <Arrow /></a>
         </div>
       </div>
       <style>{`
-        .pe-sec{ position:relative; z-index:2; background:var(--warm-50); padding:clamp(16px,3vh,40px) 0; }
+        .pe-sec{ background:var(--warm-50); padding:clamp(16px,3vh,40px) 0; }
         .pe-band{ position:relative; overflow:hidden; text-align:center; border-radius:clamp(20px,2.6vw,34px);
-          padding:clamp(52px,9vh,104px) clamp(24px,5vw,72px); background:#fdfbfa;
-          box-shadow:0 8px 12px rgba(15,28,46,.08); }
+          padding:clamp(52px,9vh,104px) clamp(24px,5vw,72px); background:#fdfbfa; }
         /* soft ember corner glows */
         .pe-band::before, .pe-band::after{ content:""; position:absolute; width:46%; height:200%; pointer-events:none; }
         .pe-band::before{ top:-70%; right:-6%; background:radial-gradient(closest-side, rgba(240,88,38,.12), transparent 72%); }
@@ -1028,30 +956,18 @@ function PubVoices() {
    Withdrawal) — hrefs are placeholders pending the real URLs. Example figures
    (4.2% commission, 10 working days) are illustrative — confirm before launch. */
 const PUB_FAQ = [
-  ['What is affiliate marketing?',
-    <>Affiliate marketing is a performance-based way to earn: you promote an advertiser&rsquo;s products with your own trackable link, and you earn a commission on every sale you drive. On the Involve Asia platform, you get access to hundreds of brands, the links and tracking to promote them, and the payouts, all in one place. <a href="/resources/affiliate-marketing-guide/">Read our beginner guide</a>.</>],
-  ['How does affiliate marketing work?',
-    'You share a trackable link. When someone clicks it and buys, the sale is recorded to you, and you earn a commission. Even if they come back days later, a cookie keeps the sale credited to you. On Involve Asia you find campaigns, track performance, and get paid from the dashboard and the app.'],
-  ['What is an affiliate program?',
-    'An affiliate program is an advertiser’s set of offers and commissions for publishers who promote them. On the platform you search for the brands you like, generate a link, and start promoting. Some programs approve publishers before promotion begins.'],
-  ['Is affiliate marketing legal?',
-    'Yes. Affiliate marketing is a legitimate, widely used marketing model. We keep every partnership and promotion compliant and transparent, so both publishers and advertisers can trust the numbers.'],
-  ['What is an affiliate platform, and how is it different from a network?',
-    'A network is the connective layer that links advertisers and publishers. A platform is the full product that sits on top: the offers, the link and tracking tools, the reporting, and the payouts, in one place. Involve Asia is an affiliate marketing platform that gives both sides everything they need to grow.'],
-  ['What types of publishers can join?',
-    'Almost any kind. Social and influencer, content and news sites, coupon and deal sites, cashback and loyalty sites, comparison sites, app owners, and media buyers or agencies. If you have an audience or traffic, there is a way to earn.'],
-  ['Do I need a website?',
-    'No. You can earn with a blog, a YouTube channel, Instagram, Facebook, TikTok, an email list, an app, and more. Just create an account, add your property, and start.'],
-  ['Is it free to join?',
-    'Yes. Joining is free, there are no fees to sign up, and no cost to use the platform.'],
-  ['How do I get started and approved?',
-    'Create your account, add your property, and apply to the programs you want to promote. Some advertisers approve publishers before promotion begins; once you are approved, you can generate links and start earning.'],
-  ['How are commissions calculated?',
-    'Each brand sets its own commission. For example, a fashion brand might pay 4.2% on every validated sale. Two things shape your payout: the validation period (the advertiser confirms the sale is genuine and not cancelled before it pays out) and the cookie period (how long after a click a purchase still counts for you). Both are shown on each offer.'],
-  ['How and when do I get paid?',
-    <>You get paid by PayPal or bank transfer, in your preferred currency, within 10 working days of your request, once your conversions are validated. If you want your earnings sooner, <a href="/express-withdrawal/">Express Withdrawal</a> lets eligible publishers unlock a portion before validation, subject to a processing fee and approval.</>],
-  ['How do I track my performance?',
-    'Log in and open Reports, then Performance Report. Filter by date range, brand, or campaign type to see your clicks, sales, and earnings in real time. Advanced publishers can also pull performance through the API.'],
+  ['What does the API do?',
+    'Build an affiliate app, or add affiliate capabilities to your own platform, populate reports, generate links, define landing pages, and pull promotional content.'],
+  ['Who can use it?',
+    'Media buyers, KOL agencies, programmatic and affiliate networks, cashback, and content sites.'],
+  ['How many links can I generate?',
+    'Up to 1,000 a month.'],
+  ['Which tools can I use?',
+    'Postman, cURL, Insomnia, SoapUI, Paw, or any tool that fits your stack.'],
+  ['How do I track performance?',
+    'Pull the performance report through the API, including individual transactions and custom parameters.'],
+  ['What do I need?',
+    'A team member with programming experience to set it up.'],
 ];
 function PubFAQ() {
   const [open, setOpen] = React.useState(() => new Set([0]));
@@ -1157,11 +1073,11 @@ function PubCTA() {
       <span className="pc-topfade" aria-hidden="true" />
       <span className="pc-wash" aria-hidden="true" />
       <div className="wrap pc-inner">
-        <h2 className="pc-title" data-reveal>Start earning with your audience today.</h2>
-        <a href="/partners/" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="1">Create your free account <Arrow /></a>
+        <h2 className="pc-title" data-reveal>Turn your product listings into income.</h2>
+        <a href="/partners/" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="1">Start Earning <Arrow /></a>
       </div>
       <style>{`
-        .pc-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(96px,16vh,200px) 0 clamp(104px,17vh,210px); }
+        .pc-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(199px,33.12vh,365px) 0 clamp(232px,35.88vh,430px); }
         .pc-hexfield{ position:absolute; left:0; top:50%; transform:translateY(-44%) scaleY(-1); width:100%; height:auto; z-index:0; pointer-events:none; opacity:.385;
           -webkit-mask-image:linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent); mask-image:linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent); }
         .pc-hexfield .hx{ will-change:transform; }
@@ -1173,7 +1089,6 @@ function PubCTA() {
         .pc-inner{ position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; text-align:center; }
         .pc-title{ font-size:clamp(24px,3vw,34px); line-height:1.15; letter-spacing:-.03em; color:var(--warm-900); max-width:900px; }
         .pc-btn{ margin-top:26px; }
-        @media (max-width:700px){ .pc-sec{ padding:clamp(60px,9vh,84px) 0 clamp(68px,10vh,96px); } }
       `}</style>
     </section>
   );
@@ -1226,6 +1141,535 @@ function AppDownload() {
     </div>
   );
 }
+/* ---------- Express Withdrawal §2 — "What is Express Withdrawal?" ---------- */
+function ExwCard() {
+  const [amount, setAmount] = React.useState(0);
+  const [pressed, setPressed] = React.useState(false);
+  const [active, setActive] = React.useState(false);   // button turns from grey to gradient once at $481
+  // Looping demo: count up to $481, subtle button "click", drop back to $0, repeat.
+  React.useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { setAmount(481); setActive(true); return; }
+    let raf = 0; const timers = []; let cancelled = false;
+    const TARGET = 481;
+    const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+    const animateTo = (from, to, dur, done) => {
+      const start = performance.now();
+      const step = (now) => {
+        if (cancelled) return;
+        const t = Math.min(1, (now - start) / dur);
+        setAmount(Math.round(from + (to - from) * easeOut(t)));
+        if (t < 1) raf = requestAnimationFrame(step); else if (done) done();
+      };
+      raf = requestAnimationFrame(step);
+    };
+    const wait = (ms, fn) => { timers.push(setTimeout(() => { if (!cancelled) fn(); }, ms)); };
+    const loop = () => {
+      if (cancelled) return;
+      setAmount(0); setPressed(false); setActive(false);        // grey button, $0
+      animateTo(0, TARGET, 2400, () => {                        // count up to $481 (button stays grey)
+        setActive(true);                                         // reached $481 → gradient (enabled)
+        wait(550, () => {
+          setPressed(true);                                      // button press
+          wait(320, () => {
+            setPressed(false);                                   // release
+            wait(300, () => {
+              setActive(false);                                  // back to grey
+              animateTo(TARGET, 0, 600, () => { wait(900, loop); }); // drop to $0, then repeat
+            });
+          });
+        });
+      });
+    };
+    loop();
+    return () => { cancelled = true; if (raf) cancelAnimationFrame(raf); timers.forEach(clearTimeout); };
+  }, []);
+  return (
+    <div className="exw-card" data-reveal data-reveal-delay="1">
+      <span className="exw-card-lbl">Pending Advertiser Collection</span>
+      <div className="exw-amt"><span className="exw-cur">$</span><span className="exw-num">{amount}</span></div>
+      <button type="button" className={'exw-btn' + (active ? ' is-active' : '') + (pressed ? ' is-pressed' : '')} tabIndex={-1} aria-hidden="true">Request Express Withdrawal</button>
+    </div>
+  );
+}
+const EXW_STEPS = [
+  ['Request', 'Apply for Express Withdrawal from your dashboard.'],
+  ['Approve', 'We calculate an amount from your pending conversions.'],
+  ['Get paid', 'You receive it fast, in your preferred currency, converted at the platform rate.'],
+  ['Reconcile', 'It is reconciled automatically once the advertiser validates the sales.'],
+];
+function ExwWhat() {
+  return (
+    <section id="exw-what" className="exw-sec">
+      <div className="wrap">
+        <div className="exw-top">
+          <div className="exw-intro">
+            <h2 className="exw-h" data-reveal>What is Express Withdrawal?</h2>
+            <p className="exw-p" data-reveal data-reveal-delay="1">Express Withdrawal is the fastest way to get paid on the platform. Instead of waiting through the full validation period before you are paid, you can take a portion of your pending earnings up front, so your money can reach you in as little as 5 to 7 working days after your request is approved.</p>
+          </div>
+          <ExwCard />
+        </div>
+        <div className="exw-how" data-reveal>
+          <p className="exw-how-lbl">How it works</p>
+          <div className="exw-steps">
+            {EXW_STEPS.map(([t, d]) => (
+              <div className="exw-step" key={t}>
+                <h3 className="exw-step-t">{t}</h3>
+                <p className="exw-step-d">{d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <style>{`
+        .exw-sec{ background:var(--warm-50); padding:clamp(56px,9vh,110px) 0; }
+        .exw-top{ display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:clamp(32px,5vw,80px); align-items:start; }
+        .exw-h{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
+        .exw-p{ margin-top:20px; max-width:820px; font:400 16px/1.45 var(--font-body); color:var(--warm-600); }
+        .exw-card{ align-self:start; background:#fff; border-radius:16px; padding:24px; box-shadow:0 1.2px 3px rgba(0,0,0,.16), 0 20px 44px rgba(15,28,46,.07); }
+        .exw-card-lbl{ display:block; font:600 13px/1.32 var(--font-body); color:rgba(17,17,16,.64); }
+        .exw-amt{ margin-top:11px; display:flex; align-items:baseline; font-family:var(--font-body); font-weight:700; color:var(--warm-900); line-height:1.1; letter-spacing:-.01em; font-variant-numeric:tabular-nums; }
+        .exw-cur{ font-size:40px; }
+        .exw-num{ font-size:44px; }
+        /* grey (disabled) until the amount reaches $481, then morphs to the ember gradient */
+        .exw-btn{ margin-top:16px; width:100%; display:flex; align-items:center; justify-content:center; gap:8px; padding:16px 18px; border:none; border-radius:9999px; cursor:default; white-space:nowrap;
+          background-image:linear-gradient(144deg,#d2d2cc 0%,#c7c7c0 100%); color:#fff; font:600 14.5px/1 var(--font-body); box-shadow:0 4px 10px rgba(15,28,46,.06);
+          transition:transform .16s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease, background-image .4s ease, filter .16s ease; }
+        .exw-btn.is-active{ background-image:linear-gradient(144deg,#f05826 0%,#c43e18 100%); box-shadow:0 7px 11px rgba(240,88,38,.22); }
+        .exw-btn.is-pressed{ transform:scale(.94); box-shadow:0 3px 7px rgba(240,88,38,.26); filter:brightness(.96); }
+        .exw-how{ margin-top:clamp(44px,6vh,72px); }
+        .exw-how-lbl{ font:500 16px/1.3 var(--font-body); color:var(--ember); }
+        .exw-steps{ margin-top:22px; display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(24px,3vw,48px); }
+        .exw-step-t{ font:700 16px/1.3 var(--font-body); color:var(--warm-900); }
+        .exw-step-d{ margin-top:8px; font:400 16px/1.4 var(--font-body); color:var(--warm-600); }
+        @media (max-width:900px){ .exw-top{ grid-template-columns:1fr; } .exw-card{ max-width:340px; } .exw-steps{ grid-template-columns:repeat(2,1fr); row-gap:32px; } }
+        @media (max-width:560px){ .exw-steps{ grid-template-columns:1fr; } }
+      `}</style>
+    </section>
+  );
+}
+/* ---------- Express Withdrawal §3 — "Two ways to get paid" comparison ------ */
+const TW_ROWS = [
+  ['When you can withdraw', 'After the advertiser validates the sale', 'Before validation, on a portion of your pending earnings'],
+  ['Time to get paid', "7 to 10 working days after your request, plus each offer's validation period", 'As little as 5 to 7 working days after approval'],
+  ['How much', 'Your full validated earnings', 'A portion of your eligible pending conversions'],
+  ['Fee', 'Free up to a specific limit per month', 'A processing fee applies to the amount taken early, shown before you confirm'],
+  ['Best for', 'Publishers who can wait for the full cycle', 'Publishers who want their money sooner'],
+];
+function ExwCompare() {
+  return (
+    <section id="exw-compare" className="tw-sec">
+      <div className="wrap">
+        <div className="tw-head" data-reveal>
+          <h2 className="tw-title">Two ways to get paid</h2>
+          <p className="tw-sub">Both withdrawal methods are open to every publisher. Standard withdrawal is available to anyone who meets the minimum amount. Express Withdrawal is available to any publisher who meets the eligibility criteria, and each request is subject to a quick approval.</p>
+        </div>
+        <div className="tw-scroll" data-reveal data-reveal-delay="1">
+          <div className="tw-table">
+            <div className="tw-row tw-hrow">
+              <div className="tw-c tw-label-h" aria-hidden="true" />
+              <div className="tw-c tw-col tw-col-std">
+                <span className="tw-ic tw-ic-std"><img src="media/figma/exw-icon-standard.svg" alt="" /></span>
+                <span className="tw-col-t">Standard withdrawal</span>
+              </div>
+              <div className="tw-c tw-col tw-col-exp">
+                <span className="tw-ic tw-ic-exp"><img src="media/figma/exw-icon-express.svg" alt="" /></span>
+                <span className="tw-col-t">Express withdrawal</span>
+              </div>
+            </div>
+            {TW_ROWS.map((r, i) => (
+              <div className="tw-row" key={i}>
+                <div className="tw-c tw-label">{r[0]}</div>
+                <div className="tw-c tw-std">{r[1]}</div>
+                <div className="tw-c tw-exp">{r[2]}</div>
+              </div>
+            ))}
+            <span className="tw-exp-card" aria-hidden="true" />
+          </div>
+        </div>
+      </div>
+      <style>{`
+        .tw-sec{ background:var(--warm-50); padding:clamp(56px,9vh,110px) 0; }
+        .tw-head{ text-align:center; max-width:1040px; margin:0 auto clamp(30px,4.6vh,52px); }
+        .tw-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.02em; color:var(--warm-900); }
+        .tw-sub{ margin-top:16px; font:400 16px/1.4 var(--font-body); color:var(--warm-600); }
+        .tw-scroll{ overflow-x:auto; scrollbar-width:thin; padding:18px 8px 42px; }
+        .tw-table{ --tw-label:260px; position:relative; display:flex; flex-direction:column; min-width:0; max-width:1100px; margin:0 auto; }
+        .tw-row{ display:grid; grid-template-columns:var(--tw-label) minmax(0,1fr) minmax(0,1fr); }
+        .tw-c{ padding:20px 24px; display:flex; align-items:center; font:400 14px/1.5 var(--font-body); color:var(--warm-900); }
+        .tw-row:not(.tw-hrow) .tw-c{ border-top:1px solid #e8e8e5; }
+        .tw-label, .tw-label-h{ padding-left:32px; padding-right:32px; }
+        .tw-label{ font-weight:500; }
+        .tw-std{ background:rgba(255,255,255,.48); }
+        /* raised Express column — a single white card spanning the column; the only drop shadow */
+        .tw-exp-card{ position:absolute; top:0; right:0; bottom:0; width:calc((100% - var(--tw-label)) / 2); z-index:0;
+          background:#fff; border-radius:16px; box-shadow:0 14px 30px rgba(15,28,46,.13), 0 3px 9px rgba(15,28,46,.06); pointer-events:none; }
+        .tw-exp, .tw-col-exp{ position:relative; z-index:1; background:transparent; }
+        /* header cells: icon-box + title stacked, left-aligned */
+        .tw-hrow .tw-col{ flex-direction:column; align-items:flex-start; gap:12px; padding-top:32px; padding-bottom:28px; }
+        .tw-col-std{ background:rgba(255,255,255,.48); }
+        .tw-ic{ display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:12px; flex:0 0 auto; }
+        .tw-ic img{ width:24px; height:24px; display:block; }
+        .tw-ic-std{ background:#e8e8e2; }
+        .tw-ic-exp{ background:rgba(240,88,38,.12); }
+        .tw-col-t{ font-family:var(--font-display); font-weight:800; font-size:20px; letter-spacing:-.01em; color:var(--warm-900); }
+        /* Awin-style mobile: no side-scroll — feature label sits full-width above its two
+           plan values, plan header sticks to the top, Express column stays tinted. */
+        @media (max-width:820px){
+          .tw-scroll{ overflow:visible; padding:0; }
+          .tw-table{ min-width:0; border:1px solid #ecece7; border-radius:14px; overflow:hidden; }
+          .tw-exp-card{ display:none; }
+          .tw-row{ grid-template-columns:1fr 1fr; }
+          .tw-label{ grid-column:1 / -1; padding:15px 16px 3px; font-weight:700; font-size:14px; color:var(--warm-900); }
+          .tw-label-h{ display:none; }
+          .tw-hrow{ border-bottom:1px solid #e8e8e5; }
+          .tw-hrow .tw-col{ padding:14px 12px; gap:8px; }
+          .tw-ic{ width:36px; height:36px; }
+          .tw-ic img{ width:20px; height:20px; }
+          .tw-col-t{ font-size:14px; }
+          .tw-c{ padding:4px 12px 14px; font-size:13px; line-height:1.45; align-items:flex-start; }
+          .tw-std, .tw-col-std{ background:#f4f4ef; }
+          .tw-exp, .tw-col-exp{ background:rgba(240,88,38,.07); }
+          .tw-row:not(.tw-hrow) .tw-c{ border-top:none; }
+          .tw-row:not(.tw-hrow){ border-top:1px solid #e8e8e5; }
+        }
+      `}</style>
+    </section>
+  );
+}
+/* ---------- API §2 — "Automate the work, scale the earning." (4 cards) ---------- */
+const AUTO_CARDS = [
+  ['api-auto-1.png', 'Get the latest promotion data', 'Commission rates and payout terms for every offer.'],
+  ['api-auto-2.png', 'Generate affiliate links in bulk', 'With no manual clicking.'],
+  ['api-auto-3.png', 'Pull performance reports', 'Conversions and earnings, in your own format.'],
+  ['api-auto-4.png', 'Get campaign banners and vouchers', 'Ready-made creatives and seasonal deals.'],
+];
+function AutoWork() {
+  return (
+    <section id="api-auto" className="aw-sec">
+      <div className="wrap">
+        <h2 className="aw-title" data-reveal>Automate the work, scale the earning.</h2>
+        <div className="aw-grid">
+          {AUTO_CARDS.map(([img, t, d], i) => (
+            <div className="aw-card" key={t} data-reveal data-reveal-delay={(i % 3) + 1}>
+              <div className="aw-visual"><img src={`media/figma/${img}`} alt="" loading="lazy" /></div>
+              <h3 className="aw-ct">{t}</h3>
+              <p className="aw-cd">{d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`
+        .aw-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
+        .aw-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
+        .aw-grid{ margin-top:clamp(34px,5vh,54px); display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(18px,2vw,26px); }
+        .aw-card{ min-width:0; }
+        .aw-visual{ border-radius:16px; overflow:hidden; aspect-ratio:290/177; background:var(--warm-100); }
+        .aw-visual img{ width:100%; height:100%; object-fit:cover; display:block; }
+        .aw-ct{ margin-top:18px; font-family:var(--font-display); font-weight:800; font-size:18px; letter-spacing:-.01em; color:var(--warm-900); }
+        .aw-cd{ margin-top:8px; font:400 15px/1.4 var(--font-body); color:var(--warm-600); }
+        @media (max-width:900px){ .aw-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:26px 22px; } }
+        @media (max-width:540px){ .aw-grid{ grid-template-columns:1fr; max-width:360px; margin-inline:auto; } }
+      `}</style>
+    </section>
+  );
+}
+/* ---------- API §3 — "Boosted commissions on Shopee, built in." (promo band) ---------- */
+function ShopeeBand() {
+  return (
+    <section id="api-shopee" className="sb-sec">
+      <div className="wrap">
+        <div className="sb-card" data-reveal>
+          <div className="sb-body">
+            <h2 className="sb-title">Boosted commissions on Shopee, built in.</h2>
+            <p className="sb-desc">Some Shopee brands pay boosted rates through Commission Xtra. Pull the full list through the API and refresh it automatically, so you always know which Shopee shops are paying more, and promote them first.</p>
+            <a href="#" className="sb-link">Learn More <Arrow /></a>
+          </div>
+          <div className="sb-visual"><img src="media/figma/api-shopee-xtra.png" alt="Shopee Commissions Xtra" loading="lazy" /></div>
+        </div>
+      </div>
+      <style>{`
+        .sb-sec{ background:var(--warm-50); padding:clamp(8px,2vh,24px) 0 clamp(40px,7vh,88px); }
+        .sb-card{ background:#fff; border-radius:24px; box-shadow:0 1px 3px rgba(15,28,46,.05); padding:clamp(28px,4vw,56px); display:grid; grid-template-columns:1fr minmax(0,392px); gap:clamp(28px,4vw,56px); align-items:center; overflow:hidden; }
+        .sb-body{ max-width:560px; }
+        .sb-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(22px,2.6vw,32px); line-height:1.14; letter-spacing:-.02em; color:var(--warm-900); }
+        .sb-desc{ margin-top:16px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); }
+        .sb-link{ margin-top:20px; display:inline-flex; align-items:center; gap:7px; font:700 15px/1 var(--font-body); color:var(--ember); }
+        .sb-link svg{ width:16px; height:16px; transition:transform .2s ease; }
+        .sb-link:hover svg{ transform:translateX(3px); }
+        .sb-visual img{ width:100%; height:auto; border-radius:14px; display:block; }
+        @media (max-width:820px){ .sb-card{ grid-template-columns:1fr; gap:28px; } .sb-visual{ max-width:420px; } }
+      `}</style>
+    </section>
+  );
+}
+/* ---------- API §4 — "Built for teams that build" (category grid) ---------- */
+const TEAM_CATS = [
+  ['Media buyers', 'High volume paid ads'],
+  ['KOL agencies', 'Creator networks'],
+  ['Programmatic networks', 'Automated distribution'],
+  ['Affiliate networks', 'Sub-network solutions'],
+  ['Cashback sites', 'Instant link conversion'],
+  ['Content sites', 'Dynamic product populating'],
+];
+function BuiltTeams() {
+  return (
+    <section id="api-teams" className="bt-sec">
+      <div className="wrap">
+        <div className="bt-grid">
+          <div className="bt-head" data-reveal>
+            <h2 className="bt-title">Built for teams that build</h2>
+            <p className="bt-sub">For anyone who wants affiliate data and links inside their own systems.</p>
+          </div>
+          <div className="bt-cats" data-reveal data-reveal-delay="1">
+            {TEAM_CATS.map(([t, d]) => (
+              <div className="bt-cat" key={t}>
+                <span className="bt-cat-t">{t}</span>
+                <span className="bt-cat-d">{d}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <style>{`
+        .bt-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
+        .bt-grid{ display:grid; grid-template-columns:minmax(0,360px) 1fr; gap:clamp(32px,5vw,72px); align-items:start; }
+        .bt-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
+        .bt-sub{ margin-top:16px; font:400 16px/1.45 var(--font-body); color:var(--warm-600); max-width:340px; }
+        .bt-cats{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(22px,3vw,38px) clamp(20px,2.5vw,32px); }
+        .bt-cat{ display:flex; flex-direction:column; gap:6px; }
+        .bt-cat-t{ font-family:var(--font-display); font-weight:800; font-size:16px; letter-spacing:-.01em; color:var(--warm-900); }
+        .bt-cat-d{ font:400 14px/1.35 var(--font-body); color:var(--warm-400); }
+        @media (max-width:820px){ .bt-grid{ grid-template-columns:1fr; gap:32px; } .bt-cats{ grid-template-columns:repeat(2,1fr); } }
+        @media (max-width:440px){ .bt-cats{ grid-template-columns:1fr; } }
+      `}</style>
+    </section>
+  );
+}
+/* ---------- API §5 — "Get started in three steps" ---------- */
+const START_STEPS = [
+  { t: 'Request your API key', d: 'Request your API key from your dashboard.', cta: true,
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M8 12V6.5a1.8 1.8 0 0 1 3.6 0V11m0-.5a1.8 1.8 0 0 1 3.6 0V12m0-.8a1.8 1.8 0 0 1 3.6 0v3.8a6 6 0 0 1-6 6h-1.5a6 6 0 0 1-5.2-3l-1.9-3.3a1.8 1.8 0 0 1 3.1-1.8L8 12" /></svg> },
+  { t: 'Add the key to your tool', d: 'Add the key to your API tool (Postman, cURL, Insomnia, and more).', cta: false,
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path d="M12 11.5v4M10 13.5h4" /></svg> },
+  { t: 'Follow documentation', d: 'Follow the documentation to pull data, generate links, and build.', cta: false,
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5" /><path d="M9 14.5l2 2 4-4" /></svg> },
+];
+function GetStarted() {
+  return (
+    <section id="api-start" className="gs-sec">
+      <div className="wrap">
+        <h2 className="gs-title" data-reveal>Get started in three steps</h2>
+        <div className="gs-grid">
+          {START_STEPS.map((s, i) => (
+            <div className="gs-step" key={s.t} data-reveal data-reveal-delay={i + 1}>
+              <span className="gs-ic" aria-hidden="true">{s.ic}</span>
+              <h3 className="gs-st">{s.t}</h3>
+              <p className="gs-sd">{s.d}</p>
+              {s.cta && <a href="/partners/" className="btn btn-primary gs-cta">Apply here <Arrow /></a>}
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`
+        .gs-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
+        .gs-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
+        .gs-grid{ margin-top:clamp(36px,5vh,56px); display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(28px,4vw,56px); }
+        .gs-step{ display:flex; flex-direction:column; align-items:flex-start; }
+        .gs-ic{ width:46px; height:46px; border-radius:13px; background:var(--ember-tint); color:var(--ember); display:flex; align-items:center; justify-content:center; }
+        .gs-ic svg{ width:23px; height:23px; }
+        .gs-st{ margin-top:20px; font-family:var(--font-display); font-weight:800; font-size:20px; letter-spacing:-.01em; color:var(--warm-900); }
+        .gs-sd{ margin-top:10px; font:400 16px/1.45 var(--font-body); color:var(--warm-600); max-width:320px; }
+        .gs-cta{ margin-top:20px; }
+        @media (max-width:820px){ .gs-grid{ grid-template-columns:1fr; gap:34px; max-width:420px; margin-inline:auto; } }
+      `}</style>
+    </section>
+  );
+}
+/* ---------- Datafeed §2 — "What is Involve Datafeed?" (manual vs datafeed) ---------- */
+const DF_MANUAL = [
+  'Copy product title and image from the brand’s site.',
+  'Generate an affiliate link in your dashboard.',
+  'Paste both onto your website platform.',
+  'Repeat for every single product variation.',
+];
+const DF_WAY = [
+  'Connect the brand’s Datafeed directly.',
+  'Thousands of products sync to your site instantly, automatically carrying your affiliate codes.',
+];
+function WhatIs() {
+  return (
+    <section id="df-what" className="wi-sec">
+      <div className="wrap">
+        <h2 className="wi-title" data-reveal>What is Involve Datafeed?</h2>
+        <p className="wi-sub" data-reveal data-reveal-delay="1">Datafeed lets you list a brand&rsquo;s product catalogue on your site with your affiliate links already embedded, instead of adding products and pasting links one by one. Set it up once per brand, and your listings stay stocked and trackable.</p>
+        <div className="wi-cards">
+          <div className="wi-card wi-card-manual" data-reveal>
+            <h3 className="wi-ct">The manual way</h3>
+            <ol className="wi-list">
+              {DF_MANUAL.map((t, i) => <li key={i}>{i + 1}. {t}</li>)}
+            </ol>
+          </div>
+          <div className="wi-card wi-card-hl" data-reveal data-reveal-delay="1">
+            <h3 className="wi-ct">The <span className="wi-em">Involve Datafeed</span> way</h3>
+            <div className="wi-badge">
+              <span className="wi-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="#F05826" /><path d="M7.4 12.4l3 3 6.2-6.6" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
+              <span className="wi-badge-t">One integration setup. <b>No manual pasting required.</b></span>
+            </div>
+            <ol className="wi-list">
+              {DF_WAY.map((t, i) => <li key={i}>{i + 1}. {t}</li>)}
+            </ol>
+          </div>
+        </div>
+      </div>
+      <style>{`
+        .wi-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
+        .wi-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
+        .wi-sub{ text-align:center; margin:16px auto 0; max-width:760px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); }
+        .wi-cards{ margin-top:clamp(34px,5vh,52px); display:grid; grid-template-columns:1fr 1fr; gap:clamp(20px,2.6vw,32px); align-items:start; }
+        .wi-card{ border-radius:24px; padding:clamp(24px,3vw,32px); }
+        .wi-card-manual{ background:rgba(255,255,255,.48); }
+        .wi-card-hl{ background:#fff; box-shadow:0 14px 34px rgba(15,28,46,.06); }
+        .wi-ct{ font-family:var(--font-display); font-weight:800; font-size:22px; letter-spacing:-.01em; color:var(--warm-900); }
+        .wi-em{ color:var(--ember); }
+        .wi-badge{ margin-top:22px; display:flex; align-items:center; gap:10px; }
+        .wi-check{ flex:0 0 auto; width:21px; height:21px; }
+        .wi-check svg{ width:21px; height:21px; display:block; }
+        .wi-badge-t{ font-family:var(--font-display); font-weight:800; font-size:15px; line-height:1.35; color:var(--warm-900); }
+        .wi-list{ margin-top:20px; display:flex; flex-direction:column; gap:14px; list-style:none; }
+        .wi-list li{ font:400 15px/1.45 var(--font-body); color:var(--warm-600); }
+        @media (max-width:820px){ .wi-cards{ grid-template-columns:1fr; } }
+      `}</style>
+    </section>
+  );
+}
+/* ---------- Datafeed §3 — "Built for sites with a lot to list" (icons + product grid) ---------- */
+const DF_FEATURES = [
+  { t: 'List entire catalogues.', d: 'Add thousands of products from a brand at once.',
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="1.6" /><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.6" /><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.6" /><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.6" /></svg> },
+  { t: 'Links already built in.', d: 'Every product carries your trackable affiliate link.',
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M9.5 14.5l5-5" /><path d="M12 7l1.2-1.2a4 4 0 0 1 5.7 5.7L17.5 13" /><path d="M12 17l-1.2 1.2a4 4 0 0 1-5.7-5.7L6.5 11" /></svg> },
+  { t: 'Track down to the product.', d: 'See the product, category, and shop behind each sale.',
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="8" /><circle cx="12" cy="12" r="3.4" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3" /></svg> },
+  { t: 'Made for product-heavy sites.', d: 'Content, coupon, comparison, and cashback sites.',
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 8l9-5 9 5-9 5-9-5z" /><path d="M3 8v8l9 5 9-5V8" /><path d="M12 13v8" /></svg> },
+];
+function BuiltForLists() {
+  return (
+    <section id="df-built" className="bl-sec">
+      <div className="wrap">
+        <h2 className="bl-title" data-reveal>Built for sites with a lot to list</h2>
+        <div className="bl-grid">
+          <div className="bl-feats" data-reveal>
+            {DF_FEATURES.map((c) => (
+              <div className="bl-feat" key={c.t}>
+                <span className="bl-ic" aria-hidden="true">{c.ic}</span>
+                <h3 className="bl-ct">{c.t}</h3>
+                <p className="bl-cd">{c.d}</p>
+              </div>
+            ))}
+          </div>
+          <div className="bl-visual" data-reveal data-reveal-delay="1">
+            <img src="media/figma/datafeed-grid-1.png" alt="A grid of products listed on a site through Datafeed" loading="lazy" />
+          </div>
+        </div>
+      </div>
+      <style>{`
+        .bl-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; overflow:hidden; }
+        .bl-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
+        .bl-grid{ margin-top:clamp(30px,4vh,48px); display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(32px,4vw,64px); align-items:stretch; }
+        .bl-feats{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,3vw,40px) clamp(20px,2.5vw,36px); align-content:center; }
+        .bl-ic{ width:44px; height:44px; border-radius:12px; background:var(--ember-tint); color:var(--ember); display:flex; align-items:center; justify-content:center; }
+        .bl-ic svg{ width:22px; height:22px; }
+        .bl-ct{ margin-top:16px; font-family:var(--font-display); font-weight:800; font-size:17px; letter-spacing:-.01em; color:var(--warm-900); }
+        .bl-cd{ margin-top:7px; font:400 14px/1.45 var(--font-body); color:var(--warm-600); }
+        /* full-bleed to the right viewport edge, like the publisher "Built for how you actually earn." slider */
+        .bl-visual{ position:relative; align-self:stretch; min-height:clamp(360px,44vh,540px); overflow:hidden;
+          margin-right:calc(min(100vw, var(--maxw)) / 2 - 50vw - 32px); border-radius:22px 0 0 22px;
+          background:linear-gradient(150deg,#fbe9df 0%,#f6f1ec 50%,#fde4d8 100%); }
+        .bl-visual img{ position:absolute; top:clamp(20px,3vw,36px); left:clamp(20px,3vw,36px);
+          width:calc(100% - clamp(20px,3vw,36px)); height:calc(100% - clamp(20px,3vw,36px));
+          object-fit:cover; object-position:left top; border-radius:16px 0 0 0; display:block; }
+        @media (max-width:900px){
+          .bl-grid{ grid-template-columns:1fr; gap:36px; }
+          .bl-visual{ order:-1; position:static; margin-right:0; min-height:0; border-radius:20px; overflow:visible; background:none; }
+          .bl-visual img{ position:static; top:auto; left:auto; width:100%; height:auto; border-radius:16px; }
+        }
+        @media (max-width:460px){ .bl-feats{ grid-template-columns:1fr; } }
+      `}</style>
+    </section>
+  );
+}
+/* ---------- Datafeed §4 — "How it works" (3 numbered steps) ---------- */
+const DF_STEPS = [
+  ['01', 'Find your brand', 'Choose the brand whose products you want to list.'],
+  ['02', 'Follow the integration guide', 'Set the feed up on your site using that brand’s guide.'],
+  ['03', 'List and track automatically', 'Products appear with your links built in, and every sale is tracked at item level.'],
+];
+function HowItWorks() {
+  return (
+    <section id="df-how" className="hw-sec">
+      <div className="wrap">
+        <h2 className="hw-title" data-reveal>How it works</h2>
+        <div className="hw-grid">
+          {DF_STEPS.map(([n, t, d], i) => (
+            <div className="hw-step" key={n} data-reveal data-reveal-delay={i + 1}>
+              <span className="hw-num">{n}</span>
+              <h3 className="hw-st">{t}</h3>
+              <p className="hw-sd">{d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`
+        .hw-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
+        .hw-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
+        .hw-grid{ margin-top:clamp(30px,4vh,48px); display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(28px,4vw,56px); }
+        .hw-num{ display:inline-flex; align-items:center; justify-content:center; width:54px; height:54px; border-radius:50%; background:var(--ember); color:#fff; font-family:var(--font-display); font-weight:800; font-size:19px; }
+        .hw-st{ margin-top:20px; font-family:var(--font-display); font-weight:800; font-size:19px; letter-spacing:-.01em; color:var(--warm-900); }
+        .hw-sd{ margin-top:10px; font:400 15px/1.5 var(--font-body); color:var(--warm-600); max-width:300px; }
+        @media (max-width:820px){ .hw-grid{ grid-template-columns:1fr; gap:32px; max-width:440px; } }
+      `}</style>
+    </section>
+  );
+}
+/* ---------- Datafeed §5 — "See exactly what sells." (copy + rank table) ---------- */
+const DF_RANK = [
+  ['1', 'Serum M', '580.70'],
+  ['2', 'Shoes A', '366.40'],
+  ['3', 'Bag C', '290.00'],
+  ['4', 'Bag C', '118.00'],
+];
+function WhatSells() {
+  return (
+    <section id="df-sells" className="ws-sec">
+      <div className="wrap">
+        <div className="ws-box" data-reveal>
+          <div className="ws-grid">
+            <div className="ws-left">
+              <h2 className="ws-title">See exactly what sells.</h2>
+              <p className="ws-body">Datafeed sales can be tracked at item level, so depending on the advertiser your conversion reports can show details like the product, category, and shop behind each sale. Use it to see what your audience actually buys, and list more of it.</p>
+              <p className="ws-note">Note: The exact data points, the conversion timeline, and the commission basis are set per advertiser and offer, not fixed across all Datafeed offers.</p>
+            </div>
+            <div className="ws-visual">
+              <img src="media/figma/datafeed-sells.png" alt="A conversion report ranking the top-selling products by total sales" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <style>{`
+        .ws-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
+        .ws-box{ background:#fff; border-radius:24px; padding:clamp(26px,3.2vw,44px); box-shadow:0 1px 3px rgba(15,28,46,.05); }
+        .ws-grid{ display:grid; grid-template-columns:minmax(0,470px) minmax(0,1fr); gap:clamp(32px,4.5vw,60px); align-items:center; }
+        .ws-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.14; letter-spacing:-.03em; color:var(--warm-900); }
+        .ws-body{ margin-top:18px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); max-width:500px; }
+        .ws-note{ margin-top:16px; font:italic 400 13px/1.5 var(--font-body); color:var(--warm-400); max-width:500px; }
+        .ws-visual{ border-radius:18px; overflow:hidden; aspect-ratio:598/350; background:linear-gradient(180deg,#f4f4f0 47%,#e9e9e8 111%); }
+        .ws-visual img{ width:100%; height:100%; object-fit:cover; display:block; }
+        @media (max-width:900px){ .ws-grid{ grid-template-columns:1fr; gap:28px; } }
+      `}</style>
+    </section>
+  );
+}
 function PublisherApp() {
   useSmoothScroll();
   useScrollReveal();
@@ -1234,13 +1678,10 @@ function PublisherApp() {
       <Nav getStartedTone="pub" />
       <main>
         <PubHero />
-        <PubLogos />
-        <PubAudience />
-        <PubPlatform />
-        <PubEarn />
-        <PubBuilt />
-        <PubVoices />
-        <PubFAQ />
+        <WhatIs />
+        <BuiltForLists />
+        <HowItWorks />
+        <WhatSells />
         <PubCTA />
       </main>
       <Footer />

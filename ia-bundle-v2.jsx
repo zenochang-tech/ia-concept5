@@ -767,29 +767,23 @@ Object.assign(window, { Hexagon, HexBadge, HexHeroField, HexTexture, useScrollPr
 // the audience menus), working language dropdown. 2 levels max, descriptive labels.
 
 const NAV = [
-  { label: 'For Advertisers', href: 'for-advertisers.html', tone: 'adv',
-    columns: [
-      { links: [ ['Advertiser overview', 'for-advertisers.html'] ] },
-      { head: 'Feature', links: [
-        ['Automation', 'automation.html'],
-        ['Partner Discovery', 'partner-discovery.html'],
-        ['How We Track', 'how-we-track.html'],
-        ['Pricing', 'pricing.html'],
-      ]},
+  { label: 'For Advertisers', href: '/advertisers/', tone: 'adv',
+    feature: { kicker: "I'm an Advertiser", title: 'Reach 800,000+ partners', body: 'Acquire new customers through creators, content sites and affiliates across Asia.', cta: 'List Your Brand', href: '/advertisers/' },
+    items: [
+      { t: 'Overview', d: 'Why brands grow with Involve', href: '/advertisers/' },
+      { t: 'How We Track', d: 'Attribution & reporting', href: '/advertisers/how-we-track/' },
+      { t: 'Partner Discovery', d: 'Find the right creators', href: '/advertisers/partner-discovery/' },
+      { t: 'Automation', d: 'Onboard partners at scale', href: '/advertisers/automation/' },
+      { t: 'Case Studies', d: 'Brand success stories', href: '/advertisers/case-studies/' },
     ]},
-  { label: 'For Publishers', href: 'for-publishers.html', tone: 'pub',
-    columns: [
-      { top: ['Publisher overview', 'for-publishers.html'], head: 'Feature', links: [
-        ['Express Withdrawal', 'express-withdrawal.html'],
-        ['API Overview', 'api-overview.html'],
-        ['Data Feed', 'datafeed.html'],
-      ]},
-      { head: 'Publisher type', links: [
-        ['Content Creators', 'content-creators.html'],
-        ['Affiliate Sites', 'affiliates.html'],
-        ['Websites', 'website.html'],
-        ['App Owners', 'app-owners.html'],
-      ]},
+  { label: 'For Publishers', href: '/partners/overview', tone: 'pub',
+    feature: { kicker: "I'm a Creator or Publisher", title: 'Turn your audience into earnings', body: 'Promote 4,000+ brands and get fast local-currency payouts. Free to join.', cta: 'Start Earning', href: '/partners/' },
+    items: [
+      { t: 'Overview', d: 'Start earning with Involve', href: '/partners/overview' },
+      { t: 'Content Creators', d: 'Monetise your audience', href: '/partners/content-creators/' },
+      { t: 'All Brands Directory', d: '4,000+ programs — high intent', href: 'https://app.involve.asia/directory', promote: true },
+      { t: 'Express Withdrawal', d: 'Fast local payouts', href: '/partners/express-withdrawal/' },
+      { t: 'Academy', d: 'Learn affiliate marketing', href: '/academy/' },
     ]},
   { label: 'Resources', href: '/blog/', items: [
       { t: 'Blog', d: 'Guides, trends & playbooks', href: '/blog/' },
@@ -826,11 +820,6 @@ function MegaItem({ it }) {
       <span className="d">{it.d}</span>
     </a>
   );
-}
-function MegaLink({ link }) {
-  const [t, href, soon] = link;
-  if (soon) return <span className="mega4-link mega4-soon"><b>{t}</b><em>(coming soon)</em></span>;
-  return <a href={href} role="menuitem" className="mega4-link"><b>{t}</b></a>;
 }
 
 // Featured card shown on the right of each mega panel (Concept 3 image-card design).
@@ -947,19 +936,7 @@ function Nav({ getStartedTone = 'midnight' }) {
             {NAV.map((n) => (
               <details key={n.label} style={{ borderBottom: '1px solid var(--warm-200)' }}>
                 <summary style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 4px', fontWeight: 600, fontSize: 16, cursor: 'pointer', listStyle: 'none' }}>{n.label}<Caret /></summary>
-                <div style={{ padding: '0 4px 12px' }}>
-                  {n.columns
-                    ? n.columns.map((col, ci) => (
-                        <div key={ci} style={{ marginTop: ci ? 6 : 0 }}>
-                          {col.top && <a href={col.top[1]} style={{ display: 'block', padding: '10px 12px', color: 'var(--warm-600)', fontSize: 15 }}>{col.top[0]}</a>}
-                          {col.head && <div style={{ padding: '8px 12px 4px', font: '700 11px/1 var(--font-body)', letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--warm-400)' }}>{col.head}</div>}
-                          {col.links.map(([t, href, soon]) => soon
-                            ? <span key={t} style={{ display: 'block', padding: '10px 12px', color: 'var(--warm-400)', fontSize: 15 }}>{t} <em style={{ fontStyle: 'normal', fontSize: 13 }}>(coming soon)</em></span>
-                            : <a key={t} href={href} style={{ display: 'block', padding: '10px 12px', color: 'var(--warm-600)', fontSize: 15 }}>{t}</a>)}
-                        </div>
-                      ))
-                    : n.items.map((it) => <a key={it.t} href={it.href} style={{ display: 'block', padding: '10px 12px', color: 'var(--warm-600)', fontSize: 15 }}>{it.t}</a>)}
-                </div>
+                <div style={{ padding: '0 4px 12px' }}>{n.items.map((it) => <a key={it.t} href={it.href} style={{ display: 'block', padding: '10px 12px', color: 'var(--warm-600)', fontSize: 15 }}>{it.t}</a>)}</div>
               </details>
             ))}
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', padding: '14px 4px 4px' }}>
@@ -986,15 +963,8 @@ function Nav({ getStartedTone = 'midnight' }) {
         .mega4-item b{display:block;font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--warm-900);transition:color .2s cubic-bezier(.4,0,.2,1);}
         .mega4-item .d{display:block;font-size:13px;color:var(--warm-400);margin-top:6px;line-height:1.45;}
         .mega4-item:hover b{color:var(--ember);}
-        .mega4-head{display:block;font:700 11px/1 var(--font-body);letter-spacing:.08em;text-transform:uppercase;color:var(--warm-400);margin-bottom:16px;}
-        .mega4-link{display:block;padding:8px 0;}
-        .mega4-link b{font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--warm-900);transition:color .2s cubic-bezier(.4,0,.2,1);}
-        a.mega4-link:hover b{color:var(--ember);}
-        .mega4-soon{cursor:default;}
-        .mega4-soon b{color:var(--warm-400);}
-        .mega4-soon em{font-style:normal;font-size:12px;color:var(--warm-400);margin-left:7px;}
         .mega4-feat img{will-change:transform;}
-        .mega4-feat-soon:hover img{transform:none;}
+        .mega4-feat:hover img{transform:scale(1.05);}
         /* Nav over the dark Midnight surface: links + icons go light, in lockstep with the white logo. */
         .nav-on-dark .nav-desk a{color:rgba(255,255,255,.82) !important;}
         .nav-on-dark .nav-desk a:hover, .nav-on-dark .nav-desk a.is-open{color:#fff !important;}
@@ -1032,28 +1002,17 @@ function Nav({ getStartedTone = 'midnight' }) {
     }}>
       {NAV.map((n, i) => open === i && (
         <div key={n.label} className="wrap" style={{ display: 'grid', gridTemplateColumns: '1.55fr 1fr', gap: 'clamp(32px,5vw,72px)', alignItems: 'start' }} role="menu">
-          {n.columns ? (
-            <div className="mega4-cols" style={{ display: 'grid', gridTemplateColumns: `repeat(${n.columns.length},minmax(0,1fr))`, gap: '4px 40px', alignItems: 'start' }}>
-              {n.columns.map((col, ci) => (
-                <div key={ci} style={{ display: 'flex', flexDirection: 'column' }}>
-                  {col.top && <MegaLink link={col.top} />}
-                  {col.head && <span className="mega4-head" style={col.top ? { marginTop: 20 } : undefined}>{col.head}</span>}
-                  {col.links.map(l => <MegaLink key={l[0]} link={l} />)}
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="mega4-cols" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '28px 32px' }}>
-              {n.items.map(it => <MegaItem key={it.t} it={it} />)}
-            </div>
-          )}
-          <div className="mega4-feat mega4-feat-soon" style={{ position: 'relative', borderRadius: 'var(--r-lg)', overflow: 'hidden', aspectRatio: '16 / 10', display: 'block', boxShadow: 'var(--shadow-md)', cursor: 'default' }}>
-            <img src={encodeURI(NAV_FEAT[i].img)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <div className="mega4-cols" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '28px 32px' }}>
+            {n.items.map(it => <MegaItem key={it.t} it={it} />)}
+          </div>
+          <a href={NAV_FEAT[i].href} className="mega4-feat" style={{ position: 'relative', borderRadius: 'var(--r-lg)', overflow: 'hidden', aspectRatio: '16 / 10', display: 'block', boxShadow: 'var(--shadow-md)' }}>
+            <img src={encodeURI(NAV_FEAT[i].img)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform .5s cubic-bezier(.4,0,.2,1)' }} />
             <span className="mega4-feat-shade" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg,rgba(15,28,46,.15),rgba(15,28,46,.72))' }} />
             <span className="mf" style={{ position: 'absolute', inset: 'auto 20px 18px 20px', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#fff' }}>
-              <b style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 17 }}>Coming soon</b>
+              <b style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 17 }}>{NAV_FEAT[i].label}</b>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
             </span>
-          </div>
+          </a>
         </div>
       ))}
     </div>
@@ -1321,25 +1280,18 @@ function Hero({ dark = false, hex = 3, emphasis = 'equal' }) {
       <div className="hero2-glow" aria-hidden="true" />
       <HeroHexField />
       <div className="wrap hero2" style={{ position: 'relative', zIndex: 1 }}>
+        <h1 className="hero2-title" data-reveal>One affiliate marketing platform</h1>
+        <p className="hero2-sub" data-reveal data-reveal-delay="1">Browse thousands of brands to promote, or reach 800,000+ creators and publishers, and watch the sales and payouts happen in real time.</p>
         <div className="hero2-grid">
-          <div className="hero2-copy">
-            <h1 className="hero2-title" data-reveal>The affiliate platform that keeps everyone moving, faster.</h1>
-            <p className="hero2-sub" data-reveal data-reveal-delay="1">Brands grow with the right publishers, and publishers earn from the brands they love. Daily validation and faster payouts keep everyone moving.</p>
-            <div className="hero2-ctas" data-reveal data-reveal-delay="2">
-              <div className="hero2-cta">
-                <span className="hero2-kicker">For <i>Publisher</i></span>
-                <a href="/partners/" className="btn btn-primary btn-lg">Start Earning <Arrow /></a>
-              </div>
-              <div className="hero2-cta">
-                <span className="hero2-kicker adv">For <i>Advertiser</i></span>
-                <a href="/advertisers/" className="btn btn-advertiser btn-lg">Grow My Brand <Arrow /></a>
-              </div>
-            </div>
+          <div className="hero2-side pub" data-reveal data-reveal-delay="2">
+            <span className="hero2-kicker">For <i>Publisher</i></span>
+            <h2 className="hero2-h">Creators,<br />grow your income</h2>
+            <a href="/partners/" className="btn btn-primary btn-lg">Start Earning <Arrow /></a>
           </div>
 
           <div className="hero2-figure" data-reveal data-reveal-delay="1">
             <img src="media/figma/hero-figures-2026.png" alt="A creator and a brand partner growing together on Involve Asia" loading="eager" />
-            {/* single payout notification, top-left of the figure — swaps brand/amount on a random cadence */}
+            {/* single payout notification, in front of the creator — swaps brand/amount every 2s */}
             <div className="hero2-payouts" aria-hidden="true">
               <div className={'pcard' + (payVis ? '' : ' is-swapping')}>
                 <div className="pcard-row">
@@ -1359,39 +1311,46 @@ function Hero({ dark = false, hex = 3, emphasis = 'equal' }) {
               <HeroSales />
             </div>
           </div>
+
+          <div className="hero2-side adv" data-reveal data-reveal-delay="2">
+            <span className="hero2-kicker adv">For <i>Advertiser</i></span>
+            <h2 className="hero2-h">Brands,<br />grow your sales</h2>
+            <a href="/advertisers/" className="btn btn-advertiser btn-lg">Grow My Brand <Arrow /></a>
+          </div>
         </div>
-        {/* bottom fade — layered ABOVE the right-side figure but BEHIND the left copy/CTAs */}
-        <div className="hero2-basefade" aria-hidden="true" />
       </div>
+      {/* full-width fade — resolves the figures, honeycomb and glows to solid warm-50 at the
+          bottom so there's no colour seam into the logo strip below */}
+      <div className="hero2-basefade" aria-hidden="true" />
       <style>{`
-        .hero2{ text-align:left; }
-        .hero2-grid{ display:grid; grid-template-columns:minmax(0,1.32fr) minmax(360px,1fr); align-items:center; gap:clamp(24px,4vw,64px); }
-        .hero2-copy{ min-width:0; position:relative; z-index:3; }
-        .hero2-title{ font-size:clamp(28px,3.7vw,46px); line-height:1.07; letter-spacing:-.03em; max-width:640px; }
-        .hero2-sub{ margin:18px 0 0; max-width:560px; font-size:clamp(16px,1.4vw,18px); line-height:1.55; color:var(--warm-600); }
-        .hero2-ctas{ display:flex; flex-wrap:wrap; gap:clamp(16px,1.8vw,26px); margin-top:clamp(26px,3.4vh,38px); }
-        .hero2-cta{ display:flex; flex-direction:column; align-items:flex-start; gap:9px; }
+        .hero2{ text-align:center; }
+        .hero2-title{ font-size:clamp(34px,5.4vw,58px); line-height:1.02; letter-spacing:-.028em; }
+        .hero2-sub{ margin:18px auto 0; max-width:720px; font-size:clamp(15px,1.3vw,17px); line-height:1.6; color:var(--warm-600); }
+        .hero2-grid{ display:grid; grid-template-columns:1fr minmax(420px,560px) 1fr; align-items:center; gap:clamp(8px,2vw,28px); margin-top:clamp(28px,4vh,44px); text-align:left; }
+        .hero2-side{ display:flex; flex-direction:column; gap:20px; min-width:0; align-items:flex-start; margin-top:clamp(-140px,-10vw,-64px); }
+        .hero2-side.adv{ text-align:right; align-items:flex-end; }
         .hero2-kicker{ font:400 14px/1 var(--font-body); color:var(--warm-600); }
         .hero2-kicker i{ font-style:italic; font-weight:700; color:var(--ember); }
         .hero2-kicker.adv i{ color:var(--midnight-light); }
-        /* right figure stage — image + its floating cards. !important so the [data-reveal].in
-           rule can't reset a transform on reveal. */
-        .hero2-figure{ position:relative; align-self:center; z-index:1; }
-        .hero2-figure img{ display:block; width:100%; max-width:460px; height:auto; object-fit:contain; margin-left:auto; position:relative; z-index:1; }
-        /* inside the content wrap now, so break out to full viewport width; layered above the figure (z1), below the copy (z3) */
-        .hero2-basefade{ position:absolute; left:50%; width:100vw; transform:translateX(-50%); bottom:0; height:clamp(200px,34%,360px); z-index:2; pointer-events:none;
+        .hero2-h{ font-size:clamp(26px,2.9vw,40px); line-height:1.15; letter-spacing:-.03em; }
+        /* center figure stage — scaled 10% bigger and raised 15% (image + its floating cards move
+           together). !important so the [data-reveal].in rule can't reset the transform on reveal. */
+        .hero2-figure{ position:relative; align-self:stretch; min-height:clamp(360px,42vw,540px); display:flex; align-items:flex-end; justify-content:center; transform:translateY(-15%) scale(1.1) !important; transform-origin:center bottom; }
+        .hero2-figure img{ width:100%; max-width:480px; height:auto; object-fit:contain; position:relative; z-index:1; }
+        .hero2-basefade{ position:absolute; left:0; right:0; bottom:0; height:clamp(200px,34%,360px); z-index:1; pointer-events:none;
           background:linear-gradient(to bottom, rgba(250,250,248,0) 0%, rgba(250,250,248,0) 34%, rgba(250,250,248,.6) 66%, rgba(250,250,248,.95) 86%, var(--warm-50) 100%); }
         /* soft ember (bottom-left) + blue (bottom-right) colour glows */
         .hero2-glow{ position:absolute; inset:0; z-index:0; pointer-events:none;
           background:
             radial-gradient(44% 48% at 10% 94%, rgba(240,88,38,.15), rgba(240,88,38,0) 70%),
             radial-gradient(48% 52% at 92% 90%, rgba(106,156,223,.20), rgba(106,156,223,0) 70%); }
-        /* interactive honeycomb field behind the figures (now the right column) — exact Figma hexes, cursor-repelled */
-        .hexfield{ position:absolute; left:76%; top:46%; transform:translate(-50%,-50%); width:min(448px,40%); height:auto; z-index:0; pointer-events:none; }
+        /* interactive honeycomb field behind the figures — exact Figma hexes, cursor-repelled */
+        .hexfield{ position:absolute; left:50%; top:63%; transform:translate(-50%,-50%); width:min(700px,80%); height:auto; z-index:0; pointer-events:none; }
         .hexfield .hx{ will-change:transform; }
-        @media (max-width:980px){ .hexfield{ left:50%; width:min(540px,94%); top:auto; bottom:1%; transform:translateX(-50%); } }
-        /* single payout notification — top-left of the figure */
-        .hero2-payouts{ position:absolute; z-index:4; top:6%; left:-6%; width:min(230px,60%); }
+        @media (max-width:980px){ .hexfield{ width:min(540px,94%); top:auto; bottom:1%; transform:translateX(-50%); } }
+        /* single payout notification — sits in FRONT of the creator (left figure),
+           vertically centre-aligned with the .hero2-sales card (its centre is at ~67.5%). */
+        .hero2-payouts{ position:absolute; z-index:4; top:67.5%; left:-4%; width:min(248px,62%); transform:translateY(-50%); }
         .pcard{ background:#fff; border-radius:12px; box-shadow:var(--shadow-lg); padding:11px 14px; display:flex; flex-direction:column; gap:9px; will-change:transform,opacity; transition:opacity .34s ease, transform .34s ease; }
         .pcard.is-swapping{ opacity:0; transform:translateY(5px); }
         @media (prefers-reduced-motion: reduce){ .pcard{ transition:none; } }
@@ -1403,21 +1362,16 @@ function Hero({ dark = false, hex = 3, emphasis = 'equal' }) {
         .pcard-amt{ font:400 13px/1 var(--font-body); color:var(--warm-900); white-space:nowrap; }
         .pcard-amt strong{ font-weight:700; font-size:15px; }
         /* total-sales card */
-        .hero2-sales{ position:absolute; z-index:3; right:-6%; top:62%; background:#fff; border-radius:14px; box-shadow:var(--shadow-lg); padding:13px 16px; display:flex; flex-direction:column; gap:2px; max-width:210px; }
+        .hero2-sales{ position:absolute; z-index:3; right:0%; top:59%; background:#fff; border-radius:14px; box-shadow:var(--shadow-lg); padding:13px 16px; display:flex; flex-direction:column; gap:2px; max-width:210px; }
         .hs-label{ font:600 11px/1.3 var(--font-body); color:var(--warm-900); }
         .hs-sub{ font:400 10px/1 var(--font-body); color:var(--warm-400); font-style:italic; }
         .hs-num{ font-family:var(--font-display); font-weight:800; font-size:21px; letter-spacing:-.02em; color:var(--warm-900); margin-top:3px; }
         @media (max-width:980px){
-          .hero2{ text-align:center; }
-          .hero2-grid{ grid-template-columns:1fr; gap:clamp(16px,4vw,32px); }
-          .hero2-copy{ display:flex; flex-direction:column; align-items:center; }
-          .hero2-title{ max-width:none; }
-          .hero2-sub{ margin-left:auto; margin-right:auto; }
-          .hero2-ctas{ justify-content:center; }
-          .hero2-figure{ order:2; max-width:460px; margin:0 auto; }
-          .hero2-figure img{ margin:0 auto; }
-          .hero2-payouts{ width:min(220px,52%); left:0; top:4%; }
-          .hero2-sales{ right:0; top:60%; }
+          .hero2-grid{ grid-template-columns:1fr; gap:8px; margin-top:24px; }
+          .hero2-figure{ order:-1; min-height:0; max-width:520px; margin:0 auto; }
+          .hero2-side, .hero2-side.adv{ text-align:center; align-items:center; margin-top:0; }
+          .hero2-payouts{ width:min(240px,54%); left:0; top:auto; bottom:36%; transform:none; }
+          .hero2-sales{ right:0; top:52%; }
         }
         @media (max-width:560px){
           .hero2-payouts,.hero2-sales{ display:none; }
@@ -1445,27 +1399,6 @@ const LOGO_ROWS = 1;
 function TrustStrip() {
   const secRef = React.useRef(null);
   const tracksRef = React.useRef([]);
-  const [reps, setReps] = React.useState(1);
-  // Repeat each row until one loop spans the visible width, so no blank gap appears mid-scroll.
-  React.useEffect(() => {
-    const track = tracksRef.current.filter(Boolean)[0];
-    if (!track) return;
-    const marq = track.parentElement;
-    const imgs = Array.prototype.slice.call(track.querySelectorAll('img'));
-    const fit = () => {
-      if (imgs.some((im) => !im.complete)) return;         // wait until the logos are measurable
-      const baseW = track.scrollWidth / (2 * reps);
-      if (baseW < 40) return;
-      const need = Math.min(6, Math.max(1, Math.ceil((marq.clientWidth + 8) / baseW)));
-      if (need !== reps) setReps(need);
-    };
-    fit();
-    imgs.forEach((im) => im.addEventListener('load', fit));
-    window.addEventListener('resize', fit);
-    const ro = window.ResizeObserver ? new ResizeObserver(fit) : null;
-    if (ro) { ro.observe(track); ro.observe(marq); }
-    return () => { imgs.forEach((im) => im.removeEventListener('load', fit)); window.removeEventListener('resize', fit); if (ro) ro.disconnect(); };
-  }, [reps]);
   React.useEffect(() => {
     const tracks = tracksRef.current.filter(Boolean);
     if (tracks.length < LOGO_ROWS) return;
@@ -1509,7 +1442,7 @@ function TrustStrip() {
       window.addEventListener('resize', onResize);
     }
     return () => { if (raf) cancelAnimationFrame(raf); window.removeEventListener('resize', onResize); cleanups.forEach((fn) => fn()); };
-  }, [reps]);
+  }, []);
   const per = Math.ceil(LOGOS.length / LOGO_ROWS);
   const rows = Array.from({ length: LOGO_ROWS }, (_, i) => LOGOS.slice(i * per, i * per + per));
   return (
@@ -1519,9 +1452,7 @@ function TrustStrip() {
       </p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 30 }}>
         {rows.map((row, ri) => {
-          const oneLoop = [];
-          for (let k = 0; k < reps; k++) oneLoop.push(...row);
-          const dup = [...oneLoop, ...oneLoop];
+          const dup = [...row, ...row];
           return (
             <div className="marquee" key={ri}>
               <div ref={(el) => { tracksRef.current[ri] = el; }} className="marquee-track">
@@ -1666,7 +1597,7 @@ function KeepsMoving() {
         .km-ava img{ width:100%; height:100%; object-fit:contain; display:block; }
         /* center copy */
         .km-copy{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:min(860px,74%); text-align:center; z-index:4; }
-        .km-title{ font-size:clamp(24px,3vw,34px); line-height:1.14; letter-spacing:-.028em; color:var(--warm-900); }
+        .km-title{ font-size:clamp(28px,3.7vw,56px); line-height:1.14; letter-spacing:-.028em; color:var(--warm-900); }
         .km-sub{ margin-top:18px; font-size:clamp(15px,1.45vw,21px); line-height:1.5; color:var(--warm-600); }
         @media (max-width:900px){
           .km-stage{ aspect-ratio:auto; width:auto; }
@@ -1682,7 +1613,7 @@ function KeepsMoving() {
 /* ---------------- Section 4 — "See what's live right now." ----------------
    Live Brand Directory: category filter rail + grid of photo-background brand
    cards (scrim + brand mark + commission chip + publisher count). Static (Phase 1). */
-const LIVE_CATS = ['All', 'Marketplace', 'Fashion', 'Travel', 'Digital Services', 'Electronics', 'Health & Beauty'];
+const LIVE_CATS = ['All', 'Delivery & Logistics', 'Digital Services', 'Education', 'Electronics', 'Fashion', 'Finance', 'Food & Grocery', 'Gifting & Crafts', 'Health & Beauty', 'Home & Living', 'Involve Asia', 'Marketplace', 'Others'];
 const LIVE_BRANDS = [
   { name: 'Shopee', comm: '3.5', pub: '6,302' },
   { name: 'Uniqlo', comm: '3.5', pub: '2,214', boxed: true },
@@ -1693,40 +1624,25 @@ const LIVE_BRANDS = [
 ];
 function LiveDirectory() {
   const slug = (n) => n.toLowerCase();
-  const [cat, setCat] = React.useState(0);  // active category (instant swap, no motion)
-  // Mockup: each category maps to a randomized-but-stable subset of the brand
-  // list, seeded by the category index so a given category always shows the
-  // same set (and the numbers shift so the grid visibly re-filters on click).
-  const displayed = React.useMemo(() => {
-    if (cat === 0) return LIVE_BRANDS;
-    let seed = (cat + 1) * 747796405;
-    const rnd = () => { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; };
-    const arr = LIVE_BRANDS.slice();
-    for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); const t = arr[i]; arr[i] = arr[j]; arr[j] = t; }
-    const count = 3 + Math.floor(rnd() * 4); // 3..6
-    return arr.slice(0, count).map((b) => ({
-      ...b,
-      comm: (2 + rnd() * 6).toFixed(1),
-      pub: (500 + Math.floor(rnd() * 8500)).toLocaleString(),
-    }));
-  }, [cat]);
   return (
     <section id="offers" className="lb-sec sec-pad">
       <div className="wrap">
-        <div className="lb-layout" data-reveal>
-          <div className="lb-aside">
+        <div className="lb-head" data-reveal>
+          <div className="lb-head-l">
             <span className="lb-eyebrow"><i />Live Brand Directory</span>
             <h2 className="lb-title">See what's live right now.</h2>
-            <p className="lb-sub">Thousands of real brands, ready to promote. See what each one pays and how many creators are already on board.</p>
-            <div className="lb-rail">
-              {LIVE_CATS.map((c, i) => (
-                <button key={c} type="button" className={'lb-cat' + (i === cat ? ' on' : '')} aria-pressed={i === cat} onClick={() => setCat(i)}>{c}</button>
-              ))}
-            </div>
-            <a href="/advertisers/" className="lb-explore">Explore all offers <Arrow /></a>
+            <p className="lb-sub">Thousands of real brands, ready to promote. See what each one pays and how many creators are already on board. Filter by category to find your fit.</p>
           </div>
-          <div className="lb-grid" key={cat}>
-            {displayed.map((b) => (
+          <a href="/advertisers/" className="btn btn-secondary lb-explore">Explore all offers <Arrow /></a>
+        </div>
+        <div className="lb-layout" data-reveal>
+          <div className="lb-rail">
+            {LIVE_CATS.map((c, i) => (
+              <button key={c} type="button" className={'lb-cat' + (i === 0 ? ' on' : '')}>{c}</button>
+            ))}
+          </div>
+          <div className="lb-grid">
+            {LIVE_BRANDS.map((b) => (
               <a key={b.name} href="/advertisers/" className="lb-card">
                 <img className="lb-bg" src={`media/figma/s4-bg-${slug(b.name)}.png`} alt="" loading="lazy" />
                 <span className="lb-scrim" aria-hidden="true" />
@@ -1749,25 +1665,22 @@ function LiveDirectory() {
         </div>
       </div>
       <style>{`
-        .lb-sec{ background:var(--warm-50); padding:clamp(44px,5.4vh,68px) 0 !important; }
-        .lb-layout{ display:grid; grid-template-columns:minmax(280px,330px) 1fr; gap:clamp(28px,3vw,52px); align-items:start; }
-        .lb-aside{ display:flex; flex-direction:column; align-items:flex-start; }
+        .lb-sec{ background:var(--warm-50); }
+        .lb-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:24px; flex-wrap:wrap; }
         .lb-eyebrow{ display:inline-flex; align-items:center; gap:8px; font:600 14px/1 var(--font-body); color:var(--warm-900); }
         .lb-eyebrow i{ width:10px; height:10px; border-radius:50%; background:#10b981; opacity:.72; flex:0 0 auto; }
-        .lb-title{ font-size:clamp(24px,3vw,34px); line-height:1.05; letter-spacing:-.01em; margin-top:14px; }
-        .lb-sub{ margin-top:12px; max-width:none; font-size:16px; line-height:1.5; color:var(--warm-600); }
-        .lb-rail{ display:flex; flex-direction:column; gap:8px; margin-top:22px; align-items:flex-start; }
-        .lb-explore{ margin-top:22px; align-self:flex-start; display:inline-flex; align-items:center; gap:8px;
-          font:600 15px/1 var(--font-body); color:var(--warm-900); text-decoration:none; cursor:pointer; }
-        .lb-explore svg{ transition:transform .2s ease; }
-        .lb-explore:hover svg{ transform:translateX(3px); }
+        .lb-title{ font-size:clamp(32px,4.6vw,56px); line-height:1.03; letter-spacing:-.01em; margin-top:14px; }
+        .lb-sub{ margin-top:14px; max-width:640px; font-size:16px; line-height:1.5; color:var(--warm-600); }
+        .lb-explore{ flex:0 0 auto; margin-top:6px; border-color:var(--warm-900); color:var(--warm-900); }
+        .lb-layout{ display:grid; grid-template-columns:200px 1fr; gap:32px; align-items:start; margin-top:40px; }
+        .lb-rail{ display:flex; flex-direction:column; gap:8px; position:sticky; top:96px; }
         .lb-cat{ text-align:left; border:1px solid var(--warm-900); background:#fff; color:var(--warm-900); border-radius:9999px;
           padding:9px 17px; font:600 15px/1 var(--font-body); cursor:pointer; opacity:.32; width:max-content; max-width:100%;
           transition:opacity .15s, background .15s, color .15s; white-space:nowrap; }
         .lb-cat:hover{ opacity:.72; }
         .lb-cat.on{ background:var(--warm-900); color:#fff; opacity:1; }
-        .lb-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
-        .lb-card{ position:relative; min-width:0; aspect-ratio:298/334; border-radius:20px; overflow:hidden; display:flex; flex-direction:column;
+        .lb-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+        .lb-card{ position:relative; aspect-ratio:298/334; border-radius:8px; overflow:hidden; display:flex; flex-direction:column;
           text-decoration:none; transition:transform .22s cubic-bezier(.22,1,.36,1), box-shadow .22s; }
         .lb-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-lg); }
         .lb-bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
@@ -1778,39 +1691,22 @@ function LiveDirectory() {
         .lb-logobox{ width:68px; height:68px; border-radius:7px; overflow:hidden; background:#fff; display:flex; align-items:center; justify-content:center; }
         .lb-logobox img{ width:100%; height:100%; object-fit:cover; }
         .lb-foot{ position:relative; z-index:2; margin-top:auto; padding:0 17px 15px; display:flex; flex-direction:column; gap:11px; align-items:center; }
-        .lb-chip{ width:100%; background:#fff; border-radius:12px; padding:7px 7px 7px 14px; display:flex; align-items:center; justify-content:space-between; gap:8px; }
+        .lb-chip{ width:100%; background:#fff; border-radius:8px; padding:7px 7px 7px 14px; display:flex; align-items:center; justify-content:space-between; gap:8px; }
         .lb-chip-t{ display:flex; flex-direction:column; line-height:1.25; }
         .lb-chip-t small{ font:400 13px/1.2 var(--font-body); color:var(--warm-600); }
         .lb-chip-t b{ font:600 16px/1.2 var(--font-body); color:var(--warm-900); }
-        .lb-arr{ flex:0 0 auto; width:42px; height:42px; border-radius:10px; background:rgba(15,28,46,.10); color:var(--midnight); display:flex; align-items:center; justify-content:center; transition:background .2s ease, color .2s ease; }
+        .lb-arr{ flex:0 0 auto; width:42px; height:42px; border-radius:8px; background:rgba(15,28,46,.10); color:var(--midnight); display:flex; align-items:center; justify-content:center; transition:background .2s ease, color .2s ease; }
         .lb-arr svg{ transform:rotate(-45deg); }
-        .lb-card:hover .lb-arr{ border-radius:10px; background:#0F1C2E; color:#fff; }
+        .lb-card:hover .lb-arr{ border-radius:8px; background:#0F1C2E; color:#fff; }
         .lb-pub{ font:400 13px/1.2 var(--font-body); color:rgba(255,255,255,.82); text-align:center; }
         @media (max-width:1000px){
-          .lb-layout{ grid-template-columns:minmax(0,1fr); gap:22px; }
-          .lb-aside{ align-items:stretch; min-width:0; }
-          .lb-rail{ flex-direction:row; flex-wrap:nowrap; overflow-x:auto; gap:8px; padding-bottom:6px; scrollbar-width:none; }
+          .lb-layout{ grid-template-columns:1fr; gap:20px; }
+          .lb-rail{ position:static; flex-direction:row; flex-wrap:nowrap; overflow-x:auto; gap:8px; padding-bottom:6px; scrollbar-width:none; }
           .lb-rail::-webkit-scrollbar{ display:none; }
           .lb-cat{ flex:0 0 auto; }
-          .lb-explore{ align-self:flex-start; }
-          .lb-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+          .lb-grid{ grid-template-columns:repeat(2,1fr); }
         }
-        @media (max-width:720px){ .lb-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
-        /* two columns on phones — shrink the card internals so the chip + arrow fit the narrow card */
-        @media (max-width:520px){
-          .lb-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
-          .lb-card{ aspect-ratio:170/216; border-radius:16px; }
-          .lb-name{ font-size:14px; margin-top:12px; }
-          .lb-logo{ width:58px; height:58px; }
-          .lb-logobox{ width:52px; height:52px; }
-          .lb-foot{ padding:0 9px 11px; gap:7px; }
-          .lb-chip{ padding:6px 6px 6px 11px; border-radius:10px; }
-          .lb-chip-t small{ font-size:10.5px; }
-          .lb-chip-t b{ font-size:13px; }
-          .lb-arr{ width:30px; height:30px; border-radius:8px; }
-          .lb-arr svg{ width:15px; height:15px; }
-          .lb-pub{ font-size:11px; }
-        }
+        @media (max-width:560px){ .lb-head{ flex-direction:column; } .lb-grid{ grid-template-columns:1fr; } }
       `}</style>
     </section>
   );
@@ -1964,52 +1860,52 @@ function OffersSection() {
    with floating live-UI cards (left) + step copy and a testimonial (right).
    Static (Phase 1); overlay cards rebuilt in CSS for crispness. */
 const START_STEPS = [
-  { n: 'Step 1', title: 'Match', img: 'home-start-img-01.png', overlay: 'match',
+  { n: 'Step 1', title: 'Match', img: 's5-step1.png', overlay: 'match',
     desc: 'Match you with the right brands, or the right creators. No cold outreach.',
     quote: '“Found 40 brands to promote in a day, the filter and category makes the process much easier.”',
     name: 'John Doe', role: 'Publisher · Food Blogger', avatar: 's5-avatar-1.png' },
-  { n: 'Step 2', title: 'Go live', img: 'home-start-img-02.png', overlay: 'golive',
+  { n: 'Step 2', title: 'Go live', img: 's5-step2.png', overlay: 'golive',
     desc: 'Then you go live, your way. Share a link, drop a coupon, add a banner, or launch a full campaign.',
     quote: '“Involve Asia did a great job in guiding us on what info needed and launched our campaign in an afternoon.”',
     name: 'Brand Name', role: 'Advertiser · Brand Category', avatar: 's5-avatar-3.png' },
-  { n: 'Step 3', title: 'Track', img: 'home-start-img-03.png', overlay: 'track',
+  { n: 'Step 3', title: 'Track', img: 's5-step3.png', overlay: 'track',
     desc: 'Watch every click, sale, and payout update in real time.',
     quote: '“Found 40 brands to promote in a day, the filter and category makes the process much easier.”',
     name: 'Jane Doe', role: 'Publisher · Lifestyle Content Creator', avatar: 's5-avatar-2.png' },
-  { n: 'Step 4', title: 'Grow and get paid', img: 'home-start-img-04.png', overlay: 'payout',
+  { n: 'Step 4', title: 'Grow and get paid', img: 's5-step4.png', overlay: 'payout',
     desc: "Creators get paid for every sale they drive. Brands grow from those sales, and only pay when they're real and verified.",
     quote: '“The data provided is clear which makes the validation process easier, and we only pay when it actually converts.”',
     name: 'Brand Name', role: 'Advertiser · Brand Category', avatar: 's5-avatar-3.png' },
 ];
 function StartOverlay({ type }) {
   if (type === 'match') return (
-    <div className="st-ov st-ov-center" aria-hidden="true">
-      <div className="st-glass st-match-g">
-        <span className="st-ov-lbl">Recommended</span>
-        <div className="st-picks">
-          {[['JD Sports', '3.5', '#0F1C2E', 'JD-ft-img.png'], ['PUMA', '2.1', '#1A2E47', 'PUMA-ft-img.png']].map(([b, c, bg, logo]) => (
-            <div className="st-pick" key={b}>
-              <span className="st-pick-th" style={{ background: bg }}><img src={`media/figma/${logo}`} alt={`${b} logo`} /></span>
-              <span className="st-pick-t"><b className="st-pick-name">{b}</b><span className="st-pick-comm"><small>Up to</small>{c}% commission</span></span>
-            </div>
-          ))}
-        </div>
+    <div className="st-ov st-ov-match" aria-hidden="true">
+      <span className="st-ov-lbl">You may like these:</span>
+      <div className="st-picks">
+        {[['JD Sports', '3.5', '#0F1C2E', 'logo-jdsports.png'], ['Puma', '2.1', '#1A2E47', 'logo-puma.png']].map(([b, c, bg, logo]) => (
+          <div className="st-pick" key={b}>
+            <span className="st-pick-th" style={{ background: bg }}><img src={`media/figma/${logo}`} alt={`${b} logo`} /></span>
+            <span className="st-pick-t"><b>{b}</b><small>Up to {c}% commission</small></span>
+          </div>
+        ))}
       </div>
     </div>
   );
   if (type === 'golive') return (
-    <div className="st-ov st-ov-center" aria-hidden="true">
-      <div className="st-glass st-pill-g"><div className="st-deeplink"><span className="st-link-ic">🔗</span>invl.me/yourDeepLink</div></div>
+    <div className="st-ov st-ov-golive" aria-hidden="true">
+      <div className="st-glass st-product-g"><div className="st-product"><img src="media/figma/s5-serum.png" alt="" /><span>Serum M</span></div></div>
+      <div className="st-glass st-deeplink-g"><div className="st-deeplink"><span className="st-link-ic">🔗</span>invl.me/yourDeepLink</div></div>
     </div>
   );
   if (type === 'track') return (
-    <div className="st-ov st-ov-center" aria-hidden="true">
-      <div className="st-glass st-pill-g"><div className="st-stat"><span className="st-stat-lbl"><em className="st-stat-ic">↗</em> Conversion Rate</span><span className="st-stat-row"><b>12<small>%</small></b><em>↑21%</em></span></div></div>
+    <div className="st-ov st-ov-track" aria-hidden="true">
+      <div className="st-glass st-stat-a"><div className="st-stat"><span className="st-stat-lbl">＄ Total Sales</span><span className="st-stat-row"><b>136,578</b><em>↑36%</em></span></div></div>
+      <div className="st-glass st-stat-b"><div className="st-stat"><span className="st-stat-lbl">Conversion Rate</span><span className="st-stat-row"><b>12<small>%</small></b><em>↑21%</em></span></div></div>
     </div>
   );
   if (type === 'payout') return (
-    <div className="st-ov st-ov-center" aria-hidden="true">
-      <div className="st-glass st-pill-g"><div className="st-payout"><span className="st-payout-l">Payout Received</span><span className="st-payout-n">+ $48</span></div></div>
+    <div className="st-ov st-ov-payout" aria-hidden="true">
+      <div className="st-glass st-payout-g"><div className="st-payout"><span className="st-payout-l">Payout Received</span><span className="st-payout-n">+ $48</span></div></div>
     </div>
   );
   return null;
@@ -2129,78 +2025,86 @@ function StartAnimated() {
 }
 
 function StartToday() {
+  const [animate] = React.useState(() =>
+    typeof window !== 'undefined' && !!(window.gsap && window.ScrollTrigger) &&
+    window.matchMedia('(min-width:901px)').matches &&
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
   return (
-    <section id="how" className="st-sec sec-pad">
-      <div className="wrap">
-        <div className="st-head" data-reveal>
-          <h2 className="st-title">Simple enough to start today.</h2>
-          <p className="st-sub">Whether you're here to earn or to grow, you're four steps from live.</p>
-        </div>
-        <div className="st-grid">
-          {START_STEPS.map((s, i) => (
-            <div className="st-col" key={s.title} data-reveal data-reveal-delay={i + 1}>
-              <div className="st-figure">
-                <img className="st-photo" src={`media/figma/${s.img}`} alt={`${s.title} step`} loading="lazy" />
-                <StartOverlay type={s.overlay} />
-              </div>
-              <h3 className="st-h">{s.title}</h3>
-              <p className="st-desc">{s.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+    <>
+      {animate ? <StartAnimated /> : <StartStatic />}
       <style>{`
         .st-sec{ background:var(--warm-50); position:relative; overflow:hidden; }
         .st-head{ text-align:center; max-width:900px; margin:0 auto; }
-        .st-title{ font-size:clamp(24px,3vw,34px); line-height:1.03; letter-spacing:-.01em; }
+        .st-title{ font-size:clamp(30px,4.6vw,56px); line-height:1.03; letter-spacing:-.01em; }
         .st-sub{ margin-top:14px; color:var(--warm-600); font-size:16px; }
-        /* 4-across step grid (concept-8) */
-        .st-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(18px,1.8vw,30px); margin:clamp(36px,5vh,60px) auto 0; }
-        .st-col{ display:flex; flex-direction:column; }
-        .st-figure{ position:relative; border-radius:24px; overflow:hidden; aspect-ratio:1; background:var(--warm-200); }
+        .st-steps{ display:flex; flex-direction:column; gap:clamp(48px,7vh,96px); margin:clamp(48px,7vh,88px) auto 0; max-width:1000px; }
+        .st-step{ display:grid; grid-template-columns:minmax(0,460px) 1fr; gap:clamp(28px,5vw,72px); align-items:center; }
+        /* figure */
+        .st-figure{ position:relative; border-radius:24px; overflow:hidden; aspect-ratio:20/21; background:var(--warm-200); }
         .st-photo{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-        .st-ov{ position:absolute; }
-        .st-ov-center{ inset:0; display:flex; align-items:center; justify-content:center; padding:14px; z-index:2; }
+        .st-ov{ position:absolute; z-index:2; }
+        .st-ov-golive, .st-ov-track, .st-ov-payout{ inset:0; }
         .st-ov b, .st-ov small, .st-ov span, .st-ov em{ font-family:var(--font-body); }
-        /* frosted glass frame wrapping each single UI card (Figma) */
-        .st-glass{ background:rgba(255,255,255,.46); -webkit-backdrop-filter:blur(9px); backdrop-filter:blur(9px); border-radius:18px; padding:8px; box-shadow:0 10px 28px rgba(15,28,46,.16); }
-        .st-match-g{ width:88%; max-width:224px; }
-        .st-pill-g{ max-width:100%; }
+        /* shared translucent glass frame behind each UI card (Figma: rgba(255,255,255,.32) box) */
+        .st-glass{ position:absolute; background:rgba(255,255,255,.32); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); border-radius:18px; padding:7px; box-shadow:0 8px 24px rgba(15,28,46,.12); }
         /* match overlay */
-        .st-ov-lbl{ display:block; color:#fff; font-size:13px; font-weight:600; margin:2px 4px 8px; text-shadow:0 1px 8px rgba(0,0,0,.4); }
-        /* subtle staggered entrance for each card's floating UI, once the card reveals */
-        .st-col .st-ov-center > *{ opacity:0; transform:translateY(12px) scale(.98); transition:opacity .55s cubic-bezier(.4,0,.2,1), transform .55s cubic-bezier(.4,0,.2,1); }
-        .st-col.in .st-ov-center > *{ opacity:1; transform:none; transition-delay:.28s; }
-        @media (prefers-reduced-motion: reduce){ .st-col .st-ov-center > *{ opacity:1; transform:none; transition:none; } }
+        .st-ov-match{ right:16px; bottom:18px; width:64%; max-width:224px; background:rgba(255,255,255,.32); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); border-radius:18px; padding:10px; box-shadow:0 8px 24px rgba(15,28,46,.12); }
+        .st-ov-lbl{ display:block; color:#fff; font-size:13px; font-weight:600; margin:2px 4px 8px; text-shadow:0 4px 10px rgba(0,0,0,.35); }
         .st-picks{ display:flex; flex-direction:column; gap:7px; }
         .st-pick{ display:flex; align-items:center; gap:9px; background:#fff; border-radius:11px; padding:8px 10px; }
-        .st-pick-th{ width:40px; height:40px; border-radius:7px; flex:0 0 auto; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+        .st-pick-th{ width:34px; height:34px; border-radius:6px; flex:0 0 auto; display:flex; align-items:center; justify-content:center; overflow:hidden; }
         .st-pick-th img{ width:74%; height:74%; object-fit:contain; }
-        .st-pick-name{ display:block; font:400 13px/1.25 var(--font-body); color:var(--warm-900); }
-        .st-pick-comm{ display:block; margin-top:3px; font:700 14px/1.15 var(--font-body); color:var(--warm-900); }
-        .st-pick-comm small{ display:block; font:600 10px/1.2 var(--font-body); color:var(--warm-600); }
-        /* go live — deeplink pill */
-        .st-deeplink{ display:inline-flex; align-items:center; gap:8px; background:#fff; border-radius:12px; padding:10px 15px; font-size:14px; font-weight:600; color:var(--warm-900); white-space:nowrap; }
+        .st-pick-t b{ display:block; font-size:12px; color:var(--warm-900); font-weight:600; }
+        .st-pick-t small{ display:block; font-size:11px; color:var(--warm-600); }
+        /* go live overlay */
+        .st-product-g{ left:18px; bottom:92px; width:120px; }
+        .st-product{ display:flex; flex-direction:column; gap:6px; }
+        .st-product img{ width:100%; aspect-ratio:1; object-fit:cover; border-radius:11px; display:block; }
+        .st-product span{ color:#fff; font-size:13px; text-shadow:0 4px 10px rgba(0,0,0,.35); }
+        .st-deeplink-g{ right:16px; bottom:20px; }
+        .st-deeplink{ display:inline-flex; align-items:center; gap:8px; background:#fff; border-radius:12px; padding:10px 15px; font-size:14px; font-weight:600; color:var(--warm-900); }
         .st-link-ic{ font-size:13px; }
-        /* track — conversion-rate card */
-        .st-stat{ background:#fff; border-radius:12px; padding:9px 13px; display:flex; flex-direction:column; gap:4px; }
-        .st-stat-lbl{ display:flex; align-items:center; gap:5px; font-size:13px; font-weight:600; color:var(--warm-900); white-space:nowrap; }
-        .st-stat-ic{ font-style:normal; color:var(--warm-900); }
+        /* track overlay */
+        .st-stat-a{ right:18px; top:calc(26px + 30%); }
+        .st-stat-b{ left:18px; bottom:40px; }
+        .st-stat{ background:#fff; border-radius:12px; padding:9px 13px; display:flex; flex-direction:column; gap:4px; min-width:118px; }
+        .st-stat-lbl{ font-size:13px; font-weight:600; color:var(--warm-900); }
         .st-stat-row{ display:flex; align-items:baseline; gap:8px; }
         .st-stat-row b{ font-size:21px; font-weight:700; color:var(--warm-900); }
         .st-stat-row b small{ font-size:14px; }
         .st-stat-row em{ font-style:normal; font-size:12px; font-weight:700; color:#047857; background:#d1fae5; border-radius:6px; padding:2px 6px; }
-        /* payout pill */
-        .st-payout{ display:inline-flex; align-items:center; gap:14px; background:#fff; border-radius:12px; padding:11px 17px; white-space:nowrap; }
+        /* payout overlay */
+        .st-payout-g{ left:18px; bottom:22px; }
+        .st-payout{ display:inline-flex; align-items:center; gap:14px; background:#fff; border-radius:12px; padding:11px 17px; }
         .st-payout-l{ font-size:14px; font-weight:600; color:var(--warm-900); }
         .st-payout-n{ font-size:20px; font-weight:700; color:var(--warm-900); }
         /* body */
-        .st-h{ font-size:clamp(19px,1.5vw,23px); line-height:1.2; letter-spacing:-.01em; margin-top:18px; }
-        .st-desc{ margin-top:9px; color:var(--warm-600); font-size:16px; line-height:1.5; }
-        @media (max-width:900px){ .st-grid{ grid-template-columns:repeat(2,1fr); gap:26px; } }
-        @media (max-width:520px){ .st-grid{ grid-template-columns:1fr; } .st-figure{ max-width:380px; } }
+        .st-n{ font:700 16px/1 var(--font-body); color:var(--warm-600); }
+        .st-h{ font-size:clamp(30px,3.4vw,48px); line-height:1.1; letter-spacing:-.01em; margin-top:12px; }
+        .st-desc{ margin-top:14px; color:var(--warm-600); font-size:16px; line-height:1.35; max-width:440px; }
+        .st-quote{ margin-top:72px; font-style:italic; color:var(--warm-600); font-size:16px; line-height:1.45; max-width:420px; }
+        .st-person{ margin-top:16px; display:flex; align-items:center; gap:12px; }
+        .st-person img{ width:48px; height:48px; border-radius:50%; object-fit:cover; background:var(--warm-200); flex:0 0 auto; }
+        .st-person-t b{ display:block; color:var(--warm-600); font-size:16px; font-weight:700; }
+        .st-person-t span{ display:block; color:var(--warm-600); font-size:15px; }
+        @media (max-width:820px){
+          .st-step{ grid-template-columns:1fr; gap:24px; }
+          .st-figure{ max-width:460px; margin:0 auto; width:100%; }
+          .st-desc, .st-quote{ max-width:none; }
+        }
+        /* ---- animated pinned deck (desktop) ---- */
+        .st2-sec{ background:var(--warm-50); position:relative; }
+        .st2-stage{ min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:64px 0; }
+        .st2-head{ text-align:center; max-width:900px; margin:0 auto clamp(24px,4vh,52px); }
+        .st2-cols{ display:grid; grid-template-columns:minmax(0,440px) minmax(0,1fr); gap:clamp(40px,6vw,96px); align-items:center; max-width:1080px; width:100%; margin:0 auto; }
+        .st2-stack{ position:relative; width:100%; aspect-ratio:20/21; }
+        .st2-card{ position:absolute; inset:0; border-radius:24px; overflow:hidden; background:var(--warm-200); box-shadow:0 24px 60px rgba(15,28,46,.16); will-change:opacity; }
+        .st2-textwrap{ display:grid; }
+        .st2-text{ grid-area:1/1; align-self:center; will-change:opacity,transform; }
+        .st2-text .st-quote{ margin-top:clamp(20px,3.2vh,44px); }
       `}</style>
-    </section>
+    </>
   );
 }
 
@@ -2213,98 +2117,129 @@ function StartToday() {
    last. Sizes use container units so the composition scales with the banner width.
    Reduced-motion / mobile fall back to the static final composition. */
 function SupportBanner() {
-  const secRef = React.useRef(null);
+  const bannerRef = React.useRef(null);
 
-  // Chat-pill motion (concept-8): typing dots → morph wider → reveal "How can we help today?",
-  // then STOP (no exit / no photo blur). Fires once when the section enters the viewport.
-  // Static fallback (no GSAP / reduced motion): CSS resting state already shows the final bubbles.
   React.useEffect(() => {
     const gsap = window.gsap, ST = window.ScrollTrigger;
-    const root = secRef.current;
-    if (!root || !gsap || !ST || prefersReduced()) return;
+    const banner = bannerRef.current;
+    if (!banner || !gsap || !ST) return;                                   // no GSAP → CSS final state
+    if (prefersReduced() || window.matchMedia('(max-width:820px)').matches) return;
     gsap.registerPlugin(ST);
-    const q = (s) => root.querySelector(s);
-    const pill = q('.sup-pill'), dots = q('.sup-pill-dots'), ans = q('.sup-pill-answer'), hello = q('.sup-hello');
-    const natW = Math.round(pill.getBoundingClientRect().width);           // measure resting width (answer shown)
+    const q = (s) => banner.querySelector(s);
+    const photo = q('.sup-photo'), chat = q('.sup-chat'), pill = q('.sup-chat-pill'),
+          dots = q('.sup-chat-dots'), ans = q('.sup-chat-answer'),
+          title = q('.sup-title'), desc = q('.sup-desc'),
+          left = q('.sup-left'), glass = q('.sup-glass');
     const ctx = gsap.context(() => {
-      gsap.set(pill, { width: 52, autoAlpha: 0 });                         // dot pill, hidden until after "Hello."
+      // pre-entrance: pill ready (typing), photo blurred-out, content hidden
+      gsap.set(chat, { display: 'flex', autoAlpha: 0 });
+      gsap.set(pill, { width: '15%' });
       gsap.set(dots, { autoAlpha: 1 });
-      gsap.set(ans, { autoAlpha: 0 });
-      gsap.set(hello, { autoAlpha: 0, y: 6, scale: 0.9 });
-      pill.classList.remove('is-typing');
+      gsap.set(ans, { autoAlpha: 0, y: 8 });
+      gsap.set(photo, { autoAlpha: 0 });
+      photo.style.filter = 'blur(22px)';
+      gsap.set([title, desc, left, glass], { autoAlpha: 0, y: 24 });
+      pill.classList.remove('is-typing');   // typing starts when the entrance plays (below), not on mount
+      const blur = { v: 22 };
       const tl = gsap.timeline({
-        scrollTrigger: { trigger: root, start: 'top 72%', once: true },
+        scrollTrigger: { trigger: banner, start: 'top 62%', once: true },
         defaults: { ease: 'power2.out' },
       });
-      tl.to(hello, { autoAlpha: 1, y: 0, scale: 1, duration: 0.4 }, 0.15); // 1 "Hello." comes out FIRST
-      tl.to(pill, { autoAlpha: 1, duration: 0.3 }, 0.95);                  // 2 then the dot pill appears…
-      tl.call(() => pill.classList.add('is-typing'), null, 1.05);          //   …dots do ONE bounce round
-      tl.to(pill, { width: natW, duration: 0.5, ease: 'power3.out' }, 2.0);           // 3 morph wider…
-      tl.to(pill, { scaleY: 1.06, duration: 0.13, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 2.0);
-      tl.to(dots, { autoAlpha: 0, duration: 0.2, onStart: () => pill.classList.remove('is-typing') }, 2.05);
-      tl.to(ans, { autoAlpha: 1, duration: 0.35 }, 2.4);                   // 4 …reveal "How can we help today?" — STOP here
-    }, root);
+      tl.to(chat, { autoAlpha: 1, duration: 0.3 }, 0.0);                    // 1 pill in
+      tl.call(() => pill.classList.add('is-typing'), null, 0.1);            //   dots do ONE bounce round as it enters
+      tl.to(pill, { width: '34%', duration: 0.55, ease: 'power3.out' }, 1.15);   // 2 after ONE dot round → morph wider…
+      tl.to(pill, { scaleY: 1.06, duration: 0.13, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 1.15);
+      tl.to(dots, { autoAlpha: 0, duration: 0.22, onStart: () => pill.classList.remove('is-typing') }, 1.19);
+      tl.to(ans, { autoAlpha: 1, y: 0, duration: 0.4 }, 1.92);              //   …reveal the answer
+      tl.to(chat, { autoAlpha: 0, duration: 0.45, ease: 'power2.in' }, 3.15);   // 3 pill exits…
+      tl.to(pill, { scale: 0.9, y: 10, duration: 0.45, ease: 'power2.in' }, 3.15);
+      tl.to(blur, { v: 0, duration: 0.95, onUpdate: () => { photo.style.filter = 'blur(' + blur.v + 'px)'; } }, 3.25); // 4 photo blur-reveal
+      tl.to(photo, { autoAlpha: 1, duration: 0.95 }, 3.25);
+      tl.to([title, desc], { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.12 }, 4.05);   // 5 title + copy
+      tl.to([left, glass], { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.16 }, 4.6);    // 6 figure + testimonial last
+    }, banner);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section id="support" className="sup-sec sec-pad" ref={secRef}>
-      <div className="wrap sup-grid">
-        <div className="sup-left">
-          <h2 className="sup-title" data-reveal>Real human support, at every step.</h2>
-          <p className="sup-desc" data-reveal data-reveal-delay="1">Not bots, not dead-end FAQs. Real people who know the platform and are ready to help, whether you're a creator setting up your first link or a brand launching your biggest campaign.</p>
-          <div className="sup-badge" data-reveal data-reveal-delay="2">
-            <p className="sup-badge-lbl">95% of users rate our support as great.</p>
-            <div className="sup-quote-card">
+    <section id="support" className="sup-sec sec-pad">
+      <div className="wrap">
+        <div className="sup-banner" ref={bannerRef}>
+          <img className="sup-photo" src="media/figma/s6-support.png" alt="An Involve Asia support specialist helping a partner" loading="lazy" />
+          <div className="sup-chat" aria-hidden="true">
+            <div className="sup-chat-pill">
+              <div className="sup-chat-dots"><i /><i /><i /></div>
+              <span className="sup-chat-answer">How can we help today?</span>
+            </div>
+          </div>
+          <div className="sup-left">
+            <svg className="sup-pct" viewBox="0 0 300 168" role="img" aria-label="95% of users rate our support as great">
+              <defs>
+                <mask id="supPctMask">
+                  <rect x="0" y="0" width="300" height="168" fill="#000" />
+                  <text className="sup-pct-glyph" x="2" y="150">95<tspan className="sup-pct-sm" dy="-6">%</tspan></text>
+                </mask>
+              </defs>
+              {/* frosted-glass fill: blur layer clipped to the glyph shapes */}
+              <foreignObject x="0" y="0" width="300" height="168" mask="url(#supPctMask)">
+                <div xmlns="http://www.w3.org/1999/xhtml" className="sup-pct-frost" />
+              </foreignObject>
+              {/* translucent white tint on top of the glyphs */}
+              <text className="sup-pct-glyph sup-pct-tint" x="2" y="150">95<tspan className="sup-pct-sm" dy="-6">%</tspan></text>
+            </svg>
+            <span className="sup-pct-cap">of users rate<br />our support as great.</span>
+          </div>
+          <div className="sup-right">
+            <h2 className="sup-title">Real human support,<br />at every step.</h2>
+            <p className="sup-desc">Not bots, not dead-end FAQs. Real people who know the platform and are ready to help, whether you're a creator setting up your first link or a brand launching your biggest campaign.</p>
+            <div className="sup-glass">
               <p className="sup-quote">“It's easy to reach customer service, and they fix things quickly.”</p>
               <p className="sup-verified">Verified Publisher</p>
             </div>
           </div>
         </div>
-        <div className="sup-figure" data-reveal data-reveal-delay="1">
-          <span className="sup-glow" aria-hidden="true" />
-          <div className="sup-photo"><img src="media/figma/s6-support-2026.png" alt="An Involve Asia support specialist" loading="lazy" /></div>
-          <div className="sup-hello" aria-hidden="true">Hello.</div>
-          <div className="sup-pill" aria-hidden="true">
-            <span className="sup-pill-dots"><i /><i /><i /></span>
-            <span className="sup-pill-answer">How can we help today?</span>
-          </div>
-        </div>
       </div>
       <style>{`
-        .sup-sec{ background:var(--warm-50); overflow:hidden; }
-        .sup-grid{ display:grid; grid-template-columns:minmax(0,1.28fr) minmax(320px,438px); gap:clamp(32px,5vw,80px); align-items:center; }
-        .sup-title{ color:var(--warm-900); font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.01em; }
-        .sup-desc{ margin-top:16px; color:var(--warm-600); font-size:16px; line-height:1.5; max-width:560px; }
-        .sup-badge{ margin-top:26px; }
-        .sup-badge-lbl{ font:600 15px/1.4 var(--font-body); color:var(--warm-900); }
-        .sup-quote-card{ margin-top:12px; background:#fff; border-radius:14px; padding:16px 18px; box-shadow:0 10px 30px rgba(15,28,46,.06); max-width:540px; }
-        .sup-quote{ font-style:italic; color:var(--warm-600); font-size:16px; line-height:1.5; }
-        .sup-verified{ margin-top:6px; color:var(--ember); font-weight:700; font-size:14px; }
-        /* hexagon portrait + chat bubbles */
-        .sup-figure{ position:relative; width:100%; max-width:438px; margin-left:auto; aspect-ratio:379/427; }
-        .sup-glow{ position:absolute; inset:-12% -10%; z-index:0; background:radial-gradient(52% 46% at 44% 66%, rgba(240,88,38,.16), rgba(240,88,38,0) 70%); }
-        /* hexagon fill (behind the cut-out portrait) + the same hexagon mask so bg & photo clip together */
-        .sup-photo{ position:absolute; inset:0; z-index:1; overflow:hidden;
-          background:radial-gradient(60% 44% at 42% 78%, rgba(240,88,38,.18), rgba(240,88,38,0) 62%), linear-gradient(180deg,#ECECE6 0%,#F4F4F0 100%);
-          -webkit-mask:url(media/figma/s6-hex-mask.svg) center/100% 100% no-repeat; mask:url(media/figma/s6-hex-mask.svg) center/100% 100% no-repeat; }
-        .sup-photo img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center bottom; display:block; }
-        .sup-hello, .sup-pill{ position:absolute; z-index:3; background:#fff; border-radius:999px; box-shadow:0 12px 30px rgba(15,28,46,.18); font-family:var(--font-body); color:var(--warm-900); }
-        .sup-hello{ right:6%; top:36%; padding:9px 18px; font-weight:700; font-size:15px; }
-        .sup-pill{ left:6%; top:48%; height:42px; display:flex; align-items:center; justify-content:center; padding:0 16px; overflow:hidden; transform-origin:left center; }
-        .sup-pill-answer{ white-space:nowrap; font-weight:700; font-size:14px; letter-spacing:-.01em; }
-        .sup-pill-dots{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; gap:6px; opacity:0; }
-        .sup-pill-dots i{ width:8px; height:8px; border-radius:50%; background:var(--warm-900); }
-        .sup-pill.is-typing .sup-pill-dots i{ animation:supDot 0.84s ease-in-out 1 both; }
-        .sup-pill.is-typing .sup-pill-dots i:nth-child(2){ animation-delay:.104s; }
-        .sup-pill.is-typing .sup-pill-dots i:nth-child(3){ animation-delay:.208s; }
-        @keyframes supDot{ 0%,62%,100%{ transform:translateY(0); } 30%{ transform:translateY(-46%); } }
-        @media (max-width:860px){
-          .sup-grid{ grid-template-columns:1fr; gap:40px; }
-          .sup-desc, .sup-quote-card{ max-width:none; }
-          /* image above the header when stacked */
-          .sup-figure{ margin:0 auto; order:-1; }
-          .sup-left{ order:0; }
+        .sup-sec{ background:var(--warm-50); }
+        .sup-banner{ position:relative; width:100%; max-width:1218px; margin:0 auto; aspect-ratio:1218/446; border-radius:clamp(28px,4vw,64px); overflow:hidden; container-type:inline-size; background:var(--warm-100); }
+        .sup-photo{ position:absolute; inset:0; width:100%; height:100%; object-fit:fill; transform:scaleX(-1); }
+        /* chat pill (entrance motion only; hidden in the static fallback) */
+        .sup-chat{ position:absolute; inset:0; display:none; align-items:center; justify-content:center; z-index:5; pointer-events:none; }
+        .sup-chat-pill{ position:relative; width:15%; height:clamp(48px,10cqw,92px); border-radius:999px; background:#fff; box-shadow:0 14px 38px rgba(15,28,46,.20); }
+        .sup-chat-dots{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; gap:clamp(6px,0.9cqw,11px); }
+        .sup-chat-dots i{ width:clamp(9px,1.5cqw,18px); aspect-ratio:1; border-radius:50%; background:var(--warm-900); }
+        .sup-chat-answer{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; white-space:nowrap; font-family:var(--font-body); font-weight:700; letter-spacing:-.01em; color:var(--warm-900); font-size:clamp(15px,2.1cqw,26px); }
+        .sup-chat-pill.is-typing .sup-chat-dots i{ animation:supDot 0.84s ease-in-out 1 both; }
+        .sup-chat-pill.is-typing .sup-chat-dots i:nth-child(2){ animation-delay:.104s; }
+        .sup-chat-pill.is-typing .sup-chat-dots i:nth-child(3){ animation-delay:.208s; }
+        @keyframes supDot{ 0%,62%,100%{ transform:translateY(0); } 30%{ transform:translateY(-42%); } }
+        .sup-left{ position:absolute; left:4.5%; top:0; bottom:0; width:46%; display:flex; flex-direction:column; justify-content:center; z-index:1; }
+        .sup-pct{ display:block; width:32cqw; height:auto; overflow:visible; filter:drop-shadow(0 6px 12px rgba(0,0,0,.22)); }
+        .sup-pct-glyph{ font-family:var(--font-body); font-weight:700; font-size:200px; letter-spacing:-8px; }
+        .sup-pct-sm{ font-size:118px; }
+        .sup-pct-tint{ fill:rgba(255,255,255,.55); }
+        .sup-pct-frost{ width:100%; height:100%; -webkit-backdrop-filter:blur(10px) brightness(1.08); backdrop-filter:blur(10px) brightness(1.08); }
+        .sup-pct small{ font-size:.53em; }
+        .sup-pct-cap{ color:#fff; font-size:1.75cqw; line-height:1.3; margin-top:1cqw; text-shadow:0 4px 9px rgba(0,0,0,.25); }
+        .sup-right{ position:absolute; right:3.5%; top:0; bottom:0; width:47%; display:flex; flex-direction:column; justify-content:center; z-index:1; }
+        .sup-title{ color:var(--warm-900); font-family:var(--font-display); font-weight:800; font-size:3.95cqw; line-height:1.16; letter-spacing:-.01em; }
+        .sup-desc{ color:var(--warm-600); font-size:1.31cqw; line-height:1.35; margin-top:1.5cqw; max-width:40cqw; }
+        .sup-glass{ margin-top:1.8cqw; background:rgba(255,255,255,.32); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); border-radius:1.3cqw; padding:1.3cqw 1.6cqw; box-shadow:0 8px 24px rgba(15,28,46,.10); }
+        .sup-quote{ font-style:italic; color:var(--warm-600); font-size:1.31cqw; line-height:1.4; }
+        .sup-verified{ color:var(--ember); font-weight:700; font-size:1.31cqw; margin-top:.5cqw; }
+        @media (max-width:820px){
+          .sup-banner{ aspect-ratio:auto; padding:clamp(28px,6vw,44px) clamp(22px,5vw,36px); container-type:normal; }
+          .sup-banner::after{ content:""; position:absolute; inset:0; background:rgba(250,250,248,.82); z-index:0; }
+          .sup-left, .sup-right{ position:relative; width:auto; display:block; }
+          .sup-pct{ width:200px; filter:none; }
+          .sup-pct-frost{ display:none; }
+          .sup-pct-tint{ fill:var(--ember); }
+          .sup-pct small{ font-size:.5em; }
+          .sup-pct-cap{ color:var(--warm-800); font-size:16px; text-shadow:none; margin-top:2px; }
+          .sup-title{ font-size:clamp(26px,7vw,34px); margin-top:22px; }
+          .sup-desc{ font-size:15px; margin-top:12px; max-width:none; }
+          .sup-glass{ margin-top:20px; border-radius:14px; padding:14px 16px; background:#fff; }
+          .sup-quote, .sup-verified{ font-size:15px; }
         }
       `}</style>
     </section>
@@ -2325,45 +2260,6 @@ const ADV_STORIES = [
   { photo: 's7-adv-telco.png', big: '4.3', unit: 'x', head: 'Increase in sales', tag: 'Telco', desc: 'How Involve partners drove growth for TIME Internet.' },
   { photo: 's7-adv-health.png', big: '723', unit: 'k MYR', head: 'In sales · 4,912 conversions', tag: 'Health & Wellness', desc: 'How a global health and wellness brand launched a CPS programme on Involve.' },
 ];
-function RRChevron({ dir }) {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-      {dir === 'l' ? <path d="M15 5l-7 7 7 7" /> : <path d="M9 5l7 7-7 7" />}
-    </svg>
-  );
-}
-/* Mobile-only carousel for ONE deck (publisher or advertiser): label + its own arrow
-   pair, then the featured card with the next card peeking from the right. */
-function MobileDeck({ label, stories, idx, onPrev, onNext }) {
-  const m = (n, k) => ((n % k) + k) % k;
-  const N = stories.length;
-  const front = stories[m(idx, N)];
-  const peek = stories[m(idx + 1, N)];
-  // horizontal swipe → prev/next (ignore mostly-vertical drags so the page can still scroll)
-  const touch = React.useRef(null);
-  const onTouchStart = (e) => { const t = e.touches[0]; touch.current = { x: t.clientX, y: t.clientY, done: false }; };
-  const onTouchMove = (e) => {
-    const s = touch.current; if (!s || s.done) return;
-    const t = e.touches[0], dx = t.clientX - s.x, dy = t.clientY - s.y;
-    if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(dy)) { s.done = true; (dx < 0 ? onNext : onPrev)(); }
-  };
-  const onTouchEnd = () => { touch.current = null; };
-  return (
-    <div className="rr-mdeck" data-reveal>
-      <div className="rr-mhead">
-        {label}
-        <div className="rr-arrows rr-marrows">
-          <button type="button" className="rr-arrow" onClick={onPrev} aria-label="Previous story"><RRChevron dir="l" /></button>
-          <button type="button" className="rr-arrow" onClick={onNext} aria-label="Next story"><RRChevron dir="r" /></button>
-        </div>
-      </div>
-      <div className="rr-mviewport" onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
-        <div className="rr-mpeek" aria-hidden="true"><StoryCard s={peek} /></div>
-        <div className="rr-mfront" key={front.photo + '·' + idx}><StoryCard s={front} /></div>
-      </div>
-    </div>
-  );
-}
 function StoryCard({ s }) {
   const photo = !!s.photo;
   return (
@@ -2394,13 +2290,9 @@ function rrSlot(r, side) {
   return { transform: `translate(-50%,-50%) translateX(${sgn * tx}cqw) scale(${sc})`, opacity: op, zIndex: z };
 }
 function SuccessSlider() {
-  // Two unbounded indices, one per deck. Desktop moves both together (arrows / card-click);
-  // mobile drives each independently. Slot positions are circular, so both loop forever.
-  const [pi, setPi] = React.useState(0);
-  const [ai, setAi] = React.useState(0);
+  const [i, setI] = React.useState(0);   // unbounded index; slot positions are computed circularly, so the deck loops forever
   const stageRef = React.useRef(null);
-  const prevPiRef = React.useRef(0);
-  const prevAiRef = React.useRef(0);
+  const prevIRef = React.useRef(0);
   const initedRef = React.useRef(false);
   const mod = (n, m) => ((n % m) + m) % m;
   // GSAP owns positioning on desktop (reads each card's LIVE position → smooth from any state,
@@ -2409,10 +2301,10 @@ function SuccessSlider() {
     typeof window !== 'undefined' && !!window.gsap &&
     window.matchMedia('(min-width:821px)').matches && !prefersReduced()
   )[0];
-  const advanceBoth = (delta) => { setPi((v) => v + delta); setAi((v) => v + delta); };  // desktop: both decks move together
+  const advance = (delta) => setI((v) => v + delta);
   const pickCard = (d, N, st) => {
     if (d === 0) { window.location.href = st.href || '/success-stories/'; return; }
-    if (d <= N - d) advanceBoth(d); else advanceBoth(-(N - d));   // shorter single ±1 step to the front
+    if (d <= N - d) advance(d); else advance(-(N - d));   // shorter single ±1 step to the front
   };
 
   React.useLayoutEffect(() => {
@@ -2429,12 +2321,12 @@ function SuccessSlider() {
         return { x: s * 17 * u, scale: 0.64, opacity: 0.26, zIndex: 2 };
       };
       const exitX = (side) => (side === 'l' ? -1 : 1) * 62 * u;
-      [['l', PUB_STORIES, pi, prevPiRef], ['r', ADV_STORIES, ai, prevAiRef]].forEach(([side, arr, cur, prevRef]) => {
+      [['l', PUB_STORIES], ['r', ADV_STORIES]].forEach(([side, arr]) => {
         const N = arr.length;
         arr.forEach((_, idx) => {
           const el = stage.querySelector(`[data-rr="${side}${idx}"]`);
           if (!el) return;
-          const d = mod(idx - cur, N), pd = mod(idx - prevRef.current, N);
+          const d = mod(idx - i, N), pd = mod(idx - prevIRef.current, N);
           const t = props(d, side);
           if (!animate) { gsap.set(el, { xPercent: -50, yPercent: -50, x: t.x, scale: t.scale, opacity: t.opacity, zIndex: t.zIndex }); return; }
           gsap.killTweensOf(el);
@@ -2453,14 +2345,19 @@ function SuccessSlider() {
           }
         });
       });
-      prevPiRef.current = pi; prevAiRef.current = ai;
+      prevIRef.current = i;
     };
     layout(initedRef.current);        // first run = instant place; after = animate
     initedRef.current = true;
     const onResize = () => { gsap.killTweensOf(stage.querySelectorAll('[data-rr]')); layout(false); };
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
-  }, [pi, ai, useGsap]);
+  }, [i, useGsap]);
+  const Chevron = ({ dir }) => (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+      {dir === 'l' ? <path d="M15 5l-7 7 7 7" /> : <path d="M9 5l7 7-7 7" />}
+    </svg>
+  );
   return (
     <section id="results" className="rr-sec sec-pad">
       <div className="wrap">
@@ -2472,42 +2369,34 @@ function SuccessSlider() {
           <div className="rr-controls">
             <a href="/success-stories/" className="btn btn-secondary rr-seeall">See all success stories <Arrow /></a>
             <div className="rr-arrows">
-              <button type="button" className="rr-arrow" onClick={() => advanceBoth(-1)} aria-label="Previous stories"><RRChevron dir="l" /></button>
-              <button type="button" className="rr-arrow rr-next" onClick={() => advanceBoth(1)} aria-label="Next stories"><RRChevron dir="r" /></button>
+              <button type="button" className="rr-arrow" onClick={() => advance(-1)} aria-label="Previous stories"><Chevron dir="l" /></button>
+              <button type="button" className="rr-arrow rr-next" onClick={() => advance(1)} aria-label="Next stories"><Chevron dir="r" /></button>
             </div>
           </div>
         </div>
-        {/* desktop: side labels above the shared deck */}
         <div className="rr-labels" data-reveal>
-          <span className="rr-label">For <i>Publishers</i></span>
-          <span className="rr-label adv">For <i>Advertisers</i></span>
+          <span className="rr-label"><i>Publisher</i> Success Stories</span>
+          <span className="rr-label adv"><i>Advertiser</i> Success Stories</span>
         </div>
         <div className="rr-stage" data-reveal ref={stageRef}>
           {PUB_STORIES.map((st, idx) => {
-            const N = PUB_STORIES.length, d = mod(idx - pi, N);                                 // circular slot 0..N-1
+            const N = PUB_STORIES.length, d = mod(idx - i, N);                                 // circular slot 0..N-1
             const style = useGsap ? { cursor: 'pointer' } : { ...rrSlot(d, 'l'), cursor: 'pointer' };
             return <div className={'rr-slotpos' + (d === 0 ? ' rr-featured' : '')} data-rr={'l' + idx}
               style={style} key={'p' + idx} onClick={() => pickCard(d, N, st)}><StoryCard s={st} /></div>;
           })}
           {ADV_STORIES.map((st, idx) => {
-            const N = ADV_STORIES.length, d = mod(idx - ai, N);
+            const N = ADV_STORIES.length, d = mod(idx - i, N);
             const style = useGsap ? { cursor: 'pointer' } : { ...rrSlot(d, 'r'), cursor: 'pointer' };
             return <div className={'rr-slotpos' + (d === 0 ? ' rr-featured' : '')} data-rr={'r' + idx}
               style={style} key={'a' + idx} onClick={() => pickCard(d, N, st)}><StoryCard s={st} /></div>;
           })}
         </div>
-        {/* mobile: two independent labeled carousels, each with its own arrows */}
-        <div className="rr-mobile">
-          <MobileDeck label={<span className="rr-label">For <i>Publishers</i></span>} stories={PUB_STORIES}
-            idx={pi} onPrev={() => setPi((v) => v - 1)} onNext={() => setPi((v) => v + 1)} />
-          <MobileDeck label={<span className="rr-label adv">For <i>Advertisers</i></span>} stories={ADV_STORIES}
-            idx={ai} onPrev={() => setAi((v) => v - 1)} onNext={() => setAi((v) => v + 1)} />
-        </div>
       </div>
       <style>{`
         .rr-sec{ background:var(--warm-50); overflow:hidden; }
         .rr-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:24px; flex-wrap:wrap; }
-        .rr-title{ font-size:clamp(24px,3vw,34px); line-height:1.02; letter-spacing:-.02em; }
+        .rr-title{ font-size:clamp(32px,4.6vw,56px); line-height:1.02; letter-spacing:-.02em; }
         .rr-sub{ margin-top:12px; color:var(--warm-600); font-size:16px; }
         .rr-controls{ display:flex; flex-direction:column; align-items:flex-end; gap:16px; }
         .rr-seeall{ border-color:var(--warm-900); color:var(--warm-900); flex:0 0 auto; }
@@ -2516,12 +2405,11 @@ function SuccessSlider() {
         .rr-arrow:not(:disabled){ background:var(--midnight); color:#fff; border-color:var(--midnight); }
         .rr-arrow:not(:disabled):hover{ opacity:.88; }
         .rr-arrow:disabled{ cursor:default; }
-        .rr-labels{ display:flex; justify-content:space-between; margin-top:clamp(24px,3vh,36px); }
+        .rr-labels{ display:flex; justify-content:space-between; margin-top:28px; }
         .rr-label{ font:600 15px/1 var(--font-body); color:var(--warm-900); }
         .rr-label i{ font-style:normal; color:var(--ember); }
         .rr-label.adv i{ color:var(--midnight-light); }
-        .rr-mobile{ display:none; }
-        .rr-stage{ position:relative; height:40cqw; max-height:460px; min-height:340px; margin-top:clamp(12px,1.6vh,18px); container-type:inline-size; }
+        .rr-stage{ position:relative; height:40cqw; max-height:460px; min-height:340px; margin-top:16px; container-type:inline-size; }
         /* Positioning is GSAP-driven on desktop (see SuccessSlider); NO CSS transition here —
            it would fight GSAP's per-frame transform writes. Fallback path sets inline slots. */
         .rr-slotpos{ position:absolute; left:50%; top:50%; width:30cqw; height:38cqw; max-width:362px; max-height:456px; will-change:transform, opacity; }
@@ -2539,85 +2427,15 @@ function SuccessSlider() {
         .rr-desc{ margin-top:.5em; font:500 1.05em/1.35 var(--font-body); color:var(--warm-600); }
         .rr-card-photo{ color:#fff; }
         .rr-card-photo .rr-big, .rr-card-photo .rr-headline, .rr-card-photo .rr-tag, .rr-card-photo .rr-desc{ color:#fff; }
-        /* mobile: hide the desktop deck + top controls; show two labeled carousels */
-        .rr-mdeck{ margin-top:clamp(30px,5vw,40px); }
-        .rr-mhead{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
-        .rr-marrows{ gap:10px; flex:0 0 auto; }
-        .rr-marrows .rr-arrow{ width:40px; height:40px; }
-        .rr-mviewport{ position:relative; margin-top:16px; overflow:hidden; touch-action:pan-y; }
-        .rr-mfront{ position:relative; width:82%; aspect-ratio:362/430; z-index:2;
-          animation:rrSlideIn .45s cubic-bezier(.22,.61,.36,1) both; }
-        .rr-mfront .rr-card{ font-size:15px; }
-        .rr-mpeek{ position:absolute; top:7%; right:0; width:64%; height:86%; z-index:1; pointer-events:none; }
-        .rr-mpeek .rr-card{ font-size:15px; box-shadow:0 8px 20px rgba(15,28,46,.12); }
-        .rr-mpeek::after{ content:""; position:absolute; inset:0; z-index:2; border-radius:16px; background:rgba(250,250,248,.38); }
-        @keyframes rrSlideIn{ from{ opacity:0; transform:translateX(6%); } to{ opacity:1; transform:none; } }
-        @media (prefers-reduced-motion:reduce){ .rr-mfront{ animation:none; } }
         @media (max-width:820px){
-          .rr-controls{ display:none; }
-          .rr-labels{ display:none; }
-          .rr-stage{ display:none; }
-          .rr-mobile{ display:block; }
+          .rr-controls{ flex-direction:row; align-items:center; }
+          .rr-arrows{ display:none; }
+          .rr-stage{ height:auto; min-height:0; display:flex; flex-direction:column; gap:18px; align-items:center; }
+          .rr-slotpos{ position:static; transform:none !important; opacity:1 !important; width:100%; max-width:400px; height:auto; aspect-ratio:362/430; }
+          .rr-slotpos:not(.rr-featured){ display:none; }
+          .rr-card{ font-size:16px; }
+          .rr-labels{ margin-top:20px; }
         }
-      `}</style>
-    </section>
-  );
-}
-
-/* ---------------- Stat band (concept-8) — standalone section ----------------
-   Centered caption + a 4-up row of headline stats that count up when scrolled into view. */
-const STAT_BAND = [
-  { to: 1.1, fmt: (v) => v.toFixed(1) + ' M+', label: 'publishers' },
-  { to: 270, fmt: (v) => '$' + Math.round(v) + 'M+', label: 'commissions paid' },
-  { to: 3.2, fmt: (v) => '$' + v.toFixed(1) + 'B+', label: 'sales generated' },
-  { to: 500, fmt: (v) => Math.round(v) + '+', label: 'advertisers' },
-];
-function StatCount({ to, fmt }) {
-  const ref = React.useRef(null);
-  React.useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (prefersReduced() || !('IntersectionObserver' in window)) { el.textContent = fmt(to); return; }
-    let raf = 0, started = false;
-    const run = () => {
-      const dur = 1500, t0 = performance.now();
-      const tick = (now) => {
-        const p = Math.min(1, (now - t0) / dur);
-        el.textContent = fmt(to * (1 - Math.pow(1 - p, 3)));               // easeOutCubic
-        if (p < 1) raf = requestAnimationFrame(tick);
-      };
-      raf = requestAnimationFrame(tick);
-    };
-    const io = new IntersectionObserver((es) => {
-      if (es[0].isIntersecting && !started) { started = true; run(); io.disconnect(); }
-    }, { threshold: 0.45 });
-    io.observe(el);
-    return () => { io.disconnect(); if (raf) cancelAnimationFrame(raf); };
-  }, [to, fmt]);
-  return <span ref={ref} className="sb-num">{fmt(0)}</span>;
-}
-function StatBand() {
-  return (
-    <section id="impact" className="sb-sec">
-      <div className="wrap">
-        <p className="sb-cap" data-reveal>This is what growing together looks like, since 2014.</p>
-        <div className="sb-row">
-          {STAT_BAND.map((s, i) => (
-            <div className="sb-item" key={s.label} data-reveal data-reveal-delay={i + 1}>
-              <StatCount to={s.to} fmt={s.fmt} />
-              <span className="sb-lbl">{s.label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-      <style>{`
-        .sb-sec{ background:var(--warm-50); padding:clamp(48px,7vh,84px) 0; }
-        .sb-cap{ text-align:center; color:var(--warm-600); font-size:16px; }
-        .sb-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:24px; margin-top:clamp(28px,4vh,48px); }
-        .sb-item{ display:flex; flex-direction:column; align-items:center; text-align:center; gap:8px; }
-        .sb-num{ font-family:var(--font-display); font-weight:800; font-size:clamp(30px,3.6vw,48px); line-height:1; letter-spacing:-.02em; color:var(--warm-900); }
-        .sb-lbl{ color:var(--warm-600); font-size:15px; }
-        @media (max-width:680px){ .sb-row{ grid-template-columns:repeat(2,1fr); gap:34px 24px; } }
       `}</style>
     </section>
   );
@@ -2625,10 +2443,11 @@ function StatBand() {
 
 /* Wrapper: pinned scroll choreography on desktop w/ GSAP; static composed fallback otherwise. */
 function HexFinale(props) {
-  // concept-8: simplified — the pinned scroll-scrubbed morph is retired; render the static
-  // "Pick your side" (the stat band is now its own section, <StatBand/>). HexFinaleAnimated
-  // is kept below (unused) for reference/revival.
-  return <HexFinaleStatic {...props} />;
+  const animated = React.useState(() =>
+    typeof window !== 'undefined' && !!(window.gsap && window.ScrollTrigger) &&
+    window.matchMedia('(min-width: 901px)').matches && !prefersReduced()
+  )[0];
+  return animated ? <HexFinaleAnimated {...props} /> : <HexFinaleStatic {...props} />;
 }
 /* Pinned, scroll-scrubbed hexagon finale: connected mark → stats count up → drift →
    split → flip → photo-fill → honeycomb + "Pick your side" + cards bloom. */
@@ -2808,32 +2627,42 @@ function StatBig({ to, fmt, size }) {
   return <span className="hf-num" ref={ref} style={{ fontSize: size }}>{fmt(0)}</span>;
 }
 function HexFinaleStatic({ emphasis = 'equal', hex = 3 }) {
-  // Honeycomb decoration around the two photo hexes — EXACT placement copied from the previous
-  // (backup) animated finale's HFA_HONEY: [asset, xpx, ypx] centre offsets, 247px hex tiles.
-  const HF_HONEY = [
-    ['g1', 0, -225], ['g3', 268, -225], ['g1', 536, 0],
-    ['g3', 0, 225], ['g2', -268, 225], ['g2', -536, 225],
+  const comb = [
+    { x: 0, y: -46 }, { x: -50, y: -17 }, { x: 50, y: -17 }, { x: -50, y: 17 }, { x: 50, y: 17 }, { x: 0, y: 46 }, { x: -100, y: 17 }, { x: 100, y: 17 },
   ];
   return (
     <section id="cta" className="hf">
-      {/* ---- Hexagon "Pick your side" CTA ---- */}
+      {/* ---- Stat band ---- */}
+      <div className="wrap hf-stats" data-reveal>
+        <div className="hf-stat hf-s1"><StatBig to={800000} fmt={(v) => Math.round(v).toLocaleString() + '+'} size="80px" /><span className="hf-lbl">publishers</span></div>
+        <p className="hf-blurb">Behind every number,<br />a creator earning and a brand growing.</p>
+        <div className="hf-stat hf-s2"><StatBig to={270} fmt={(v) => '$' + Math.round(v) + 'M+'} size="56px" /><span className="hf-lbl">Commissions paid</span></div>
+        <div className="hf-mark" aria-hidden="true">
+          <Hexagon size={230} strokeOnly stroke="var(--warm-400)" sw={2} />
+          <Hexagon size={118} strokeOnly stroke="var(--warm-900)" sw={2} style={{ position: 'absolute', top: '4%', right: '4%' }} />
+        </div>
+        <div className="hf-stat hf-s3 hf-right"><StatBig to={15} fmt={(v) => '$' + Math.round(v) + 'B+'} size="56px" /><span className="hf-lbl">Sales Generated</span></div>
+        <div className="hf-stat hf-s4 hf-right"><StatBig to={4000} fmt={(v) => Math.round(v).toLocaleString() + '+'} size="80px" /><span className="hf-lbl">advertisers</span></div>
+        <div className="hf-since"><span>Since </span><strong>2014</strong></div>
+      </div>
+      {/* ---- Hexagon CTA ---- */}
       <div className="hf-cta">
+        <div className="hf-comb" aria-hidden="true">
+          {comb.map((c, i) => <span key={i} className="hf-combhex" style={{ left: `calc(50% + ${c.x * 1.02}px)`, top: `calc(50% + ${c.y * 2}px)` }} />)}
+        </div>
         <h2 className="hf-head" data-reveal>Pick your side and grow with us.</h2>
-        <div className="hf-scene">
-          <div className="hf-honey" aria-hidden="true">
-            {HF_HONEY.map(([g, x, y], i) => (
-              <img key={i} className="hf-combhex" src={`media/figma/s9-hex-${g}.png`} alt="" style={{ left: `calc(50% + ${x}px)`, top: `calc(50% + ${y}px)` }} />
-            ))}
-          </div>
-          <img className="hf-photohex hf-ph-pub" src="media/figma/s9-hex-pub.png" alt="A publisher creating content" />
-          <img className="hf-photohex hf-ph-adv" src="media/figma/s9-hex-adv.png" alt="An advertiser growing their brand" />
-          <div className="hf-card hf-card-pub">
+        <div className="hf-cards">
+          <div className="hf-card hf-card-pub" data-reveal>
             <span className="hf-kick">Influencers. Websites. Affiliate sites.</span>
             <h3 className="hf-ct">I'm a<br />Publisher</h3>
             <p className="hf-cd">Promote brands you love. Turn your audience or traffic into income.</p>
             <a href="/partners/" className="btn btn-primary">Start Earning <Arrow /></a>
           </div>
-          <div className="hf-card hf-card-adv hf-right">
+          <div className="hf-hexpair" data-reveal>
+            <span className="hf-photohex hf-ph-pub" style={{ backgroundImage: 'url("media/figma/s5-step1.png")' }} />
+            <span className="hf-photohex hf-ph-adv" style={{ backgroundImage: 'url("media/figma/s5-step3.png")' }} />
+          </div>
+          <div className="hf-card hf-card-adv hf-right" data-reveal>
             <span className="hf-kick adv">Brands. Retailers. Enterprises.</span>
             <h3 className="hf-ct">I'm an<br />Advertiser</h3>
             <p className="hf-cd">Grow your sales with the right publishers. Pay only for results.</p>
@@ -2856,35 +2685,32 @@ function HexFinaleStatic({ emphasis = 'equal', hex = 3 }) {
         .hf-s4{ grid-column:3; grid-row:3; }
         .hf-since{ grid-column:1; grid-row:3; font:700 32px/1 var(--font-body); color:var(--warm-900); }
         .hf-since strong{ color:var(--ember); }
-        /* "Pick your side" hex CTA */
-        .hf-cta{ position:relative; padding:clamp(32px,4vh,56px) 0 clamp(48px,7vh,88px); text-align:center; }
-        .hf-head{ position:relative; z-index:5; top:clamp(56px,8.5vh,82px); font-size:clamp(24px,3vw,34px); line-height:1.05; letter-spacing:-.01em; margin:clamp(20px,3vh,40px) auto clamp(12px,1.6vh,22px); max-width:none; white-space:nowrap; }
-        .hf-scene{ position:relative; width:min(1320px,100%); height:clamp(420px,44vw,520px); margin:0 auto; }
-        .hf-honey{ position:absolute; inset:0; z-index:0; pointer-events:none; }
-        .hf-combhex{ position:absolute; width:247px; height:auto; transform:translate(-50%,-50%); opacity:.5; }
-        .hf-photohex{ position:absolute; left:50%; top:50%; width:247px; height:auto; z-index:2; filter:drop-shadow(0 18px 40px rgba(15,28,46,.16)); }
-        .hf-ph-pub{ transform:translate(calc(-50% - 134px), -50%) scaleX(-1); }
-        .hf-ph-adv{ transform:translate(calc(-50% + 134px), -50%); }
-        .hf-card{ position:absolute; top:50%; transform:translateY(-50%); width:min(280px,23vw); display:flex; flex-direction:column; gap:12px; z-index:4; }
-        .hf-card-pub{ left:5%; align-items:flex-start; text-align:left; }
-        .hf-card-adv{ right:5%; align-items:flex-end; text-align:right; }
-        .hf-kick{ font:500 14px/1.3 var(--font-body); color:var(--ember); opacity:.85; }
+        /* hex CTA */
+        .hf-cta{ position:relative; padding:clamp(40px,6vh,80px) 0 clamp(80px,12vh,140px); text-align:center; }
+        .hf-comb{ position:absolute; inset:0; z-index:0; pointer-events:none; }
+        .hf-combhex{ position:absolute; width:150px; height:170px; transform:translate(-50%,-50%); background:var(--warm-200); opacity:.5;
+          clip-path:${HEX_CLIP ? 'polygon(50% 2%,91.57% 26%,91.57% 74%,50% 98%,8.43% 74%,8.43% 26%)' : 'none'}; }
+        .hf-head{ position:relative; z-index:2; font-size:clamp(30px,4vw,56px); line-height:1.05; letter-spacing:-.01em; margin:0 auto; max-width:760px; }
+        .hf-cards{ position:relative; z-index:2; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:clamp(20px,3vw,48px); margin-top:clamp(40px,6vh,72px); max-width:1120px; margin-inline:auto; }
+        .hf-card{ display:flex; flex-direction:column; align-items:flex-start; gap:12px; text-align:left; }
+        .hf-card.hf-right{ align-items:flex-end; text-align:right; }
+        .hf-kick{ font:500 14px/1.3 var(--font-body); color:var(--ember); opacity:.75; }
         .hf-kick.adv{ color:var(--midnight-light); }
         .hf-ct{ font:700 clamp(24px,2.4vw,32px)/1.05 var(--font-body); color:var(--warm-900); letter-spacing:-.01em; }
-        .hf-cd{ font:400 16px/1.45 var(--font-body); color:var(--warm-900); opacity:.72; max-width:250px; }
-        .hf-card-adv .hf-cd{ margin-left:auto; }
+        .hf-cd{ font:400 16px/1.45 var(--font-body); color:var(--warm-900); opacity:.72; max-width:270px; }
+        .hf-card.hf-right .hf-cd{ margin-left:auto; }
+        .hf-hexpair{ display:flex; gap:14px; }
+        .hf-photohex{ width:clamp(150px,15vw,210px); aspect-ratio:1/1.08; background-size:cover; background-position:center;
+          clip-path:polygon(50% 2%,91.57% 26%,91.57% 74%,50% 98%,8.43% 74%,8.43% 26%); }
         @media (max-width:900px){
-          .hf-head{ white-space:normal; top:0; margin-top:clamp(24px,5vh,48px); }
-          /* single column: publisher image → publisher card, then advertiser image → advertiser card */
-          .hf-scene{ height:auto; display:flex; flex-direction:column; align-items:center; gap:clamp(14px,2.4vh,22px); }
-          .hf-honey{ display:none; }
-          .hf-photohex{ position:relative; left:auto; top:auto; transform:none; width:clamp(150px,44vw,200px); filter:none; }
-          .hf-ph-pub{ transform:scaleX(-1); order:1; }
-          .hf-card-pub{ order:2; }
-          .hf-ph-adv{ transform:none; order:3; margin-top:clamp(16px,4vh,40px); }
-          .hf-card-adv{ order:4; }
-          .hf-card{ position:relative; top:auto; left:auto; right:auto; transform:none; width:100%; max-width:360px; margin-inline:auto; align-items:center; text-align:center; gap:8px; }
-          .hf-cd, .hf-card-adv .hf-cd{ margin:0 auto; }
+          .hf-stats{ grid-template-columns:1fr; text-align:center; justify-items:center; }
+          .hf-stats > *{ grid-column:1 !important; }
+          .hf-blurb, .hf-stat.hf-right{ text-align:center; }
+          .hf-mark{ order:-1; }
+          .hf-cards{ grid-template-columns:1fr; }
+          .hf-card, .hf-card.hf-right{ align-items:center; text-align:center; }
+          .hf-card.hf-right .hf-cd{ margin:0 auto; }
+          .hf-hexpair{ order:-1; justify-content:center; }
         }
       `}</style>
     </section>
@@ -4213,13 +4039,11 @@ function App() {
       <main>
         <Hero dark={t.heroDark} hex={hex} emphasis={emphasis} />
         <TrustStrip />
-        {/* concept-8: "keeps everyone moving, faster." tagline promoted into the hero — section removed (component kept below for revival) */}
-        {/* <KeepsMoving /> */}
+        <KeepsMoving />
         <LiveDirectory />
         <StartToday />
         <SupportBanner />
         <SuccessSlider />
-        <StatBand />
         <HexFinale emphasis={emphasis} hex={hex} />
       </main>
       <Footer />

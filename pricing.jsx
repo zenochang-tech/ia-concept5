@@ -17,210 +17,378 @@ const LinkIcon = () => (
 );
 
 /* ---------- Section 1 — Hero ---------------------------------------------- */
-function PubHero() {
-  // Right-hand visual is a 4-slide fade slider: each slide's photo + its floating UI
-  // cross-fade in/out together every 1.5s. Reduced-motion holds slide 1.
-  const [slide, setSlide] = React.useState(0);
-  const N = 4;
+/* Decorative honeycomb reused from the final CTA (pub-cta-hexfield.svg), rendered faint blue. */
+function PricingHexField() {
+  const [paths, setPaths] = React.useState([]);
+  const W = 1204.11, H = 1189.86;
+  // pad the viewBox to shrink the whole honeycomb (renders ~1/(1+2*pad) of before), closer to Figma's inset deco
+  const pad = 0.14;
+  const vb = `${-W * pad} ${-H * pad} ${W * (1 + 2 * pad)} ${H * (1 + 2 * pad)}`;
   React.useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const id = setInterval(() => setSlide((s) => (s + 1) % N), 2000);
-    return () => clearInterval(id);
+    let alive = true;
+    fetch('media/figma/pub-cta-hexfield.svg').then((r) => r.text()).then((txt) => {
+      if (!alive) return;
+      const out = []; const re = /<path\b([^>]*)>/g; let m;
+      while ((m = re.exec(txt))) {
+        const attrs = m[1], dm = /\bd="([^"]+)"/.exec(attrs), fm = /\bfill="([^"]+)"/.exec(attrs);
+        if (dm && fm && fm[1].toUpperCase() === '#FAC9B9') out.push(dm[1]);
+      }
+      setPaths(out);
+    }).catch(() => {});
+    return () => { alive = false; };
   }, []);
-  const on = (i) => 'ph-slide' + (slide === i ? ' is-active' : '');
   return (
-    <section id="pub-hero" className="ph-sec">
-      <div className="ph-hexdeco" aria-hidden="true">
-        <img className="phd phd1" src="media/figma/pub-hero-deco1.svg" alt="" />
-        <img className="phd phd2" src="media/figma/pub-hero-deco2.svg" alt="" />
-        <img className="phd phd3" src="media/figma/pub-hero-deco3.svg" alt="" />
-        <img className="phd phd4" src="media/figma/pub-hero-deco4.svg" alt="" />
+    <svg className="prh-hexfield" viewBox={vb} preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g fill="#C7DFFF">{paths.map((d, i) => <path key={i} className="hx" d={d} />)}</g>
+    </svg>
+  );
+}
+function PubHero() {
+  return (
+    <section id="pricing-hero" className="prh-sec">
+      {/* honeycomb backdrop (same field as the final CTA) — spans the hero + plan cards */}
+      <div className="prh-honey" aria-hidden="true"><PricingHexField /></div>
+      <div className="wrap prh-wrap">
+        <span className="prh-eyebrow" data-reveal>Affiliate Marketing Pricing for Advertisers</span>
+        <h1 className="prh-title" data-reveal data-reveal-delay="1">The plans that fit your grow.</h1>
+        <p className="prh-sub" data-reveal data-reveal-delay="2">Whether you are launching your first program or scaling an established one,<br />pick the plan that matches your stage.</p>
       </div>
-      <span className="ph-basefade" aria-hidden="true" />
-      <div className="wrap ph-wrap">
-        <div className="ph-copy">
-          <span className="ph-eyebrow" data-reveal>Affiliate Marketing for Advertisers</span>
-          <h1 className="ph-title" data-reveal data-reveal-delay="1">Grow your sales with the right publishers.</h1>
-          <p className="ph-sub" data-reveal data-reveal-delay="2">Reach 1,000,000+ publishers, pay only for verified sales, and see results sooner. Launch in days, not months, whatever you sell.</p>
-          <div className="ph-actions" data-reveal data-reveal-delay="3">
-            <a href="/advertisers/" className="btn btn-advertiser btn-lg">See plans and pricing <Arrow /></a>
-          </div>
-          <span className="ph-free" data-reveal data-reveal-delay="3">Our team helps you launch, and you only pay when a sale is real.</span>
-        </div>
-
-        <div className="ph-visual" data-reveal data-reveal-delay="1">
-          <img className="ph-hexbg" src="media/figma/advertiser-slider-background.png" alt="" aria-hidden="true" />
-          {/* Slide 0 — dashboard */}
-          <div className={on(0)} aria-hidden={slide !== 0}>
-            <img className="ph-hexart" src="media/figma/slider-adv-new1.png" alt="Advertiser dashboard with gross sales, commission paid and performance trends" loading="eager" />
-            <div className="ph-slide-ui">
-              <div className="ph-glass ph-ga-conv"><div className="ph-av-stat"><span className="ph-av-lbl"><span className="ph-av-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18" /><path d="m7 14 4-4 3 3 5-6" /></svg></span>Conversion Rate</span><span className="ph-av-row"><b>10%</b><em>&uarr;9%</em></span></div></div>
-            </div>
-          </div>
-
-          {/* Slide 1 — find & invite publishers */}
-          <div className={on(1)} aria-hidden={slide !== 1}>
-            <img className="ph-hexart" src="media/figma/slider-adv-new2.png" alt="1,428 active publishers found — Clarke, Fernandez, Michelle, Jeanne" loading="eager" />
-            <div className="ph-slide-ui">
-              <div className="ph-glass ph-ga-cat"><div className="ph-cat"><small>Publishers for</small>Fashion category</div></div>
-            </div>
-          </div>
-
-          {/* Slide 2 — 11.11 campaign */}
-          <div className={on(2)} aria-hidden={slide !== 2}>
-            <img className="ph-hexart" src="media/figma/adv-slide03-double11.png" alt="11.11 Campaign" loading="eager" />
-            <div className="ph-slide-ui">
-              <div className="ph-glass ph-ga-live"><div className="ph-live">11.11 Campaign is live!</div></div>
-              <div className="ph-glass ph-ga-appl"><div className="ph-cat"><small>Applicants</small>428 publishers</div></div>
-            </div>
-          </div>
-
-          {/* Slide 3 — validated conversions */}
-          <div className={on(3)} aria-hidden={slide !== 3}>
-            <img className="ph-hexart" src="media/figma/slider-adv-new4.png" alt="918 conversions found for 11.11 campaign" loading="eager" />
-            <div className="ph-slide-ui">
-              <div className="ph-glass ph-ga-vc"><div className="ph-cat"><small>Validated Conversion</small>316</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <style>{`
-        .ph-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(40px,6vh,84px) 0 clamp(56px,9vh,116px); }
-        /* decorative hexagons (Figma Polygon 64–67) — same size as the slider hexagon (492px), faint */
-        .ph-hexdeco{ position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
-        .phd{ position:absolute; width:492px; height:auto; }
-        .phd1{ top:-68%; right:-7%; }
-        .phd2{ top:6%; right:-26%; }
-        .phd3{ left:31%; bottom:-59%; }
-        .phd4{ left:-14%; bottom:-54%; }
-        @media (max-width:900px){ .ph-hexdeco{ display:none; } }
-        /* gradient blend from the hero into the logo strip below */
-        .ph-basefade{ position:absolute; left:0; right:0; bottom:0; height:clamp(120px,24%,240px); z-index:0; pointer-events:none;
-          background:linear-gradient(180deg, rgba(250,250,248,0) 0%, rgba(250,250,248,.65) 55%, var(--warm-50) 100%); }
-        .ph-wrap{ position:relative; z-index:1; display:grid; grid-template-columns:1.02fr .98fr; gap:clamp(24px,4vw,60px); align-items:center; }
-        /* copy */
-        .ph-copy{ min-width:0; }
-        .ph-eyebrow{ display:inline-block; font:600 13px/1 var(--font-body); letter-spacing:.02em; color:var(--midnight-light);
+        .prh-sec{ position:relative; overflow:visible; background:var(--warm-50); padding:clamp(48px,7vh,100px) 0 clamp(36px,5.5vh,64px); }
+        /* honeycomb backdrop spans down behind the plan-cards section (which is transparent) */
+        .prh-honey{ position:absolute; left:0; top:0; width:100%; height:clamp(960px,118vh,1280px); z-index:0; pointer-events:none; background:var(--warm-50); }
+        .prh-hexfield{ position:absolute; inset:0; width:100%; height:100%; opacity:.105;
+          -webkit-mask-image:linear-gradient(180deg, transparent 0%, #000 12%, #000 80%, transparent 100%); mask-image:linear-gradient(180deg, transparent 0%, #000 12%, #000 80%, transparent 100%); }
+        .prh-hexfield .hx{ will-change:transform; }
+        .prh-wrap{ position:relative; z-index:1; text-align:center; }
+        .prh-eyebrow{ display:inline-block; font:600 13px/1 var(--font-body); letter-spacing:.02em; color:var(--midnight-light);
           background:var(--midnight-light-tint); border-radius:9999px; padding:8px 15px; }
-        .ph-title{ margin-top:20px; font-size:clamp(28px,4.4vw,50px); line-height:1.0; letter-spacing:-.03em; color:var(--warm-900); }
-        .ph-sub{ margin-top:20px; max-width:520px; font-size:clamp(16px,1.4vw,19px); line-height:1.55; color:var(--warm-600); }
-        .ph-actions{ margin-top:30px; display:flex; gap:12px; flex-wrap:wrap; }
-        .ph-free{ display:block; margin-top:16px; font:500 14px/1 var(--font-body); color:var(--warm-400); }
-        /* visual */
-        /* aspect matches the Figma hexagon (437×492) so the pointy-top hex reads regular, not stretched-wide */
-        .ph-visual{ position:relative; aspect-ratio:1/1; max-width:520px; width:100%; margin-left:auto; }
-        /* shared hexagon backdrop behind every slide */
-        .ph-hexbg{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; z-index:0; display:block;
-          filter:drop-shadow(0 34px 60px rgba(15,28,46,.12)); }
-        /* pre-exported hexagon slide graphic (transparent corners), shown at natural proportions */
-        .ph-hexart{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; z-index:1; display:block; }
-        .ph-hexglow{ position:absolute; inset:2% 2% 2% 2%; z-index:0; pointer-events:none;
-          background:radial-gradient(circle at 50% 46%, rgba(240,88,38,.20), rgba(240,88,38,0) 62%); filter:blur(6px); }
-        /* soft hex plate behind the photo — rounded pointy-top (r≈38.67), ember → midnight gradient */
-        .ph-hexplate{ position:absolute; inset:0; z-index:0; background:linear-gradient(158deg,#fbe9df 0%,#f5f2ee 48%,#e6eef9 100%);
-          -webkit-mask:url('media/figma/pub-hero-hexclip.svg') center/100% 100% no-repeat; mask:url('media/figma/pub-hero-hexclip.svg') center/100% 100% no-repeat;
-          filter:drop-shadow(0 26px 54px rgba(15,28,46,.10)); }
-        /* ---- fade slider: each slide (photo + its UI) cross-fades in/out ---- */
-        .ph-slide{ position:absolute; inset:0; z-index:1; opacity:0; transition:opacity .85s cubic-bezier(.4,0,.2,1); }
-        .ph-slide.is-active{ opacity:1; z-index:2; }
-        @media (prefers-reduced-motion: reduce){ .ph-slide{ transition:none; } }
-        .ph-photo{ position:absolute; inset:0; z-index:1;
-          -webkit-mask:url('media/figma/pub-hero-hexclip.svg') center/100% 100% no-repeat; mask:url('media/figma/pub-hero-hexclip.svg') center/100% 100% no-repeat; }
-        .ph-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
-        /* slides 1 & 3 are mirrored horizontally (no zoom) */
-        .ph-photo img.ph-flip{ transform:scaleX(-1); }
-        /* per-slide UI: subtle rise + fade in, synced with the slide */
-        .ph-slide-ui{ position:absolute; inset:0; z-index:3; pointer-events:none; }
-        .ph-slide-ui > *{ opacity:0; transform:translateY(12px); transition:opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1); }
-        .ph-slide.is-active .ph-slide-ui > *{ opacity:1; transform:translateY(0); transition-delay:.18s; }
-        /* frosted glass box behind every UI element (matches Figma) */
-        .ph-glass{ position:absolute; padding:7px; border-radius:18px; background:rgba(255,255,255,.30);
-          -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); box-shadow:0 14px 34px rgba(15,28,46,.12); }
-        .ph-g-link{ border-radius:9999px; padding:6px; top:22%; right:-6%; }
-        .ph-g-prod{ left:-3%; bottom:12%; width:26%; max-width:120px; }
-        .ph-g-sales{ right:-3%; bottom:8%; }
-        .ph-g-conv{ right:-7%; top:15%; }
-        .ph-g-pay-a{ left:-8%; top:14%; }
-        .ph-g-pay-b{ left:-8%; top:31%; }
-        .ph-slide.is-active .ph-slide-ui > .ph-g-pay-b{ opacity:.62; }   /* second payout sits behind, fainter */
-        /* inner white cards / pills */
-        .ph-link{ display:inline-flex; align-items:center; gap:9px; background:#fff; border-radius:9999px; padding:9px 16px 9px 9px;
-          box-shadow:0 2px 6px rgba(15,28,46,.08); font:600 14px/1 var(--font-body); color:var(--warm-900); white-space:nowrap; }
-        .ph-link-ic{ display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:9999px;
-          background:var(--warm-100); color:var(--warm-700); flex:0 0 auto; }
-        .ph-prod-lbl{ display:block; font:500 11px/1.3 var(--font-body); color:#fff; text-shadow:0 3px 8px rgba(0,0,0,.35); margin:1px 2px 7px; }
-        .ph-prod-img{ width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:9px; display:block; }
-        .ph-stat{ background:#fff; border-radius:12px; box-shadow:0 2px 6px rgba(15,28,46,.08); padding:12px 15px; display:flex; flex-direction:column; gap:4px; }
-        .ph-stat-lbl{ display:inline-flex; align-items:center; gap:6px; font:600 12px/1.2 var(--font-body); color:var(--warm-900); }
-        .ph-stat-cur{ display:inline-flex; align-items:center; justify-content:center; width:16px; height:16px; border-radius:5px; background:var(--warm-100); font:700 10px/1 var(--font-body); color:var(--warm-800); }
-        .ph-stat-row{ display:flex; align-items:baseline; gap:8px; }
-        .ph-stat-row b{ font-family:var(--font-display); font-weight:800; font-size:22px; letter-spacing:-.02em; color:var(--warm-900); }
-        .ph-stat-row b small{ font-size:.6em; font-weight:800; }
-        .ph-stat-row em{ font-style:normal; font-weight:700; font-size:11px; color:#047857; background:#dcfce7; border-radius:6px; padding:2px 6px; }
-        .ph-pay{ display:flex; align-items:center; justify-content:space-between; gap:16px; background:#fff; border-radius:9px; box-shadow:0 2px 6px rgba(15,28,46,.08); padding:9px 14px; white-space:nowrap; }
-        .ph-pay span{ font:500 13px/1 var(--font-body); color:var(--warm-800); }
-        .ph-pay b{ font-family:var(--font-display); font-weight:800; font-size:15px; color:var(--warm-900); }
-        .ph-g-pay-b .ph-pay{ padding:9px 14px; }
-        /* ===== advertiser hero slides ===== */
-        /* white UI card centred in the hexagon plate (slides 1 & 3) */
-        .ph-uicard{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:2; width:78%; max-height:80%; overflow:hidden;
-          background:#fff; border-radius:18px; box-shadow:0 18px 40px rgba(15,28,46,.14); padding:15px 15px 8px; display:flex; flex-direction:column; }
-        .ph-uc-head{ font:600 12px/1.3 var(--font-body); color:var(--warm-600); padding:0 3px 10px; }
-        .ph-plist{ display:flex; flex-direction:column; }
-        .ph-plist li{ display:flex; align-items:center; gap:10px; padding:8px 3px; border-top:1px solid var(--warm-100); }
-        .ph-plist li:first-child{ border-top:none; }
-        .ph-pl-av{ width:34px; height:34px; border-radius:9px; flex:0 0 auto; display:flex; align-items:center; justify-content:center;
-          background:linear-gradient(150deg,#dbe4f2,#eef2f8); color:var(--midnight-light); font-family:var(--font-display); font-weight:800; font-size:14px; }
-        .ph-pl-meta{ display:flex; flex-direction:column; gap:1px; min-width:0; flex:1; }
-        .ph-pl-meta b{ font:700 13px/1.2 var(--font-body); color:var(--warm-900); }
-        .ph-pl-meta small{ font:400 11px/1.2 var(--font-body); color:#9a938c; }
-        .ph-pl-btn{ flex:0 0 auto; font:600 12px/1 var(--font-body); color:#fff; background:var(--midnight-light); border-radius:9999px; padding:7px 14px; }
-        .ph-clist{ display:flex; flex-direction:column; }
-        .ph-clist li{ display:flex; align-items:center; gap:11px; padding:6px 3px; }
-        .ph-cl-chk{ width:22px; height:22px; border-radius:50%; background:#10b981; flex:0 0 auto; display:flex; align-items:center; justify-content:center; }
-        .ph-cl-chk svg{ width:13px; height:13px; }
-        .ph-cl-meta{ display:flex; flex-direction:column; }
-        .ph-cl-meta b{ font-family:var(--font-display); font-weight:800; font-size:15px; letter-spacing:-.01em; color:var(--warm-900); }
-        .ph-cl-meta small{ font:400 11px/1.2 var(--font-body); color:#9a938c; }
-        /* 11.11 campaign text over the product photo (slide 2) */
-        .ph-camp{ position:absolute; left:11%; bottom:17%; z-index:2; display:flex; flex-direction:column; color:#fff; text-shadow:0 3px 12px rgba(0,0,0,.45); pointer-events:none; }
-        .ph-camp b{ font-family:var(--font-display); font-weight:800; font-size:clamp(26px,6vw,36px); line-height:1; letter-spacing:-.02em; }
-        .ph-camp span{ font-family:var(--font-display); font-weight:700; font-size:clamp(15px,3.2vw,19px); margin-top:3px; }
-        /* glass positions */
-        .ph-ga-conv{ left:-8%; top:14%; }
-        .ph-ga-cat{ left:-9%; bottom:12%; }
-        .ph-ga-live{ left:-2%; top:8%; }
-        .ph-ga-appl{ right:-7%; bottom:12%; }
-        .ph-ga-vc{ left:-8%; top:14%; }
-        /* conversion-rate stat card (slide 0) */
-        .ph-av-stat{ background:#fff; border-radius:10px; box-shadow:0 2px 6px rgba(15,28,46,.08); padding:9px 14px; min-height:54px; box-sizing:border-box; display:flex; flex-direction:column; justify-content:center; gap:2px; white-space:nowrap; }
-        .ph-av-lbl{ display:inline-flex; align-items:center; gap:7px; font:600 11px/1.2 var(--font-body); color:var(--warm-900); }
-        .ph-av-ic{ display:inline-flex; align-items:center; justify-content:center; width:16px; height:16px; border-radius:5px; background:var(--midnight-light-tint); color:var(--midnight-light); flex:0 0 auto; }
-        .ph-av-ic svg{ width:11px; height:11px; }
-        .ph-av-row{ display:flex; align-items:center; gap:8px; }
-        .ph-av-row b{ font-family:var(--font-display); font-weight:800; font-size:15px; letter-spacing:-.02em; color:var(--warm-900); }
-        .ph-av-row em{ font-style:normal; font-weight:700; font-size:10px; color:#047857; background:#dcfce7; border-radius:5px; padding:1px 5px; }
-        /* label/value pill (Publishers for…, Applicants…, Validated Conversion…) */
-        .ph-cat{ background:#fff; border-radius:10px; box-shadow:0 2px 6px rgba(15,28,46,.08); padding:9px 14px; min-height:54px; box-sizing:border-box; white-space:nowrap; display:flex; flex-direction:column; justify-content:center; gap:2px;
-          font-family:var(--font-display); font-weight:700; font-size:14px; color:var(--warm-900); }
-        .ph-cat small{ font:500 10.5px/1.1 var(--font-body); color:#9a938c; }
-        .ph-live{ background:#fff; border-radius:10px; box-shadow:0 2px 6px rgba(15,28,46,.08); padding:9px 14px; min-height:54px; box-sizing:border-box; white-space:nowrap; display:flex; align-items:center; justify-content:center;
-          font-family:var(--font-display); font-weight:700; font-size:14px; color:var(--warm-900); }
+        .prh-title{ margin-top:30px; font-size:clamp(28px,4.2vw,50px); line-height:1.08; letter-spacing:-.03em; color:var(--warm-900); }
+        .prh-sub{ margin:26px auto 0; max-width:730px; font-size:16px; line-height:1.35; color:var(--warm-600); }
+      `}</style>
+    </section>
+  );
+}
+
+
+/* ---------- Section 1b — Plan cards (Startup / Growth / Enterprise) -------- */
+const PRICING_PLANS = [
+  { key: 'startup', name: 'Startup', desc: 'For brands launching their first affiliate program.',
+    price: '$99', unit: '/mo', cta: 'Get started', href: '/advertisers/',
+    feats: ['Track up to 100,000 clicks a month', '1 offer setup', 'Single tier commission', 'Access to the publisher marketplace', 'Dashboard access', 'Helpdesk support'] },
+  { key: 'growth', name: 'Growth', desc: 'For brands ready to make affiliates a core growth channel.',
+    price: '$499', unit: '/mo', cta: 'Get started', href: '/advertisers/', recommended: true,
+    plus: 'Everything in Startup, plus:',
+    feats: ['Track up to 1,000,000 clicks a month', 'Up to 3 offer setups', 'Multi tier commission', 'Up to 3 recruitment campaigns a month', 'Publisher introductions', 'A dedicated account manager', 'Quarterly performance review'] },
+  { key: 'enterprise', name: 'Enterprise', desc: 'For large brands with high volumes or custom requirements.',
+    price: 'Custom', priceNote: 'Volume based pricing.', cta: 'Talk to us', href: '/advertisers/',
+    plus: 'Everything in Growth, plus:',
+    feats: ['A dedicated account manager and priority support', 'Custom volumes, offers, and reporting built around your goals.'] },
+];
+function PlanCheck() {
+  return (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>);
+}
+function PricingPlans() {
+  return (
+    <section id="pricing-plans" className="pp-sec">
+      <div className="wrap">
+        <div className="pp-grid" data-reveal>
+          {PRICING_PLANS.map((p) => (
+            <div className={'pp-card' + (p.recommended ? ' pp-rec' : '')} key={p.key}>
+              {p.recommended && <span className="pp-badge">Recommended</span>}
+              <h3 className="pp-name">{p.name}</h3>
+              <p className="pp-desc">{p.desc}</p>
+              <div className="pp-price"><span className="pp-amt">{p.price}</span>{p.unit && <span className="pp-unit">{p.unit}</span>}</div>
+              {p.priceNote && <p className="pp-pricenote">{p.priceNote}</p>}
+              <span className="pp-divider" aria-hidden="true" />
+              {p.plus && <p className="pp-plus">{p.plus}</p>}
+              <ul className="pp-feats">
+                {p.feats.map((f, i) => (<li key={i}><span className="pp-chk" aria-hidden="true"><PlanCheck /></span>{f}</li>))}
+              </ul>
+              <a href={p.href} className="btn btn-advertiser btn-lg pp-cta">{p.cta} <Arrow /></a>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`
+        .pp-sec{ position:relative; background:transparent; padding:clamp(44px,7vh,80px) 0 clamp(56px,9vh,112px); }
+        .pp-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; align-items:stretch; max-width:1120px; margin:0 auto; }
+        .pp-card{ position:relative; display:flex; flex-direction:column; background:#fff; border:1px solid var(--warm-200); border-radius:22px;
+          padding:34px 30px; box-shadow:0 14px 34px rgba(15,28,46,.05); }
+        .pp-rec{ margin-top:-24px; padding-top:52px; border-color:transparent; box-shadow:0 30px 68px rgba(15,28,46,.16); z-index:2; }
+        .pp-badge{ position:absolute; top:18px; left:50%; transform:translateX(-50%); background:var(--midnight); color:#fff;
+          font:700 12px/1 var(--font-body); letter-spacing:.03em; text-transform:uppercase; padding:8px 16px; border-radius:9999px; white-space:nowrap; }
+        .pp-name{ font-family:var(--font-display); font-weight:800; font-size:24px; letter-spacing:-.01em; color:var(--warm-900); }
+        .pp-desc{ margin-top:8px; font:400 14px/1.45 var(--font-body); color:var(--warm-600); min-height:41px; }
+        .pp-price{ margin-top:20px; display:flex; align-items:baseline; gap:6px; }
+        .pp-amt{ font-family:var(--font-display); font-weight:800; font-size:48px; line-height:1; letter-spacing:-.02em; color:var(--midnight-light); }
+        .pp-unit{ font:500 16px/1 var(--font-body); color:#9a938c; }
+        .pp-pricenote{ margin-top:8px; font:400 14px/1.4 var(--font-body); color:var(--warm-600); }
+        .pp-divider{ display:block; height:1px; background:var(--warm-200); margin:22px 0; }
+        .pp-plus{ font:700 12px/1.3 var(--font-body); letter-spacing:.03em; text-transform:uppercase; color:var(--midnight-light); margin-bottom:14px; }
+        .pp-feats{ display:flex; flex-direction:column; gap:12px; margin-bottom:26px; }
+        .pp-feats li{ display:flex; align-items:flex-start; gap:11px; font:400 15px/1.4 var(--font-body); color:var(--warm-800); }
+        .pp-chk{ flex:0 0 auto; width:20px; height:20px; margin-top:1px; color:var(--midnight-light); }
+        .pp-chk svg{ width:100%; height:100%; display:block; }
+        .pp-cta{ margin-top:26px; width:100%; }
+        .pp-rec .pp-cta{ margin-top:26px; }
+        .pp-card > .pp-cta{ margin-top:auto; }
         @media (max-width:900px){
-          .ph-wrap{ grid-template-columns:1fr; gap:36px; }
-          .ph-copy{ text-align:center; display:flex; flex-direction:column; align-items:center; }
-          .ph-sub{ margin-left:auto; margin-right:auto; }
-          .ph-visual{ order:-1; max-width:420px; margin:0 auto; justify-self:center; }
-          /* keep the floating UI within the hexagon so the composition stays centred */
-          .ph-g-link, .ph-g-sales, .ph-g-conv{ right:0; }
-          .ph-g-prod, .ph-g-pay-a, .ph-g-pay-b{ left:0; }
+          .pp-grid{ grid-template-columns:1fr; gap:20px; max-width:460px; }
+          .pp-rec{ margin-top:0; padding-top:52px; }
         }
       `}</style>
     </section>
   );
 }
 
+/* ---------- Section 1c — "Compare our partnership levels" table ----------- */
+// cell value: true = check, false = dash, string = text
+const CMP_ROWS = [
+  ['Monthly price', '$99', '$499', 'Custom'],
+  ['Clicks tracked a month', 'Up to 100,000', 'Up to 1,000,000', 'Custom'],
+  ['Offer setups', '1', 'Up to 3', 'Custom'],
+  ['Commission structure', 'Single-tier', 'Multi-tier', 'Multi-tier'],
+  ['Recruitment campaigns a month', false, 'Up to 3', 'Custom'],
+  ['Publisher introductions', false, true, true],
+  ['Dedicated account manager', false, true, true],
+  ['Priority support', false, false, true],
+  ['Quarterly performance review', false, true, true],
+  ['Custom offers and reporting', false, false, true],
+  ['Publisher marketplace access', true, true, true],
+  ['Verified conversions and fraud protection', true, true, true],
+  ['Setup and launch fee', '$1,000 one-time', '$1,000 one-time', '$1,000 one-time'],
+  ['Minimum term', '3 months', '3 months', '3 months'],
+  ['Support', 'Helpdesk', 'Dedicated manager', 'Dedicated manager and priority'],
+];
+function PricingCompare() {
+  const cell = (v) => v === true
+    ? <span className="cmp-chk" aria-label="Included"><PlanCheck /></span>
+    : v === false ? <span className="cmp-dash" aria-label="Not included">—</span> : v;
+  return (
+    <section id="pricing-compare" className="cmp-sec">
+      <div className="wrap">
+        <div className="cmp-head" data-reveal>
+          <span className="cmp-eyebrow">Pricing Plans</span>
+          <h2 className="cmp-title">Compare our partnership levels</h2>
+          <p className="cmp-sub">Simple, transparent pricing engineered to scale your affiliate channel.</p>
+        </div>
+        <div className="cmp-scroll" data-reveal data-reveal-delay="1">
+          <div className="cmp-table">
+            <div className="cmp-row cmp-hrow">
+              <div className="cmp-c cmp-label-h">Platform features</div>
+              <div className="cmp-c cmp-plan">
+                <span className="cmp-plan-name">Startup</span>
+                <span className="cmp-plan-price">$99<small>/mo</small></span>
+                <a href="/advertisers/" className="btn btn-secondary cmp-cta">Get started</a>
+              </div>
+              <div className="cmp-c cmp-plan cmp-rec">
+                <span className="cmp-recbadge">Recommended</span>
+                <span className="cmp-plan-name">Growth</span>
+                <span className="cmp-plan-price">$499<small>/mo</small></span>
+                <a href="/advertisers/" className="btn btn-advertiser cmp-cta">Get started</a>
+              </div>
+              <div className="cmp-c cmp-plan">
+                <span className="cmp-plan-name">Enterprise</span>
+                <span className="cmp-plan-price cmp-custom">Custom</span>
+                <a href="/advertisers/" className="btn btn-secondary cmp-cta">Talk to sales</a>
+              </div>
+            </div>
+            {CMP_ROWS.map((r, i) => (
+              <div className="cmp-row" key={i}>
+                <div className="cmp-c cmp-label">{r[0]}</div>
+                <div className="cmp-c">{cell(r[1])}</div>
+                <div className={'cmp-c cmp-rec' + (i === CMP_ROWS.length - 1 ? ' cmp-rec-last' : '')}>{i === CMP_ROWS.length - 1 ? <b>{cell(r[2])}</b> : cell(r[2])}</div>
+                <div className="cmp-c">{cell(r[3])}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <style>{`
+        .cmp-sec{ background:var(--warm-50); padding:clamp(56px,9vh,110px) 0; }
+        .cmp-head{ text-align:center; max-width:720px; margin:0 auto clamp(30px,4.6vh,52px); }
+        .cmp-eyebrow{ display:inline-block; font:700 12px/1 var(--font-body); letter-spacing:.08em; text-transform:uppercase; color:var(--midnight-light); background:var(--midnight-light-tint); border-radius:9999px; padding:7px 14px; }
+        .cmp-title{ margin-top:16px; font-size:clamp(24px,3vw,34px); line-height:1.1; letter-spacing:-.02em; color:var(--warm-900); }
+        .cmp-sub{ margin-top:12px; font-size:16px; line-height:1.4; color:var(--warm-600); }
+        .cmp-scroll{ overflow-x:auto; scrollbar-width:thin; }
+        .cmp-table{ display:flex; flex-direction:column; min-width:0; max-width:1080px; margin:0 auto;
+          background:#fff; border:1px solid var(--warm-200); border-radius:22px; overflow:hidden; }
+        .cmp-row{ display:grid; grid-template-columns:minmax(220px,1.6fr) repeat(3,minmax(140px,1fr)); }
+        .cmp-c{ padding:15px 18px; display:flex; align-items:center; justify-content:center; text-align:center;
+          font:400 15px/1.45 var(--font-body); color:var(--warm-800); border-top:1px solid var(--warm-100); }
+        .cmp-label{ justify-content:flex-start; text-align:left; color:var(--warm-900); }
+        /* recommended (Growth) column tint + top accent */
+        .cmp-rec{ background:rgba(61,90,128,.05); }
+        .cmp-hrow .cmp-rec{ box-shadow:inset 0 4px 0 var(--midnight); }
+        .cmp-rec-last{ border-bottom-left-radius:0; }
+        /* header row */
+        .cmp-hrow .cmp-c{ border-top:none; align-items:flex-end; padding-top:30px; padding-bottom:22px; }
+        .cmp-label-h{ justify-content:flex-start !important; text-align:left; font:700 12px/1 var(--font-body); letter-spacing:.06em; text-transform:uppercase; color:#9a938c; }
+        .cmp-plan{ flex-direction:column; align-items:center !important; justify-content:flex-start !important; gap:6px; position:relative; padding-top:30px !important; }
+        .cmp-recbadge{ display:inline-block; background:var(--midnight); color:#fff; font:700 11px/1 var(--font-body); letter-spacing:.03em; text-transform:uppercase; padding:6px 12px; border-radius:9999px; margin-bottom:2px; }
+        .cmp-plan-name{ font-family:var(--font-display); font-weight:800; font-size:20px; letter-spacing:-.01em; color:var(--warm-900); }
+        .cmp-plan-price{ font-family:var(--font-display); font-weight:800; font-size:26px; line-height:1; letter-spacing:-.02em; color:var(--midnight-light); }
+        .cmp-plan-price.cmp-custom{ font-size:24px; }
+        .cmp-plan-price small{ font:500 13px/1 var(--font-body); color:#9a938c; margin-left:3px; }
+        .cmp-cta{ margin-top:10px; width:100%; max-width:190px; }
+        .cmp-chk{ display:inline-flex; width:20px; height:20px; color:var(--midnight-light); }
+        .cmp-chk svg{ width:100%; height:100%; display:block; }
+        .cmp-dash{ color:#c4beb6; }
+        /* Awin-style mobile: no side-scroll — feature label sits full-width above the three
+           plan values; Growth column stays tinted; plan CTAs (on the cards above) are hidden. */
+        @media (max-width:820px){
+          .cmp-scroll{ overflow:visible; }
+          .cmp-table{ min-width:0; }
+          .cmp-row{ grid-template-columns:repeat(3,1fr); }
+          .cmp-label{ grid-column:1 / -1; justify-content:flex-start; text-align:left; padding:14px 16px 4px; font:700 14px/1.35 var(--font-body); color:var(--warm-900); }
+          .cmp-label-h{ display:none; }
+          .cmp-cta{ display:none; }
+          .cmp-hrow .cmp-c{ padding-top:18px; padding-bottom:16px; align-items:center; }
+          .cmp-plan{ padding-top:18px !important; gap:3px; }
+          .cmp-plan-name{ font-size:14px; }
+          .cmp-plan-price{ font-size:18px; }
+          .cmp-plan-price.cmp-custom{ font-size:15px; }
+          .cmp-plan-price small{ font-size:11px; }
+          .cmp-recbadge{ font-size:10.5px; padding:4px 8px; margin-bottom:1px; }
+          .cmp-c{ padding:9px 8px; font-size:12px; line-height:1.35; }
+          .cmp-row:not(.cmp-hrow) .cmp-c{ border-top:none; }
+          .cmp-row:not(.cmp-hrow){ border-top:1px solid var(--warm-100); }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+/* ---------- Section 1d — "Get a free growth audit" dark band -------------- */
+function PricingAudit() {
+  return (
+    <section id="pricing-audit" className="pa-sec">
+      <div className="wrap">
+        <div className="pa-band" data-reveal>
+          <img className="pa-bg" src="media/figma/pricing-audit-bg.png" alt="" aria-hidden="true" />
+          <span className="pa-spark" aria-hidden="true"><img src="media/figma/pricing-audit-spark.svg" alt="" /></span>
+          <div className="pa-copy">
+            <h2 className="pa-title">Not sure which plan fits? Get a free growth audit.</h2>
+            <p className="pa-sub">Drop your website and we'll show your reach, the plan that fits, and publishers ready to promote you.</p>
+          </div>
+          <a href="/advertisers/" className="btn btn-primary btn-lg pa-cta">Get my free audit <Arrow /></a>
+        </div>
+      </div>
+      <style>{`
+        .pa-sec{ background:var(--warm-50); padding:clamp(10px,2vh,28px) 0; }
+        .pa-band{ position:relative; overflow:hidden; display:flex; align-items:center; gap:clamp(18px,2.6vw,36px);
+          border:1px solid #e8e8e2; border-radius:21px; padding:clamp(28px,3.2vw,40px) clamp(28px,4vw,56px); }
+        .pa-bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; pointer-events:none; }
+        .pa-spark{ position:relative; z-index:1; flex:0 0 auto; width:clamp(34px,3.4vw,52px); }
+        .pa-spark img{ width:100%; height:100%; display:block; }
+        .pa-copy{ position:relative; z-index:1; flex:1 1 auto; min-width:0; }
+        .pa-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(19px,1.9vw,24px); line-height:1.2; letter-spacing:-.01em; color:#fff; }
+        .pa-sub{ margin-top:7px; font:400 15px/1.45 var(--font-body); color:rgba(255,255,255,.72); max-width:640px; }
+        .pa-cta{ position:relative; z-index:1; flex:0 0 auto; }
+        @media (max-width:760px){
+          .pa-band{ flex-direction:column; align-items:flex-start; gap:18px; }
+          .pa-cta{ align-self:stretch; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+/* ---------- Section 1e — "Every plan comes with the essentials" ----------- */
+const PR_ESSENTIALS = [
+  { icon: 'users', title: '1.1 M+ publisher network', desc: 'Access to 800,000+ publishers across retail, travel, beauty, finance, and more.' },
+  { icon: 'activity', title: 'Precision tracking', desc: 'Real tracking, down to every click and conversion, in one dashboard.' },
+  { icon: 'shield', title: 'Conversion verification', desc: 'Every conversion verified before you pay, with fraud protection built in.' },
+  { icon: 'chat', title: 'Dedicated human support', desc: 'Real human support, from day one.' },
+];
+function EssIcon({ name }) {
+  const p = {
+    users: <><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></>,
+    activity: <path d="M22 12h-4l-3 9L9 3l-3 9H2" />,
+    shield: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />,
+    chat: <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />,
+  }[name];
+  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{p}</svg>;
+}
+function PricingEssentials() {
+  return (
+    <section id="pricing-essentials" className="ess-sec">
+      <div className="wrap">
+        <h2 className="ess-title" data-reveal>Every plan comes with the essentials.</h2>
+        <div className="ess-grid" data-reveal data-reveal-delay="1">
+          {PR_ESSENTIALS.map((e) => (
+            <div className="ess-card" key={e.title}>
+              <span className="ess-ic" aria-hidden="true"><EssIcon name={e.icon} /></span>
+              <h3 className="ess-ct">{e.title}</h3>
+              <p className="ess-cd">{e.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`
+        .ess-sec{ background:var(--warm-50); padding:clamp(48px,8vh,100px) 0; }
+        .ess-title{ text-align:center; font-size:clamp(24px,3vw,34px); line-height:1.1; letter-spacing:-.02em; color:var(--warm-900); }
+        .ess-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; max-width:1120px; margin:clamp(36px,5vh,56px) auto 0; }
+        .ess-card{ background:#fff; border:1px solid var(--warm-200); border-radius:18px; padding:26px 24px; box-shadow:0 10px 26px rgba(15,28,46,.04); }
+        .ess-ic{ display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:11px; background:var(--midnight-light-tint); color:var(--midnight-light); }
+        .ess-ic svg{ width:20px; height:20px; display:block; }
+        .ess-ct{ margin-top:18px; font-family:var(--font-display); font-weight:800; font-size:17px; line-height:1.25; letter-spacing:-.01em; color:var(--warm-900); }
+        .ess-cd{ margin-top:10px; font:400 14px/1.5 var(--font-body); color:var(--warm-600); }
+        @media (max-width:900px){ .ess-grid{ grid-template-columns:repeat(2,1fr); } }
+        @media (max-width:520px){ .ess-grid{ grid-template-columns:1fr; max-width:400px; } }
+      `}</style>
+    </section>
+  );
+}
+
+/* ---------- Section 1f — "How pricing works, in two clear parts" ---------- */
+function HowArrow() {
+  return (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg>);
+}
+function PricingHow() {
+  return (
+    <section id="pricing-how" className="how-sec">
+      <div className="wrap">
+        <h2 className="how-title" data-reveal>How pricing works, in two clear parts.</h2>
+        <div className="how-grid" data-reveal data-reveal-delay="1">
+          <div className="how-col">
+            <span className="how-num">1</span>
+            <h3 className="how-ct">Your platform plan.</h3>
+            <p className="how-cd">A monthly fee (Startup $99, Growth $499, or custom for Enterprise), a one-time $1,000 setup and launch fee, and a 3 month minimum term. This is what you pay Involve to run your program.</p>
+            <span className="how-divider" aria-hidden="true" />
+            <ul className="how-notes">
+              <li><span className="how-arr" aria-hidden="true"><HowArrow /></span>The setup fee covers our team building and launching your program with you, so it goes live set up the right way, not on your own.</li>
+              <li><span className="how-arr" aria-hidden="true"><HowArrow /></span>The 3 month minimum gives a new program enough runway to recruit publishers and gather data before you decide what is next.</li>
+            </ul>
+          </div>
+          <div className="how-col">
+            <span className="how-num">2</span>
+            <h3 className="how-ct">What you pay publishers.</h3>
+            <p className="how-cd">A commission you set on each offer, paid only when a publisher drives a real, verified sale. This is the pay-for-results part, so this spend always maps to revenue.</p>
+            <span className="how-divider" aria-hidden="true" />
+            <div className="how-callout">Affiliate marketing is pure performance. You are completely in control of the commission rates and only pay after validation.</div>
+          </div>
+        </div>
+      </div>
+      <style>{`
+        .how-sec{ background:var(--warm-50); padding:clamp(48px,8vh,100px) 0; }
+        .how-title{ text-align:center; font-size:clamp(24px,3vw,34px); line-height:1.1; letter-spacing:-.02em; color:var(--warm-900); }
+        .how-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(40px,6vw,88px); max-width:1080px; margin:clamp(40px,6vh,64px) auto 0; }
+        .how-num{ display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:50%; background:var(--midnight); color:#fff; font:700 14px/1 var(--font-body); }
+        .how-ct{ margin-top:16px; font-family:var(--font-display); font-weight:800; font-size:22px; letter-spacing:-.01em; color:var(--warm-900); }
+        .how-cd{ margin-top:12px; font:400 15px/1.55 var(--font-body); color:var(--warm-600); }
+        .how-divider{ display:block; height:1px; background:var(--warm-200); margin:22px 0; }
+        .how-notes{ display:flex; flex-direction:column; gap:16px; }
+        .how-notes li{ display:flex; align-items:flex-start; gap:12px; font:400 14px/1.5 var(--font-body); color:var(--warm-600); }
+        .how-arr{ flex:0 0 auto; width:15px; height:15px; margin-top:3px; color:var(--midnight-light); }
+        .how-arr svg{ width:100%; height:100%; display:block; }
+        .how-callout{ background:var(--midnight-light-tint); border-radius:14px; padding:18px 20px; font:600 14px/1.55 var(--font-body); color:var(--midnight-light); }
+        @media (max-width:820px){ .how-grid{ grid-template-columns:1fr; gap:40px; } }
+      `}</style>
+    </section>
+  );
+}
 /* ---------- Section 2 — Logo strip ---------------------------------------- */
 const PUB_LOGOS = [
   ['Apple', 'pub-logo-apple.png', 42],
@@ -1027,34 +1195,24 @@ function PubVoices() {
 }
 
 /* ---------- Section 8 — "Questions, answered." (FAQ accordion) ------------
-   Copy supplied by the client. Two answers carry links (beginner guide, Express
-   Withdrawal) — hrefs are placeholders pending the real URLs. Example figures
-   (4.2% commission, 10 working days) are illustrative — confirm before launch. */
+   Pricing FAQ. Bracketed answers are client placeholders to confirm before launch. */
 const PUB_FAQ = [
-  ['What is affiliate marketing?',
-    <>Affiliate marketing is a performance-based way to earn: you promote an advertiser&rsquo;s products with your own trackable link, and you earn a commission on every sale you drive. On the Involve Asia platform, you get access to hundreds of brands, the links and tracking to promote them, and the payouts, all in one place. <a href="/resources/affiliate-marketing-guide/">Read our beginner guide</a>.</>],
-  ['How does affiliate marketing work?',
-    'You share a trackable link. When someone clicks it and buys, the sale is recorded to you, and you earn a commission. Even if they come back days later, a cookie keeps the sale credited to you. On Involve Asia you find campaigns, track performance, and get paid from the dashboard and the app.'],
-  ['What is an affiliate program?',
-    'An affiliate program is an advertiser’s set of offers and commissions for publishers who promote them. On the platform you search for the brands you like, generate a link, and start promoting. Some programs approve publishers before promotion begins.'],
-  ['Is affiliate marketing legal?',
-    'Yes. Affiliate marketing is a legitimate, widely used marketing model. We keep every partnership and promotion compliant and transparent, so both publishers and advertisers can trust the numbers.'],
-  ['What is an affiliate platform, and how is it different from a network?',
-    'A network is the connective layer that links advertisers and publishers. A platform is the full product that sits on top: the offers, the link and tracking tools, the reporting, and the payouts, in one place. Involve Asia is an affiliate marketing platform that gives both sides everything they need to grow.'],
-  ['What types of publishers can join?',
-    'Almost any kind. Social and influencer, content and news sites, coupon and deal sites, cashback and loyalty sites, comparison sites, app owners, and media buyers or agencies. If you have an audience or traffic, there is a way to earn.'],
-  ['Do I need a website?',
-    'No. You can earn with a blog, a YouTube channel, Instagram, Facebook, TikTok, an email list, an app, and more. Just create an account, add your property, and start.'],
-  ['Is it free to join?',
-    'Yes. Joining is free, there are no fees to sign up, and no cost to use the platform.'],
-  ['How do I get started and approved?',
-    'Create your account, add your property, and apply to the programs you want to promote. Some advertisers approve publishers before promotion begins; once you are approved, you can generate links and start earning.'],
-  ['How are commissions calculated?',
-    'Each brand sets its own commission. For example, a fashion brand might pay 4.2% on every validated sale. Two things shape your payout: the validation period (the advertiser confirms the sale is genuine and not cancelled before it pays out) and the cookie period (how long after a click a purchase still counts for you). Both are shown on each offer.'],
-  ['How and when do I get paid?',
-    <>You get paid by PayPal or bank transfer, in your preferred currency, within 10 working days of your request, once your conversions are validated. If you want your earnings sooner, <a href="/express-withdrawal/">Express Withdrawal</a> lets eligible publishers unlock a portion before validation, subject to a processing fee and approval.</>],
-  ['How do I track my performance?',
-    'Log in and open Reports, then Performance Report. Filter by date range, brand, or campaign type to see your clicks, sales, and earnings in real time. Advanced publishers can also pull performance through the API.'],
+  ['What do I actually pay publishers?',
+    'You set the commission for each offer. Publishers earn it only when they drive a real sale, so your spend maps to revenue.'],
+  ['What is the $1,000 setup fee for?',
+    'It covers building and launching your program with our team, so it is set up correctly and live quickly.'],
+  ['Why a 3 month minimum?',
+    'Affiliate programs need runway to recruit publishers and gather data. Three months is enough to see real results.'],
+  ['What happens after the three-month minimum?',
+    'Your plan continues on a rolling basis, and you can upgrade, downgrade, or cancel it as your program evolves.'],
+  ["What happens if I exceed my plan's tracking limit?",
+    'If your traffic grows beyond your plan, you can move up to one that fits, and our team will help you make the switch.'],
+  ['Can I change plans later?',
+    'Yes. Move from Startup to Growth, or up to Enterprise, as your program scales.'],
+  ['Which plan should I pick?',
+    'Most brands making affiliates a core channel choose Growth. Start with Startup to launch and test, and talk to us for Enterprise volumes. Or take the 2-minute quiz.'],
+  ['How are results tracked?',
+    'Every click and conversion is tracked to the publisher who drove it, and verified before payout.'],
 ];
 function PubFAQ() {
   const [open, setOpen] = React.useState(() => new Set([0]));
@@ -1062,7 +1220,7 @@ function PubFAQ() {
   return (
     <section id="pub-faq" className="fq-sec">
       <div className="wrap">
-        <h2 className="fq-title" data-reveal>Questions, answered.</h2>
+        <h2 className="fq-title" data-reveal>Pricing questions, answered.</h2>
         <div className="fq-list" data-reveal data-reveal-delay="1">
           {PUB_FAQ.map(([q, a], i) => {
             const isOpen = open.has(i);
@@ -1156,27 +1314,25 @@ function PubCtaHexField() {
 function PubCTA() {
   return (
     <section id="pub-cta" className="pc-sec">
-      <PubCtaHexField />
-      <span className="pc-topfade" aria-hidden="true" />
-      <span className="pc-wash" aria-hidden="true" />
+      <span className="pc-bg" aria-hidden="true">
+        <img className="pc-bg-hex" src="media/figma/pricing-cta-bg-hex.png" alt="" />
+        <img className="pc-bg-grad" src="media/figma/pricing-cta-bg-grad.png" alt="" />
+      </span>
       <div className="wrap pc-inner">
-        <h2 className="pc-title" data-reveal>Start growing your business with the right plan today.</h2>
-        <a href="/advertisers/" className="btn btn-advertiser btn-lg pc-btn" data-reveal data-reveal-delay="1">See plans and pricing <Arrow /></a>
+        <h2 className="pc-title" data-reveal>Not sure where to start? We'll help.</h2>
+        <p className="pc-sub" data-reveal data-reveal-delay="1">Book a quick call and our team will map out the fastest way to grow your brand with Involve.</p>
+        <a href="/advertisers/" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="2">Talk to us <Arrow /></a>
       </div>
       <style>{`
-        .pc-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(96px,16vh,200px) 0 clamp(104px,17vh,210px); }
-        .pc-hexfield{ position:absolute; left:0; top:50%; transform:translateY(-44%) scaleY(-1); width:100%; height:auto; z-index:0; pointer-events:none; opacity:.385;
-          -webkit-mask-image:linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent); mask-image:linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent); }
-        .pc-hexfield .hx{ will-change:transform; }
-        /* gradient blend into the section above */
-        .pc-topfade{ position:absolute; left:0; right:0; top:0; height:clamp(200px,26%,340px); z-index:0; pointer-events:none;
-          background:linear-gradient(180deg, var(--warm-50) 0%, rgba(250,250,248,.6) 45%, rgba(250,250,248,0) 100%); }
-        .pc-wash{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:760px; height:420px; z-index:0; pointer-events:none;
-          background:radial-gradient(ellipse at center, var(--warm-50) 32%, rgba(250,250,248,0) 72%); }
+        /* even top/bottom padding (content vertically centred), layered midnight background */
+        .pc-sec{ position:relative; overflow:hidden; background:#0f1c2e; padding:clamp(88px,13vh,124px) 0; }
+        .pc-bg{ position:absolute; inset:0; z-index:0; pointer-events:none; }
+        .pc-bg-hex{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.4; }
+        .pc-bg-grad{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
         .pc-inner{ position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; text-align:center; }
-        .pc-title{ font-size:clamp(24px,3vw,34px); line-height:1.15; letter-spacing:-.03em; color:var(--warm-900); max-width:900px; }
-        .pc-btn{ margin-top:26px; }
-        @media (max-width:700px){ .pc-sec{ padding:clamp(60px,9vh,84px) 0 clamp(68px,10vh,96px); } }
+        .pc-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.15; letter-spacing:-.03em; color:#fff; max-width:820px; }
+        .pc-sub{ margin-top:14px; font:400 16px/1.5 var(--font-body); color:rgba(255,255,255,.72); max-width:620px; }
+        .pc-btn{ margin-top:28px; }
       `}</style>
     </section>
   );
@@ -1271,8 +1427,7 @@ function AdvGoals() {
         .ag-ico svg{ width:22px; height:22px; }
         .ag-item-t{ margin-top:22px; font-family:var(--font-display); font-weight:800; font-size:21px; letter-spacing:-.02em; color:var(--warm-900); }
         .ag-item-d{ margin-top:10px; font:400 16px/1.31 var(--font-body); color:var(--warm-600); max-width:330px; }
-        @media (max-width:820px){ .ag-grid{ grid-template-columns:1fr; gap:32px; max-width:440px; }
-          .ag-title, .ag-sub{ text-align:left; } }
+        @media (max-width:820px){ .ag-grid{ grid-template-columns:1fr; gap:32px; max-width:440px; } }
       `}</style>
     </section>
   );
@@ -1283,23 +1438,23 @@ function AdvGoals() {
 const ADV_PLATFORM = [
   {
     key: 'find', t: 'Find and choose your publishers',
-    d: 'Search publishers by audience, channel, and membership tier, then approve who represents your brand. You stay in full control of who promotes you.',
-    img: 'Adv-feature-slide01.png',
-  },
-  {
-    key: 'reward', t: 'Recruits and grows your publisher base',
-    d: 'Prefer a hand? Our Advertiser Solutions team finds and recruits publishers that fit your brand, and wins back the ones who go quiet, so your program keeps growing.',
-    img: 'Adv-feature-slide05.png',
+    d: (<>Search 1,000,000+ publishers by audience, channel, and membership tier, and approve who represents your brand. Prefer a hand? Request recruitment and our Advertiser Solutions team sources and recommends publishers that fit your brand, and re-engages the ones who go quiet. <a href="/advertisers/partner-discovery/">Partner Discovery</a></>),
+    img: 'adv-plat-1.png',
   },
   {
     key: 'launch', t: 'Launch offers and share your creatives',
     d: 'Set your commission, launch an offer, and upload your campaigns for publishers to pick up, then see who is promoting them.',
-    img: 'Adv-feature-slide02.png',
+    img: 'adv-plat-2.png',
   },
   {
     key: 'track', t: 'Track every result in real time',
     d: 'Watch clicks, conversions, and payouts as they happen, with conversion-level detail and exports whenever you need them.',
-    img: 'Adv-feature-slide03.png',
+    img: 'adv-plat-3.png',
+  },
+  {
+    key: 'reward', t: 'Reward what works',
+    d: 'Set tiered commissions and adjust payouts per publisher, so your best performers earn more and your budget follows your strongest results.',
+    img: 'adv-plat-4.png',
   },
 ];
 const ADV_PLATFORM_MS = 5000;
@@ -1328,7 +1483,6 @@ function AdvPlatform() {
                   <span className="pf-step-body">
                     <span className="pf-step-t">{s.t}</span>
                     <span className="pf-step-dw"><span className="pf-step-d">{s.d}</span></span>
-                    <span className="pf-step-fig"><span className="pf-step-fig-in"><img className="pf-step-fig-img" src={`media/figma/${s.img}`} alt="" loading="lazy" /></span></span>
                   </span>
                 </button>
               );
@@ -1345,7 +1499,7 @@ function AdvPlatform() {
         .pf-sec{ background:var(--warm-50); padding:clamp(77px,11.11vh,152px) 0 clamp(89px,14.28vh,191px); overflow:hidden; }
         .pf-title{ text-align:center; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
         .pf-sub{ text-align:center; margin-top:14px; font-size:16px; line-height:1.4; color:var(--warm-600); }
-        .pf-grid{ margin-top:clamp(40px,6vh,72px); display:grid; grid-template-columns:minmax(0,412px) 1fr; gap:clamp(32px,4vw,64px); align-items:stretch; }
+        .pf-grid{ margin-top:clamp(40px,6vh,72px); display:grid; grid-template-columns:minmax(0,447px) 1fr; gap:clamp(32px,4vw,64px); align-items:center; }
         .pf-steps{ display:flex; flex-direction:column; }
         .pf-step{ position:relative; display:flex; gap:20px; align-items:stretch; text-align:left; background:none; border:none; cursor:pointer; padding:34px 0; width:100%; }
         .pf-step + .pf-step{ border-top:1px solid var(--warm-200); }
@@ -1365,8 +1519,7 @@ function AdvPlatform() {
         /* inactive steps fade back (header only) */
         .pf-step:not(.on){ opacity:.4; } .pf-step:not(.on):hover{ opacity:.7; }
         /* light ember→cool gradient container; the dashboard sits inset top-left and bleeds off the right */
-        .pf-visual{ position:relative; align-self:stretch; min-height:clamp(420px,52vh,600px); overflow:hidden;
-          margin-right:calc(min(100vw, var(--maxw)) / 2 - 50vw - 32px); border-radius:22px 0 0 22px;
+        .pf-visual{ position:relative; aspect-ratio:1152/632; border-radius:22px; overflow:hidden;
           background:linear-gradient(150deg, #e6ecf6 0%, #f2f4f9 46%, #d7e1f0 100%); }
         /* dashboard fills the right half flush to the right/bottom edges (bleeds off right); gradient frames the top-left */
         .pf-img{ position:absolute; top:clamp(20px,3.2vw,40px); left:clamp(20px,3.2vw,40px);
@@ -1374,18 +1527,11 @@ function AdvPlatform() {
           object-fit:cover; object-position:left top; border-radius:16px 0 0 0;
           opacity:0; transition:opacity .5s ease; }
         .pf-img.on{ opacity:1; }
-        .pf-step-fig{ display:none; }
         @media (max-width:900px){
-          .pf-grid{ grid-template-columns:1fr; gap:0; }
-          .pf-visual{ display:none; }
-          .pf-step{ gap:0; padding:24px 0; }
-          .pf-rail{ display:none; }
-          .pf-step-fig{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s ease; }
-          .pf-step.on .pf-step-fig{ grid-template-rows:1fr; }
-          .pf-step-fig-in{ overflow:hidden; min-height:0; }
-          .pf-step-fig-img{ display:block; width:100%; height:auto; margin:18px 0 4px; border-radius:14px; box-shadow:0 12px 28px rgba(15,28,46,.12); }
+          .pf-grid{ grid-template-columns:1fr; gap:28px; }
+          .pf-visual{ order:-1; }
         }
-        @media (prefers-reduced-motion: reduce){ .pf-rail-fill{ animation:none; height:100%; } .pf-img{ transition:none; } .pf-step-fig{ transition:none; } }
+        @media (prefers-reduced-motion: reduce){ .pf-rail-fill{ animation:none; height:100%; } .pf-img{ transition:none; } }
       `}</style>
     </section>
   );
@@ -1575,9 +1721,7 @@ function AdvStats() {
         .as-s11m{ left:26.67%; top:62.2%; }
         .as-s32b{ left:79.69%; top:63.3%; transform:translateX(-50%); }
         @media (max-width:860px){
-          /* hexagons are hidden on mobile, so drop the negative overlap margin and give the section real breathing room */
-          .as-sec{ margin:0; padding:clamp(56px,9vh,96px) 0; }
-          .as-stage{ aspect-ratio:auto; display:flex; flex-direction:column; align-items:center; text-align:center; gap:44px; padding:0 20px; }
+          .as-stage{ aspect-ratio:auto; display:flex; flex-direction:column; align-items:center; text-align:center; gap:26px; padding:8px 20px 20px; }
           .as-hexcell{ display:none; }
           .as-heading{ position:static; transform:none; }
           .as-stat{ position:static; align-items:center; }
@@ -1731,21 +1875,22 @@ function AdvAwards() {
     </section>
   );
 }
-function AdvertiserApp() {
+function PricingApp() {
   useSmoothScroll();
   useScrollReveal();
   return (
     <React.Fragment>
-      <Nav getStartedTone="pub" />
+      <Nav getStartedTone="midnight" />
       <main>
         <PubHero />
+        <PricingPlans />
+        <PricingCompare />
+        <PricingAudit />
+        <PricingEssentials />
+        <PricingHow />
+        <PubFAQ />
+        {/* pricing sections added section-by-section; advertiser-only sections retired */}
         <PubLogos />
-        <AdvGoals />
-        <AdvPlatform />
-        <AdvReal />
-        <AdvStats />
-        <AdvResults />
-        <AdvAwards />
         <PubCTA />
       </main>
       <Footer />
@@ -1754,4 +1899,4 @@ function AdvertiserApp() {
   );
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(<AdvertiserApp />);
+ReactDOM.createRoot(document.getElementById('root')).render(<PricingApp />);

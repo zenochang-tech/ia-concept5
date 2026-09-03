@@ -18,16 +18,6 @@ const LinkIcon = () => (
 
 /* ---------- Section 1 — Hero ---------------------------------------------- */
 function PubHero() {
-  // Right-hand visual is a 4-slide fade slider: each slide's photo + its floating UI
-  // cross-fade in/out together every 1.5s. Reduced-motion holds slide 1.
-  const [slide, setSlide] = React.useState(0);
-  const N = 4;
-  React.useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const id = setInterval(() => setSlide((s) => (s + 1) % N), 2000);
-    return () => clearInterval(id);
-  }, []);
-  const on = (i) => 'ph-slide' + (slide === i ? ' is-active' : '');
   return (
     <section id="pub-hero" className="ph-sec">
       <div className="ph-hexdeco" aria-hidden="true">
@@ -39,48 +29,18 @@ function PubHero() {
       <span className="ph-basefade" aria-hidden="true" />
       <div className="wrap ph-wrap">
         <div className="ph-copy">
-          <span className="ph-eyebrow" data-reveal>Affiliate Marketing for Publishers</span>
-          <h1 className="ph-title" data-reveal data-reveal-delay="1">Turn your audience into income.</h1>
-          <p className="ph-sub" data-reveal data-reveal-delay="2">Promote what you love, earn on every sale, and get paid faster.</p>
+          <span className="ph-eyebrow" data-reveal>Affiliate Marketing for websites and content owner</span>
+          <h1 className="ph-title" data-reveal data-reveal-delay="1">Turn the traffic you already have into income.</h1>
+          <p className="ph-sub" data-reveal data-reveal-delay="2">Add relevant, customisable links to your blog, niche, or news site, and earn on every referral, all tracked from one dashboard.</p>
           <div className="ph-actions" data-reveal data-reveal-delay="3">
             <a href="/partners/" className="btn btn-primary btn-lg">Start Earning <Arrow /></a>
           </div>
-          <span className="ph-free" data-reveal data-reveal-delay="3">Free to join. No fees, no catch.</span>
         </div>
 
         <div className="ph-visual" data-reveal data-reveal-delay="1">
           <span className="ph-hexglow" aria-hidden="true" />
           <span className="ph-hexplate" aria-hidden="true" />
-
-          <div className={on(0)} aria-hidden={slide !== 0}>
-            <div className="ph-photo"><img className="ph-flip" src="media/figma/pub-hero-creator.png" alt="A creator filming a product review to share with her audience" loading="eager" /></div>
-            <div className="ph-slide-ui">
-              <div className="ph-glass ph-g-link"><div className="ph-link"><span className="ph-link-ic"><LinkIcon /></span>invl.me/yourDeepLink</div></div>
-              <div className="ph-glass ph-g-prod"><span className="ph-prod-lbl">Necklace</span><img className="ph-prod-img" src="media/figma/pub-hero-necklace.png" alt="" /></div>
-            </div>
-          </div>
-
-          <div className={on(1)} aria-hidden={slide !== 1}>
-            <div className="ph-photo"><img src="media/figma/pub-hero-slide2.png" alt="A publisher reviewing their sales in the dashboard" loading="eager" /></div>
-            <div className="ph-slide-ui">
-              <div className="ph-glass ph-g-sales"><div className="ph-stat"><span className="ph-stat-lbl"><span className="ph-stat-cur">$</span> Total Sales</span><span className="ph-stat-row"><b>136,578</b><em>&uarr;36%</em></span></div></div>
-            </div>
-          </div>
-
-          <div className={on(2)} aria-hidden={slide !== 2}>
-            <div className="ph-photo"><img className="ph-flip" src="media/figma/pub-hero-slide3.png" alt="A publisher checking conversion analytics" loading="eager" /></div>
-            <div className="ph-slide-ui">
-              <div className="ph-glass ph-g-conv"><div className="ph-stat"><span className="ph-stat-lbl">Conversion Rate</span><span className="ph-stat-row"><b>12<small>%</small></b><em>&uarr;21%</em></span></div></div>
-            </div>
-          </div>
-
-          <div className={on(3)} aria-hidden={slide !== 3}>
-            <div className="ph-photo"><img src="media/figma/pub-hero-slide4.png" alt="A publisher receiving a payout notification" loading="eager" /></div>
-            <div className="ph-slide-ui">
-              <div className="ph-glass ph-g-pay-a"><div className="ph-pay"><span>Payout Received</span><b>+ $48</b></div></div>
-              <div className="ph-glass ph-g-pay-b"><div className="ph-pay"><span>Payout Received</span><b>+ $61</b></div></div>
-            </div>
-          </div>
+          <div className="ph-photo ph-photo-fill"><img src="media/figma/website-hero.png" alt="A content website shown on a laptop" loading="eager" /></div>
         </div>
       </div>
 
@@ -114,8 +74,10 @@ function PubHero() {
           background:radial-gradient(circle at 50% 46%, rgba(240,88,38,.20), rgba(240,88,38,0) 62%); filter:blur(6px); }
         /* soft hex plate behind the photo — rounded pointy-top (r≈38.67), ember → midnight gradient */
         .ph-hexplate{ position:absolute; inset:0; z-index:0; background:linear-gradient(158deg,#fbe9df 0%,#f5f2ee 48%,#e6eef9 100%);
-          -webkit-mask:url('media/figma/pub-hero-hexclip.svg') center/contain no-repeat; mask:url('media/figma/pub-hero-hexclip.svg') center/contain no-repeat;
-          filter:drop-shadow(0 26px 54px rgba(15,28,46,.10)); }
+          -webkit-mask:url('media/figma/pub-hero-hexclip.svg') center/contain no-repeat; mask:url('media/figma/pub-hero-hexclip.svg') center/contain no-repeat; }
+        /* single contained hero image (laptop mockup) over the hex plate */
+        .ph-heroimg{ position:absolute; inset:0; z-index:2; display:flex; align-items:center; justify-content:center; }
+        .ph-heroimg img{ width:100%; height:100%; object-fit:contain; display:block; }
         /* ---- fade slider: each slide (photo + its UI) cross-fades in/out ---- */
         .ph-slide{ position:absolute; inset:0; z-index:1; opacity:0; transition:opacity .85s cubic-bezier(.4,0,.2,1); }
         .ph-slide.is-active{ opacity:1; z-index:2; }
@@ -123,6 +85,9 @@ function PubHero() {
         .ph-photo{ position:absolute; inset:0; z-index:1;
           -webkit-mask:url('media/figma/pub-hero-hexclip.svg') center/contain no-repeat; mask:url('media/figma/pub-hero-hexclip.svg') center/contain no-repeat; }
         .ph-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+        /* hero mockup floats with transparent margins; scale it up (clipped to the hexagon by
+           the .ph-photo mask) so it fills the hexagon like the express-withdrawal photo */
+        .ph-photo-fill img{ object-fit:contain; transform:scale(1.04); transform-origin:48% 54%; }
         /* slides 1 & 3 are mirrored horizontally (no zoom) */
         .ph-photo img.ph-flip{ transform:scaleX(-1); }
         /* per-slide UI: subtle rise + fade in, synced with the slide */
@@ -165,11 +130,6 @@ function PubHero() {
           /* keep the floating UI within the hexagon so the composition stays centred */
           .ph-g-link, .ph-g-sales, .ph-g-conv{ right:0; }
           .ph-g-prod, .ph-g-pay-a, .ph-g-pay-b{ left:0; }
-          /* per-slide UI repositioning for mobile */
-          .ph-g-link{ top:47%; }                 /* slide 1: top-right pill moved down 25% */
-          .ph-g-conv{ top:auto; bottom:9%; }     /* slide 3: moved to the bottom-right of the hexagon */
-          .ph-g-pay-a{ top:54%; }                /* slide 4: large payout pill moved 40% lower */
-          .ph-g-pay-b{ display:none; }           /* slide 4: hide the smaller payout pill */
         }
       `}</style>
     </section>
@@ -498,12 +458,7 @@ function PubPlatform() {
           .pf-step-fig{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s ease; }
           .pf-step.on .pf-step-fig{ grid-template-rows:1fr; }
           .pf-step-fig-in{ overflow:hidden; min-height:0; }
-          /* the source PNGs are bleed compositions (content offset right/down on a wide canvas),
-             so crop to the readable top-left over a warm gradient instead of squashing the whole canvas */
-          .pf-step-fig-img{ display:block; width:100%; aspect-ratio:4/3; object-fit:cover; object-position:13% 15%;
-            margin:18px 0 4px; border-radius:14px;
-            background:linear-gradient(150deg,#fbe9df 0%,#f6f1ec 55%,#fde4d8 100%);
-            box-shadow:0 12px 28px rgba(15,28,46,.12); }
+          .pf-step-fig-img{ display:block; width:100%; height:auto; margin:18px 0 4px; border-radius:14px; box-shadow:0 12px 28px rgba(15,28,46,.12); }
         }
         @media (prefers-reduced-motion: reduce){ .pf-rail-fill{ animation:none; height:100%; } .pf-img{ transition:none; } .pf-step-fig{ transition:none; } }
       `}</style>
@@ -1157,8 +1112,8 @@ function PubCTA() {
       <span className="pc-topfade" aria-hidden="true" />
       <span className="pc-wash" aria-hidden="true" />
       <div className="wrap pc-inner">
-        <h2 className="pc-title" data-reveal>Start earning with your audience today.</h2>
-        <a href="/partners/" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="1">Create your free account <Arrow /></a>
+        <h2 className="pc-title" data-reveal>Start earning from your website.</h2>
+        <a href="/partners/" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="1">Start Earning <Arrow /></a>
       </div>
       <style>{`
         .pc-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(96px,16vh,200px) 0 clamp(104px,17vh,210px); }
@@ -1226,6 +1181,144 @@ function AppDownload() {
     </div>
   );
 }
+/* ---------- Website §3 — "Made for content that already has an audience." (3 cards) ---------- */
+const AFF_KINDS = [
+  ['website-kind-1.png', 'Blogs', 'Add relevant links to the posts you already write, and earn from content you were making anyway.'],
+  ['website-kind-2.png', 'Niche sites', 'Recommend the products your audience trusts, and earn every time they buy.'],
+  ['website-kind-3.png', 'News and media sites', 'Turn your articles into income that keeps earning long after you publish.'],
+];
+function BuiltKinds() {
+  return (
+    <section id="aff-kinds" className="ak-sec">
+      <div className="wrap">
+        <h2 className="ak-title" data-reveal>Made for content that already has an audience.</h2>
+        <div className="ak-grid">
+          {AFF_KINDS.map(([img, t, d], i) => (
+            <div className="ak-card" key={t} data-reveal data-reveal-delay={(i % 3) + 1}>
+              <img className="ak-mock" src={`media/figma/${img}`} alt="" loading="lazy" />
+              <div className="ak-body">
+                <h3 className="ak-ct">{t}</h3>
+                <p className="ak-cd">{d}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`
+        .ak-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
+        .ak-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
+        .ak-grid{ margin-top:clamp(34px,5vh,54px); display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(20px,2.4vw,30px); }
+        .ak-card{ position:relative; min-width:0; aspect-ratio:397/426; border-radius:16px; overflow:hidden; }
+        .ak-mock{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+        .ak-body{ position:relative; z-index:1; padding:24px 24px 0; }
+        .ak-ct{ font-family:var(--font-display); font-weight:800; font-size:clamp(17px,1.4vw,20px); letter-spacing:-.01em; color:var(--warm-900); }
+        .ak-cd{ margin-top:9px; font:400 15px/1.45 var(--font-body); color:var(--warm-600); max-width:300px; }
+        @media (max-width:860px){ .ak-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:26px 22px; } }
+        @media (max-width:560px){ .ak-grid{ grid-template-columns:1fr; max-width:420px; margin-inline:auto; } }
+      `}</style>
+    </section>
+  );
+}
+/* ---------- Website §2 — "Monetise your content, without disrupting it." (4 icon columns) ---------- */
+const AFF_WHY = [
+  { t: 'Customisable links from every brand.', d: 'Add links from 500+ brands to your existing pages, matched to what your readers care about.',
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M9.5 14.5l5-5" /><path d="M12 7l1.2-1.2a4 4 0 0 1 5.7 5.7L17.5 13" /><path d="M12 17l-1.2 1.2a4 4 0 0 1-5.7-5.7L6.5 11" /></svg> },
+  { t: 'Let analytics shape your content.', d: 'See which products and categories drive sales, and plan content that earns more.',
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18" /><rect x="5" y="11" width="3.4" height="7" rx="1" /><rect x="10.3" y="5" width="3.4" height="13" rx="1" /><rect x="15.6" y="8.5" width="3.4" height="9.5" rx="1" /></svg> },
+  { t: 'One dashboard for everything.', d: 'Track every partner, click, and conversion in one place.',
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="1.6" /><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.6" /><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.6" /><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.6" /></svg> },
+  { t: 'Get paid faster.', d: 'Withdraw in 7 to 10 working days, or in as little as 5 to 7 with Express Withdrawal.',
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5" /><path d="M9 14.5l2 2 4-4" /></svg> },
+];
+function WhyChoose() {
+  return (
+    <section id="aff-why" className="wy-sec">
+      <div className="wrap">
+        <h2 className="wy-title" data-reveal>Monetise your content, without disrupting it.</h2>
+        <div className="wy-grid">
+          {AFF_WHY.map((c, i) => (
+            <div className="wy-col" key={c.t} data-reveal data-reveal-delay={(i % 3) + 1}>
+              <span className="wy-ic" aria-hidden="true">{c.ic}</span>
+              <h3 className="wy-ct">{c.t}</h3>
+              <p className="wy-cd">{c.d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`
+        .wy-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
+        .wy-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
+        .wy-grid{ margin-top:clamp(34px,5vh,54px); display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(20px,3vw,40px); }
+        .wy-col{ min-width:0; }
+        .wy-ic{ width:44px; height:44px; border-radius:12px; background:var(--ember-tint); color:var(--ember); display:flex; align-items:center; justify-content:center; }
+        .wy-ic svg{ width:22px; height:22px; }
+        .wy-ct{ margin-top:18px; font-family:var(--font-display); font-weight:800; font-size:18px; letter-spacing:-.01em; color:var(--warm-900); }
+        .wy-cd{ margin-top:8px; font:400 15px/1.5 var(--font-body); color:var(--warm-600); }
+        @media (max-width:900px){ .wy-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:32px 24px; } }
+        @media (max-width:540px){ .wy-grid{ grid-template-columns:1fr; max-width:360px; margin-inline:auto; } }
+      `}</style>
+    </section>
+  );
+}
+/* ---------- Affiliates §4 — "Scale with bulk tools and our API." (copy + code card) ---------- */
+function ScaleApi() {
+  return (
+    <section id="aff-api" className="sa-sec">
+      <div className="wrap">
+        <div className="sa-grid">
+          <div className="sa-left" data-reveal>
+            <h2 className="sa-title">Scale with bulk tools<br />and our API.</h2>
+            <p className="sa-body">For high-volume affiliates and agencies, generate links in bulk and connect Involve to your own systems with our API, so affiliate data and links live inside your own stack.</p>
+            <a className="sa-link" href="#">
+              API overview
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5.5l6.5 6.5L9 18.5" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </a>
+          </div>
+          <div className="sa-code" data-reveal data-reveal-delay="1">
+            <div className="sa-code-bar">
+              <span className="sa-dot sa-dot-r" />
+              <span className="sa-dot sa-dot-y" />
+              <span className="sa-dot sa-dot-g" />
+              <span className="sa-file">involve_asia_api_v2.json</span>
+            </div>
+            <div className="sa-code-body">
+              <div className="cl"><span className="c-com">{'// Initialize connection with Involve API'}</span></div>
+              <div className="cl"><span className="c-txt">GET </span><span className="c-grn">https://api.involve.asia/v2/offers</span></div>
+              <div className="cl"><span className="c-txt">Authorization: Bearer ia_app_key_849204</span></div>
+              <div className="sa-hr" />
+              <div className="cl"><span className="c-com">{'// JSON Response'}</span></div>
+              <div className="cl"><span className="c-cyan">{'{'}</span></div>
+              <div className="cl"><span className="c-txt">{'  "status": '}</span><span className="c-yel">"active"</span><span className="c-txt">,</span></div>
+              <div className="cl"><span className="c-txt">{'  "cashback_rate_pct": '}</span><span className="c-pur">12.0</span><span className="c-txt">,</span></div>
+              <div className="cl"><span className="c-txt">{'  "commission_share": '}</span><span className="c-pur">0.08</span></div>
+              <div className="cl"><span className="c-cyan">{'}'}</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <style>{`
+        .sa-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
+        .sa-grid{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,492px); gap:clamp(36px,5vw,80px); align-items:center; }
+        .sa-left{ max-width:520px; }
+        .sa-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.14; letter-spacing:-.03em; color:var(--warm-900); }
+        .sa-body{ margin-top:22px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); max-width:500px; }
+        .sa-link{ margin-top:26px; display:inline-flex; align-items:center; gap:8px; font:700 16px/1 var(--font-body); color:var(--warm-900); text-decoration:none; }
+        .sa-link svg{ transition:transform .2s ease; }
+        .sa-link:hover svg{ transform:translateX(3px); }
+        .sa-code{ background:#1e1e1e; border-radius:18px; padding:clamp(20px,2vw,27px); box-shadow:0 24px 50px rgba(15,28,46,.22); }
+        .sa-code-bar{ display:flex; align-items:center; gap:7px; }
+        .sa-dot{ width:10px; height:10px; border-radius:50%; flex:none; }
+        .sa-dot-r{ background:#ff5f56; } .sa-dot-y{ background:#ffbd2e; } .sa-dot-g{ background:#27c93f; }
+        .sa-file{ margin-left:8px; font:400 10px/1 var(--font-body); color:#7f7f7f; }
+        .sa-code-body{ margin-top:17px; font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-size:11.9px; line-height:17px; overflow-x:auto; }
+        .sa-code-body .cl{ white-space:pre; color:#f8f8f2; }
+        .sa-hr{ height:1px; background:rgba(255,255,255,.12); margin:6px 0; }
+        .c-com{ color:#75715e; } .c-txt{ color:#f8f8f2; } .c-grn{ color:#a6e22e; } .c-cyan{ color:#66d9ef; } .c-yel{ color:#e6db74; } .c-pur{ color:#ae81ff; }
+        @media (max-width:820px){ .sa-grid{ grid-template-columns:1fr; gap:32px; } }
+      `}</style>
+    </section>
+  );
+}
 function PublisherApp() {
   useSmoothScroll();
   useScrollReveal();
@@ -1234,13 +1327,9 @@ function PublisherApp() {
       <Nav getStartedTone="pub" />
       <main>
         <PubHero />
-        <PubLogos />
-        <PubAudience />
-        <PubPlatform />
-        <PubEarn />
-        <PubBuilt />
+        <WhyChoose />
+        <BuiltKinds />
         <PubVoices />
-        <PubFAQ />
         <PubCTA />
       </main>
       <Footer />

@@ -89,9 +89,9 @@ function PubHero() {
         /* decorative hexagons (Figma Polygon 64–67) — same size as the slider hexagon (492px), faint */
         .ph-hexdeco{ position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
         .phd{ position:absolute; width:492px; height:auto; }
-        .phd1{ top:-68%; right:-7%; }
-        .phd2{ top:6%; right:-26%; }
-        .phd3{ left:31%; bottom:-59%; }
+        .phd1{ top:-62%; right:-10%; }
+        .phd2{ top:6%; right:-30%; }
+        .phd3{ left:32%; bottom:-54%; }
         .phd4{ left:-14%; bottom:-54%; }
         @media (max-width:900px){ .ph-hexdeco{ display:none; } }
         /* gradient blend from the hero into the logo strip below */
@@ -102,26 +102,25 @@ function PubHero() {
         .ph-copy{ min-width:0; }
         .ph-eyebrow{ display:inline-block; font:600 13px/1 var(--font-body); letter-spacing:.02em; color:var(--ember);
           background:rgba(240,88,38,.10); border-radius:9999px; padding:8px 15px; }
-        .ph-title{ margin-top:20px; font-size:clamp(28px,4.4vw,50px); line-height:1.0; letter-spacing:-.03em; color:var(--warm-900); }
+        .ph-title{ margin-top:20px; font-size:clamp(38px,5.4vw,64px); line-height:1.0; letter-spacing:-.03em; color:var(--warm-900); }
         .ph-sub{ margin-top:20px; max-width:520px; font-size:clamp(16px,1.4vw,19px); line-height:1.55; color:var(--warm-600); }
         .ph-actions{ margin-top:30px; display:flex; gap:12px; flex-wrap:wrap; }
         .ph-free{ display:block; margin-top:16px; font:500 14px/1 var(--font-body); color:var(--warm-400); }
         /* visual */
-        /* match the advertiser hero: 1/1 container, 520px; the hexagon mask uses contain so the
-           pointy-top hex keeps its 437:492 shape (centred) inside the square, same footprint as the advertiser */
-        .ph-visual{ position:relative; aspect-ratio:1/1; max-width:520px; width:100%; margin-left:auto; }
+        /* aspect matches the Figma hexagon (437×492) so the pointy-top hex reads regular, not stretched-wide */
+        .ph-visual{ position:relative; aspect-ratio:437/492; max-width:492px; width:100%; margin-left:auto; }
         .ph-hexglow{ position:absolute; inset:2% 2% 2% 2%; z-index:0; pointer-events:none;
           background:radial-gradient(circle at 50% 46%, rgba(240,88,38,.20), rgba(240,88,38,0) 62%); filter:blur(6px); }
         /* soft hex plate behind the photo — rounded pointy-top (r≈38.67), ember → midnight gradient */
         .ph-hexplate{ position:absolute; inset:0; z-index:0; background:linear-gradient(158deg,#fbe9df 0%,#f5f2ee 48%,#e6eef9 100%);
-          -webkit-mask:url('media/figma/pub-hero-hexclip.svg') center/contain no-repeat; mask:url('media/figma/pub-hero-hexclip.svg') center/contain no-repeat;
+          -webkit-mask:url('media/figma/pub-hero-hexclip.svg') center/100% 100% no-repeat; mask:url('media/figma/pub-hero-hexclip.svg') center/100% 100% no-repeat;
           filter:drop-shadow(0 26px 54px rgba(15,28,46,.10)); }
         /* ---- fade slider: each slide (photo + its UI) cross-fades in/out ---- */
         .ph-slide{ position:absolute; inset:0; z-index:1; opacity:0; transition:opacity .85s cubic-bezier(.4,0,.2,1); }
         .ph-slide.is-active{ opacity:1; z-index:2; }
         @media (prefers-reduced-motion: reduce){ .ph-slide{ transition:none; } }
         .ph-photo{ position:absolute; inset:0; z-index:1;
-          -webkit-mask:url('media/figma/pub-hero-hexclip.svg') center/contain no-repeat; mask:url('media/figma/pub-hero-hexclip.svg') center/contain no-repeat; }
+          -webkit-mask:url('media/figma/pub-hero-hexclip.svg') center/100% 100% no-repeat; mask:url('media/figma/pub-hero-hexclip.svg') center/100% 100% no-repeat; }
         .ph-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
         /* slides 1 & 3 are mirrored horizontally (no zoom) */
         .ph-photo img.ph-flip{ transform:scaleX(-1); }
@@ -137,7 +136,7 @@ function PubHero() {
         .ph-g-sales{ right:-3%; bottom:8%; }
         .ph-g-conv{ right:-7%; top:15%; }
         .ph-g-pay-a{ left:-8%; top:14%; }
-        .ph-g-pay-b{ left:-8%; top:26%; }
+        .ph-g-pay-b{ left:-8%; top:31%; }
         .ph-slide.is-active .ph-slide-ui > .ph-g-pay-b{ opacity:.62; }   /* second payout sits behind, fainter */
         /* inner white cards / pills */
         .ph-link{ display:inline-flex; align-items:center; gap:9px; background:#fff; border-radius:9999px; padding:9px 16px 9px 9px;
@@ -161,15 +160,7 @@ function PubHero() {
           .ph-wrap{ grid-template-columns:1fr; gap:36px; }
           .ph-copy{ text-align:center; display:flex; flex-direction:column; align-items:center; }
           .ph-sub{ margin-left:auto; margin-right:auto; }
-          .ph-visual{ order:-1; max-width:420px; margin:0 auto; justify-self:center; }
-          /* keep the floating UI within the hexagon so the composition stays centred */
-          .ph-g-link, .ph-g-sales, .ph-g-conv{ right:0; }
-          .ph-g-prod, .ph-g-pay-a, .ph-g-pay-b{ left:0; }
-          /* per-slide UI repositioning for mobile */
-          .ph-g-link{ top:47%; }                 /* slide 1: top-right pill moved down 25% */
-          .ph-g-conv{ top:auto; bottom:9%; }     /* slide 3: moved to the bottom-right of the hexagon */
-          .ph-g-pay-a{ top:54%; }                /* slide 4: large payout pill moved 40% lower */
-          .ph-g-pay-b{ display:none; }           /* slide 4: hide the smaller payout pill */
+          .ph-visual{ order:-1; max-width:420px; margin:0 auto; }
         }
       `}</style>
     </section>
@@ -188,28 +179,6 @@ const PUB_LOGOS = [
 ];
 function PubLogos() {
   const trackRef = React.useRef(null);
-  const marqRef = React.useRef(null);
-  const [reps, setReps] = React.useState(2);
-  // Repeat the logo set until one loop spans at least the visible strip width, so the
-  // marquee never shows a blank gap before the next copy scrolls in.
-  React.useEffect(() => {
-    const track = trackRef.current, marq = marqRef.current;
-    if (!track || !marq) return;
-    const imgs = Array.prototype.slice.call(track.querySelectorAll('img'));
-    const fit = () => {
-      if (imgs.some((im) => !im.complete)) return;         // wait until the logos are measurable
-      const baseW = track.scrollWidth / (2 * reps);
-      if (baseW < 40) return;
-      const need = Math.min(8, Math.max(1, Math.ceil((marq.clientWidth + 8) / baseW)));
-      if (need !== reps) setReps(need);
-    };
-    fit();
-    imgs.forEach((im) => im.addEventListener('load', fit));
-    window.addEventListener('resize', fit);
-    const ro = window.ResizeObserver ? new ResizeObserver(fit) : null;
-    if (ro) { ro.observe(track); ro.observe(marq); }
-    return () => { imgs.forEach((im) => im.removeEventListener('load', fit)); window.removeEventListener('resize', fit); if (ro) ro.disconnect(); };
-  }, [reps]);
   // Auto-sliding + draggable marquee, ported from the homepage TrustStrip. Content is
   // duplicated so wrapping the offset into (-half, 0] loops seamlessly. Reduced-motion =
   // static, drag-only.
@@ -245,16 +214,14 @@ function PubLogos() {
       window.addEventListener('resize', onResize);
     }
     return () => { if (raf) cancelAnimationFrame(raf); window.removeEventListener('resize', onResize); row.removeEventListener('pointerdown', onDown); row.removeEventListener('pointermove', onMove); row.removeEventListener('pointerup', onUp); row.removeEventListener('pointercancel', onUp); row.removeEventListener('lostpointercapture', onUp); };
-  }, [reps]);
-  const oneLoop = [];
-  for (let k = 0; k < reps; k++) oneLoop.push(...PUB_LOGOS);
-  const dup = [...oneLoop, ...oneLoop];
+  }, []);
+  const dup = [...PUB_LOGOS, ...PUB_LOGOS];
   return (
     <section id="pub-logos" className="pl-sec">
       <div className="wrap">
         <p className="pl-cap" data-reveal>Explore and promote 4,000+ brands who are looking for publishers like you today.</p>
       </div>
-      <div className="pl-marquee" ref={marqRef} data-reveal data-reveal-delay="1">
+      <div className="pl-marquee" data-reveal data-reveal-delay="1">
         <div ref={trackRef} className="pl-track">
           {dup.map(([name, file, h], i) => (
             <img key={i} className="pl-logo" src={`media/figma/${file}`} alt={`${name} logo`} style={{ height: h }} draggable="false" />
@@ -357,7 +324,7 @@ function PubAudience() {
       <style>{`
         .au-sec{ background:var(--warm-50); padding:clamp(67px,9.66vh,132px) 0 clamp(55px,8.28vh,105px); overflow:hidden; }
         .au-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
-        .au-title{ font-size:clamp(24px,3vw,34px); line-height:1.06; letter-spacing:-.03em; color:var(--warm-900); }
+        .au-title{ font-size:clamp(30px,4vw,48px); line-height:1.06; letter-spacing:-.03em; color:var(--warm-900); }
         .au-sub{ margin-top:14px; max-width:620px; font-size:16px; line-height:1.4; color:var(--warm-600); }
         .au-bar{ position:relative; width:134px; height:12px; border-radius:160px; background:var(--warm-200); flex:0 0 auto; cursor:pointer; touch-action:none; }
         .au-bar.dragging{ cursor:grabbing; }
@@ -369,7 +336,7 @@ function PubAudience() {
         .au-track{ display:flex; gap:16px; width:max-content; }
         .au-track-end{ flex:0 0 max(1px, calc((100% - var(--maxw)) / 2)); }
         .au-card{ position:relative; flex:0 0 auto; width:clamp(268px,80vw,320px); height:426px; border-radius:20px; overflow:hidden;
-          background:#ffffff; box-shadow:0 12px 30px rgba(15,28,46,.06);
+          background:linear-gradient(180deg,#f4f4f0 42%,#e7e7e1 100%); box-shadow:0 12px 30px rgba(15,28,46,.06);
           transition:transform .34s cubic-bezier(.22,1,.36,1), box-shadow .34s; }
         /* image anchored to the BOTTOM of the card, faded into the surface at its top so it never sits under the text */
         .au-card-img{ position:absolute; left:0; right:0; bottom:0; width:100%; height:60%; object-fit:cover; object-position:center 24%; opacity:.32; transition:opacity .34s ease; -webkit-user-drag:none; pointer-events:none;
@@ -409,107 +376,6 @@ const PUB_STEPS = [
   ['s4', '04. Get paid', 'Withdraw your earnings in your preferred currency once your conversions are validated.'],
 ];
 const PUB_PILLS = [['pTL', 'Grow and repeat'], ['pTR', 'Pick and promote'], ['pBL', 'Earnings confirmed'], ['pBR', 'Your audience buys']];
-
-/* ---------------- "Built for how you actually earn." — auto-advancing platform stepper ----------------
-   Same interaction as the advertiser page's "One platform…" section: left tabs auto-advance on a
-   timer (a fill bar tracks the dwell), each swaps the dashboard image on the right. Ember accent. */
-const PUB_PLATFORM = [
-  { key: 'find', t: 'Find offers to promote', d: 'Browse thousands of brands and pick the offers that fit your audience.', img: 'publisher-feature-01.png' },
-  { key: 'links', t: 'Generate your links', d: 'Create a trackable link, coupon, or banner in a couple of clicks, in bulk when you need to.', img: 'publisher-feature-02.png' },
-  { key: 'track', t: 'Track your earnings', d: 'Watch your clicks, sales, and commissions update in real time, on web or the app.', img: 'publisher-feature-03.png' },
-  { key: 'paid', t: 'Get paid', d: 'Withdraw in your preferred currency once your conversions are validated, or sooner with Express Withdrawal.', img: 'publisher-feature-04.png' },
-];
-const PUB_PLATFORM_MS = 5000;
-function PubPlatform() {
-  const [active, setActive] = React.useState(0);
-  React.useEffect(() => {
-    if (prefersReduced()) return;                 // no auto-advance under reduced motion
-    const t = setTimeout(() => setActive((a) => (a + 1) % PUB_PLATFORM.length), PUB_PLATFORM_MS);
-    return () => clearTimeout(t);
-  }, [active]);
-  return (
-    <section id="pub-platform" className="pf-sec">
-      <div className="wrap">
-        <h2 className="pf-title" data-reveal>Built for how you actually earn.</h2>
-        <p className="pf-sub" data-reveal data-reveal-delay="1">Find offers, share your links, track every sale, and get paid, all from one dashboard.</p>
-        <div className="pf-grid" data-reveal data-reveal-delay="1">
-          <div className="pf-steps">
-            {PUB_PLATFORM.map((s, i) => {
-              const on = i === active;
-              return (
-                <button type="button" className={'pf-step' + (on ? ' on' : '')} key={s.key} onClick={() => setActive(i)} aria-expanded={on}>
-                  <span className="pf-rail" aria-hidden="true">
-                    <span className="pf-rail-track" />
-                    {on && <span className="pf-rail-fill" key={active} />}
-                  </span>
-                  <span className="pf-step-body">
-                    <span className="pf-step-t">{s.t}</span>
-                    <span className="pf-step-dw"><span className="pf-step-d">{s.d}</span></span>
-                    <span className="pf-step-fig"><span className="pf-step-fig-in"><img className="pf-step-fig-img" src={`media/figma/${s.img}`} alt="" loading="lazy" /></span></span>
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-          <div className="pf-visual">
-            {PUB_PLATFORM.map((s, i) => (
-              <img key={s.key} className={'pf-img' + (i === active ? ' on' : '')} src={`media/figma/${s.img}`} alt="" loading="lazy" aria-hidden={i !== active} />
-            ))}
-          </div>
-        </div>
-      </div>
-      <style>{`
-        .pf-sec{ background:var(--warm-50); padding:clamp(77px,11.11vh,152px) 0 clamp(89px,14.28vh,191px); overflow:hidden; }
-        .pf-title{ text-align:center; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
-        .pf-sub{ text-align:center; margin-top:14px; font-size:16px; line-height:1.4; color:var(--warm-600); }
-        .pf-grid{ margin-top:clamp(40px,6vh,72px); display:grid; grid-template-columns:minmax(0,412px) 1fr; gap:clamp(32px,4vw,64px); align-items:stretch; }
-        .pf-steps{ display:flex; flex-direction:column; }
-        .pf-step{ position:relative; display:flex; gap:20px; align-items:stretch; text-align:left; background:none; border:none; cursor:pointer; padding:34px 0; width:100%; }
-        .pf-step + .pf-step{ border-top:1px solid var(--warm-200); }
-        .pf-rail{ position:relative; width:8px; flex:0 0 auto; align-self:stretch; }
-        .pf-rail-track{ position:absolute; inset:0; border-radius:64px; background:var(--warm-200); opacity:0; transition:opacity .3s ease; }
-        .pf-rail-fill{ position:absolute; left:0; top:0; width:8px; border-radius:64px; background:var(--ember); height:0; }
-        .pf-step.on .pf-rail-track{ opacity:1; }
-        .pf-step.on .pf-rail-fill{ animation:pfFill ${PUB_PLATFORM_MS}ms linear forwards; }
-        @keyframes pfFill{ from{ height:0; } to{ height:100%; } }
-        .pf-step-body{ min-width:0; }
-        .pf-step-t{ display:block; font-family:var(--font-display); font-weight:800; font-size:21px; letter-spacing:-.02em; color:var(--warm-900); transition:opacity .3s ease; }
-        .pf-step-dw{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .4s ease; }
-        .pf-step.on .pf-step-dw{ grid-template-rows:1fr; }
-        .pf-step-d{ overflow:hidden; margin-top:0; font:400 16px/1.5 var(--font-body); color:var(--warm-600); }
-        .pf-step.on .pf-step-d{ margin-top:14px; }
-        .pf-step-d a{ color:var(--ember); font-weight:600; text-decoration:underline; text-underline-offset:2px; }
-        .pf-step:not(.on){ opacity:.4; } .pf-step:not(.on):hover{ opacity:.7; }
-        /* light warm/ember gradient container; the dashboard sits inset top-left and bleeds off the right */
-        .pf-visual{ position:relative; align-self:stretch; min-height:clamp(420px,52vh,600px); overflow:hidden;
-          margin-right:calc(min(100vw, var(--maxw)) / 2 - 50vw - 32px); border-radius:22px 0 0 22px;
-          background:linear-gradient(150deg, #fbe9df 0%, #f6f1ec 50%, #fde4d8 100%); }
-        .pf-img{ position:absolute; top:clamp(20px,3.2vw,40px); left:clamp(20px,3.2vw,40px);
-          width:calc(100% - clamp(20px,3.2vw,40px)); height:calc(100% - clamp(20px,3.2vw,40px));
-          object-fit:cover; object-position:left top; border-radius:16px 0 0 0;
-          opacity:0; transition:opacity .5s ease; }
-        .pf-img.on{ opacity:1; }
-        .pf-step-fig{ display:none; }
-        @media (max-width:900px){
-          .pf-grid{ grid-template-columns:1fr; gap:0; }
-          .pf-visual{ display:none; }
-          .pf-step{ gap:0; padding:24px 0; }
-          .pf-rail{ display:none; }
-          .pf-step-fig{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s ease; }
-          .pf-step.on .pf-step-fig{ grid-template-rows:1fr; }
-          .pf-step-fig-in{ overflow:hidden; min-height:0; }
-          /* the source PNGs are bleed compositions (content offset right/down on a wide canvas),
-             so crop to the readable top-left over a warm gradient instead of squashing the whole canvas */
-          .pf-step-fig-img{ display:block; width:100%; aspect-ratio:4/3; object-fit:cover; object-position:13% 15%;
-            margin:18px 0 4px; border-radius:14px;
-            background:linear-gradient(150deg,#fbe9df 0%,#f6f1ec 55%,#fde4d8 100%);
-            box-shadow:0 12px 28px rgba(15,28,46,.12); }
-        }
-        @media (prefers-reduced-motion: reduce){ .pf-rail-fill{ animation:none; height:100%; } .pf-img{ transition:none; } .pf-step-fig{ transition:none; } }
-      `}</style>
-    </section>
-  );
-}
 function PubSteps() {
   const svgRef = React.useRef(null);
   const gradRef = React.useRef(null);   // ember outline radial (follows cursor point)
@@ -617,7 +483,7 @@ function PubSteps() {
       </div>
       <style>{`
         .hs-sec{ background:var(--warm-50); padding:clamp(67px,9.66vh,132px) 0 clamp(77px,12.42vh,166px); overflow:hidden; }
-        .hs-title{ text-align:center; font-size:clamp(24px,3vw,34px); line-height:1.1; letter-spacing:-.03em; color:var(--warm-900); }
+        .hs-title{ text-align:center; font-size:clamp(30px,4vw,48px); line-height:1.1; letter-spacing:-.03em; color:var(--warm-900); }
         .hs-stage{ position:relative; max-width:1040px; height:680px; margin:clamp(64px,9vh,120px) auto 0; }
         .hs-hexwrap{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:360px; height:360px; filter:drop-shadow(0 34px 60px rgba(15,28,46,.10)); }
         .hs-hex{ width:100%; height:100%; overflow:visible; pointer-events:none; }
@@ -644,43 +510,102 @@ function PubSteps() {
   );
 }
 
-/* ---------- Section 5 — "See what you could earn." (concept-8) ----------------
-   Simple centered CTA band on a light rounded container with soft ember sparkles. */
-const PubSparkle = () => (
-  <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
-    <path d="M50 2C53 38 62 47 98 50C62 53 53 62 50 98C47 62 38 53 2 50C38 47 47 38 50 2Z" fill="currentColor" />
-  </svg>
-);
+/* ---------- Section 5 — "You could earn … from this offer" ----------------
+   Estimate model (all mockup values, kept internally consistent):
+     earnings = clicks × PE_CONV × PE_AOV × commission_rate
+   PE_AOV is used in the maths but never shown on screen. */
+const PE_CONV = 0.035;   // conversion rate (shown as 3.5%)
+const PE_AOV = 75;       // average order value in $ (used in the calc, not displayed)
+// kind 'pct' → % of order value; kind 'flat' → fixed $ per approved conversion.
+const PUB_OFFERS = [
+  { name: 'JD Sports', key: 'jdsports', kind: 'pct', rate: 0.08 },
+  { name: 'Uniqlo', key: 'uniqlo', kind: 'pct', rate: 0.06, boxed: true },
+  { name: 'Puma', key: 'puma', kind: 'pct', rate: 0.10 },
+  // NOTE: UOB pays a FLAT $60 per approved card (not a %). The card + calculator
+  // render this as "$60 per approved card"; earnings = conversions × $60.
+  { name: 'UOB', key: 'uob', kind: 'flat', rate: 60 },
+  { name: 'Tiktok', key: 'tiktok', kind: 'pct', rate: 0.08 },
+  { name: 'Huawei', key: 'huawei', kind: 'pct', rate: 0.04 },
+];
+// commission label for a given offer (calculator detail line + card copy share this)
+const offerCommissionLabel = (o) => o.kind === 'flat' ? `$${o.rate} per approved card` : `${Math.round(o.rate * 100)}% commission`;
 function PubEarn() {
+  const [clicks, setClicks] = React.useState(1000);
+  const [active, setActive] = React.useState(0);   // default selected offer = JD Sports
+  const MIN = 100, MAX = 5000;
+  const offer = PUB_OFFERS[active];
+  // earnings = clicks × conversion_rate × average_order_value × commission_rate
+  //   (UOB is a flat $ per approved conversion, so its rate replaces AOV × %)
+  const conversions = clicks * PE_CONV;
+  const earnings = offer.kind === 'flat' ? conversions * offer.rate : conversions * PE_AOV * offer.rate;
+  const estimate = Math.round(earnings);
+  const pct = ((clicks - MIN) / (MAX - MIN)) * 100;
   return (
     <section id="pub-earn" className="pe-sec">
-      <div className="wrap">
-        <div className="pe-band" data-reveal>
-          <span className="pe-spark pe-spark-tr" aria-hidden="true"><PubSparkle /></span>
-          <span className="pe-spark pe-spark-bl" aria-hidden="true"><PubSparkle /></span>
-          <h2 className="pe-title">See what you could earn.</h2>
-          <p className="pe-sub">Drop your link and we'll estimate your earnings in under a minute. No sign up needed.</p>
-          <a href="/partners/" className="btn btn-primary btn-lg pe-cta">Estimate my earnings <Arrow /></a>
+      <div className="wrap pe-wrap">
+        <div className="pe-forecast" data-reveal>
+          <h2 className="pe-title">You could earn <span className="pe-amt">${estimate.toLocaleString()}</span> from this offer</h2>
+          <p className="pe-sub">based on an estimated <b>{clicks.toLocaleString()}</b> clicks and a 3.5% conversion rate</p>
+          <input className="pe-slider" type="range" min={MIN} max={MAX} step={50} value={clicks}
+            onChange={(e) => setClicks(+e.target.value)} aria-label="Estimated monthly clicks"
+            style={{ '--pct': pct + '%' }} />
+          <p className="pe-note">{offerCommissionLabel(offer)} · cost-per-sale (CPS)</p>
+          <p className="pe-disc">*Estimates only, actual earnings vary by your traffic and niche.</p>
+          <a href="/partners/" className="btn btn-primary btn-lg pe-cta">Start Earning Today <Arrow /></a>
+          <p className="pe-forecast-link">Want a number based on your real channels?<br /><a href="/partners/">Get your personalized forecast</a></p>
+        </div>
+        <div className="pe-cards" data-reveal data-reveal-delay="1">
+          {PUB_OFFERS.map((o, i) => (
+            <button type="button" className={'of-card' + (i === active ? ' active' : '')} key={o.key} onClick={() => setActive(i)} aria-pressed={i === active}>
+              <span className="of-thumb">
+                <img className="of-bg" src={`media/figma/pub-off-${o.key}-bg.png`} alt="" loading="lazy" />
+                <span className="of-scrim" aria-hidden="true" />
+                {o.boxed
+                  ? <span className="of-logobox"><img src={`media/figma/pub-off-${o.key}-logo.png`} alt={`${o.name} logo`} /></span>
+                  : <img className="of-logo" src={`media/figma/pub-off-${o.key}-logo.png`} alt={`${o.name} logo`} />}
+              </span>
+              <span className="of-name">{o.name}</span>
+              <span className="of-comm"><small>Up to</small>{offerCommissionLabel(o)}</span>
+            </button>
+          ))}
         </div>
       </div>
       <style>{`
-        .pe-sec{ position:relative; z-index:2; background:var(--warm-50); padding:clamp(16px,3vh,40px) 0; }
-        .pe-band{ position:relative; overflow:hidden; text-align:center; border-radius:clamp(20px,2.6vw,34px);
-          padding:clamp(52px,9vh,104px) clamp(24px,5vw,72px); background:#fdfbfa;
-          box-shadow:0 8px 12px rgba(15,28,46,.08); }
-        /* soft ember corner glows */
-        .pe-band::before, .pe-band::after{ content:""; position:absolute; width:46%; height:200%; pointer-events:none; }
-        .pe-band::before{ top:-70%; right:-6%; background:radial-gradient(closest-side, rgba(240,88,38,.12), transparent 72%); }
-        .pe-band::after{ bottom:-70%; left:-6%; background:radial-gradient(closest-side, rgba(240,88,38,.09), transparent 72%); }
-        .pe-title{ position:relative; z-index:1; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
-        .pe-sub{ position:relative; z-index:1; margin-top:14px; font-size:clamp(15px,1.4vw,18px); line-height:1.4; color:var(--warm-600); }
-        .pe-cta{ position:relative; z-index:1; margin-top:26px; }
-        /* ember 4-point sparkles */
-        .pe-spark{ position:absolute; z-index:1; color:var(--ember); pointer-events:none; }
-        .pe-spark svg{ width:100%; height:100%; display:block; }
-        .pe-spark-tr{ top:12%; right:9%; width:clamp(26px,3vw,46px); opacity:.9; }
-        .pe-spark-bl{ bottom:16%; left:8%; width:clamp(18px,2.1vw,32px); opacity:.5; }
-        @media (max-width:600px){ .pe-spark{ display:none; } }
+        .pe-sec{ position:relative; background:var(--warm-50); padding:clamp(67px,9.66vh,138px) 0 clamp(77px,12.42vh,166px); overflow:hidden; }
+        .pe-wrap{ position:relative; z-index:1; display:grid; grid-template-columns:1.02fr .98fr; gap:clamp(28px,4vw,64px); align-items:center; }
+        .pe-title{ font-size:clamp(30px,3.8vw,48px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
+        .pe-amt{ color:var(--warm-900); }
+        .pe-sub{ margin-top:16px; font-size:clamp(17px,1.7vw,24px); line-height:1.35; color:var(--warm-600); }
+        .pe-sub b{ color:var(--ember); font-weight:600; }
+        .pe-slider{ -webkit-appearance:none; appearance:none; width:min(486px,100%); height:12px; margin-top:26px; border-radius:60px; outline:none; cursor:pointer;
+          background:linear-gradient(90deg, #F05826 0%, #c43e18 var(--pct), #d9d9d9 var(--pct), #d9d9d9 100%); }
+        .pe-slider::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none; width:26px; height:26px; border-radius:50%; background:#fff; border:3px solid #F05826; box-shadow:0 4px 10px rgba(15,28,46,.22); cursor:grab; }
+        .pe-slider::-moz-range-thumb{ width:26px; height:26px; border-radius:50%; background:#fff; border:3px solid #F05826; box-shadow:0 4px 10px rgba(15,28,46,.22); cursor:grab; }
+        .pe-note{ margin-top:14px; font:italic 500 16px/1.4 var(--font-body); color:var(--warm-600); }
+        .pe-disc{ margin-top:8px; font:400 13px/1.4 var(--font-body); color:var(--warm-500, #9a938c); }
+        .pe-cta{ margin-top:22px; }
+        .pe-forecast-link{ margin-top:18px; font:500 16px/1.5 var(--font-body); color:var(--warm-600); }
+        .pe-forecast-link a{ color:var(--ember); text-decoration:underline; }
+        /* offer cards */
+        .pe-cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+        .of-card{ display:flex; flex-direction:column; background:#fff; border:1px solid var(--warm-200); border-radius:10px; padding:6px 6px 0; text-align:left; font:inherit; color:inherit; -webkit-appearance:none; appearance:none; cursor:pointer;
+          transition:transform .22s cubic-bezier(.22,1,.36,1), box-shadow .22s, border-color .22s; }
+        .of-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-lg); }
+        .of-card.active{ border-color:var(--warm-900); }
+        .of-thumb{ position:relative; display:block; aspect-ratio:186/127; border-radius:7px; overflow:hidden; }
+        .of-bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+        .of-scrim{ position:absolute; inset:0; background:rgba(0,0,0,.6); }
+        .of-logo{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:52px; height:52px; object-fit:contain; z-index:1; }
+        .of-logobox{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:50px; height:50px; border-radius:6px; overflow:hidden; background:#fff; display:flex; align-items:center; justify-content:center; z-index:1; }
+        .of-logobox img{ width:100%; height:100%; object-fit:cover; }
+        .of-name{ margin:12px 12px 0; font-family:var(--font-display); font-weight:500; font-size:15px; color:var(--warm-900); }
+        .of-comm{ margin:4px 12px 14px; font:600 16px/1.3 var(--font-body); color:var(--warm-900); display:flex; flex-direction:column; }
+        .of-comm small{ font-weight:600; font-size:12px; color:var(--warm-900); }
+        @media (max-width:900px){
+          .pe-wrap{ grid-template-columns:1fr; }
+          .pe-cards{ grid-template-columns:repeat(3,1fr); }
+        }
+        @media (max-width:560px){ .pe-cards{ grid-template-columns:repeat(2,1fr); } }
       `}</style>
     </section>
   );
@@ -809,7 +734,7 @@ function PubBuilt() {
       </div>
       <style>{`
         .be-sec{ background:var(--warm-50); padding:clamp(55px,8.28vh,110px) 0 clamp(77px,12.42vh,160px); }
-        .be-title{ text-align:center; font-size:clamp(24px,3vw,34px); line-height:1.1; letter-spacing:-.03em; color:var(--warm-900); }
+        .be-title{ text-align:center; font-size:clamp(30px,4vw,48px); line-height:1.1; letter-spacing:-.03em; color:var(--warm-900); }
         .be-grid{ margin-top:clamp(32px,5vh,64px); display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(20px,2.2vw,32px); }
         .be-card{ position:relative; height:178px; border-radius:21px; background:linear-gradient(180deg,#f4f4f0 47%,#e9e9e8 111%); overflow:hidden; display:flex; align-items:center; justify-content:center; }
         .be-card-clip{ justify-content:flex-end; }
@@ -998,7 +923,7 @@ function PubVoices() {
         .tv-sec{ background:var(--warm-50); padding:clamp(28px,4.14vh,55px) 0 clamp(67px,9.66vh,132px); }
         .tv-panel{ position:relative; max-width:1273px; margin:0 auto; padding:clamp(48px,7vh,90px) clamp(20px,4vw,56px) clamp(40px,6vh,72px); border-radius:clamp(28px,4vw,64px); overflow:hidden;
           background:linear-gradient(156deg, rgba(240,88,38,.16) 37%, rgba(106,156,223,.16) 85%), #fff; }
-        .tv-title{ text-align:center; font-size:clamp(24px,3vw,34px); line-height:1.1; letter-spacing:-.03em; color:var(--warm-900); }
+        .tv-title{ text-align:center; font-size:clamp(30px,4vw,48px); line-height:1.1; letter-spacing:-.03em; color:var(--warm-900); }
         .tv-sub{ text-align:center; margin-top:14px; font-size:16px; color:var(--warm-700); }
         .tv-stage{ position:relative; margin-top:clamp(28px,4vh,44px); min-height:392px; }
         .tv-card{ position:absolute; left:50%; top:0; width:min(535px,86vw); height:322px; box-sizing:border-box; transform-origin:center top;
@@ -1077,7 +1002,7 @@ function PubFAQ() {
       </div>
       <style>{`
         .fq-sec{ background:var(--warm-50); padding:clamp(67px,9.66vh,132px) 0 clamp(77px,12.42vh,160px); }
-        .fq-title{ text-align:center; font-size:clamp(22px,2.6vw,30px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
+        .fq-title{ text-align:center; font-size:clamp(30px,4vw,48px); line-height:1.1; letter-spacing:-.03em; color:var(--warm-900); }
         .fq-list{ margin-top:clamp(32px,5vh,60px); display:flex; flex-direction:column; gap:12px; max-width:1160px; margin-inline:auto; }
         .fq-item{ background:#fff; border:1px solid #e5e7eb; border-radius:12px; }
         .fq-q{ width:100%; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:24px; background:none; border:none; cursor:pointer; text-align:left; font:700 18px/1.35 var(--font-body); color:#111122; }
@@ -1161,7 +1086,7 @@ function PubCTA() {
         <a href="/partners/" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="1">Create your free account <Arrow /></a>
       </div>
       <style>{`
-        .pc-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(96px,16vh,200px) 0 clamp(104px,17vh,210px); }
+        .pc-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(199px,33.12vh,365px) 0 clamp(232px,35.88vh,430px); }
         .pc-hexfield{ position:absolute; left:0; top:50%; transform:translateY(-44%) scaleY(-1); width:100%; height:auto; z-index:0; pointer-events:none; opacity:.385;
           -webkit-mask-image:linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent); mask-image:linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent); }
         .pc-hexfield .hx{ will-change:transform; }
@@ -1171,9 +1096,8 @@ function PubCTA() {
         .pc-wash{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:760px; height:420px; z-index:0; pointer-events:none;
           background:radial-gradient(ellipse at center, var(--warm-50) 32%, rgba(250,250,248,0) 72%); }
         .pc-inner{ position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; text-align:center; }
-        .pc-title{ font-size:clamp(24px,3vw,34px); line-height:1.15; letter-spacing:-.03em; color:var(--warm-900); max-width:900px; }
+        .pc-title{ font-size:clamp(30px,4vw,48px); line-height:1.15; letter-spacing:-.03em; color:var(--warm-900); max-width:900px; }
         .pc-btn{ margin-top:26px; }
-        @media (max-width:700px){ .pc-sec{ padding:clamp(60px,9vh,84px) 0 clamp(68px,10vh,96px); } }
       `}</style>
     </section>
   );
@@ -1196,7 +1120,6 @@ function AppDownload() {
       <style>{`
         /* app CTA now sits in the very bottom-right corner … */
         .adl{ position:fixed; right:clamp(16px,2.5vw,28px); bottom:clamp(16px,2.5vw,28px); z-index:95; }
-        @media (max-width:600px){ .adl{ display:none !important; } }
         /* … and the Back-to-Top button is pushed up above it (scoped to this page via body specificity) */
         body .b2t{ bottom:calc(clamp(16px,2.5vw,28px) + 76px); }
         .adl-card, .adl-bubble{ position:absolute; right:0; bottom:0; transition:opacity .3s ease, transform .34s cubic-bezier(.22,1,.36,1); }
@@ -1236,7 +1159,7 @@ function PublisherApp() {
         <PubHero />
         <PubLogos />
         <PubAudience />
-        <PubPlatform />
+        <PubSteps />
         <PubEarn />
         <PubBuilt />
         <PubVoices />

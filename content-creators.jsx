@@ -18,16 +18,6 @@ const LinkIcon = () => (
 
 /* ---------- Section 1 — Hero ---------------------------------------------- */
 function PubHero() {
-  // Right-hand visual is a 4-slide fade slider: each slide's photo + its floating UI
-  // cross-fade in/out together every 1.5s. Reduced-motion holds slide 1.
-  const [slide, setSlide] = React.useState(0);
-  const N = 4;
-  React.useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const id = setInterval(() => setSlide((s) => (s + 1) % N), 2000);
-    return () => clearInterval(id);
-  }, []);
-  const on = (i) => 'ph-slide' + (slide === i ? ' is-active' : '');
   return (
     <section id="pub-hero" className="ph-sec">
       <div className="ph-hexdeco" aria-hidden="true">
@@ -39,47 +29,20 @@ function PubHero() {
       <span className="ph-basefade" aria-hidden="true" />
       <div className="wrap ph-wrap">
         <div className="ph-copy">
-          <span className="ph-eyebrow" data-reveal>Affiliate Marketing for Publishers</span>
-          <h1 className="ph-title" data-reveal data-reveal-delay="1">Turn your audience into income.</h1>
-          <p className="ph-sub" data-reveal data-reveal-delay="2">Promote what you love, earn on every sale, and get paid faster.</p>
+          <span className="ph-eyebrow" data-reveal>Affiliate Marketing for Influencers and content creators</span>
+          <h1 className="ph-title" data-reveal data-reveal-delay="1">Earn from your audience, whatever your follower count.</h1>
+          <p className="ph-sub" data-reveal data-reveal-delay="2">If you can share a link, you can earn. Recommend products your audience already loves, on any platform, and earn a commission on every sale.</p>
           <div className="ph-actions" data-reveal data-reveal-delay="3">
             <a href="/partners/" className="btn btn-primary btn-lg">Start Earning <Arrow /></a>
           </div>
-          <span className="ph-free" data-reveal data-reveal-delay="3">Free to join. No fees, no catch.</span>
         </div>
 
         <div className="ph-visual" data-reveal data-reveal-delay="1">
           <span className="ph-hexglow" aria-hidden="true" />
           <span className="ph-hexplate" aria-hidden="true" />
-
-          <div className={on(0)} aria-hidden={slide !== 0}>
-            <div className="ph-photo"><img className="ph-flip" src="media/figma/pub-hero-creator.png" alt="A creator filming a product review to share with her audience" loading="eager" /></div>
-            <div className="ph-slide-ui">
-              <div className="ph-glass ph-g-link"><div className="ph-link"><span className="ph-link-ic"><LinkIcon /></span>invl.me/yourDeepLink</div></div>
-              <div className="ph-glass ph-g-prod"><span className="ph-prod-lbl">Necklace</span><img className="ph-prod-img" src="media/figma/pub-hero-necklace.png" alt="" /></div>
-            </div>
-          </div>
-
-          <div className={on(1)} aria-hidden={slide !== 1}>
-            <div className="ph-photo"><img src="media/figma/pub-hero-slide2.png" alt="A publisher reviewing their sales in the dashboard" loading="eager" /></div>
-            <div className="ph-slide-ui">
-              <div className="ph-glass ph-g-sales"><div className="ph-stat"><span className="ph-stat-lbl"><span className="ph-stat-cur">$</span> Total Sales</span><span className="ph-stat-row"><b>136,578</b><em>&uarr;36%</em></span></div></div>
-            </div>
-          </div>
-
-          <div className={on(2)} aria-hidden={slide !== 2}>
-            <div className="ph-photo"><img className="ph-flip" src="media/figma/pub-hero-slide3.png" alt="A publisher checking conversion analytics" loading="eager" /></div>
-            <div className="ph-slide-ui">
-              <div className="ph-glass ph-g-conv"><div className="ph-stat"><span className="ph-stat-lbl">Conversion Rate</span><span className="ph-stat-row"><b>12<small>%</small></b><em>&uarr;21%</em></span></div></div>
-            </div>
-          </div>
-
-          <div className={on(3)} aria-hidden={slide !== 3}>
-            <div className="ph-photo"><img src="media/figma/pub-hero-slide4.png" alt="A publisher receiving a payout notification" loading="eager" /></div>
-            <div className="ph-slide-ui">
-              <div className="ph-glass ph-g-pay-a"><div className="ph-pay"><span>Payout Received</span><b>+ $48</b></div></div>
-              <div className="ph-glass ph-g-pay-b"><div className="ph-pay"><span>Payout Received</span><b>+ $61</b></div></div>
-            </div>
+          <div className="ph-photo ph-photo-fill"><img src="media/figma/content-creators-hero.png" alt="A content creator sharing product recommendations with her audience" loading="eager" /></div>
+          <div className="ph-static-ui">
+            <div className="ph-glass ph-g-pay-a"><div className="ph-pay"><span>Commission Earned</span><b>+ $816</b></div></div>
           </div>
         </div>
       </div>
@@ -114,8 +77,7 @@ function PubHero() {
           background:radial-gradient(circle at 50% 46%, rgba(240,88,38,.20), rgba(240,88,38,0) 62%); filter:blur(6px); }
         /* soft hex plate behind the photo — rounded pointy-top (r≈38.67), ember → midnight gradient */
         .ph-hexplate{ position:absolute; inset:0; z-index:0; background:linear-gradient(158deg,#fbe9df 0%,#f5f2ee 48%,#e6eef9 100%);
-          -webkit-mask:url('media/figma/pub-hero-hexclip.svg') center/contain no-repeat; mask:url('media/figma/pub-hero-hexclip.svg') center/contain no-repeat;
-          filter:drop-shadow(0 26px 54px rgba(15,28,46,.10)); }
+          -webkit-mask:url('media/figma/pub-hero-hexclip.svg') center/contain no-repeat; mask:url('media/figma/pub-hero-hexclip.svg') center/contain no-repeat; }
         /* ---- fade slider: each slide (photo + its UI) cross-fades in/out ---- */
         .ph-slide{ position:absolute; inset:0; z-index:1; opacity:0; transition:opacity .85s cubic-bezier(.4,0,.2,1); }
         .ph-slide.is-active{ opacity:1; z-index:2; }
@@ -123,6 +85,9 @@ function PubHero() {
         .ph-photo{ position:absolute; inset:0; z-index:1;
           -webkit-mask:url('media/figma/pub-hero-hexclip.svg') center/contain no-repeat; mask:url('media/figma/pub-hero-hexclip.svg') center/contain no-repeat; }
         .ph-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+        /* creator photo floats with transparent margins; scale it up (clipped to the hexagon by
+           the .ph-photo mask) so it fills the hexagon like the express-withdrawal photo */
+        .ph-photo-fill img{ object-fit:contain; transform:scale(1.04); transform-origin:50% 54%; }
         /* slides 1 & 3 are mirrored horizontally (no zoom) */
         .ph-photo img.ph-flip{ transform:scaleX(-1); }
         /* per-slide UI: subtle rise + fade in, synced with the slide */
@@ -136,9 +101,11 @@ function PubHero() {
         .ph-g-prod{ left:-3%; bottom:12%; width:26%; max-width:120px; }
         .ph-g-sales{ right:-3%; bottom:8%; }
         .ph-g-conv{ right:-7%; top:15%; }
-        .ph-g-pay-a{ left:-8%; top:14%; }
+        .ph-g-pay-a{ right:-6%; top:10%; }
         .ph-g-pay-b{ left:-8%; top:26%; }
         .ph-slide.is-active .ph-slide-ui > .ph-g-pay-b{ opacity:.62; }   /* second payout sits behind, fainter */
+        /* single-image hero: static floating pill (above the photo, no slider fade) */
+        .ph-static-ui{ position:absolute; inset:0; z-index:3; pointer-events:none; }
         /* inner white cards / pills */
         .ph-link{ display:inline-flex; align-items:center; gap:9px; background:#fff; border-radius:9999px; padding:9px 16px 9px 9px;
           box-shadow:0 2px 6px rgba(15,28,46,.08); font:600 14px/1 var(--font-body); color:var(--warm-900); white-space:nowrap; }
@@ -163,13 +130,10 @@ function PubHero() {
           .ph-sub{ margin-left:auto; margin-right:auto; }
           .ph-visual{ order:-1; max-width:420px; margin:0 auto; justify-self:center; }
           /* keep the floating UI within the hexagon so the composition stays centred */
-          .ph-g-link, .ph-g-sales, .ph-g-conv{ right:0; }
-          .ph-g-prod, .ph-g-pay-a, .ph-g-pay-b{ left:0; }
-          /* per-slide UI repositioning for mobile */
-          .ph-g-link{ top:47%; }                 /* slide 1: top-right pill moved down 25% */
-          .ph-g-conv{ top:auto; bottom:9%; }     /* slide 3: moved to the bottom-right of the hexagon */
-          .ph-g-pay-a{ top:54%; }                /* slide 4: large payout pill moved 40% lower */
-          .ph-g-pay-b{ display:none; }           /* slide 4: hide the smaller payout pill */
+          .ph-g-link, .ph-g-sales, .ph-g-conv, .ph-g-pay-a{ right:0; }
+          .ph-g-prod, .ph-g-pay-b{ left:0; }
+          .ph-g-pay-a{ top:2%; }          /* hero pill moved 8% up on mobile */
+          .ph-g-pay-a .ph-pay b{ font-size:13.5px; }   /* number font -10% on mobile */
         }
       `}</style>
     </section>
@@ -498,12 +462,7 @@ function PubPlatform() {
           .pf-step-fig{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s ease; }
           .pf-step.on .pf-step-fig{ grid-template-rows:1fr; }
           .pf-step-fig-in{ overflow:hidden; min-height:0; }
-          /* the source PNGs are bleed compositions (content offset right/down on a wide canvas),
-             so crop to the readable top-left over a warm gradient instead of squashing the whole canvas */
-          .pf-step-fig-img{ display:block; width:100%; aspect-ratio:4/3; object-fit:cover; object-position:13% 15%;
-            margin:18px 0 4px; border-radius:14px;
-            background:linear-gradient(150deg,#fbe9df 0%,#f6f1ec 55%,#fde4d8 100%);
-            box-shadow:0 12px 28px rgba(15,28,46,.12); }
+          .pf-step-fig-img{ display:block; width:100%; height:auto; margin:18px 0 4px; border-radius:14px; box-shadow:0 12px 28px rgba(15,28,46,.12); }
         }
         @media (prefers-reduced-motion: reduce){ .pf-rail-fill{ animation:none; height:100%; } .pf-img{ transition:none; } .pf-step-fig{ transition:none; } }
       `}</style>
@@ -1157,8 +1116,8 @@ function PubCTA() {
       <span className="pc-topfade" aria-hidden="true" />
       <span className="pc-wash" aria-hidden="true" />
       <div className="wrap pc-inner">
-        <h2 className="pc-title" data-reveal>Start earning with your audience today.</h2>
-        <a href="/partners/" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="1">Create your free account <Arrow /></a>
+        <h2 className="pc-title" data-reveal>Start monetizing your app today.</h2>
+        <a href="/partners/" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="1">Start Earning <Arrow /></a>
       </div>
       <style>{`
         .pc-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(96px,16vh,200px) 0 clamp(104px,17vh,210px); }
@@ -1226,6 +1185,104 @@ function AppDownload() {
     </div>
   );
 }
+/* ---------- CC §2 — "Made for TikTok, YouTube, Instagram, and more." ---------- */
+const MADE_POINTS = [
+  ['Earn on any platform.', "Involve works on any platform your followers are on. Your link works wherever you post, so you're never tied to one channel. Wherever you can share a link, you can earn."],
+  ['No website, no shop, no minimum following.', "You don't need a store or a big audience to start. Share your link wherever your followers are, and earn when they buy."],
+];
+function MadeFor() {
+  return (
+    <section id="cc-made" className="mf-sec">
+      <div className="wrap">
+        <div className="mf-grid">
+          <div className="mf-left">
+            <h2 className="mf-title" data-reveal>Made for TikTok, YouTube, Instagram, and more.</h2>
+            <div className="mf-points" data-reveal data-reveal-delay="1">
+              {MADE_POINTS.map(([t, d]) => (
+                <div className="mf-point" key={t}>
+                  <h3 className="mf-pt">{t}</h3>
+                  <p className="mf-pd">{d}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="mf-visual">
+            <div className="mf-photo" data-reveal><img src="media/figma/content-creators-social.png" alt="A creator sharing a product recommendation with her followers" loading="lazy" /></div>
+            <div className="mf-prod" data-reveal data-reveal-delay="2">
+              <div className="mf-prod-card">
+                <span className="mf-prod-lbl">Serum M</span>
+                <div className="mf-prod-tile"><img src="media/figma/content-creators-serum.png" alt="Serum M" loading="lazy" /></div>
+              </div>
+            </div>
+            <div className="mf-icons" data-reveal data-reveal-delay="3"><img src="media/figma/content-creators-social-icons.png" alt="Facebook, Instagram, YouTube and TikTok" loading="lazy" /></div>
+          </div>
+        </div>
+      </div>
+      <style>{`
+        .mf-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
+        .mf-grid{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,440px); gap:clamp(32px,5vw,72px); align-items:center; }
+        .mf-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); max-width:520px; }
+        .mf-points{ margin-top:clamp(24px,4vh,40px); display:flex; flex-direction:column; gap:clamp(20px,3vh,30px); }
+        .mf-pt{ font-family:var(--font-display); font-weight:800; font-size:19px; letter-spacing:-.01em; color:var(--warm-900); }
+        .mf-pd{ margin-top:8px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); max-width:520px; }
+        .mf-visual{ position:relative; }
+        .mf-photo img{ width:100%; height:auto; border-radius:20px; display:block; }
+        /* floating UI spills outside the photo edges */
+        /* coded "Serum M" product card (frosted glass frame, Figma style) */
+        .mf-prod{ position:absolute; top:-2%; left:-5%; width:33%; }
+        .mf-prod-card{ aspect-ratio:133/157; border-radius:16px; padding:6% 7%; display:flex; flex-direction:column;
+          background:rgba(255,255,255,.30); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+          box-shadow:0 18px 36px rgba(15,28,46,.20), inset 0 0 0 1px rgba(255,255,255,.42); }
+        .mf-prod-lbl{ padding-left:2%; font:400 13px/1.1 var(--font-body); color:#fff; text-shadow:0 4px 10px rgba(0,0,0,.28); }
+        .mf-prod-tile{ margin-top:7%; flex:1; border-radius:10px; overflow:hidden; }
+        .mf-prod-tile img{ width:100%; height:100%; object-fit:cover; display:block; }
+        .mf-icons{ position:absolute; bottom:-3%; left:61%; width:47%; }
+        .mf-icons img{ width:100%; height:auto; display:block; filter:drop-shadow(0 10px 20px rgba(15,28,46,.20)); }
+        /* subtle, minimal staggered entrance for the floating UI (gentler than the global reveal) */
+        .mf-prod[data-reveal], .mf-icons[data-reveal]{ transform:translateY(14px) scale(.96); }
+        .mf-prod[data-reveal].in, .mf-icons[data-reveal].in{ transform:none; }
+        @media (max-width:860px){ .mf-grid{ grid-template-columns:1fr; gap:32px; } .mf-visual{ order:-1; max-width:440px; margin-inline:auto; }
+          .mf-prod{ left:-3%; top:-4%; width:32%; } .mf-icons{ left:56%; width:46%; bottom:2%; } }
+      `}</style>
+    </section>
+  );
+}
+/* ---------- CC §3 — "Built for the way you create." (4 cards) ---------- */
+const CREATE_CARDS = [
+  ['cc-create-1.png', 'Pick brands you actually like.', 'Choose from 500+ brands and thousands of live offers, and promote only what fits your audience.'],
+  ['cc-create-2.png', 'One dashboard for every partnership.', 'Work with multiple brands and track all your links, clicks, and earnings in one place.'],
+  ['cc-create-3.png', 'See what your audience buys.', 'Know which products, posts, and platforms drive the most sales, so you make more of what works.'],
+  ['cc-create-4.png', 'Get paid faster.', 'Withdraw in 7 to 10 working days, or in as little as 5 to 7 with Express Withdrawal.'],
+];
+function BuiltCreate() {
+  return (
+    <section id="cc-create" className="cc-sec">
+      <div className="wrap">
+        <h2 className="cc-title" data-reveal>Built for the way you create.</h2>
+        <div className="cc-grid">
+          {CREATE_CARDS.map(([img, t, d], i) => (
+            <div className="cc-card" key={t} data-reveal data-reveal-delay={(i % 2) + 1}>
+              <div className="cc-visual"><img src={`media/figma/${img}`} alt="" loading="lazy" /></div>
+              <h3 className="cc-ct">{t}</h3>
+              <p className="cc-cd">{d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`
+        .cc-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
+        .cc-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
+        .cc-grid{ margin-top:clamp(34px,5vh,54px); display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(20px,3vw,32px); }
+        .cc-card{ min-width:0; }
+        .cc-visual{ border-radius:18px; overflow:hidden; aspect-ratio:560/300; background:var(--warm-100); }
+        .cc-visual img{ width:100%; height:100%; object-fit:cover; display:block; }
+        .cc-ct{ margin-top:20px; font-family:var(--font-display); font-weight:800; font-size:20px; letter-spacing:-.01em; color:var(--warm-900); }
+        .cc-cd{ margin-top:8px; font:400 16px/1.45 var(--font-body); color:var(--warm-600); max-width:440px; }
+        @media (max-width:720px){ .cc-grid{ grid-template-columns:1fr; max-width:440px; margin-inline:auto; } }
+      `}</style>
+    </section>
+  );
+}
 function PublisherApp() {
   useSmoothScroll();
   useScrollReveal();
@@ -1234,13 +1291,9 @@ function PublisherApp() {
       <Nav getStartedTone="pub" />
       <main>
         <PubHero />
-        <PubLogos />
-        <PubAudience />
-        <PubPlatform />
-        <PubEarn />
-        <PubBuilt />
+        <MadeFor />
+        <BuiltCreate />
         <PubVoices />
-        <PubFAQ />
         <PubCTA />
       </main>
       <Footer />
