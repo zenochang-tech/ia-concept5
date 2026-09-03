@@ -769,12 +769,14 @@ Object.assign(window, { Hexagon, HexBadge, HexHeroField, HexTexture, useScrollPr
 const NAV = [
   { label: 'For Advertisers', href: 'for-advertisers.html', tone: 'adv',
     columns: [
-      { links: [ ['Advertiser overview', 'for-advertisers.html'] ] },
+      { links: [
+        ['Advertiser overview', 'for-advertisers.html'],
+        ['Pricing', 'pricing.html'],
+      ]},
       { head: 'Feature', links: [
         ['Automation', 'automation.html'],
         ['Partner Discovery', 'partner-discovery.html'],
         ['How We Track', 'how-we-track.html'],
-        ['Pricing', 'pricing.html'],
       ]},
     ]},
   { label: 'For Publishers', href: 'for-publishers.html', tone: 'pub',

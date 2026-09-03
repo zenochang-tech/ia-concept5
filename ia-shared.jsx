@@ -12,12 +12,14 @@ const prefersReduced = () => window.matchMedia('(prefers-reduced-motion: reduce)
 const NAV = [
   { label: 'For Advertisers', href: 'for-advertisers.html', tone: 'adv',
     columns: [
-      { links: [ ['Advertiser overview', 'for-advertisers.html'] ] },
+      { links: [
+        ['Advertiser overview', 'for-advertisers.html'],
+        ['Pricing', 'pricing.html'],
+      ]},
       { head: 'Feature', links: [
         ['Automation', 'automation.html'],
         ['Partner Discovery', 'partner-discovery.html'],
         ['How We Track', 'how-we-track.html'],
-        ['Pricing', 'pricing.html'],
       ]},
     ]},
   { label: 'For Publishers', href: 'for-publishers.html', tone: 'pub',
@@ -141,7 +143,7 @@ function Nav({ getStartedTone = 'midnight' }) {
       transition: 'background .3s, border-color .3s, box-shadow .3s',
     }} onMouseLeave={scheduleClose}>
       <div className="wrap" style={{ display: 'flex', alignItems: 'center', height: 74, gap: 24, position: 'relative' }}>
-        <a href="#hero" aria-label="Involve Asia home" style={{ display: 'flex', alignItems: 'center', flex: '0 0 auto', zIndex: 2, position: 'relative' }}>
+        <a href="index.html" aria-label="Involve Asia home" style={{ display: 'flex', alignItems: 'center', flex: '0 0 auto', zIndex: 2, position: 'relative' }}>
           <img src={R('logoMidnight', "https://ia-design-system.vercel.app/assets/logo/wordmark-midnight.png")} alt="Involve Asia" width="132" height="28" style={{ height: 28, width: 'auto', transition: 'opacity .35s ease', opacity: onDark ? 0 : 1 }} />
           <img src={R('logoWhite', "https://ia-design-system.vercel.app/assets/logo/wordmark-white.png")} alt="" aria-hidden="true" width="132" height="28" style={{ height: 28, width: 'auto', position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', transition: 'opacity .35s ease', opacity: onDark ? 1 : 0 }} />
         </a>
