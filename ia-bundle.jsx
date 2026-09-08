@@ -766,14 +766,17 @@ Object.assign(window, { Hexagon, HexBadge, HexHeroField, HexTexture, useScrollPr
 // ia-nav.jsx — Navigation. Centered nav, Jitter-style dropdowns (featured card only on
 // the audience menus), working language dropdown. 2 levels max, descriptive labels.
 
+// Nav mega-menu — clean Stripe-style columns: each column has a non-clickable title (head)
+// with a thin #E8E8E2 divider under it, then its links. Column titles are suggestions —
+// rename freely. No feature image card.
 const NAV = [
   { label: 'For Advertisers', href: 'for-advertisers.html', tone: 'adv',
     columns: [
-      { links: [
+      { head: 'Overview', links: [
         ['Advertiser overview', 'for-advertisers.html'],
         ['Pricing', 'pricing.html'],
       ]},
-      { head: 'Feature', links: [
+      { head: 'Features', links: [
         ['Automation', 'automation.html'],
         ['Partner Discovery', 'partner-discovery.html'],
         ['How We Track', 'how-we-track.html'],
@@ -781,28 +784,41 @@ const NAV = [
     ]},
   { label: 'For Publishers', href: 'for-publishers.html', tone: 'pub',
     columns: [
-      { top: ['Publisher overview', 'for-publishers.html'], head: 'Feature', links: [
+      { head: 'Overview', links: [
+        ['Publisher overview', 'for-publishers.html'],
+      ]},
+      { head: 'Features', links: [
         ['Express Withdrawal', 'express-withdrawal.html'],
         ['API Overview', 'api-overview.html'],
         ['Data Feed', 'datafeed.html'],
       ]},
-      { head: 'Publisher type', links: [
-        ['Content Creators', 'content-creators.html'],
-        ['Affiliate Sites', 'affiliates.html'],
-        ['Websites', 'website.html'],
+      { head: 'Publisher types', links: [
+        ['Creators', 'content-creators.html'],
+        ['Affiliate & Rewards Sites', 'affiliates.html'],
+        ['Content Sites', 'website.html'],
         ['App Owners', 'app-owners.html'],
+        ['Media Buyers', 'media-buyer.html'],
       ]},
     ]},
-  { label: 'Resources', href: '/blog/', items: [
-      { t: 'Blog', d: 'Guides, trends & playbooks', href: '/blog/' },
-      { t: 'Support', d: 'Help centre', href: 'https://helpcentre.involve.asia/' },
-      { t: 'Download App', d: 'iOS & Android', href: '/download-app/' },
-      { t: 'Release Notes', d: "What's new", href: '/release-notes/' },
-      { t: 'API Docs', d: 'For developers', href: '/partners/api-overview/' },
+  { label: 'Resources', href: '/blog/',
+    columns: [
+      { head: 'Learn', links: [
+        ['Blog', '/blog/'],
+        ['Glossary', 'glossary.html'],
+        ['Release Notes', '/release-notes/'],
+      ]},
+      { head: 'Support', links: [
+        ['Help Centre', 'https://helpcentre.involve.asia/'],
+        ['Download App', 'download-app.html'],
+        ['API Docs', '/partners/api-overview/'],
+      ]},
     ]},
-  { label: 'Company', href: '/about/', items: [
-      { t: 'About Us', d: 'Our story & team', href: '/about/' },
-      { t: 'Careers', d: "We're hiring", href: 'https://career.involve.asia/' },
+  { label: 'Company', href: 'about.html',
+    columns: [
+      { head: 'Company', links: [
+        ['About Us', 'about.html'],
+        ['Careers', 'https://career.involve.asia/'],
+      ]},
     ]},
 ];
 
@@ -889,9 +905,9 @@ function Nav({ getStartedTone = 'midnight' }) {
     <React.Fragment>
     <header ref={navRef} className={`hdr4${onDark ? ' nav-on-dark' : ''}${scrolled ? ' solid' : ''}`} style={{
       position: 'sticky', top: 0, zIndex: 100,
-      background: onDark ? 'rgba(15,28,46,.72)' : (scrolled ? 'rgba(248,250,250,.82)' : 'transparent'),
-      backdropFilter: (onDark || scrolled) ? 'saturate(180%) blur(14px)' : 'none',
-      WebkitBackdropFilter: (onDark || scrolled) ? 'saturate(180%) blur(14px)' : 'none',
+      background: onDark ? 'rgba(15,28,46,.72)' : ((scrolled || mobile) ? 'rgba(248,250,250,.82)' : 'transparent'),
+      backdropFilter: (onDark || scrolled || mobile) ? 'saturate(180%) blur(14px)' : 'none',
+      WebkitBackdropFilter: (onDark || scrolled || mobile) ? 'saturate(180%) blur(14px)' : 'none',
       boxShadow: (scrolled && !onDark) ? '0 1px 0 var(--warm-200)' : 'none',
       borderBottom: `1px solid ${onDark ? 'rgba(255,255,255,.10)' : 'transparent'}`,
       transition: 'background .3s, border-color .3s, box-shadow .3s',
@@ -988,7 +1004,9 @@ function Nav({ getStartedTone = 'midnight' }) {
         .mega4-item b{display:block;font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--warm-900);transition:color .2s cubic-bezier(.4,0,.2,1);}
         .mega4-item .d{display:block;font-size:13px;color:var(--warm-400);margin-top:6px;line-height:1.45;}
         .mega4-item:hover b{color:var(--ember);}
-        .mega4-head{display:block;font:700 11px/1 var(--font-body);letter-spacing:.08em;text-transform:uppercase;color:var(--warm-400);margin-bottom:16px;}
+        .mega4-col{width:200px;}
+        .mega4-head{display:block;font:700 11px/1 var(--font-body);letter-spacing:.08em;text-transform:uppercase;color:var(--warm-400);margin-bottom:11px;}
+        .mega4-divider{display:block;height:1px;background:#E8E8E2;margin:0 0 12px;}
         .mega4-link{display:block;padding:8px 0;}
         .mega4-link b{font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--warm-900);transition:color .2s cubic-bezier(.4,0,.2,1);}
         a.mega4-link:hover b{color:var(--ember);}
@@ -1008,7 +1026,7 @@ function Nav({ getStartedTone = 'midnight' }) {
           .nav-desk{display:none !important;}
           .nav-right{display:none !important;}
           .nav-burger{display:inline-flex !important;}
-          .mega4, .mega4-overlay{display:none !important;}
+          .mega4{display:none !important;}
         }
       `}</style>
     </header>
@@ -1016,10 +1034,10 @@ function Nav({ getStartedTone = 'midnight' }) {
     {/* Frosted full-page blur overlay behind the mega (Concept 3). Rendered as a SIBLING
         of the header — NOT nested inside it — so the header's stacking context / transform
         can't clip the backdrop, and the blur reliably applies to the page content. */}
-    <div className="mega4-overlay" onClick={() => setOpen(null)} style={{
+    <div className="mega4-overlay" onClick={() => { setOpen(null); setMobile(false); }} style={{
       position: 'fixed', inset: 0, zIndex: 90, background: 'rgba(248,250,250,.35)',
       backdropFilter: 'blur(9px)', WebkitBackdropFilter: 'blur(9px)',
-      opacity: open !== null ? 1 : 0, visibility: open !== null ? 'visible' : 'hidden',
+      opacity: (open !== null || mobile) ? 1 : 0, visibility: (open !== null || mobile) ? 'visible' : 'hidden',
       transition: 'opacity .35s cubic-bezier(.4,0,.2,1), visibility .35s cubic-bezier(.4,0,.2,1)',
     }} />
 
@@ -1033,28 +1051,15 @@ function Nav({ getStartedTone = 'midnight' }) {
       transition: 'opacity .35s cubic-bezier(.4,0,.2,1), transform .4s cubic-bezier(.4,0,.2,1), visibility .35s cubic-bezier(.4,0,.2,1)',
     }}>
       {NAV.map((n, i) => open === i && (
-        <div key={n.label} className="wrap" style={{ display: 'grid', gridTemplateColumns: '1.55fr 1fr', gap: 'clamp(32px,5vw,72px)', alignItems: 'start' }} role="menu">
-          {n.columns ? (
-            <div className="mega4-cols" style={{ display: 'grid', gridTemplateColumns: `repeat(${n.columns.length},minmax(0,1fr))`, gap: '4px 40px', alignItems: 'start' }}>
-              {n.columns.map((col, ci) => (
-                <div key={ci} style={{ display: 'flex', flexDirection: 'column' }}>
-                  {col.top && <MegaLink link={col.top} />}
-                  {col.head && <span className="mega4-head" style={col.top ? { marginTop: 20 } : undefined}>{col.head}</span>}
-                  {col.links.map(l => <MegaLink key={l[0]} link={l} />)}
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="mega4-cols" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '28px 32px' }}>
-              {n.items.map(it => <MegaItem key={it.t} it={it} />)}
-            </div>
-          )}
-          <div className="mega4-feat mega4-feat-soon" style={{ position: 'relative', borderRadius: 'var(--r-lg)', overflow: 'hidden', aspectRatio: '16 / 10', display: 'block', boxShadow: 'var(--shadow-md)', cursor: 'default' }}>
-            <img src={encodeURI(NAV_FEAT[i].img)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            <span className="mega4-feat-shade" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg,rgba(15,28,46,.15),rgba(15,28,46,.72))' }} />
-            <span className="mf" style={{ position: 'absolute', inset: 'auto 20px 18px 20px', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#fff' }}>
-              <b style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 17 }}>Coming soon</b>
-            </span>
+        <div key={n.label} className="wrap" role="menu">
+          <div className="mega4-cols" style={{ display: 'flex', flexWrap: 'wrap', gap: '10px clamp(44px,5vw,72px)', alignItems: 'flex-start' }}>
+            {n.columns.map((col, ci) => (
+              <div key={ci} className="mega4-col">
+                <span className="mega4-head">{col.head}</span>
+                <span className="mega4-divider" aria-hidden="true" />
+                {col.links.map(l => <MegaLink key={l[0]} link={l} />)}
+              </div>
+            ))}
           </div>
         </div>
       ))}
@@ -1326,14 +1331,14 @@ function Hero({ dark = false, hex = 3, emphasis = 'equal' }) {
         <div className="hero2-grid">
           <div className="hero2-copy">
             <h1 className="hero2-title" data-reveal>The affiliate platform that keeps everyone moving, faster.</h1>
-            <p className="hero2-sub" data-reveal data-reveal-delay="1">Brands grow with the right publishers, and publishers earn from the brands they love. Daily validation and faster payouts keep everyone moving.</p>
+            <p className="hero2-sub" data-reveal data-reveal-delay="1">Brands grow with the right publishers, and publishers earn from the brands they love. Daily validation and faster payouts mean less waiting, for everyone.</p>
             <div className="hero2-ctas" data-reveal data-reveal-delay="2">
               <div className="hero2-cta">
-                <span className="hero2-kicker">For <i>Publisher</i></span>
+                <span className="hero2-kicker">For <i>Publishers</i></span>
                 <a href="/partners/" className="btn btn-primary btn-lg">Start Earning <Arrow /></a>
               </div>
               <div className="hero2-cta">
-                <span className="hero2-kicker adv">For <i>Advertiser</i></span>
+                <span className="hero2-kicker adv">For <i>Advertisers</i></span>
                 <a href="/advertisers/" className="btn btn-advertiser btn-lg">Grow My Brand <Arrow /></a>
               </div>
             </div>
@@ -1344,19 +1349,14 @@ function Hero({ dark = false, hex = 3, emphasis = 'equal' }) {
             {/* single payout notification, top-left of the figure — swaps brand/amount on a random cadence */}
             <div className="hero2-payouts" aria-hidden="true">
               <div className={'pcard' + (payVis ? '' : ' is-swapping')}>
-                <div className="pcard-row">
-                  <span className="pcard-status">Payout Completed</span>
-                  <span className="pcard-total">Total</span>
-                </div>
-                <div className="pcard-row pcard-foot">
-                  <span className="pcard-brand"><i style={{ background: pay.dot }} />{pay.brand}</span>
-                  <span className="pcard-amt">+ <strong>${pay.amt}</strong></span>
-                </div>
+                <span className="pcard-status">Payout Completed</span>
+                <span className="pcard-brand">{pay.brand}</span>
+                <span className="pcard-amt">+ $<strong>{pay.amt}</strong></span>
               </div>
             </div>
             {/* total-sales card */}
             <div className="hero2-sales" aria-hidden="true">
-              <span className="hs-label">Total Sales Driven for Brands</span>
+              <span className="hs-label">Sales Driven</span>
               <span className="hs-sub">last 30 days</span>
               <HeroSales />
             </div>
@@ -1374,7 +1374,7 @@ function Hero({ dark = false, hex = 3, emphasis = 'equal' }) {
         .hero2-ctas{ display:flex; flex-wrap:wrap; gap:clamp(16px,1.8vw,26px); margin-top:clamp(26px,3.4vh,38px); }
         .hero2-cta{ display:flex; flex-direction:column; align-items:flex-start; gap:9px; }
         .hero2-kicker{ font:400 14px/1 var(--font-body); color:var(--warm-600); }
-        .hero2-kicker i{ font-style:italic; font-weight:700; color:var(--ember); }
+        .hero2-kicker i{ font-style:normal; font-weight:700; color:var(--ember); }
         .hero2-kicker.adv i{ color:var(--midnight-light); }
         /* right figure stage — image + its floating cards. !important so the [data-reveal].in
            rule can't reset a transform on reveal. */
@@ -1393,21 +1393,20 @@ function Hero({ dark = false, hex = 3, emphasis = 'equal' }) {
         .hexfield .hx{ will-change:transform; }
         @media (max-width:980px){ .hexfield{ left:50%; width:min(540px,94%); top:auto; bottom:1%; transform:translateX(-50%); } }
         /* single payout notification — top-left of the figure */
-        .hero2-payouts{ position:absolute; z-index:4; top:6%; left:-6%; width:min(230px,60%); }
-        .pcard{ background:#fff; border-radius:12px; box-shadow:var(--shadow-lg); padding:11px 14px; display:flex; flex-direction:column; gap:9px; will-change:transform,opacity; transition:opacity .34s ease, transform .34s ease; }
+        /* desktop: sits BEHIND the hero figure (img z-index:1) so it tucks behind the people; mobile brings it to the front */
+        .hero2-payouts{ position:absolute; z-index:0; top:6%; left:-6%; width:min(230px,60%); }
+        .pcard{ background:rgba(255,255,255,.88); border-radius:12px; box-shadow:var(--shadow-lg); padding:13px 16px; display:flex; flex-direction:column; gap:2px; max-width:200px; will-change:transform,opacity; transition:opacity .34s ease, transform .34s ease; }
         .pcard.is-swapping{ opacity:0; transform:translateY(5px); }
         @media (prefers-reduced-motion: reduce){ .pcard{ transition:none; } }
-        .pcard-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
-        .pcard-status{ font:600 12px/1 var(--font-body); color:var(--warm-900); }
-        .pcard-total{ font:500 11px/1 var(--font-body); color:var(--warm-400); }
-        .pcard-brand{ display:inline-flex; align-items:center; gap:7px; font:500 12px/1.2 var(--font-body); color:var(--warm-800); }
-        .pcard-brand i{ width:11px; height:11px; border-radius:4px; flex:0 0 auto; }
-        .pcard-amt{ font:400 13px/1 var(--font-body); color:var(--warm-900); white-space:nowrap; }
-        .pcard-amt strong{ font-weight:700; font-size:15px; }
+        /* fonts matched to the advertiser "Sales Driven" card (.hs-label / .hs-sub / .hs-num) */
+        .pcard-status{ font:600 11px/1.3 var(--font-body); color:var(--warm-900); }
+        .pcard-brand{ font:400 10px/1 var(--font-body); color:var(--warm-400); white-space:nowrap; }
+        .pcard-amt{ margin-top:3px; font-family:var(--font-display); font-weight:800; font-size:13px; letter-spacing:-.02em; color:var(--warm-900); white-space:nowrap; }
+        .pcard-amt strong{ font-weight:800; font-size:21px; }
         /* total-sales card */
-        .hero2-sales{ position:absolute; z-index:3; right:-6%; top:62%; background:#fff; border-radius:14px; box-shadow:var(--shadow-lg); padding:13px 16px; display:flex; flex-direction:column; gap:2px; max-width:210px; }
+        .hero2-sales{ position:absolute; z-index:3; right:-6%; top:62%; background:rgba(255,255,255,.88); border-radius:14px; box-shadow:var(--shadow-lg); padding:13px 16px; display:flex; flex-direction:column; gap:2px; max-width:210px; }
         .hs-label{ font:600 11px/1.3 var(--font-body); color:var(--warm-900); }
-        .hs-sub{ font:400 10px/1 var(--font-body); color:var(--warm-400); font-style:italic; }
+        .hs-sub{ font:400 10px/1 var(--font-body); color:var(--warm-400); font-style:normal; }
         .hs-num{ font-family:var(--font-display); font-weight:800; font-size:21px; letter-spacing:-.02em; color:var(--warm-900); margin-top:3px; }
         @media (max-width:980px){
           .hero2{ text-align:center; }
@@ -1418,11 +1417,34 @@ function Hero({ dark = false, hex = 3, emphasis = 'equal' }) {
           .hero2-ctas{ justify-content:center; }
           .hero2-figure{ order:2; max-width:460px; margin:0 auto; }
           .hero2-figure img{ margin:0 auto; }
-          .hero2-payouts{ width:min(220px,52%); left:0; top:4%; }
+          .hero2-payouts{ width:min(220px,52%); left:0; top:4%; z-index:4; }
           .hero2-sales{ right:0; top:60%; }
         }
         @media (max-width:560px){
-          .hero2-payouts,.hero2-sales{ display:none; }
+          /* left-align the hero header + description on phones */
+          .hero2{ text-align:left; }
+          .hero2-copy{ align-items:flex-start; }
+          .hero2-sub{ margin-left:0; margin-right:0; }
+          /* both CTAs in one row — 2 columns, label above each button */
+          .hero2-ctas{ display:grid; grid-template-columns:1fr 1fr; gap:10px 12px; width:100%; max-width:420px; margin-left:auto; margin-right:auto; }
+          .hero2-cta{ align-items:flex-start; text-align:left; gap:8px; min-width:0; }
+          .hero2-kicker{ font-size:13px; }
+          .hero2-cta .btn{ width:100%; justify-content:center; padding:13px 12px; font-size:14px; white-space:nowrap; }
+          .hero2-cta .btn svg{ flex:0 0 auto; }
+          /* floating cards stay on the hero image (Figma: payout lower-left, total-sales right) —
+             smaller size + fonts; payout moved up 10% (66%→56%); kept to the left half / right half
+             so the two cards never overlap */
+          .hero2-payouts{ display:block; left:0; top:56%; bottom:auto; width:min(156px,43%); }
+          .hero2-sales{ display:flex; right:0; top:42%; max-width:146px; padding:9px 11px; text-align:left; align-items:flex-start; }
+          .hs-label{ font-size:9.5px; }
+          .hs-sub{ font-size:8.5px; }
+          .hs-num{ font-size:15px; }
+          /* payout card → smaller; fonts matched to the advertiser card's mobile sizes */
+          .hero2-payouts .pcard{ padding:9px 11px; gap:1px; }
+          .hero2-payouts .pcard-status{ font-size:9.5px; }
+          .hero2-payouts .pcard-brand{ font-size:8.5px; }
+          .hero2-payouts .pcard-amt{ font-size:9px; }
+          .hero2-payouts .pcard-amt strong{ font-size:15px; }
         }
       `}</style>
     </section>
@@ -1685,12 +1707,13 @@ function KeepsMoving() {
    Live Brand Directory: category filter rail + grid of photo-background brand
    cards (scrim + brand mark + commission chip + publisher count). Static (Phase 1). */
 const LIVE_CATS = ['All', 'Marketplace', 'Fashion', 'Travel', 'Digital Services', 'Electronics', 'Health & Beauty'];
+// comm rates are PLACEHOLDERS — wire to the live directory data at dev time (varied, not a flat rate).
 const LIVE_BRANDS = [
-  { name: 'Shopee', comm: '3.5', pub: '6,302' },
-  { name: 'Uniqlo', comm: '3.5', pub: '2,214', boxed: true },
-  { name: 'Tiktok', comm: '3.5', pub: '8,190' },
-  { name: 'Huawei', comm: '3.5', pub: '1,224' },
-  { name: 'Watsons', comm: '3.5', pub: '3,901' },
+  { name: 'Shopee', comm: '4.0', pub: '6,302' },
+  { name: 'Uniqlo', comm: '5.0', pub: '2,214', boxed: true },
+  { name: 'TikTok', comm: '3.5', pub: '8,190' },
+  { name: 'Huawei', comm: '6.0', pub: '1,224' },
+  { name: 'Watsons', comm: '4.5', pub: '3,901' },
   { name: 'Puma', comm: '2.1', pub: '1,466' },
 ];
 function LiveDirectory() {
@@ -1719,7 +1742,7 @@ function LiveDirectory() {
           <div className="lb-aside">
             <span className="lb-eyebrow"><i />Live Brand Directory</span>
             <h2 className="lb-title">See what's live right now.</h2>
-            <p className="lb-sub">Thousands of real brands, ready to promote. See what each one pays and how many creators are already on board.</p>
+            <p className="lb-sub">Real brands, ready to promote. See what each one pays and how many publishers are already on board.</p>
             <div className="lb-rail">
               {LIVE_CATS.map((c, i) => (
                 <button key={c} type="button" className={'lb-cat' + (i === cat ? ' on' : '')} aria-pressed={i === cat} onClick={() => setCat(i)}>{c}</button>
@@ -1728,21 +1751,19 @@ function LiveDirectory() {
             <a href="/advertisers/" className="lb-explore">Explore all offers <Arrow /></a>
           </div>
           <div className="lb-grid" key={cat}>
-            {displayed.map((b) => (
+            {displayed.map((b, i) => (
               <a key={b.name} href="/advertisers/" className="lb-card">
                 <img className="lb-bg" src={`media/figma/s4-bg-${slug(b.name)}.png`} alt="" loading="lazy" />
                 <span className="lb-scrim" aria-hidden="true" />
-                <span className="lb-name">{b.name}</span>
-                <span className="lb-mid">
-                  {b.boxed
-                    ? <span className="lb-logobox"><img src={`media/figma/s4-logo-${slug(b.name)}.png`} alt={`${b.name} logo`} /></span>
-                    : <img className="lb-logo" src={`media/figma/s4-logo-${slug(b.name)}.png`} alt={`${b.name} logo`} />}
-                </span>
-                <span className="lb-foot">
-                  <span className="lb-chip">
-                    <span className="lb-chip-t"><small>Up to</small><b>{b.comm}% commission</b></span>
-                    <span className="lb-arr"><Arrow s={16} /></span>
+                {i < 3 && <span className="lb-badge">New</span>}
+                <span className="lb-logowrap">
+                  <span className="lb-logotile">
+                    <img className={b.boxed ? 'lb-logo-fill' : 'lb-logo-contain'} src={`media/figma/s4-logo2-${slug(b.name)}.png`} alt={`${b.name} logo`} />
                   </span>
+                </span>
+                <span className="lb-info">
+                  <span className="lb-name">{b.name}</span>
+                  <span className="lb-comm"><small>Up to</small><b>{b.comm}% commission</b></span>
                   <span className="lb-pub">{b.pub} publishers promoting this</span>
                 </span>
               </a>
@@ -1769,25 +1790,27 @@ function LiveDirectory() {
         .lb-cat:hover{ opacity:.72; }
         .lb-cat.on{ background:var(--warm-900); color:#fff; opacity:1; }
         .lb-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
-        .lb-card{ position:relative; min-width:0; aspect-ratio:298/334; border-radius:20px; overflow:hidden; display:flex; flex-direction:column;
+        .lb-card{ position:relative; min-width:0; aspect-ratio:298/334; border-radius:8px; overflow:hidden; display:flex; flex-direction:column;
           text-decoration:none; transition:transform .22s cubic-bezier(.22,1,.36,1), box-shadow .22s; }
         .lb-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-lg); }
-        .lb-bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+        .lb-bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:blur(6.4px); transform:scale(1.06); }
         .lb-scrim{ position:absolute; inset:0; background:rgba(0,0,0,.48); }
-        .lb-name{ position:relative; z-index:2; text-align:center; margin-top:15px; color:#fff; font-family:var(--font-display); font-weight:800; font-size:16px; letter-spacing:-.01em; }
-        .lb-mid{ position:relative; z-index:2; flex:1; display:flex; align-items:center; justify-content:center; }
-        .lb-logo{ width:79px; height:79px; object-fit:contain; }
-        .lb-logobox{ width:68px; height:68px; border-radius:7px; overflow:hidden; background:#fff; display:flex; align-items:center; justify-content:center; }
-        .lb-logobox img{ width:100%; height:100%; object-fit:cover; }
-        .lb-foot{ position:relative; z-index:2; margin-top:auto; padding:0 17px 15px; display:flex; flex-direction:column; gap:11px; align-items:center; }
-        .lb-chip{ width:100%; background:#fff; border-radius:12px; padding:7px 7px 7px 14px; display:flex; align-items:center; justify-content:space-between; gap:8px; }
-        .lb-chip-t{ display:flex; flex-direction:column; line-height:1.25; }
-        .lb-chip-t small{ font:400 13px/1.2 var(--font-body); color:var(--warm-600); }
-        .lb-chip-t b{ font:600 16px/1.2 var(--font-body); color:var(--warm-900); }
-        .lb-arr{ flex:0 0 auto; width:42px; height:42px; border-radius:10px; background:rgba(15,28,46,.10); color:var(--midnight); display:flex; align-items:center; justify-content:center; transition:background .2s ease, color .2s ease; }
-        .lb-arr svg{ transform:rotate(-45deg); }
-        .lb-card:hover .lb-arr{ border-radius:10px; background:#0F1C2E; color:#fff; }
-        .lb-pub{ font:400 13px/1.2 var(--font-body); color:rgba(255,255,255,.82); text-align:center; }
+        /* "New" corner badge (green, tl+br rounded) */
+        .lb-badge{ position:absolute; top:0; left:0; z-index:3; background:#047857; color:#fff; font:700 13px/1 var(--font-body);
+          padding:6px 11px; border-radius:8px 0 8px 0; }
+        /* white rounded logo tile, centred in the upper area */
+        .lb-logowrap{ position:relative; z-index:2; flex:1; display:flex; align-items:center; justify-content:center; padding-top:16px; }
+        .lb-logotile{ width:clamp(80px,34%,101px); aspect-ratio:1; border-radius:16px; background:#fff; overflow:hidden;
+          display:flex; align-items:center; justify-content:center; }
+        .lb-logo-contain{ width:70%; height:70%; object-fit:contain; }
+        .lb-logo-fill{ width:100%; height:100%; object-fit:cover; }
+        /* bottom-left info block */
+        .lb-info{ position:relative; z-index:2; margin-top:auto; padding:0 22px 22px; display:flex; flex-direction:column; align-items:flex-start; text-align:left; }
+        .lb-name{ font-family:var(--font-display); font-weight:800; font-size:16px; letter-spacing:-.01em; color:#fff; }
+        .lb-comm{ margin-top:12px; display:flex; flex-direction:column; }
+        .lb-comm small{ font:400 14px/1.26 var(--font-body); color:#fff; }
+        .lb-comm b{ font:600 16px/1.26 var(--font-body); color:#fff; }
+        .lb-pub{ margin-top:12px; font:400 12px/1.23 var(--font-body); color:rgba(255,255,255,.72); }
         @media (max-width:1000px){
           .lb-layout{ grid-template-columns:minmax(0,1fr); gap:22px; }
           .lb-aside{ align-items:stretch; min-width:0; }
@@ -1798,20 +1821,26 @@ function LiveDirectory() {
           .lb-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); }
         }
         @media (max-width:720px){ .lb-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
-        /* two columns on phones — shrink the card internals so the chip + arrow fit the narrow card */
+        /* phones — 2 rows that scroll horizontally: 2 full columns + a partial 3rd peek,
+           swipe left/right to explore. Cards shrink so the chip + arrow fit the narrow card. */
         @media (max-width:520px){
-          .lb-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
-          .lb-card{ aspect-ratio:170/216; border-radius:16px; }
-          .lb-name{ font-size:14px; margin-top:12px; }
-          .lb-logo{ width:58px; height:58px; }
-          .lb-logobox{ width:52px; height:52px; }
-          .lb-foot{ padding:0 9px 11px; gap:7px; }
-          .lb-chip{ padding:6px 6px 6px 11px; border-radius:10px; }
-          .lb-chip-t small{ font-size:10.5px; }
-          .lb-chip-t b{ font-size:13px; }
-          .lb-arr{ width:30px; height:30px; border-radius:8px; }
-          .lb-arr svg{ width:15px; height:15px; }
-          .lb-pub{ font-size:11px; }
+          .lb-grid{ display:grid; grid-auto-flow:column; grid-template-columns:none; grid-template-rows:repeat(2,auto);
+            grid-auto-columns:clamp(120px,37vw,150px); gap:12px; overflow-x:auto; overscroll-behavior-x:contain;
+            scroll-snap-type:x proximity; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+            /* full-bleed to the screen edges: break out of the 20px page gutter, then re-add it as
+               inner padding so the first card lines up with the heading and the peek crops at the true edge */
+            margin-left:-20px; margin-right:-20px; padding:0 20px 4px; scroll-padding-left:20px; }
+          .lb-grid::-webkit-scrollbar{ display:none; }
+          .lb-card{ aspect-ratio:170/216; border-radius:8px; scroll-snap-align:start; }
+          .lb-badge{ font-size:10px; padding:4px 8px; }
+          .lb-logowrap{ padding-top:12px; }
+          .lb-logotile{ width:clamp(52px,36%,62px); border-radius:12px; }
+          .lb-info{ padding:0 12px 12px; }
+          .lb-name{ font-size:13px; }
+          .lb-comm{ margin-top:7px; }
+          .lb-comm small{ font-size:10.5px; }
+          .lb-comm b{ font-size:13px; }
+          .lb-pub{ margin-top:7px; font-size:10.5px; }
         }
       `}</style>
     </section>
@@ -1967,7 +1996,7 @@ function OffersSection() {
    Static (Phase 1); overlay cards rebuilt in CSS for crispness. */
 const START_STEPS = [
   { n: 'Step 1', title: 'Match', img: 'home-start-img-01.png', overlay: 'match',
-    desc: 'Match you with the right brands, or the right creators. No cold outreach.',
+    desc: 'We match you with the right brands, or the right creators. No cold outreach.',
     quote: '“Found 40 brands to promote in a day, the filter and category makes the process much easier.”',
     name: 'John Doe', role: 'Publisher · Food Blogger', avatar: 's5-avatar-1.png' },
   { n: 'Step 2', title: 'Go live', img: 'home-start-img-02.png', overlay: 'golive',
@@ -1975,7 +2004,7 @@ const START_STEPS = [
     quote: '“Involve Asia did a great job in guiding us on what info needed and launched our campaign in an afternoon.”',
     name: 'Brand Name', role: 'Advertiser · Brand Category', avatar: 's5-avatar-3.png' },
   { n: 'Step 3', title: 'Track', img: 'home-start-img-03.png', overlay: 'track',
-    desc: 'Watch every click, sale, and payout update in real time.',
+    desc: 'Watch every click, sale, and payout in one dashboard.',
     quote: '“Found 40 brands to promote in a day, the filter and category makes the process much easier.”',
     name: 'Jane Doe', role: 'Publisher · Lifestyle Content Creator', avatar: 's5-avatar-2.png' },
   { n: 'Step 4', title: 'Grow and get paid', img: 'home-start-img-04.png', overlay: 'payout',
@@ -2281,7 +2310,7 @@ function SupportBanner() {
         .sup-badge{ margin-top:26px; }
         .sup-badge-lbl{ font:600 15px/1.4 var(--font-body); color:var(--warm-900); }
         .sup-quote-card{ margin-top:12px; background:#fff; border-radius:14px; padding:16px 18px; box-shadow:0 10px 30px rgba(15,28,46,.06); max-width:540px; }
-        .sup-quote{ font-style:italic; color:var(--warm-600); font-size:16px; line-height:1.5; }
+        .sup-quote{ font-style:normal; color:var(--warm-600); font-size:16px; line-height:1.5; }
         .sup-verified{ margin-top:6px; color:var(--ember); font-weight:700; font-size:14px; }
         /* hexagon portrait + chat bubbles */
         .sup-figure{ position:relative; width:100%; max-width:438px; margin-left:auto; aspect-ratio:379/427; }
@@ -2320,12 +2349,12 @@ function SupportBanner() {
 const PUB_STORIES = [
   { photo: 's7-pub.png', big: '3', unit: ' properties', head: 'Bought from her affiliate earnings', tag: 'Facebook creator, Philippines', desc: 'How a mother of four turned Facebook content into a new life with Involve.' },
   { photo: 's7-pub-travel.png', big: 'RM 1M', unit: '+', head: 'In sales driven for one travel brand, Q4 2023', tag: 'Affiliate network, AI content', desc: 'How Flickstree scaled travel sales through Involve.' },
-  { photo: 's7-pub-food.png', big: '1,130', unit: ' MYR earned', head: 'From just 10.5k followers, part-time', tag: 'Travel and Food creator', desc: "Proof you don't need to be big to earn with Involve." },
+  { photo: 's7-pub-food.png', big: 'RM 1,130', unit: ' earned', head: 'From just 10.5k followers, part-time', tag: 'Travel and Food creator', desc: "Proof you don't need to be big to earn with Involve." },
 ];
 const ADV_STORIES = [
   { photo: 's7-adv.png', big: '796', unit: '%', head: 'Increase in sales', tag: 'E-commerce', desc: 'How Big Bang Sales scaled through affiliate partnerships.' },
   { photo: 's7-adv-telco.png', big: '4.3', unit: 'x', head: 'Increase in sales', tag: 'Telco', desc: 'How Involve partners drove growth for TIME Internet.' },
-  { photo: 's7-adv-health.png', big: '723', unit: 'k MYR', head: 'In sales · 4,912 conversions', tag: 'Health & Wellness', desc: 'How a global health and wellness brand launched a CPS programme on Involve.' },
+  { photo: 's7-adv-health.png', big: 'RM 723k', unit: '', head: 'In sales · 4,912 conversions', tag: 'Health & Wellness', desc: 'How a global health and wellness brand launched a CPS programme on Involve.' },
 ];
 function RRChevron({ dir }) {
   return (
@@ -2334,13 +2363,15 @@ function RRChevron({ dir }) {
     </svg>
   );
 }
-/* Mobile-only carousel for ONE deck (publisher or advertiser): label + its own arrow
-   pair, then the featured card with the next card peeking from the right. */
-function MobileDeck({ label, stories, idx, onPrev, onNext }) {
+/* Mobile stacked deck for the active tab: front card + two cards peeking behind it
+   (3 total), swipe/arrows to advance. `tabKey` re-keys the front card so it re-animates
+   both on tab switch and on advance. */
+function MobileDeck({ stories, idx, onPrev, onNext, tabKey }) {
   const m = (n, k) => ((n % k) + k) % k;
   const N = stories.length;
   const front = stories[m(idx, N)];
-  const peek = stories[m(idx + 1, N)];
+  const p1 = stories[m(idx + 1, N)];
+  const p2 = stories[m(idx + 2, N)];
   // horizontal swipe → prev/next (ignore mostly-vertical drags so the page can still scroll)
   const touch = React.useRef(null);
   const onTouchStart = (e) => { const t = e.touches[0]; touch.current = { x: t.clientX, y: t.clientY, done: false }; };
@@ -2351,18 +2382,10 @@ function MobileDeck({ label, stories, idx, onPrev, onNext }) {
   };
   const onTouchEnd = () => { touch.current = null; };
   return (
-    <div className="rr-mdeck" data-reveal>
-      <div className="rr-mhead">
-        {label}
-        <div className="rr-arrows rr-marrows">
-          <button type="button" className="rr-arrow" onClick={onPrev} aria-label="Previous story"><RRChevron dir="l" /></button>
-          <button type="button" className="rr-arrow" onClick={onNext} aria-label="Next story"><RRChevron dir="r" /></button>
-        </div>
-      </div>
-      <div className="rr-mviewport" onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
-        <div className="rr-mpeek" aria-hidden="true"><StoryCard s={peek} /></div>
-        <div className="rr-mfront" key={front.photo + '·' + idx}><StoryCard s={front} /></div>
-      </div>
+    <div className="rr-mstk" onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
+      <div className="rr-mc rr-mc-2" aria-hidden="true"><StoryCard s={p2} /><span className="rr-mc-dim" /></div>
+      <div className="rr-mc rr-mc-1" aria-hidden="true"><StoryCard s={p1} /><span className="rr-mc-dim" /></div>
+      <div className="rr-mc rr-mc-0" key={tabKey + '·' + idx}><StoryCard s={front} /></div>
     </div>
   );
 }
@@ -2400,6 +2423,7 @@ function SuccessSlider() {
   // mobile drives each independently. Slot positions are circular, so both loop forever.
   const [pi, setPi] = React.useState(0);
   const [ai, setAi] = React.useState(0);
+  const [mtab, setMtab] = React.useState(0);   // mobile tabs: 0 = publishers, 1 = advertisers
   const stageRef = React.useRef(null);
   const prevPiRef = React.useRef(0);
   const prevAiRef = React.useRef(0);
@@ -2412,6 +2436,8 @@ function SuccessSlider() {
     window.matchMedia('(min-width:821px)').matches && !prefersReduced()
   )[0];
   const advanceBoth = (delta) => { setPi((v) => v + delta); setAi((v) => v + delta); };  // desktop: both decks move together
+  const mPrev = () => (mtab === 0 ? setPi((v) => v - 1) : setAi((v) => v - 1));            // mobile: advance the active tab's deck
+  const mNext = () => (mtab === 0 ? setPi((v) => v + 1) : setAi((v) => v + 1));
   const pickCard = (d, N, st) => {
     if (d === 0) { window.location.href = st.href || '/success-stories/'; return; }
     if (d <= N - d) advanceBoth(d); else advanceBoth(-(N - d));   // shorter single ±1 step to the front
@@ -2472,7 +2498,7 @@ function SuccessSlider() {
             <p className="rr-sub">From the people and brands growing with Involve.</p>
           </div>
           <div className="rr-controls">
-            <a href="/success-stories/" className="btn btn-secondary rr-seeall">See all success stories <Arrow /></a>
+            <a href="/success-stories/" className="rr-seeall">See all success stories <Arrow /></a>
             <div className="rr-arrows">
               <button type="button" className="rr-arrow" onClick={() => advanceBoth(-1)} aria-label="Previous stories"><RRChevron dir="l" /></button>
               <button type="button" className="rr-arrow rr-next" onClick={() => advanceBoth(1)} aria-label="Next stories"><RRChevron dir="r" /></button>
@@ -2498,12 +2524,20 @@ function SuccessSlider() {
               style={style} key={'a' + idx} onClick={() => pickCard(d, N, st)}><StoryCard s={st} /></div>;
           })}
         </div>
-        {/* mobile: two independent labeled carousels, each with its own arrows */}
+        {/* mobile: Publisher / Advertiser tabs (+ arrows), then a stacked deck (front + 2 peeking) */}
         <div className="rr-mobile">
-          <MobileDeck label={<span className="rr-label">For <i>Publishers</i></span>} stories={PUB_STORIES}
-            idx={pi} onPrev={() => setPi((v) => v - 1)} onNext={() => setPi((v) => v + 1)} />
-          <MobileDeck label={<span className="rr-label adv">For <i>Advertisers</i></span>} stories={ADV_STORIES}
-            idx={ai} onPrev={() => setAi((v) => v - 1)} onNext={() => setAi((v) => v + 1)} />
+          <div className="rr-mtabrow">
+            <div className="rr-tabs" role="tablist" aria-label="Success stories audience">
+              <button type="button" role="tab" aria-selected={mtab === 0} className={'rr-tab' + (mtab === 0 ? ' on' : '')} onClick={() => setMtab(0)}>Publisher</button>
+              <button type="button" role="tab" aria-selected={mtab === 1} className={'rr-tab' + (mtab === 1 ? ' on' : '')} onClick={() => setMtab(1)}>Advertiser</button>
+            </div>
+            <div className="rr-arrows rr-marrows2">
+              <button type="button" className="rr-arrow" onClick={mPrev} aria-label="Previous story"><RRChevron dir="l" /></button>
+              <button type="button" className="rr-arrow" onClick={mNext} aria-label="Next story"><RRChevron dir="r" /></button>
+            </div>
+          </div>
+          <MobileDeck stories={mtab === 0 ? PUB_STORIES : ADV_STORIES} idx={mtab === 0 ? pi : ai} onPrev={mPrev} onNext={mNext} tabKey={mtab} />
+          <a href="/success-stories/" className="rr-seeall rr-seeall-m">See all success stories <Arrow /></a>
         </div>
       </div>
       <style>{`
@@ -2512,9 +2546,14 @@ function SuccessSlider() {
         .rr-title{ font-size:clamp(24px,3vw,34px); line-height:1.02; letter-spacing:-.02em; }
         .rr-sub{ margin-top:12px; color:var(--warm-600); font-size:16px; }
         .rr-controls{ display:flex; flex-direction:column; align-items:flex-end; gap:16px; }
-        .rr-seeall{ border-color:var(--warm-900); color:var(--warm-900); flex:0 0 auto; }
+        /* text-link CTA, matching the brand directory's "Explore all offers" (.lb-explore) */
+        .rr-seeall{ display:inline-flex; align-items:center; gap:8px; flex:0 0 auto;
+          font:600 15px/1 var(--font-body); color:var(--warm-900); text-decoration:none; cursor:pointer; }
+        .rr-seeall svg{ transition:transform .2s ease; }
+        .rr-seeall:hover svg{ transform:translateX(3px); }
+        .rr-seeall-m{ display:none; }
         .rr-arrows{ display:flex; gap:12px; }
-        .rr-arrow{ width:44px; height:44px; border-radius:50%; border:1.5px solid var(--warm-300); background:#fff; color:var(--warm-400); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background .15s, color .15s, border-color .15s; }
+        .rr-arrow{ width:40px; height:40px; border-radius:50%; border:1.5px solid var(--warm-300); background:#fff; color:var(--warm-400); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background .15s, color .15s, border-color .15s; }
         .rr-arrow:not(:disabled){ background:var(--midnight); color:#fff; border-color:var(--midnight); }
         .rr-arrow:not(:disabled):hover{ opacity:.88; }
         .rr-arrow:disabled{ cursor:default; }
@@ -2534,32 +2573,138 @@ function SuccessSlider() {
         .rr-card-scrim{ position:absolute; inset:0; background:linear-gradient(150deg, rgba(15,28,46,.36) 4%, rgba(15,28,46,.12) 55%, rgba(15,28,46,.5) 100%); }
         .rr-inner{ position:relative; z-index:1; height:100%; display:flex; flex-direction:column; justify-content:space-between; padding:1.5em; transition:opacity .4s ease; }
         .rr-slotpos:not(.rr-featured) .rr-inner{ opacity:0; }
-        .rr-big{ font-family:var(--font-display); font-weight:800; font-size:4.6em; line-height:.95; letter-spacing:-.02em; color:var(--warm-900); }
-        .rr-big small{ font-size:.5em; letter-spacing:-.02em; }
+        .rr-big{ font-family:var(--font-display); font-weight:800; font-size:2.9em; line-height:1.02; letter-spacing:-.02em; color:var(--warm-900); }
+        .rr-big small{ font-size:1em; letter-spacing:-.02em; }
         .rr-headline{ margin-top:.3em; font:700 1.36em/1.15 var(--font-body); color:var(--warm-600); }
-        .rr-tag{ font:italic 700 1.05em/1.2 var(--font-body); color:var(--warm-900); }
+        .rr-tag{ font:700 1.05em/1.2 var(--font-body); color:var(--warm-900); }
         .rr-desc{ margin-top:.5em; font:500 1.05em/1.35 var(--font-body); color:var(--warm-600); }
         .rr-card-photo{ color:#fff; }
         .rr-card-photo .rr-big, .rr-card-photo .rr-headline, .rr-card-photo .rr-tag, .rr-card-photo .rr-desc{ color:#fff; }
-        /* mobile: hide the desktop deck + top controls; show two labeled carousels */
-        .rr-mdeck{ margin-top:clamp(30px,5vw,40px); }
-        .rr-mhead{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
-        .rr-marrows{ gap:10px; flex:0 0 auto; }
-        .rr-marrows .rr-arrow{ width:40px; height:40px; }
-        .rr-mviewport{ position:relative; margin-top:16px; overflow:hidden; touch-action:pan-y; }
-        .rr-mfront{ position:relative; width:82%; aspect-ratio:362/430; z-index:2;
-          animation:rrSlideIn .45s cubic-bezier(.22,.61,.36,1) both; }
-        .rr-mfront .rr-card{ font-size:15px; }
-        .rr-mpeek{ position:absolute; top:7%; right:0; width:64%; height:86%; z-index:1; pointer-events:none; }
-        .rr-mpeek .rr-card{ font-size:15px; box-shadow:0 8px 20px rgba(15,28,46,.12); }
-        .rr-mpeek::after{ content:""; position:absolute; inset:0; z-index:2; border-radius:16px; background:rgba(250,250,248,.38); }
+        /* mobile: Publisher / Advertiser segmented tabs + arrows in one row, then a stacked deck */
+        .rr-mtabrow{ display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:22px; }
+        .rr-tabs{ display:inline-flex; gap:4px; background:#fff; border:1px solid var(--warm-200); border-radius:9999px; padding:4px; }
+        .rr-tab{ border:none; background:none; cursor:pointer; padding:10px 18px; border-radius:9999px; font:700 14px/1 var(--font-body); color:var(--warm-900); white-space:nowrap; transition:background .2s ease, color .2s ease; }
+        .rr-tab.on{ background:var(--midnight); color:#fff; }
+        .rr-marrows2{ gap:10px; flex:0 0 auto; }
+        .rr-marrows2 .rr-arrow{ width:38px; height:38px; }
+        .rr-mstk{ position:relative; margin-top:22px; aspect-ratio:362/380; touch-action:pan-y; }
+        .rr-mc{ position:absolute; top:0; border-radius:16px; overflow:hidden; }
+        .rr-mc .rr-card{ font-size:15px; }
+        .rr-mc .rr-big{ font-size:2.3em; }
+        .rr-mc-0{ left:0; width:78%; height:100%; z-index:3; animation:rrSlideIn .45s cubic-bezier(.22,.61,.36,1) both; }
+        .rr-mc-1{ right:8%; top:4%; width:70%; height:92%; z-index:2; }
+        .rr-mc-2{ right:0; top:8%; width:64%; height:84%; z-index:1; }
+        .rr-mc-dim{ position:absolute; inset:0; z-index:5; background:rgba(250,250,248,.34); }
         @keyframes rrSlideIn{ from{ opacity:0; transform:translateX(6%); } to{ opacity:1; transform:none; } }
-        @media (prefers-reduced-motion:reduce){ .rr-mfront{ animation:none; } }
+        @media (prefers-reduced-motion:reduce){ .rr-mc-0{ animation:none; } }
         @media (max-width:820px){
           .rr-controls{ display:none; }
           .rr-labels{ display:none; }
           .rr-stage{ display:none; }
           .rr-mobile{ display:block; }
+          /* show the See-all link under the card slider on mobile */
+          .rr-seeall-m{ display:inline-flex; margin-top:clamp(20px,3.2vh,30px); }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+/* ---------------- From the Involve blog — placeholder cards (auto-featured from WordPress) ----------------
+   Header + "Read the blog" link + Publisher/Advertiser tabs, then the 3 MOST-RECENT posts for the active
+   audience. Cards are PLACEHOLDERS: at dev time the homepage auto-surfaces the newest posts from the CMS
+   (per audience, most recent first). Each card = category tag + title + read time + "Read more".
+   Mobile mirrors the "Real results" section: tabs above the scroller, "Read the blog" CTA below it. */
+const BLOG_PUB = [
+  { tone: 'pub', tag: 'For Publishers', title: 'How to promote affiliate links on TikTok', read: '5 min read', href: '/blog/' },
+  { tone: 'pub', tag: 'For Publishers', title: 'Express Withdrawal, explained', read: '4 min read', href: '/blog/' },
+  { tone: 'pub', tag: 'For Publishers', title: 'What is EPC in affiliate marketing?', read: '5 min read', href: '/blog/' },
+];
+const BLOG_ADV = [
+  { tone: 'adv', tag: 'For Advertisers', title: 'How to launch your first affiliate program', read: '6 min read', href: '/blog/' },
+  { tone: 'adv', tag: 'For Advertisers', title: 'Choosing the right commission structure', read: '6 min read', href: '/blog/' },
+  { tone: 'adv', tag: 'For Advertisers', title: 'Measuring ROI across your publisher network', read: '7 min read', href: '/blog/' },
+];
+function BlogSection() {
+  const [btab, setBtab] = React.useState(0); // 0 = Publisher, 1 = Advertiser
+  const posts = btab === 0 ? BLOG_PUB : BLOG_ADV;
+  return (
+    <section id="blog" className="bg-sec sec-pad">
+      <div className="wrap">
+        <div className="bg-head" data-reveal>
+          <div className="bg-headtext">
+            <h2 className="bg-title">From the Involve blog.</h2>
+            <p className="bg-sub">Fresh tips, playbooks, and insights, whichever side you're on.</p>
+          </div>
+          <div className="bg-controls">
+            <a href="/blog/" className="bg-readall">Read the blog <Arrow /></a>
+            <div className="bg-tabs" role="tablist" aria-label="Blog audience">
+              <button type="button" role="tab" aria-selected={btab === 0} className={'bg-tab' + (btab === 0 ? ' on' : '')} onClick={() => setBtab(0)}>Publisher</button>
+              <button type="button" role="tab" aria-selected={btab === 1} className={'bg-tab' + (btab === 1 ? ' on' : '')} onClick={() => setBtab(1)}>Advertiser</button>
+            </div>
+          </div>
+        </div>
+        <div className="bg-grid" key={btab}>
+          {posts.map((p, i) => (
+            <a key={i} href={p.href} className="bg-card">
+              <span className={'bg-card-tag ' + p.tone}>{p.tag}</span>
+              <h3 className="bg-card-title">{p.title}</h3>
+              <span className="bg-card-meta">
+                <span className="bg-card-time">{p.read}</span>
+                <span className="bg-card-more">Read more <Arrow s={15} /></span>
+              </span>
+            </a>
+          ))}
+        </div>
+        <a href="/blog/" className="bg-readall-m">Read the blog <Arrow /></a>
+      </div>
+      <style>{`
+        .bg-sec{ background:var(--warm-50); }
+        .bg-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:16px 32px; flex-wrap:wrap; }
+        .bg-title{ font-size:clamp(24px,3vw,34px); line-height:1.04; letter-spacing:-.02em; }
+        .bg-sub{ margin-top:12px; color:var(--warm-600); font-size:16px; line-height:1.4; max-width:560px; }
+        .bg-controls{ display:flex; flex-direction:column; align-items:flex-end; gap:14px; padding-top:4px; }
+        .bg-readall{ display:inline-flex; align-items:center; gap:8px; font:600 15px/1 var(--font-body); color:var(--warm-900); text-decoration:none; cursor:pointer; }
+        .bg-readall svg{ transition:transform .2s ease; }
+        .bg-readall:hover svg{ transform:translateX(3px); }
+        .bg-tabs{ display:inline-flex; gap:4px; background:#fff; border:1px solid var(--warm-200); border-radius:9999px; padding:4px; }
+        .bg-tab{ border:none; background:none; cursor:pointer; padding:8px 18px; border-radius:9999px; font:600 13px/1 var(--font-body); color:var(--warm-900); white-space:nowrap; transition:background .18s ease, color .18s ease; }
+        .bg-tab.on{ background:var(--midnight); color:#fff; }
+        .bg-readall-m{ display:none; align-items:center; gap:8px; font:600 14px/1 var(--font-body); color:var(--warm-900); text-decoration:none; }
+        .bg-readall-m svg{ transition:transform .2s ease; }
+        .bg-readall-m:hover svg{ transform:translateX(3px); }
+        .bg-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:clamp(28px,3.6vh,44px); }
+        .bg-card{ position:relative; min-width:0; aspect-ratio:304/202; border:1px solid #d2d2cc; border-radius:12px; background:#fff; overflow:hidden;
+          display:flex; flex-direction:column; gap:12px; padding:clamp(16px,1.4vw,22px); text-decoration:none;
+          transition:transform .22s cubic-bezier(.22,1,.36,1), box-shadow .22s ease, border-color .22s ease; }
+        .bg-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:#c4c4bd; }
+        .bg-card-tag{ align-self:flex-start; display:inline-flex; padding:5px 11px; border-radius:9999px; font:700 11px/1 var(--font-body); letter-spacing:.01em; }
+        .bg-card-tag.pub{ background:rgba(240,88,38,.10); color:var(--ember); }
+        .bg-card-tag.adv{ background:rgba(61,90,128,.13); color:var(--midnight-light); }
+        .bg-card-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(16px,1.25vw,19px); line-height:1.3; letter-spacing:-.01em; color:var(--warm-900);
+          display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+        .bg-card-meta{ margin-top:auto; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+        .bg-card-time{ font:400 13px/1 var(--font-body); color:var(--warm-400); }
+        .bg-card-more{ display:inline-flex; align-items:center; gap:6px; font:600 13px/1 var(--font-body); color:var(--warm-900); white-space:nowrap; }
+        .bg-card-more svg{ transition:transform .2s ease; }
+        .bg-card:hover .bg-card-more svg{ transform:translateX(3px); }
+        @media (max-width:1000px){ .bg-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; } }
+        @media (max-width:560px){
+          .bg-head{ gap:14px; }
+          /* mobile (like "Real results"): tabs go above the scroller, "Read the blog" goes below it */
+          .bg-controls{ flex-direction:row; align-items:center; justify-content:flex-start; width:100%; padding-top:0; margin-top:4px; }
+          .bg-controls .bg-readall{ display:none; }
+          .bg-tab{ padding:10px 18px; font-size:14px; }
+          .bg-readall-m{ display:inline-flex; margin-top:clamp(18px,3vh,26px); }
+          /* single-row horizontal scroller: 2 full + partial peek, full-bleed to the screen edges */
+          .bg-grid{ display:grid; grid-auto-flow:column; grid-template-columns:none; grid-template-rows:auto;
+            grid-auto-columns:clamp(126px,39vw,156px); gap:14px; overflow-x:auto; overscroll-behavior-x:contain;
+            scroll-snap-type:x proximity; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+            margin-left:-20px; margin-right:-20px; padding:0 20px 4px; scroll-padding-left:20px; }
+          .bg-grid::-webkit-scrollbar{ display:none; }
+          .bg-card{ scroll-snap-align:start; aspect-ratio:auto; min-height:170px; gap:9px; }
+          .bg-card-title{ -webkit-line-clamp:3; font-size:15px; }
+          .bg-card-meta{ flex-direction:column; align-items:flex-start; gap:6px; }
         }
       `}</style>
     </section>
@@ -2569,10 +2714,10 @@ function SuccessSlider() {
 /* ---------------- Stat band (concept-8) — standalone section ----------------
    Centered caption + a 4-up row of headline stats that count up when scrolled into view. */
 const STAT_BAND = [
-  { to: 1.1, fmt: (v) => v.toFixed(1) + ' M+', label: 'publishers' },
-  { to: 270, fmt: (v) => '$' + Math.round(v) + 'M+', label: 'commissions paid' },
+  { to: 1000000, fmt: (v) => Math.round(v).toLocaleString() + '+', label: 'publishers' },
+  { to: 270, fmt: (v) => '$' + Math.round(v) + 'M+', label: 'commissions paid' }, // TODO confirm figure
   { to: 3.2, fmt: (v) => '$' + v.toFixed(1) + 'B+', label: 'sales generated' },
-  { to: 500, fmt: (v) => Math.round(v) + '+', label: 'advertisers' },
+  { to: 500, fmt: (v) => Math.round(v) + '+', label: 'brands' },
 ];
 function StatCount({ to, fmt }) {
   const ref = React.useRef(null);
@@ -2827,18 +2972,21 @@ function HexFinaleStatic({ emphasis = 'equal', hex = 3 }) {
               <img key={i} className="hf-combhex" src={`media/figma/s9-hex-${g}.png`} alt="" style={{ left: `calc(50% + ${x}px)`, top: `calc(50% + ${y}px)` }} />
             ))}
           </div>
+          {/* mobile-only kickers, placed ABOVE the photos (the desktop kickers stay inside the cards) */}
+          <span className="hf-kick hf-kick-m" aria-hidden="true">Influencers. Websites. App owner.</span>
+          <span className="hf-kick adv hf-kick-m" aria-hidden="true">Brands. Retailers. Enterprises.</span>
           <img className="hf-photohex hf-ph-pub" src="media/figma/s9-hex-pub.png" alt="A publisher creating content" />
           <img className="hf-photohex hf-ph-adv" src="media/figma/s9-hex-adv.png" alt="An advertiser growing their brand" />
           <div className="hf-card hf-card-pub">
             <span className="hf-kick">Influencers. Websites. Affiliate sites.</span>
-            <h3 className="hf-ct">I'm a<br />Publisher</h3>
-            <p className="hf-cd">Promote brands you love. Turn your audience or traffic into income.</p>
+            <h3 className="hf-ct">I'm a <br />Publisher</h3>
+            <p className="hf-cd">Promote brands you love. <span className="hf-cd-more">Turn your audience or traffic into income.</span></p>
             <a href="/partners/" className="btn btn-primary">Start Earning <Arrow /></a>
           </div>
           <div className="hf-card hf-card-adv hf-right">
             <span className="hf-kick adv">Brands. Retailers. Enterprises.</span>
-            <h3 className="hf-ct">I'm an<br />Advertiser</h3>
-            <p className="hf-cd">Grow your sales with the right publishers. Pay only for results.</p>
+            <h3 className="hf-ct">I'm an <br />Advertiser</h3>
+            <p className="hf-cd">Grow your sales with the right publishers. <span className="hf-cd-more">Pay only for results.</span></p>
             <a href="/advertisers/" className="btn btn-advertiser">Grow My Brand <Arrow /></a>
           </div>
         </div>
@@ -2872,21 +3020,34 @@ function HexFinaleStatic({ emphasis = 'equal', hex = 3 }) {
         .hf-card-adv{ right:5%; align-items:flex-end; text-align:right; }
         .hf-kick{ font:500 14px/1.3 var(--font-body); color:var(--ember); opacity:.85; }
         .hf-kick.adv{ color:var(--midnight-light); }
+        .hf-kick-m{ display:none; } /* mobile-only duplicate kicker; shown ≤900px */
         .hf-ct{ font:700 clamp(24px,2.4vw,32px)/1.05 var(--font-body); color:var(--warm-900); letter-spacing:-.01em; }
         .hf-cd{ font:400 16px/1.45 var(--font-body); color:var(--warm-900); opacity:.72; max-width:250px; }
         .hf-card-adv .hf-cd{ margin-left:auto; }
         @media (max-width:900px){
-          .hf-head{ white-space:normal; top:0; margin-top:clamp(24px,5vh,48px); }
-          /* single column: publisher image → publisher card, then advertiser image → advertiser card */
-          .hf-scene{ height:auto; display:flex; flex-direction:column; align-items:center; gap:clamp(14px,2.4vh,22px); }
+          .hf-cta{ padding:clamp(24px,4vh,44px) 20px clamp(40px,6vh,64px); }
+          .hf-head{ white-space:normal; top:0; text-align:left; margin:clamp(16px,3.5vh,30px) 0 clamp(22px,4.5vh,40px); font-size:clamp(22px,6.4vw,30px); }
+          /* two columns, each stacked: kicker → photo → heading → desc → CTA.
+             publisher (col1) left-aligned, advertiser (col2) right-aligned. */
+          .hf-scene{ height:auto; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:auto auto auto;
+            column-gap:clamp(14px,4vw,26px); row-gap:clamp(9px,1.8vh,13px); align-items:start; width:100%; max-width:500px; margin:0 auto; }
           .hf-honey{ display:none; }
-          .hf-photohex{ position:relative; left:auto; top:auto; transform:none; width:clamp(150px,44vw,200px); filter:none; }
-          .hf-ph-pub{ transform:scaleX(-1); order:1; }
-          .hf-card-pub{ order:2; }
-          .hf-ph-adv{ transform:none; order:3; margin-top:clamp(16px,4vh,40px); }
-          .hf-card-adv{ order:4; }
-          .hf-card{ position:relative; top:auto; left:auto; right:auto; transform:none; width:100%; max-width:360px; margin-inline:auto; align-items:center; text-align:center; gap:8px; }
-          .hf-cd, .hf-card-adv .hf-cd{ margin:0 auto; }
+          .hf-card .hf-kick{ display:none; }          /* hide the in-card (desktop) kicker on mobile */
+          .hf-cd-more{ display:none; }                /* shorter mobile description */
+          .hf-kick-m{ display:block; font-size:12px; line-height:1.35; opacity:.9; }
+          .hf-kick-m:not(.adv){ grid-column:1; grid-row:1; text-align:left; }
+          .hf-kick-m.adv{ grid-column:2; grid-row:1; text-align:right; }
+          .hf-photohex{ position:relative; left:auto; top:auto; width:100%; max-width:200px; height:auto; filter:none; z-index:2; }
+          .hf-ph-pub{ grid-column:1; grid-row:2; transform:scaleX(-1); justify-self:start; }
+          .hf-ph-adv{ grid-column:2; grid-row:2; transform:none; margin:0; justify-self:end; }
+          .hf-card{ position:relative; top:auto; left:auto; right:auto; transform:none; width:100%; max-width:none; margin-inline:0;
+            display:flex; flex-direction:column; gap:8px; margin-top:clamp(6px,1.4vh,12px); }
+          .hf-card-pub{ grid-column:1; grid-row:3; align-items:flex-start; text-align:left; }
+          .hf-card-adv{ grid-column:2; grid-row:3; align-items:flex-end; text-align:right; }
+          .hf-ct{ font-size:clamp(20px,5.4vw,26px); }
+          .hf-cd{ font-size:14px; max-width:none; opacity:.72; }
+          .hf-card-adv .hf-cd{ margin-left:0; }
+          .hf-card .btn{ padding:10px 16px; font-size:13px; gap:7px; margin-top:2px; }
         }
       `}</style>
     </section>
@@ -3565,7 +3726,7 @@ function CaseStudies() {
         .case-stat .n{font-family:var(--font-display); font-weight:800; font-size:56px; line-height:1; letter-spacing:-.03em;}
         .case-stat .u{font-family:var(--font-display); font-weight:800; font-size:20px;}
         .case-line{margin-top:8px; font:600 15px/1.4 var(--font-body); color:var(--warm-900); transition:color .45s ease;}
-        .case-tag{font:700 italic 12px/1 var(--font-display); color:var(--warm-900); margin-bottom:9px; transition:color .45s ease;}
+        .case-tag{font:700 12px/1 var(--font-display); color:var(--warm-900); margin-bottom:9px; transition:color .45s ease;}
         .case-desc{margin:0; font-size:13.5px; line-height:1.5; color:var(--warm-600); transition:color .45s ease;}
         /* PHOTO ONLY ON THE ACTIVE CARD: rendered on every card but cross-faded — opacity 0
            on non-active (card stays plain-white / text-only), opacity 1 only when active. */
@@ -3818,7 +3979,7 @@ function NetworkMorphCTA({ emphasis = 'equal', hex = 3 }) {
 
 /* ---------------- Footer (Midnight — shared anchor) ---------------- */
 const FOOT = [
-  { h: 'For Publishers', links: [['Overview','/partners/overview'],['Content Creators','/partners/content-creators/'],['All Brands Directory','https://app.involve.asia/directory'],['Express Withdrawal','/partners/express-withdrawal/'],['Academy','/academy/'],['API Overview','/partners/api-overview/']] },
+  { h: 'For Publishers', links: [['Overview','/partners/overview'],['Creators','/partners/content-creators/'],['All Brands Directory','https://app.involve.asia/directory'],['Express Withdrawal','/partners/express-withdrawal/'],['Academy','/academy/'],['API Overview','/partners/api-overview/']] },
   { h: 'For Advertisers', links: [['Overview','/advertisers/'],['How We Track','/advertisers/how-we-track/'],['Partner Discovery','/advertisers/partner-discovery/'],['Automation','/advertisers/automation/'],['Case Studies','/advertisers/case-studies/']] },
   { h: 'Top Programs', links: [['Shopee Affiliate','/blog/shopee-affiliate-program/'],['Lazada Affiliate','/blog/lazada-affiliate-program/'],['Zalora Affiliate','/blog/zalora-affiliate-program/'],['Sephora Affiliate','/blog/sephora-affiliate-program/'],['See all programs','/top-affiliate-programs/']] },
   { h: 'Company', links: [['About Us','/about/'],['Careers','https://career.involve.asia/'],['Blog','/blog/'],['Support','https://helpcentre.involve.asia/'],['Release Notes','/release-notes/'],['Terms & Privacy','/terms-conditions/']] },
@@ -3834,7 +3995,7 @@ function Footer() {
           <div style={{ maxWidth: 280 }}>
             <img src={(window.__resources && window.__resources.logoWhite) || "https://ia-design-system.vercel.app/assets/logo/wordmark-white.png"} alt="Involve Asia" width="140" height="30" style={{ height: 30, width: 'auto' }} />
             <p style={{ marginTop: 16, fontSize: 14, color: '#9aa1a9', lineHeight: 1.6 }}>
-              The affiliate marketing network connecting advertisers with creators and publishers across Asia.
+              The affiliate marketing platform connecting advertisers with creators and publishers across Asia.
             </p>
             <div style={{ display: 'flex', gap: 10, marginTop: 20 }}>
               {SOCIAL.map(([n, u]) => (
@@ -4222,6 +4383,7 @@ function App() {
         <SupportBanner />
         <SuccessSlider />
         <StatBand />
+        <BlogSection />
         <HexFinale emphasis={emphasis} hex={hex} />
       </main>
       <Footer />

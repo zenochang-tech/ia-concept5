@@ -826,12 +826,12 @@ const PUB_VOICES = [
   {
     quote: 'I used Involve to start a side income, but now my website generates me a full-time income.',
     body: 'I used Involve to start a side income, but now my website is able to generate me a full-time income. It’s also much better from any site that I have worked with. I like that Involve has strong offers from brands from Southeast Asia, which my audience is.',
-    name: 'Tyha Abdullah', initials: 'TA',
+    name: 'Tyha Abdullah', avatar: 'publisher-tyhaAbdullah.png', initials: 'TA',
   },
   {
     quote: 'Who would have thought that we would make 5-figure income in just 2 months.',
     body: 'Who would have thought that we would be able to make 5 figure income in just 2 months, definitely Affiliate Marketing with Involve Asia can help us make money online more easily.',
-    name: 'Media Terkini', initials: 'MT',
+    name: 'Media Terkini', avatar: 'publisher-MediaTerkini.png', initials: 'MT',
   },
   {
     quote: 'There are branded products to promote, and it’s risk-free.',
@@ -841,32 +841,32 @@ const PUB_VOICES = [
   {
     quote: 'For the first time, I hit 5-digits in commissions and peaked during the 11.11 Sales.',
     body: 'I started to push in promoting Offers at the beginning of 2020 on my website and Facebook page. Later, in July 2020, for the first time, I hit 5-digits in commissions and peaked in November during the 11.11 Sales.',
-    name: 'Promocodes.My', initials: 'PM',
+    name: 'Promocodes.My', avatar: 'publisher-promoCodesMy.png', initials: 'PM',
   },
   {
     quote: 'Involve Asia is always the perfect choice for us to gain commission from our promoted products.',
     body: 'Involve Asia is always the perfect choice for Vocket in order for us to gain commission from our promoted products. Most importantly, with Involve Asia we gain conversions directly from the promoted products with their affiliate links.',
-    name: 'The Vocket', initials: 'TV',
+    name: 'The Vocket', avatar: 'publisher-vocket.png', initials: 'TV',
   },
   {
     quote: 'We couldn’t have done it without this valuable partnership.',
     body: 'Thanks to Involve Asia support, then only we can continue to provide high-quality content to our audience while earning a decent affiliate commission. We couldn’t have done it without this valuable partnership.',
-    name: 'My Weekend Plan', initials: 'MW',
+    name: 'My Weekend Plan', avatar: 'publisher-weekendPlan.png', initials: 'MW',
   },
   {
     quote: 'I find it user-friendly and convenient to browse and search for Offers in the dashboard.',
     body: 'With Involve Asia, I find it user-friendly and convenient to browse and search for Offers in the dashboard. The filters provide me options to choose from so I can promote suitable Offers for my followers.',
-    name: 'MY Great Sales', initials: 'MG',
+    name: 'MY Great Sales', avatar: 'publisher-myGreatSales.png', initials: 'MG',
   },
   {
     quote: 'Such a good overall experience with IA — very friendly & professional.',
     body: 'Had such a good overall experience with IA esp Jia who assisted us – very friendly & professional consultations. She was thorough & informative. IA helps increase and gain pretty good income from the generated link.',
-    name: 'Siakap Keli', initials: 'SK',
+    name: 'Siakap Keli', avatar: 'publisher-siakapkeli.png', initials: 'SK',
   },
   {
     quote: 'It’s a win-win situation.',
     body: 'Keep making videos that are informational, not just for yourself, but for your audience too. Your audience believes in you and this is one way for them to support their favorite YouTubers while also helping themselves purchase products. It’s a win-win situation.',
-    name: 'Fazli Halim', initials: 'FH',
+    name: 'Fazli Halim', avatar: 'publisher-fazlihalim.png', initials: 'FH',
   },
 ];
 function PubVoices() {
@@ -1488,6 +1488,7 @@ function GetStarted() {
 }
 /* ---------- How-We-Track §2 — "One consolidated, verified view" ---------- */
 const CV_POINTS = ['Every partner in one dashboard', 'Sales tracked to the partner who drove them', 'ROI you can compare like for like'];
+const CV_POINTS_OLD = ['A separate report for every partner', "You rely on each partner's own numbers", "ROI you can't compare like for like"];
 function cvIcon(name) {
   switch (name) {
     case 'search': return <><circle cx="10.5" cy="10.5" r="6" /><path d="M19 19l-4.5-4.5" /></>;
@@ -1545,16 +1546,16 @@ function ConsolidatedView() {
           <div className="cv-card cv-card-old" data-reveal>
             <div className="cv-diagram"><img src="media/figma/hwt-old-way.png" alt="Scattered reports spread across separate partner dashboards" loading="lazy" /></div>
             <span className="cv-ey">The Old Way</span>
-            <h3 className="cv-ct">Scattered reports, blind optimization</h3>
+            <h3 className="cv-ct">Scattered reports, blind optimisation</h3>
             <p className="cv-cd">Running partners across the open internet makes it hard to see what is really working, and managing separate reports and payouts for each one is harder still.</p>
             <ul className="cv-list">
-              {CV_POINTS.map((t, i) => <li key={i}><span className="cv-mk cv-x" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" /></svg></span>{t}</li>)}
+              {CV_POINTS_OLD.map((t, i) => <li key={i}><span className="cv-mk cv-x" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" /></svg></span>{t}</li>)}
             </ul>
           </div>
           <div className="cv-card cv-card-new" data-reveal data-reveal-delay="1">
             <div className="cv-diagram"><img src="media/figma/hwt-consolidated.png" alt="Every partnership consolidated into one Involve dashboard" loading="lazy" /></div>
             <span className="cv-ey cv-ey-adv">With Involve Asia</span>
-            <h3 className="cv-ct">Consolidated real-time transparency</h3>
+            <h3 className="cv-ct">Consolidated, verified transparency</h3>
             <p className="cv-cd">Involve brings every partnership into one dashboard, so you can compare performance like for like and see your true ROI.</p>
             <ul className="cv-list">
               {CV_POINTS.map((t, i) => <li key={i}><span className="cv-mk cv-ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6 12.5l4 4 8-9" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg></span>{t}</li>)}
@@ -1644,7 +1645,7 @@ function BuiltForLists() {
 /* ---------- How-We-Track §3 — "How tracking works" (3 numbered steps) ---------- */
 const DF_STEPS = [
   ['01', 'Your publisher shares their trackable link', 'Every partner gets a unique link for your offer.'],
-  ['02', 'Every click is tracked in real time', 'The moment someone clicks, it is recorded.'],
+  ['02', 'Every click is recorded', 'The moment someone clicks, it is tracked.'],
   ['03', 'The sale is attributed automatically', 'When a click leads to a sale, it is tied back to the publisher who drove it.'],
 ];
 function HowItWorks() {
@@ -1675,7 +1676,7 @@ function HowItWorks() {
   );
 }
 /* ---------- How-We-Track §4 — "Verified, not just reported" (copy + status table) ---------- */
-const VF_CHECKS = ['Every conversion verified before payout', 'Fraud protection built in', 'Every sale tracked to the publisher who drove it'];
+const VF_CHECKS = ['Every conversion verified before payout', "You reject anything that isn't genuine", 'Every sale tracked to the publisher who drove it'];
 const VF_ROWS = [
   ['11.11 Sales', 'ABC01', true], ['11.11 Sales', 'ABC02', true], ['11.11 Sales', 'ABC03', false],
   ['11.11 Sales', 'ABC04', true], ['11.11 Sales', 'ABC05', true],

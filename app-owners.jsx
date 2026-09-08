@@ -29,11 +29,13 @@ function PubHero() {
       <span className="ph-basefade" aria-hidden="true" />
       <div className="wrap ph-wrap">
         <div className="ph-copy">
-          <h1 className="ph-title" data-reveal>Turn your app into a new income stream.</h1>
-          <p className="ph-sub" data-reveal data-reveal-delay="1">Show your users relevant products and cashback, and earn a commission on every sale, all automated through your API.</p>
-          <div className="ph-actions" data-reveal data-reveal-delay="2">
+          <span className="ph-eyebrow" data-reveal>For App Owners</span>
+          <h1 className="ph-title" data-reveal data-reveal-delay="1">Turn your app into a new revenue stream.</h1>
+          <p className="ph-sub" data-reveal data-reveal-delay="2">Show relevant offers and cashback to your users, earning that runs inside your app through our API.</p>
+          <div className="ph-actions" data-reveal data-reveal-delay="3">
             <a href="/partners/" className="btn btn-primary btn-lg">Start Earning <Arrow /></a>
           </div>
+          <span className="ph-free" data-reveal data-reveal-delay="3">Free to join. Start earning today.</span>
         </div>
 
         <div className="ph-visual" data-reveal data-reveal-delay="1">
@@ -356,14 +358,32 @@ const PUB_PLATFORM = [
 ];
 const PUB_PLATFORM_MS = 5000;
 function PubPlatform() {
-  const [active, setActive] = React.useState(0);
+  const isMobile = () => typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width:900px)').matches;
+  const mobileRef = React.useRef(isMobile());
+  const secRef = React.useRef(null);
+  // Desktop starts on the first card + auto-advances; mobile starts all-closed and opens the
+  // first card only when the section scrolls into view (then stays tap-to-open, no auto-advance).
+  const [active, setActive] = React.useState(() => (mobileRef.current ? -1 : 0));
   React.useEffect(() => {
+    if (mobileRef.current) return;                // no auto-advance on mobile
     if (prefersReduced()) return;                 // no auto-advance under reduced motion
     const t = setTimeout(() => setActive((a) => (a + 1) % PUB_PLATFORM.length), PUB_PLATFORM_MS);
     return () => clearTimeout(t);
   }, [active]);
+  // Mobile: open the FIRST card once, when the section enters the viewport (entrance animation).
+  React.useEffect(() => {
+    if (!mobileRef.current) return;
+    const el = secRef.current;
+    if (!el) return;
+    if (prefersReduced() || !('IntersectionObserver' in window)) { setActive(0); return; }
+    const io = new IntersectionObserver((es) => {
+      if (es[0].isIntersecting) { setActive((a) => (a < 0 ? 0 : a)); io.disconnect(); }
+    }, { threshold: 0.3 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   return (
-    <section id="pub-platform" className="pf-sec">
+    <section id="pub-platform" className="pf-sec" ref={secRef}>
       <div className="wrap">
         <div className="pf-grid" data-reveal>
           <div className="pf-left">
@@ -427,8 +447,11 @@ function PubPlatform() {
         @media (max-width:900px){
           .pf-grid{ grid-template-columns:1fr; gap:0; }
           .pf-visual{ display:none; }
-          .pf-steps{ margin-top:clamp(22px,3vh,32px); }
-          .pf-step{ gap:0; padding:22px 0; }
+          /* each step becomes a white bordered card; tap to open (no auto-advance) */
+          .pf-steps{ margin-top:clamp(22px,3vh,32px); gap:12px; }
+          .pf-step{ gap:0; padding:6%; background:#fff; border:0.5px solid #D2D2CC; border-radius:16px; }
+          .pf-step + .pf-step{ border-top:0.5px solid #D2D2CC; }
+          .pf-step:not(.on){ opacity:1; }
           .pf-rail{ display:none; }
           .pf-step-fig{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s ease; }
           .pf-step.on .pf-step-fig{ grid-template-rows:1fr; }
@@ -827,12 +850,12 @@ const PUB_VOICES = [
   {
     quote: 'I used Involve to start a side income, but now my website generates me a full-time income.',
     body: 'I used Involve to start a side income, but now my website is able to generate me a full-time income. It’s also much better from any site that I have worked with. I like that Involve has strong offers from brands from Southeast Asia, which my audience is.',
-    name: 'Tyha Abdullah', initials: 'TA',
+    name: 'Tyha Abdullah', avatar: 'publisher-tyhaAbdullah.png', initials: 'TA',
   },
   {
     quote: 'Who would have thought that we would make 5-figure income in just 2 months.',
     body: 'Who would have thought that we would be able to make 5 figure income in just 2 months, definitely Affiliate Marketing with Involve Asia can help us make money online more easily.',
-    name: 'Media Terkini', initials: 'MT',
+    name: 'Media Terkini', avatar: 'publisher-MediaTerkini.png', initials: 'MT',
   },
   {
     quote: 'There are branded products to promote, and it’s risk-free.',
@@ -842,32 +865,32 @@ const PUB_VOICES = [
   {
     quote: 'For the first time, I hit 5-digits in commissions and peaked during the 11.11 Sales.',
     body: 'I started to push in promoting Offers at the beginning of 2020 on my website and Facebook page. Later, in July 2020, for the first time, I hit 5-digits in commissions and peaked in November during the 11.11 Sales.',
-    name: 'Promocodes.My', initials: 'PM',
+    name: 'Promocodes.My', avatar: 'publisher-promoCodesMy.png', initials: 'PM',
   },
   {
     quote: 'Involve Asia is always the perfect choice for us to gain commission from our promoted products.',
     body: 'Involve Asia is always the perfect choice for Vocket in order for us to gain commission from our promoted products. Most importantly, with Involve Asia we gain conversions directly from the promoted products with their affiliate links.',
-    name: 'The Vocket', initials: 'TV',
+    name: 'The Vocket', avatar: 'publisher-vocket.png', initials: 'TV',
   },
   {
     quote: 'We couldn’t have done it without this valuable partnership.',
     body: 'Thanks to Involve Asia support, then only we can continue to provide high-quality content to our audience while earning a decent affiliate commission. We couldn’t have done it without this valuable partnership.',
-    name: 'My Weekend Plan', initials: 'MW',
+    name: 'My Weekend Plan', avatar: 'publisher-weekendPlan.png', initials: 'MW',
   },
   {
     quote: 'I find it user-friendly and convenient to browse and search for Offers in the dashboard.',
     body: 'With Involve Asia, I find it user-friendly and convenient to browse and search for Offers in the dashboard. The filters provide me options to choose from so I can promote suitable Offers for my followers.',
-    name: 'MY Great Sales', initials: 'MG',
+    name: 'MY Great Sales', avatar: 'publisher-myGreatSales.png', initials: 'MG',
   },
   {
     quote: 'Such a good overall experience with IA — very friendly & professional.',
     body: 'Had such a good overall experience with IA esp Jia who assisted us – very friendly & professional consultations. She was thorough & informative. IA helps increase and gain pretty good income from the generated link.',
-    name: 'Siakap Keli', initials: 'SK',
+    name: 'Siakap Keli', avatar: 'publisher-siakapkeli.png', initials: 'SK',
   },
   {
     quote: 'It’s a win-win situation.',
     body: 'Keep making videos that are informational, not just for yourself, but for your audience too. Your audience believes in you and this is one way for them to support their favorite YouTubers while also helping themselves purchase products. It’s a win-win situation.',
-    name: 'Fazli Halim', initials: 'FH',
+    name: 'Fazli Halim', avatar: 'publisher-fazlihalim.png', initials: 'FH',
   },
 ];
 function PubVoices() {
@@ -957,16 +980,12 @@ function PubVoices() {
    Withdrawal) — hrefs are placeholders pending the real URLs. Example figures
    (4.2% commission, 10 working days) are illustrative — confirm before launch. */
 const PUB_FAQ = [
-  ['How fast will I get paid?',
-    "In as little as 5 to 7 working days after your request is approved. Standard withdrawal takes 7 to 10 working days after your request, plus each offer's validation period."],
-  ['Am I eligible?',
-    'You need at least MYR 200 in pending validation and conversions from at least one offer older than 5 days. Requests are then subject to approval.'],
-  ['How much can I withdraw early?',
-    'A portion of your eligible pending conversions. The exact amount is calculated for you and shown before you confirm, and it may be lower than the amount you request.'],
-  ['Is there a fee?',
-    'Yes, a processing fee applies to the amount you take early, shown up front before you confirm. The fee is reduced by your membership tier: Silver 0%, Gold 10%, Platinum 15%, Black 20%.'],
-  ['What if a conversion is later rejected?',
-    'The amount is reconciled against your future or available earnings, and we explain this clearly in the terms.'],
+  ['What can the API do?',
+    'Generate deeplinks, pull offers and product data, and track sales at item level. Deeplink generation is capped at 1,000 per rolling 30 days.'],
+  ['Not sure what to promote in my app?',
+    <>Start with the brands your users already shop. See <a href="website.html">Content sites</a> for ideas.</>],
+  ['How technical is the integration?',
+    'You will need a developer to connect the API. The docs cover every endpoint.'],
 ];
 function PubFAQ() {
   const [open, setOpen] = React.useState(() => new Set([0]));
@@ -1433,6 +1452,82 @@ function AppApi() {
     </section>
   );
 }
+/* ---------- App-owners §4b — "How you earn." (3 numbered steps) — Figma 2546:45558 ---------- */
+const HIW_STEPS = [
+  ['01', 'Connect the API', 'Integrate once, and pull offers, links, and tracking straight into your app.'],
+  ['02', 'Surface relevant offers', 'Show cashback and deals your users actually want, inside your own UI.'],
+  ['03', 'Earn on every sale', 'When a user buys through your app, the sale is tracked to you.'],
+  ['04', 'Get paid', 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.'],
+];
+function HowItWorks() {
+  return (
+    <section id="ao-how" className="hiw-sec">
+      <div className="wrap">
+        <h2 className="hiw-title" data-reveal>How you earn.</h2>
+        <div className="hiw-grid">
+          {HIW_STEPS.map(([n, t, d], i) => (
+            <div className="hiw-step" key={n} data-reveal data-reveal-delay={i + 1}>
+              <span className="hiw-num" aria-hidden="true">{n}</span>
+              <h3 className="hiw-ct">{t}</h3>
+              <p className="hiw-cd">{d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`
+        .hiw-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
+        .hiw-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
+        .hiw-grid{ margin-top:clamp(34px,5.5vh,58px); display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(26px,3vw,44px); }
+        .hiw-step{ min-width:0; }
+        .hiw-num{ display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:50%; background:var(--ember); color:#fff; font-family:var(--font-display); font-weight:800; font-size:17px; letter-spacing:-.01em; }
+        .hiw-ct{ margin-top:clamp(20px,3vh,28px); font-family:var(--font-display); font-weight:800; font-size:20px; letter-spacing:-.01em; color:var(--warm-900); }
+        .hiw-cd{ margin-top:10px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); max-width:340px; }
+        @media (max-width:900px){ .hiw-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(26px,4vw,40px); } }
+        @media (max-width:520px){ .hiw-grid{ grid-template-columns:1fr; gap:clamp(24px,4vh,34px); max-width:440px; } }
+      `}</style>
+    </section>
+  );
+}
+/* ---------- App-owners §4c — "Why app owners build on Involve." (3 icon columns) ---------- */
+const WB_ICONS = {
+  app: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2.5" /><line x1="10" y1="18.5" x2="14" y2="18.5" /></svg>,
+  brands: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z" /><path d="M3 12l9 5 9-5" /><path d="M3 16.5l9 5 9-5" /></svg>,
+  dev: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="8 7.5 3.5 12 8 16.5" /><polyline points="16 7.5 20.5 12 16 16.5" /></svg>,
+};
+const WHY_BUILD = [
+  ['app', 'Your app, your experience.', 'Offers live inside your own UI. You control how they look and where they appear.'],
+  ['brands', 'One integration, hundreds of brands.', 'Connect once to access 500+ brands and 4,000+ offers.'],
+  ['dev', 'Built for developers.', 'Clear API docs, item-level tracking, and reliable payouts.'],
+];
+function WhyBuild() {
+  return (
+    <section id="ao-why" className="wb-sec">
+      <div className="wrap">
+        <h2 className="wb-title" data-reveal>Why app owners build on Involve.</h2>
+        <div className="wb-grid">
+          {WHY_BUILD.map(([ic, t, d], i) => (
+            <div className="wb-item" key={t} data-reveal data-reveal-delay={i + 1}>
+              <span className="wb-ic">{WB_ICONS[ic]}</span>
+              <h3 className="wb-ct">{t}</h3>
+              <p className="wb-cd">{d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`
+        .wb-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
+        .wb-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
+        .wb-grid{ margin-top:clamp(34px,5vh,54px); display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(28px,4vw,56px); }
+        .wb-item{ min-width:0; }
+        .wb-ic{ display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:12px; background:rgba(240,88,38,.12); color:var(--ember); }
+        .wb-ic svg{ width:24px; height:24px; display:block; }
+        .wb-ct{ margin-top:20px; font-family:var(--font-display); font-weight:800; font-size:20px; letter-spacing:-.01em; color:var(--warm-900); }
+        .wb-cd{ margin-top:8px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); max-width:340px; }
+        @media (max-width:760px){ .wb-grid{ grid-template-columns:1fr; max-width:440px; margin-inline:auto; gap:clamp(24px,4vh,34px); } }
+      `}</style>
+    </section>
+  );
+}
 function PublisherApp() {
   useSmoothScroll();
   useScrollReveal();
@@ -1444,6 +1539,10 @@ function PublisherApp() {
         <PubPlatform />
         <AppEarn />
         <AppApi />
+        <HowItWorks />
+        <WhyBuild />
+        <PubVoices />
+        <PubFAQ />
         <PubCTA />
       </main>
       <Footer />

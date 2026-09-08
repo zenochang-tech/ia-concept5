@@ -29,12 +29,13 @@ function PubHero() {
       <span className="ph-basefade" aria-hidden="true" />
       <div className="wrap ph-wrap">
         <div className="ph-copy">
-          <span className="ph-eyebrow" data-reveal>Affiliate Marketing for affiliate sites</span>
-          <h1 className="ph-title" data-reveal data-reveal-delay="1">The platform built for affiliate sites.</h1>
-          <p className="ph-sub" data-reveal data-reveal-delay="2">Coupon, cashback, loyalty, comparison, whatever your model, get the brands, the tools, and the payouts to grow your affiliate business on one platform.</p>
+          <span className="ph-eyebrow" data-reveal>For Affiliate & Rewards Sites</span>
+          <h1 className="ph-title" data-reveal data-reveal-delay="1">Built to run affiliate as your business.</h1>
+          <p className="ph-sub" data-reveal data-reveal-delay="2">Cashback, coupon, and comparison sites scale here, with the offers, feeds, and tools built for high volume.</p>
           <div className="ph-actions" data-reveal data-reveal-delay="3">
             <a href="/partners/" className="btn btn-primary btn-lg">Start Earning <Arrow /></a>
           </div>
+          <span className="ph-free" data-reveal data-reveal-delay="3">Free to join. Start earning today.</span>
         </div>
 
         <div className="ph-visual" data-reveal data-reveal-delay="1">
@@ -853,12 +854,12 @@ const PUB_VOICES = [
   {
     quote: 'I used Involve to start a side income, but now my website generates me a full-time income.',
     body: 'I used Involve to start a side income, but now my website is able to generate me a full-time income. It’s also much better from any site that I have worked with. I like that Involve has strong offers from brands from Southeast Asia, which my audience is.',
-    name: 'Tyha Abdullah', initials: 'TA',
+    name: 'Tyha Abdullah', avatar: 'publisher-tyhaAbdullah.png', initials: 'TA',
   },
   {
     quote: 'Who would have thought that we would make 5-figure income in just 2 months.',
     body: 'Who would have thought that we would be able to make 5 figure income in just 2 months, definitely Affiliate Marketing with Involve Asia can help us make money online more easily.',
-    name: 'Media Terkini', initials: 'MT',
+    name: 'Media Terkini', avatar: 'publisher-MediaTerkini.png', initials: 'MT',
   },
   {
     quote: 'There are branded products to promote, and it’s risk-free.',
@@ -868,32 +869,32 @@ const PUB_VOICES = [
   {
     quote: 'For the first time, I hit 5-digits in commissions and peaked during the 11.11 Sales.',
     body: 'I started to push in promoting Offers at the beginning of 2020 on my website and Facebook page. Later, in July 2020, for the first time, I hit 5-digits in commissions and peaked in November during the 11.11 Sales.',
-    name: 'Promocodes.My', initials: 'PM',
+    name: 'Promocodes.My', avatar: 'publisher-promoCodesMy.png', initials: 'PM',
   },
   {
     quote: 'Involve Asia is always the perfect choice for us to gain commission from our promoted products.',
     body: 'Involve Asia is always the perfect choice for Vocket in order for us to gain commission from our promoted products. Most importantly, with Involve Asia we gain conversions directly from the promoted products with their affiliate links.',
-    name: 'The Vocket', initials: 'TV',
+    name: 'The Vocket', avatar: 'publisher-vocket.png', initials: 'TV',
   },
   {
     quote: 'We couldn’t have done it without this valuable partnership.',
     body: 'Thanks to Involve Asia support, then only we can continue to provide high-quality content to our audience while earning a decent affiliate commission. We couldn’t have done it without this valuable partnership.',
-    name: 'My Weekend Plan', initials: 'MW',
+    name: 'My Weekend Plan', avatar: 'publisher-weekendPlan.png', initials: 'MW',
   },
   {
     quote: 'I find it user-friendly and convenient to browse and search for Offers in the dashboard.',
     body: 'With Involve Asia, I find it user-friendly and convenient to browse and search for Offers in the dashboard. The filters provide me options to choose from so I can promote suitable Offers for my followers.',
-    name: 'MY Great Sales', initials: 'MG',
+    name: 'MY Great Sales', avatar: 'publisher-myGreatSales.png', initials: 'MG',
   },
   {
     quote: 'Such a good overall experience with IA — very friendly & professional.',
     body: 'Had such a good overall experience with IA esp Jia who assisted us – very friendly & professional consultations. She was thorough & informative. IA helps increase and gain pretty good income from the generated link.',
-    name: 'Siakap Keli', initials: 'SK',
+    name: 'Siakap Keli', avatar: 'publisher-siakapkeli.png', initials: 'SK',
   },
   {
     quote: 'It’s a win-win situation.',
     body: 'Keep making videos that are informational, not just for yourself, but for your audience too. Your audience believes in you and this is one way for them to support their favorite YouTubers while also helping themselves purchase products. It’s a win-win situation.',
-    name: 'Fazli Halim', initials: 'FH',
+    name: 'Fazli Halim', avatar: 'publisher-fazlihalim.png', initials: 'FH',
   },
 ];
 function PubVoices() {
@@ -983,30 +984,12 @@ function PubVoices() {
    Withdrawal) — hrefs are placeholders pending the real URLs. Example figures
    (4.2% commission, 10 working days) are illustrative — confirm before launch. */
 const PUB_FAQ = [
-  ['What is affiliate marketing?',
-    <>Affiliate marketing is a performance-based way to earn: you promote an advertiser&rsquo;s products with your own trackable link, and you earn a commission on every sale you drive. On the Involve Asia platform, you get access to hundreds of brands, the links and tracking to promote them, and the payouts, all in one place. <a href="/resources/affiliate-marketing-guide/">Read our beginner guide</a>.</>],
-  ['How does affiliate marketing work?',
-    'You share a trackable link. When someone clicks it and buys, the sale is recorded to you, and you earn a commission. Even if they come back days later, a cookie keeps the sale credited to you. On Involve Asia you find campaigns, track performance, and get paid from the dashboard and the app.'],
-  ['What is an affiliate program?',
-    'An affiliate program is an advertiser’s set of offers and commissions for publishers who promote them. On the platform you search for the brands you like, generate a link, and start promoting. Some programs approve publishers before promotion begins.'],
-  ['Is affiliate marketing legal?',
-    'Yes. Affiliate marketing is a legitimate, widely used marketing model. We keep every partnership and promotion compliant and transparent, so both publishers and advertisers can trust the numbers.'],
-  ['What is an affiliate platform, and how is it different from a network?',
-    'A network is the connective layer that links advertisers and publishers. A platform is the full product that sits on top: the offers, the link and tracking tools, the reporting, and the payouts, in one place. Involve Asia is an affiliate marketing platform that gives both sides everything they need to grow.'],
-  ['What types of publishers can join?',
-    'Almost any kind. Social and influencer, content and news sites, coupon and deal sites, cashback and loyalty sites, comparison sites, app owners, and media buyers or agencies. If you have an audience or traffic, there is a way to earn.'],
-  ['Do I need a website?',
-    'No. You can earn with a blog, a YouTube channel, Instagram, Facebook, TikTok, an email list, an app, and more. Just create an account, add your property, and start.'],
-  ['Is it free to join?',
-    'Yes. Joining is free, there are no fees to sign up, and no cost to use the platform.'],
-  ['How do I get started and approved?',
-    'Create your account, add your property, and apply to the programs you want to promote. Some advertisers approve publishers before promotion begins; once you are approved, you can generate links and start earning.'],
-  ['How are commissions calculated?',
-    'Each brand sets its own commission. For example, a fashion brand might pay 4.2% on every validated sale. Two things shape your payout: the validation period (the advertiser confirms the sale is genuine and not cancelled before it pays out) and the cookie period (how long after a click a purchase still counts for you). Both are shown on each offer.'],
-  ['How and when do I get paid?',
-    <>You get paid by PayPal or bank transfer, in your preferred currency, within 10 working days of your request, once your conversions are validated. If you want your earnings sooner, <a href="/express-withdrawal/">Express Withdrawal</a> lets eligible publishers unlock a portion before validation, subject to a processing fee and approval.</>],
-  ['How do I track my performance?',
-    'Log in and open Reports, then Performance Report. Filter by date range, brand, or campaign type to see your clicks, sales, and earnings in real time. Advanced publishers can also pull performance through the API.'],
+  ['Can I get a product datafeed?',
+    'Yes. Pull live product data per advertiser and add your own tracking to the links. Feeds vary by advertiser.'],
+  ['Do you support cashback and coupon models?',
+    'Yes. Cashback, coupon, comparison, loyalty, and deal sites all run on the platform.'],
+  ['Is there an API?',
+    'Yes. Generate deeplinks, pull offers, and automate promotion. Deeplink generation is capped at 1,000 per rolling 30 days.'],
 ];
 function PubFAQ() {
   const [open, setOpen] = React.useState(() => new Set([0]));
@@ -1226,20 +1209,18 @@ function BuiltKinds() {
 }
 /* ---------- Affiliates §3 — "Why affiliate sites choose Involve." (4 icon columns) ---------- */
 const AFF_WHY = [
-  { t: 'A deep catalogue', d: 'Promote from 500+ brands and thousands of live offers, and move to higher-paying advertisers as you grow.',
+  { t: 'Depth and rates.', d: '4,000+ offers, with upsized commissions on many brands.',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z" /><path d="M3 12l9 5 9-5" /><path d="M3 16.5l9 5 9-5" /></svg> },
-  { t: 'Product data feed', d: 'Pull entire product catalogues from multiple advertisers at once, no manual listing.',
+  { t: 'Built for volume.', d: 'Datafeeds, bulk links, and the API to run at the scale your site needs.',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="6" rx="7.5" ry="3" /><path d="M4.5 6v6c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3V6" /><path d="M4.5 12v6c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3v-6" /></svg> },
-  { t: 'Deep analytics', d: 'See which products, offers, and categories perform best, then shift volume to maximise return.',
-    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18" /><rect x="5" y="11" width="3.4" height="7" rx="1" /><rect x="10.3" y="5" width="3.4" height="13" rx="1" /><rect x="15.6" y="8.5" width="3.4" height="9.5" rx="1" /></svg> },
-  { t: 'Faster payouts', d: 'Withdraw in 7 to 10 working days, or in as little as 5 to 7 with Express Withdrawal.',
+  { t: 'Reliable tracking and payouts.', d: 'Every sale is validated, with reporting you can check yourself.',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5" /><path d="M9 14.5l2 2 4-4" /></svg> },
 ];
 function WhyChoose() {
   return (
     <section id="aff-why" className="wy-sec">
       <div className="wrap">
-        <h2 className="wy-title" data-reveal>Why affiliate sites choose Involve.</h2>
+        <h2 className="wy-title" data-reveal>Why affiliate &amp; rewards sites choose Involve.</h2>
         <div className="wy-grid">
           {AFF_WHY.map((c, i) => (
             <div className="wy-col" key={c.t} data-reveal data-reveal-delay={(i % 3) + 1}>
@@ -1249,18 +1230,19 @@ function WhyChoose() {
             </div>
           ))}
         </div>
+        <p className="wy-proof" data-reveal>Cashback, coupon, and comparison sites across the region run on Involve Asia.</p>
       </div>
       <style>{`
         .wy-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
         .wy-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
-        .wy-grid{ margin-top:clamp(34px,5vh,54px); display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(20px,3vw,40px); }
+        .wy-grid{ margin-top:clamp(34px,5vh,54px); display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(28px,4vw,56px); }
         .wy-col{ min-width:0; }
-        .wy-ic{ width:44px; height:44px; border-radius:12px; background:var(--ember-tint); color:var(--ember); display:flex; align-items:center; justify-content:center; }
-        .wy-ic svg{ width:22px; height:22px; }
-        .wy-ct{ margin-top:18px; font-family:var(--font-display); font-weight:800; font-size:18px; letter-spacing:-.01em; color:var(--warm-900); }
-        .wy-cd{ margin-top:8px; font:400 15px/1.5 var(--font-body); color:var(--warm-600); }
-        @media (max-width:900px){ .wy-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:32px 24px; } }
-        @media (max-width:540px){ .wy-grid{ grid-template-columns:1fr; max-width:360px; margin-inline:auto; } }
+        .wy-ic{ width:48px; height:48px; border-radius:12px; background:var(--ember-tint); color:var(--ember); display:flex; align-items:center; justify-content:center; }
+        .wy-ic svg{ width:24px; height:24px; }
+        .wy-ct{ margin-top:20px; font-family:var(--font-display); font-weight:800; font-size:20px; letter-spacing:-.01em; color:var(--warm-900); }
+        .wy-cd{ margin-top:8px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); max-width:340px; }
+        .wy-proof{ margin-top:clamp(28px,4vh,44px); text-align:center; font:400 15px/1.5 var(--font-body); color:var(--warm-400); }
+        @media (max-width:760px){ .wy-grid{ grid-template-columns:1fr; max-width:440px; margin-inline:auto; gap:clamp(24px,4vh,34px); } }
       `}</style>
     </section>
   );
@@ -1324,6 +1306,42 @@ function ScaleApi() {
     </section>
   );
 }
+/* ---------- Affiliates §4b — "How it works" (3 numbered steps) — Figma 2546:45012 ---------- */
+const HIW_STEPS = [
+  ['01', 'Access every offer', 'Browse 4,000+ offers across 500+ brands, with the rates and terms up front.'],
+  ['02', 'Pull the datafeed', 'Feed live product data into your site to keep prices and offers current. You add your own tracking to the links.'],
+  ['03', 'Generate links at scale', 'Create trackable links in bulk, or automate it through the API.'],
+  ['04', 'Get paid', 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.'],
+];
+function HowItWorks() {
+  return (
+    <section id="af-how" className="hiw-sec">
+      <div className="wrap">
+        <h2 className="hiw-title" data-reveal>How you earn.</h2>
+        <div className="hiw-grid">
+          {HIW_STEPS.map(([n, t, d], i) => (
+            <div className="hiw-step" key={n} data-reveal data-reveal-delay={i + 1}>
+              <span className="hiw-num" aria-hidden="true">{n}</span>
+              <h3 className="hiw-ct">{t}</h3>
+              <p className="hiw-cd">{d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`
+        .hiw-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
+        .hiw-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
+        .hiw-grid{ margin-top:clamp(34px,5.5vh,58px); display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(26px,3vw,44px); }
+        .hiw-step{ min-width:0; }
+        .hiw-num{ display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:50%; background:var(--ember); color:#fff; font-family:var(--font-display); font-weight:800; font-size:17px; letter-spacing:-.01em; }
+        .hiw-ct{ margin-top:clamp(20px,3vh,28px); font-family:var(--font-display); font-weight:800; font-size:20px; letter-spacing:-.01em; color:var(--warm-900); }
+        .hiw-cd{ margin-top:10px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); max-width:340px; }
+        @media (max-width:900px){ .hiw-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(26px,4vw,40px); } }
+        @media (max-width:520px){ .hiw-grid{ grid-template-columns:1fr; gap:clamp(24px,4vh,34px); max-width:440px; } }
+      `}</style>
+    </section>
+  );
+}
 function PublisherApp() {
   useSmoothScroll();
   useScrollReveal();
@@ -1335,7 +1353,9 @@ function PublisherApp() {
         <BuiltKinds />
         <WhyChoose />
         <ScaleApi />
+        <HowItWorks />
         <PubVoices />
+        <PubFAQ />
         <PubCTA />
       </main>
       <Footer />

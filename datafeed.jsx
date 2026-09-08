@@ -29,8 +29,8 @@ function PubHero() {
       <span className="ph-basefade" aria-hidden="true" />
       <div className="wrap ph-wrap">
         <div className="ph-copy">
-          <h1 className="ph-title" data-reveal data-reveal-delay="1">List thousands of products, with Involve Datafeed.</h1>
-          <p className="ph-sub" data-reveal data-reveal-delay="1">Add products from your favourite brands to your site, with your affiliate links already built in, and track every sale down to the product.</p>
+          <h1 className="ph-title" data-reveal data-reveal-delay="1">Feature a whole catalogue, without collecting it by hand.</h1>
+          <p className="ph-sub" data-reveal data-reveal-delay="1">Datafeed hands you an advertiser&rsquo;s full product list in one file, names, prices, images, and more, so you can feature as many products as you want without gathering each one yourself.</p>
           <div className="ph-actions" data-reveal data-reveal-delay="2">
             <a href="/partners/" className="btn btn-primary btn-lg">Start Earning <Arrow /></a>
           </div>
@@ -826,12 +826,12 @@ const PUB_VOICES = [
   {
     quote: 'I used Involve to start a side income, but now my website generates me a full-time income.',
     body: 'I used Involve to start a side income, but now my website is able to generate me a full-time income. It’s also much better from any site that I have worked with. I like that Involve has strong offers from brands from Southeast Asia, which my audience is.',
-    name: 'Tyha Abdullah', initials: 'TA',
+    name: 'Tyha Abdullah', avatar: 'publisher-tyhaAbdullah.png', initials: 'TA',
   },
   {
     quote: 'Who would have thought that we would make 5-figure income in just 2 months.',
     body: 'Who would have thought that we would be able to make 5 figure income in just 2 months, definitely Affiliate Marketing with Involve Asia can help us make money online more easily.',
-    name: 'Media Terkini', initials: 'MT',
+    name: 'Media Terkini', avatar: 'publisher-MediaTerkini.png', initials: 'MT',
   },
   {
     quote: 'There are branded products to promote, and it’s risk-free.',
@@ -841,32 +841,32 @@ const PUB_VOICES = [
   {
     quote: 'For the first time, I hit 5-digits in commissions and peaked during the 11.11 Sales.',
     body: 'I started to push in promoting Offers at the beginning of 2020 on my website and Facebook page. Later, in July 2020, for the first time, I hit 5-digits in commissions and peaked in November during the 11.11 Sales.',
-    name: 'Promocodes.My', initials: 'PM',
+    name: 'Promocodes.My', avatar: 'publisher-promoCodesMy.png', initials: 'PM',
   },
   {
     quote: 'Involve Asia is always the perfect choice for us to gain commission from our promoted products.',
     body: 'Involve Asia is always the perfect choice for Vocket in order for us to gain commission from our promoted products. Most importantly, with Involve Asia we gain conversions directly from the promoted products with their affiliate links.',
-    name: 'The Vocket', initials: 'TV',
+    name: 'The Vocket', avatar: 'publisher-vocket.png', initials: 'TV',
   },
   {
     quote: 'We couldn’t have done it without this valuable partnership.',
     body: 'Thanks to Involve Asia support, then only we can continue to provide high-quality content to our audience while earning a decent affiliate commission. We couldn’t have done it without this valuable partnership.',
-    name: 'My Weekend Plan', initials: 'MW',
+    name: 'My Weekend Plan', avatar: 'publisher-weekendPlan.png', initials: 'MW',
   },
   {
     quote: 'I find it user-friendly and convenient to browse and search for Offers in the dashboard.',
     body: 'With Involve Asia, I find it user-friendly and convenient to browse and search for Offers in the dashboard. The filters provide me options to choose from so I can promote suitable Offers for my followers.',
-    name: 'MY Great Sales', initials: 'MG',
+    name: 'MY Great Sales', avatar: 'publisher-myGreatSales.png', initials: 'MG',
   },
   {
     quote: 'Such a good overall experience with IA — very friendly & professional.',
     body: 'Had such a good overall experience with IA esp Jia who assisted us – very friendly & professional consultations. She was thorough & informative. IA helps increase and gain pretty good income from the generated link.',
-    name: 'Siakap Keli', initials: 'SK',
+    name: 'Siakap Keli', avatar: 'publisher-siakapkeli.png', initials: 'SK',
   },
   {
     quote: 'It’s a win-win situation.',
     body: 'Keep making videos that are informational, not just for yourself, but for your audience too. Your audience believes in you and this is one way for them to support their favorite YouTubers while also helping themselves purchase products. It’s a win-win situation.',
-    name: 'Fazli Halim', initials: 'FH',
+    name: 'Fazli Halim', avatar: 'publisher-fazlihalim.png', initials: 'FH',
   },
 ];
 function PubVoices() {
@@ -1073,7 +1073,7 @@ function PubCTA() {
       <span className="pc-topfade" aria-hidden="true" />
       <span className="pc-wash" aria-hidden="true" />
       <div className="wrap pc-inner">
-        <h2 className="pc-title" data-reveal>Turn your product listings into income.</h2>
+        <h2 className="pc-title" data-reveal>Fill your site with products that earn today.</h2>
         <a href="/partners/" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="1">Start Earning <Arrow /></a>
       </div>
       <style>{`
@@ -1487,57 +1487,45 @@ function GetStarted() {
 }
 /* ---------- Datafeed §2 — "What is Involve Datafeed?" (manual vs datafeed) ---------- */
 const DF_MANUAL = [
-  'Copy product title and image from the brand’s site.',
-  'Generate an affiliate link in your dashboard.',
-  'Paste both onto your website platform.',
-  'Repeat for every single product variation.',
+  'Find each product and copy its title and image from the brand’s site.',
+  'Generate an affiliate link for it.',
+  'Paste everything onto your site.',
+  'Repeat for every product.',
 ];
 const DF_WAY = [
-  'Connect the brand’s Datafeed directly.',
-  'Thousands of products sync to your site instantly, automatically carrying your affiliate codes.',
+  'Download the brand’s product feed, the whole catalogue in one file.',
+  'Add your tracking to the feed’s product links, following the brand’s guide, once per brand.',
+  'Publish the products on your site.',
 ];
 function WhatIs() {
   return (
     <section id="df-what" className="wi-sec">
-      <div className="wrap">
-        <h2 className="wi-title" data-reveal>What is Involve Datafeed?</h2>
-        <p className="wi-sub" data-reveal data-reveal-delay="1">Datafeed lets you list a brand&rsquo;s product catalogue on your site with your affiliate links already embedded, instead of adding products and pasting links one by one. Set it up once per brand, and your listings stay stocked and trackable.</p>
-        <div className="wi-cards">
-          <div className="wi-card wi-card-manual" data-reveal>
-            <h3 className="wi-ct">The manual way</h3>
-            <ol className="wi-list">
-              {DF_MANUAL.map((t, i) => <li key={i}>{i + 1}. {t}</li>)}
-            </ol>
-          </div>
-          <div className="wi-card wi-card-hl" data-reveal data-reveal-delay="1">
-            <h3 className="wi-ct">The <span className="wi-em">Involve Datafeed</span> way</h3>
-            <div className="wi-badge">
-              <span className="wi-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="#F05826" /><path d="M7.4 12.4l3 3 6.2-6.6" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
-              <span className="wi-badge-t">One integration setup. <b>No manual pasting required.</b></span>
-            </div>
-            <ol className="wi-list">
-              {DF_WAY.map((t, i) => <li key={i}>{i + 1}. {t}</li>)}
-            </ol>
-          </div>
+      <div className="wrap wi-grid">
+        <div className="wi-copy" data-reveal>
+          <h2 className="wi-title">What is Involve Datafeed?</h2>
+          <p className="wi-sub">A datafeed is a ready-made file of an advertiser&rsquo;s products, with the details you need to feature them: product name, price, product URL, image, description, and category. Instead of adding products one by one, you get the whole catalogue at once, then add your own tracking so the sales are credited to you.</p>
+        </div>
+        <div className="wi-visual" data-reveal data-reveal-delay="1">
+          <img src="media/figma/datafeed-grid-1.png" alt="A grid of an advertiser's products ready to feature through Involve Datafeed" loading="lazy" />
         </div>
       </div>
       <style>{`
-        .wi-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
-        .wi-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
-        .wi-sub{ text-align:center; margin:16px auto 0; max-width:760px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); }
-        .wi-cards{ margin-top:clamp(34px,5vh,52px); display:grid; grid-template-columns:1fr 1fr; gap:clamp(20px,2.6vw,32px); align-items:start; }
-        .wi-card{ border-radius:24px; padding:clamp(24px,3vw,32px); }
-        .wi-card-manual{ background:rgba(255,255,255,.48); }
-        .wi-card-hl{ background:#fff; box-shadow:0 14px 34px rgba(15,28,46,.06); }
-        .wi-ct{ font-family:var(--font-display); font-weight:800; font-size:22px; letter-spacing:-.01em; color:var(--warm-900); }
-        .wi-em{ color:var(--ember); }
-        .wi-badge{ margin-top:22px; display:flex; align-items:center; gap:10px; }
-        .wi-check{ flex:0 0 auto; width:21px; height:21px; }
-        .wi-check svg{ width:21px; height:21px; display:block; }
-        .wi-badge-t{ font-family:var(--font-display); font-weight:800; font-size:15px; line-height:1.35; color:var(--warm-900); }
-        .wi-list{ margin-top:20px; display:flex; flex-direction:column; gap:14px; list-style:none; }
-        .wi-list li{ font:400 15px/1.45 var(--font-body); color:var(--warm-600); }
-        @media (max-width:820px){ .wi-cards{ grid-template-columns:1fr; } }
+        .wi-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; overflow:hidden; }
+        .wi-grid{ display:grid; grid-template-columns:minmax(0,420px) minmax(0,1fr); gap:clamp(32px,5vw,72px); align-items:center; }
+        .wi-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.14; letter-spacing:-.03em; color:var(--warm-900); }
+        .wi-sub{ margin-top:18px; font:400 16px/1.55 var(--font-body); color:var(--warm-600); max-width:460px; }
+        /* product grid bleeds off the right viewport edge (matches the other datafeed visuals) */
+        .wi-visual{ position:relative; align-self:stretch; min-height:clamp(340px,42vh,520px); overflow:hidden;
+          margin-right:calc(min(100vw, var(--maxw)) / 2 - 50vw - 32px); border-radius:22px 0 0 22px;
+          background:linear-gradient(150deg,#f4f4f0 0%,#f6f1ec 50%,#eceae6 100%); }
+        .wi-visual img{ position:absolute; top:clamp(20px,3vw,36px); left:clamp(20px,3vw,36px);
+          width:calc(100% - clamp(20px,3vw,36px)); height:calc(100% - clamp(20px,3vw,36px));
+          object-fit:cover; object-position:left top; border-radius:16px 0 0 0; display:block; }
+        @media (max-width:900px){
+          .wi-grid{ grid-template-columns:1fr; gap:30px; }
+          .wi-visual{ position:static; margin-right:0; min-height:0; border-radius:20px; overflow:visible; background:none; }
+          .wi-visual img{ position:static; top:auto; left:auto; width:100%; height:auto; border-radius:16px; }
+        }
       `}</style>
     </section>
   );
@@ -1601,9 +1589,10 @@ function BuiltForLists() {
 }
 /* ---------- Datafeed §4 — "How it works" (3 numbered steps) ---------- */
 const DF_STEPS = [
-  ['01', 'Find your brand', 'Choose the brand whose products you want to list.'],
-  ['02', 'Follow the integration guide', 'Set the feed up on your site using that brand’s guide.'],
-  ['03', 'List and track automatically', 'Products appear with your links built in, and every sale is tracked at item level.'],
+  ['01', 'Find the advertiser.', 'Browse the datafeed and pick the advertiser whose products you want to feature.'],
+  ['02', 'Get the feed and guide.', 'Download the product feed and that advertiser’s step-by-step guide.'],
+  ['03', 'Add your tracking.', 'Follow the guide to add your tracking to the product links, so your clicks and sales are credited to you.'],
+  ['04', 'Feature the products.', 'Publish them across your site.'],
 ];
 function HowItWorks() {
   return (
@@ -1623,11 +1612,12 @@ function HowItWorks() {
       <style>{`
         .hw-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
         .hw-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
-        .hw-grid{ margin-top:clamp(30px,4vh,48px); display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(28px,4vw,56px); }
-        .hw-num{ display:inline-flex; align-items:center; justify-content:center; width:54px; height:54px; border-radius:50%; background:var(--ember); color:#fff; font-family:var(--font-display); font-weight:800; font-size:19px; }
-        .hw-st{ margin-top:20px; font-family:var(--font-display); font-weight:800; font-size:19px; letter-spacing:-.01em; color:var(--warm-900); }
+        .hw-grid{ margin-top:clamp(30px,4vh,48px); display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(24px,2.6vw,44px); }
+        .hw-num{ display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:50%; background:var(--ember); color:#fff; font-family:var(--font-display); font-weight:800; font-size:17px; }
+        .hw-st{ margin-top:18px; font-family:var(--font-display); font-weight:800; font-size:18px; letter-spacing:-.01em; color:var(--warm-900); }
         .hw-sd{ margin-top:10px; font:400 15px/1.5 var(--font-body); color:var(--warm-600); max-width:300px; }
-        @media (max-width:820px){ .hw-grid{ grid-template-columns:1fr; gap:32px; max-width:440px; } }
+        @media (max-width:900px){ .hw-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:34px 26px; } }
+        @media (max-width:560px){ .hw-grid{ grid-template-columns:1fr; max-width:440px; } }
       `}</style>
     </section>
   );
@@ -1670,6 +1660,43 @@ function WhatSells() {
     </section>
   );
 }
+/* ---------- Datafeed §5 — "The manual way / The Involve Datafeed way" (comparison) ---------- */
+function WaysCompare() {
+  return (
+    <section id="df-ways" className="wc-sec">
+      <div className="wrap">
+        <div className="wc-cards">
+          <div className="wc-card wc-manual" data-reveal>
+            <h3 className="wc-ct">The manual way</h3>
+            <ol className="wc-list">
+              {DF_MANUAL.map((t, i) => <li key={i}>{i + 1}. {t}</li>)}
+            </ol>
+          </div>
+          <div className="wc-card wc-hl" data-reveal data-reveal-delay="1">
+            <h3 className="wc-ct">The <span className="wc-em">Involve Datafeed</span> way</h3>
+            <p className="wc-sub">Get the catalogue in one file. Add your tracking once, then feature as many products as you like.</p>
+            <ol className="wc-list">
+              {DF_WAY.map((t, i) => <li key={i}>{i + 1}. {t}</li>)}
+            </ol>
+          </div>
+        </div>
+      </div>
+      <style>{`
+        .wc-sec{ background:var(--warm-50); padding:clamp(30px,4vh,56px) 0 clamp(40px,7vh,88px); }
+        .wc-cards{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(20px,2.6vw,32px); align-items:stretch; }
+        .wc-card{ border-radius:24px; padding:clamp(24px,3vw,34px); }
+        .wc-manual{ background:rgba(255,255,255,.5); border:1px solid var(--warm-200); }
+        .wc-hl{ background:#fff; box-shadow:0 14px 34px rgba(15,28,46,.06); }
+        .wc-ct{ font-family:var(--font-display); font-weight:800; font-size:22px; letter-spacing:-.01em; color:var(--warm-900); }
+        .wc-em{ color:var(--ember); }
+        .wc-sub{ margin-top:12px; font:600 15px/1.4 var(--font-body); color:var(--warm-900); }
+        .wc-list{ margin-top:18px; display:flex; flex-direction:column; gap:14px; list-style:none; padding:0; }
+        .wc-list li{ font:400 15px/1.45 var(--font-body); color:var(--warm-600); }
+        @media (max-width:820px){ .wc-cards{ grid-template-columns:1fr; } }
+      `}</style>
+    </section>
+  );
+}
 function PublisherApp() {
   useSmoothScroll();
   useScrollReveal();
@@ -1679,9 +1706,8 @@ function PublisherApp() {
       <main>
         <PubHero />
         <WhatIs />
-        <BuiltForLists />
         <HowItWorks />
-        <WhatSells />
+        <WaysCompare />
         <PubCTA />
       </main>
       <Footer />

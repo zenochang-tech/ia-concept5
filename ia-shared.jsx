@@ -9,14 +9,17 @@
 
 const prefersReduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// Nav mega-menu — clean Stripe-style columns: each column has a non-clickable title (head)
+// with a thin #E8E8E2 divider under it, then its links. Column titles are suggestions —
+// rename freely. No feature image card.
 const NAV = [
   { label: 'For Advertisers', href: 'for-advertisers.html', tone: 'adv',
     columns: [
-      { links: [
+      { head: 'Overview', links: [
         ['Advertiser overview', 'for-advertisers.html'],
         ['Pricing', 'pricing.html'],
       ]},
-      { head: 'Feature', links: [
+      { head: 'Features', links: [
         ['Automation', 'automation.html'],
         ['Partner Discovery', 'partner-discovery.html'],
         ['How We Track', 'how-we-track.html'],
@@ -24,28 +27,41 @@ const NAV = [
     ]},
   { label: 'For Publishers', href: 'for-publishers.html', tone: 'pub',
     columns: [
-      { top: ['Publisher overview', 'for-publishers.html'], head: 'Feature', links: [
+      { head: 'Overview', links: [
+        ['Publisher overview', 'for-publishers.html'],
+      ]},
+      { head: 'Features', links: [
         ['Express Withdrawal', 'express-withdrawal.html'],
         ['API Overview', 'api-overview.html'],
         ['Data Feed', 'datafeed.html'],
       ]},
-      { head: 'Publisher type', links: [
-        ['Content Creators', 'content-creators.html'],
-        ['Affiliate Sites', 'affiliates.html'],
-        ['Websites', 'website.html'],
+      { head: 'Publisher types', links: [
+        ['Creators', 'content-creators.html'],
+        ['Affiliate & Rewards Sites', 'affiliates.html'],
+        ['Content Sites', 'website.html'],
         ['App Owners', 'app-owners.html'],
+        ['Media Buyers', 'media-buyer.html'],
       ]},
     ]},
-  { label: 'Resources', href: '/blog/', items: [
-      { t: 'Blog', d: 'Guides, trends & playbooks', href: '/blog/' },
-      { t: 'Support', d: 'Help centre', href: 'https://helpcentre.involve.asia/' },
-      { t: 'Download App', d: 'iOS & Android', href: '/download-app/' },
-      { t: 'Release Notes', d: "What's new", href: '/release-notes/' },
-      { t: 'API Docs', d: 'For developers', href: '/partners/api-overview/' },
+  { label: 'Resources', href: '/blog/',
+    columns: [
+      { head: 'Learn', links: [
+        ['Blog', '/blog/'],
+        ['Glossary', 'glossary.html'],
+        ['Release Notes', '/release-notes/'],
+      ]},
+      { head: 'Support', links: [
+        ['Help Centre', 'https://helpcentre.involve.asia/'],
+        ['Download App', 'download-app.html'],
+        ['API Docs', '/partners/api-overview/'],
+      ]},
     ]},
-  { label: 'Company', href: '/about/', items: [
-      { t: 'About Us', d: 'Our story & team', href: '/about/' },
-      { t: 'Careers', d: "We're hiring", href: 'https://career.involve.asia/' },
+  { label: 'Company', href: 'about.html',
+    columns: [
+      { head: 'Company', links: [
+        ['About Us', 'about.html'],
+        ['Careers', 'https://career.involve.asia/'],
+      ]},
     ]},
 ];
 
@@ -135,9 +151,9 @@ function Nav({ getStartedTone = 'midnight' }) {
     <React.Fragment>
     <header ref={navRef} className={`hdr4${onDark ? ' nav-on-dark' : ''}${scrolled ? ' solid' : ''}`} style={{
       position: 'sticky', top: 0, zIndex: 100,
-      background: onDark ? 'rgba(15,28,46,.72)' : (scrolled ? 'rgba(248,250,250,.82)' : 'transparent'),
-      backdropFilter: (onDark || scrolled) ? 'saturate(180%) blur(14px)' : 'none',
-      WebkitBackdropFilter: (onDark || scrolled) ? 'saturate(180%) blur(14px)' : 'none',
+      background: onDark ? 'rgba(15,28,46,.72)' : ((scrolled || mobile) ? 'rgba(248,250,250,.82)' : 'transparent'),
+      backdropFilter: (onDark || scrolled || mobile) ? 'saturate(180%) blur(14px)' : 'none',
+      WebkitBackdropFilter: (onDark || scrolled || mobile) ? 'saturate(180%) blur(14px)' : 'none',
       boxShadow: (scrolled && !onDark) ? '0 1px 0 var(--warm-200)' : 'none',
       borderBottom: `1px solid ${onDark ? 'rgba(255,255,255,.10)' : 'transparent'}`,
       transition: 'background .3s, border-color .3s, box-shadow .3s',
@@ -235,7 +251,9 @@ function Nav({ getStartedTone = 'midnight' }) {
         .mega4-item .d{display:block;font-size:13px;color:var(--warm-400);margin-top:6px;line-height:1.45;}
         .mega4-item:hover b{color:var(--ember);}
         /* grouped column dropdowns (Advertisers / Publishers) */
-        .mega4-head{display:block;font:700 11px/1 var(--font-body);letter-spacing:.08em;text-transform:uppercase;color:var(--warm-400);margin-bottom:16px;}
+        .mega4-col{width:200px;}
+        .mega4-head{display:block;font:700 11px/1 var(--font-body);letter-spacing:.08em;text-transform:uppercase;color:var(--warm-400);margin-bottom:11px;}
+        .mega4-divider{display:block;height:1px;background:#E8E8E2;margin:0 0 12px;}
         .mega4-link{display:block;padding:8px 0;}
         .mega4-link b{font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--warm-900);transition:color .2s cubic-bezier(.4,0,.2,1);}
         a.mega4-link:hover b{color:var(--ember);}
@@ -255,7 +273,7 @@ function Nav({ getStartedTone = 'midnight' }) {
           .nav-desk{display:none !important;}
           .nav-right{display:none !important;}
           .nav-burger{display:inline-flex !important;}
-          .mega4, .mega4-overlay{display:none !important;}
+          .mega4{display:none !important;}
         }
       `}</style>
     </header>
@@ -263,10 +281,10 @@ function Nav({ getStartedTone = 'midnight' }) {
     {/* Frosted full-page blur overlay behind the mega (Concept 3). Rendered as a SIBLING
         of the header — NOT nested inside it — so the header's stacking context / transform
         can't clip the backdrop, and the blur reliably applies to the page content. */}
-    <div className="mega4-overlay" onClick={() => setOpen(null)} style={{
+    <div className="mega4-overlay" onClick={() => { setOpen(null); setMobile(false); }} style={{
       position: 'fixed', inset: 0, zIndex: 90, background: 'rgba(248,250,250,.35)',
       backdropFilter: 'blur(9px)', WebkitBackdropFilter: 'blur(9px)',
-      opacity: open !== null ? 1 : 0, visibility: open !== null ? 'visible' : 'hidden',
+      opacity: (open !== null || mobile) ? 1 : 0, visibility: (open !== null || mobile) ? 'visible' : 'hidden',
       transition: 'opacity .35s cubic-bezier(.4,0,.2,1), visibility .35s cubic-bezier(.4,0,.2,1)',
     }} />
 
@@ -280,28 +298,15 @@ function Nav({ getStartedTone = 'midnight' }) {
       transition: 'opacity .35s cubic-bezier(.4,0,.2,1), transform .4s cubic-bezier(.4,0,.2,1), visibility .35s cubic-bezier(.4,0,.2,1)',
     }}>
       {NAV.map((n, i) => open === i && (
-        <div key={n.label} className="wrap" style={{ display: 'grid', gridTemplateColumns: '1.55fr 1fr', gap: 'clamp(32px,5vw,72px)', alignItems: 'start' }} role="menu">
-          {n.columns ? (
-            <div className="mega4-cols" style={{ display: 'grid', gridTemplateColumns: `repeat(${n.columns.length},minmax(0,1fr))`, gap: '4px 40px', alignItems: 'start' }}>
-              {n.columns.map((col, ci) => (
-                <div key={ci} style={{ display: 'flex', flexDirection: 'column' }}>
-                  {col.top && <MegaLink link={col.top} />}
-                  {col.head && <span className="mega4-head" style={col.top ? { marginTop: 20 } : undefined}>{col.head}</span>}
-                  {col.links.map(l => <MegaLink key={l[0]} link={l} />)}
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="mega4-cols" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '28px 32px' }}>
-              {n.items.map(it => <MegaItem key={it.t} it={it} />)}
-            </div>
-          )}
-          <div className="mega4-feat mega4-feat-soon" style={{ position: 'relative', borderRadius: 'var(--r-lg)', overflow: 'hidden', aspectRatio: '16 / 10', display: 'block', boxShadow: 'var(--shadow-md)', cursor: 'default' }}>
-            <img src={encodeURI(NAV_FEAT[i].img)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            <span className="mega4-feat-shade" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg,rgba(15,28,46,.15),rgba(15,28,46,.72))' }} />
-            <span className="mf" style={{ position: 'absolute', inset: 'auto 20px 18px 20px', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#fff' }}>
-              <b style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 17 }}>Coming soon</b>
-            </span>
+        <div key={n.label} className="wrap" role="menu">
+          <div className="mega4-cols" style={{ display: 'flex', flexWrap: 'wrap', gap: '10px clamp(44px,5vw,72px)', alignItems: 'flex-start' }}>
+            {n.columns.map((col, ci) => (
+              <div key={ci} className="mega4-col">
+                <span className="mega4-head">{col.head}</span>
+                <span className="mega4-divider" aria-hidden="true" />
+                {col.links.map(l => <MegaLink key={l[0]} link={l} />)}
+              </div>
+            ))}
           </div>
         </div>
       ))}
@@ -315,7 +320,7 @@ function Arrow({ s = 16 }) {
 }
 
 const FOOT = [
-  { h: 'For Publishers', links: [['Overview','/partners/overview'],['Content Creators','/partners/content-creators/'],['All Brands Directory','https://app.involve.asia/directory'],['Express Withdrawal','/partners/express-withdrawal/'],['Academy','/academy/'],['API Overview','/partners/api-overview/']] },
+  { h: 'For Publishers', links: [['Overview','/partners/overview'],['Creators','/partners/content-creators/'],['All Brands Directory','https://app.involve.asia/directory'],['Express Withdrawal','/partners/express-withdrawal/'],['Academy','/academy/'],['API Overview','/partners/api-overview/']] },
   { h: 'For Advertisers', links: [['Overview','/advertisers/'],['How We Track','/advertisers/how-we-track/'],['Partner Discovery','/advertisers/partner-discovery/'],['Automation','/advertisers/automation/'],['Case Studies','/advertisers/case-studies/']] },
   { h: 'Top Programs', links: [['Shopee Affiliate','/blog/shopee-affiliate-program/'],['Lazada Affiliate','/blog/lazada-affiliate-program/'],['Zalora Affiliate','/blog/zalora-affiliate-program/'],['Sephora Affiliate','/blog/sephora-affiliate-program/'],['See all programs','/top-affiliate-programs/']] },
   { h: 'Company', links: [['About Us','/about/'],['Careers','https://career.involve.asia/'],['Blog','/blog/'],['Support','https://helpcentre.involve.asia/'],['Release Notes','/release-notes/'],['Terms & Privacy','/terms-conditions/']] },
@@ -336,7 +341,7 @@ function Footer() {
           <div style={{ maxWidth: 280 }}>
             <img src={(window.__resources && window.__resources.logoWhite) || "https://ia-design-system.vercel.app/assets/logo/wordmark-white.png"} alt="Involve Asia" width="140" height="30" style={{ height: 30, width: 'auto' }} />
             <p style={{ marginTop: 16, fontSize: 14, color: '#9aa1a9', lineHeight: 1.6 }}>
-              The affiliate marketing network connecting advertisers with creators and publishers across Asia.
+              The affiliate marketing platform connecting advertisers with creators and publishers across Asia.
             </p>
             <div style={{ display: 'flex', gap: 10, marginTop: 20 }}>
               {SOCIAL.map(([n, u]) => (
@@ -511,7 +516,13 @@ function useSmoothScroll() {
       const id = a.getAttribute('href');
       if (id.length < 2) return;
       const el = document.querySelector(id);
-      if (el) { e.preventDefault(); lenis.scrollTo(el, { offset: -80, duration: 1.1 }); }
+      if (el) {
+        e.preventDefault();
+        // Honour the target's own scroll-margin-top (e.g. pages with a sticky sub-bar
+        // set a larger one); fall back to the default 80px header offset.
+        const smt = parseFloat(getComputedStyle(el).scrollMarginTop) || 80;
+        lenis.scrollTo(el, { offset: -smt, duration: 1.1 });
+      }
     };
     document.addEventListener('click', onClick);
     return () => {

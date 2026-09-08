@@ -34,7 +34,7 @@ function PubHero() {
           <p className="ph-sub" data-reveal data-reveal-delay="1">Pull promotions, generate links in bulk, and get your reports, all without logging into the dashboard. Bring affiliate earning into your own app or workflow.</p>
           <div className="ph-actions" data-reveal data-reveal-delay="2">
             <a href="/partners/" className="btn btn-primary btn-lg">Apply for an API Key <Arrow /></a>
-            <a href="#" className="btn btn-secondary btn-lg">Read the API docs <Arrow /></a>
+            <a href="https://api.involve.asia/docs/" className="btn btn-secondary btn-lg">Read the API docs <Arrow /></a>
           </div>
         </div>
 
@@ -128,7 +128,9 @@ function PubHero() {
           .ph-wrap{ grid-template-columns:1fr; gap:36px; }
           .ph-copy{ text-align:center; display:flex; flex-direction:column; align-items:center; }
           .ph-sub{ margin-left:auto; margin-right:auto; }
-          .ph-actions{ justify-content:center; }   /* centre the CTA button */
+          /* two CTAs side by side — 2-column, like the homepage hero */
+          .ph-actions{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px 12px; width:100%; max-width:420px; margin-inline:auto; }
+          .ph-actions .btn{ width:100%; justify-content:center; padding:13px 10px; font-size:13px; }
           .ph-visual{ order:-1; max-width:420px; margin:0 auto; justify-self:center; }
           /* keep the floating UI within the hexagon so the composition stays centred */
           .ph-g-link, .ph-g-sales, .ph-g-conv{ right:0; }
@@ -823,12 +825,12 @@ const PUB_VOICES = [
   {
     quote: 'I used Involve to start a side income, but now my website generates me a full-time income.',
     body: 'I used Involve to start a side income, but now my website is able to generate me a full-time income. It’s also much better from any site that I have worked with. I like that Involve has strong offers from brands from Southeast Asia, which my audience is.',
-    name: 'Tyha Abdullah', initials: 'TA',
+    name: 'Tyha Abdullah', avatar: 'publisher-tyhaAbdullah.png', initials: 'TA',
   },
   {
     quote: 'Who would have thought that we would make 5-figure income in just 2 months.',
     body: 'Who would have thought that we would be able to make 5 figure income in just 2 months, definitely Affiliate Marketing with Involve Asia can help us make money online more easily.',
-    name: 'Media Terkini', initials: 'MT',
+    name: 'Media Terkini', avatar: 'publisher-MediaTerkini.png', initials: 'MT',
   },
   {
     quote: 'There are branded products to promote, and it’s risk-free.',
@@ -838,32 +840,32 @@ const PUB_VOICES = [
   {
     quote: 'For the first time, I hit 5-digits in commissions and peaked during the 11.11 Sales.',
     body: 'I started to push in promoting Offers at the beginning of 2020 on my website and Facebook page. Later, in July 2020, for the first time, I hit 5-digits in commissions and peaked in November during the 11.11 Sales.',
-    name: 'Promocodes.My', initials: 'PM',
+    name: 'Promocodes.My', avatar: 'publisher-promoCodesMy.png', initials: 'PM',
   },
   {
     quote: 'Involve Asia is always the perfect choice for us to gain commission from our promoted products.',
     body: 'Involve Asia is always the perfect choice for Vocket in order for us to gain commission from our promoted products. Most importantly, with Involve Asia we gain conversions directly from the promoted products with their affiliate links.',
-    name: 'The Vocket', initials: 'TV',
+    name: 'The Vocket', avatar: 'publisher-vocket.png', initials: 'TV',
   },
   {
     quote: 'We couldn’t have done it without this valuable partnership.',
     body: 'Thanks to Involve Asia support, then only we can continue to provide high-quality content to our audience while earning a decent affiliate commission. We couldn’t have done it without this valuable partnership.',
-    name: 'My Weekend Plan', initials: 'MW',
+    name: 'My Weekend Plan', avatar: 'publisher-weekendPlan.png', initials: 'MW',
   },
   {
     quote: 'I find it user-friendly and convenient to browse and search for Offers in the dashboard.',
     body: 'With Involve Asia, I find it user-friendly and convenient to browse and search for Offers in the dashboard. The filters provide me options to choose from so I can promote suitable Offers for my followers.',
-    name: 'MY Great Sales', initials: 'MG',
+    name: 'MY Great Sales', avatar: 'publisher-myGreatSales.png', initials: 'MG',
   },
   {
     quote: 'Such a good overall experience with IA — very friendly & professional.',
     body: 'Had such a good overall experience with IA esp Jia who assisted us – very friendly & professional consultations. She was thorough & informative. IA helps increase and gain pretty good income from the generated link.',
-    name: 'Siakap Keli', initials: 'SK',
+    name: 'Siakap Keli', avatar: 'publisher-siakapkeli.png', initials: 'SK',
   },
   {
     quote: 'It’s a win-win situation.',
     body: 'Keep making videos that are informational, not just for yourself, but for your audience too. Your audience believes in you and this is one way for them to support their favorite YouTubers while also helping themselves purchase products. It’s a win-win situation.',
-    name: 'Fazli Halim', initials: 'FH',
+    name: 'Fazli Halim', avatar: 'publisher-fazlihalim.png', initials: 'FH',
   },
 ];
 function PubVoices() {
@@ -954,11 +956,11 @@ function PubVoices() {
    (4.2% commission, 10 working days) are illustrative — confirm before launch. */
 const PUB_FAQ = [
   ['What does the API do?',
-    'Build an affiliate app, or add affiliate capabilities to your own platform, populate reports, generate links, define landing pages, and pull promotional content.'],
+    'Build an affiliate app, or add affiliate capabilities to your own platform, populate reports, generate links, access ready-made campaign banners and landing pages, and pull promotional content.'],
   ['Who can use it?',
     'Media buyers, KOL agencies, programmatic and affiliate networks, cashback, and content sites.'],
   ['How many links can I generate?',
-    'Up to 1,000 a month.'],
+    'Up to 1,000 unique links per rolling 30-day window.'],
   ['Which tools can I use?',
     'Postman, cURL, Insomnia, SoapUI, Paw, or any tool that fits your stack.'],
   ['How do I track performance?',
@@ -1070,8 +1072,8 @@ function PubCTA() {
       <span className="pc-topfade" aria-hidden="true" />
       <span className="pc-wash" aria-hidden="true" />
       <div className="wrap pc-inner">
-        <h2 className="pc-title" data-reveal>Start monetizing your app today.</h2>
-        <a href="/partners/" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="1">Start Earning <Arrow /></a>
+        <h2 className="pc-title" data-reveal>Start building with the API.</h2>
+        <a href="/partners/" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="1">Apply for an API Key <Arrow /></a>
       </div>
       <style>{`
         .pc-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(96px,16vh,200px) 0 clamp(104px,17vh,210px); }
@@ -1334,7 +1336,7 @@ function ExwCompare() {
     </section>
   );
 }
-/* ---------- API §2 — "Automate the work, scale the earning." (4 cards) ---------- */
+/* ---------- API §2 — "Automate the work, scale your earnings." (4 cards) ---------- */
 const AUTO_CARDS = [
   ['api-auto-1.png', 'Get the latest promotion data', 'Commission rates and payout terms for every offer.'],
   ['api-auto-2.png', 'Generate affiliate links in bulk', 'With no manual clicking.'],
@@ -1345,7 +1347,7 @@ function AutoWork() {
   return (
     <section id="api-auto" className="aw-sec">
       <div className="wrap">
-        <h2 className="aw-title" data-reveal>Automate the work, scale the earning.</h2>
+        <h2 className="aw-title" data-reveal>Automate the work, scale your earnings.</h2>
         <div className="aw-grid">
           {AUTO_CARDS.map(([img, t, d], i) => (
             <div className="aw-card" key={t} data-reveal data-reveal-delay={(i % 3) + 1}>
@@ -1407,7 +1409,7 @@ const TEAM_CATS = [
   ['Programmatic networks', 'Automated distribution'],
   ['Affiliate networks', 'Sub-network solutions'],
   ['Cashback sites', 'Instant link conversion'],
-  ['Content sites', 'Dynamic product populating'],
+  ['Content sites', 'Auto-updated offers'],
 ];
 function BuiltTeams() {
   return (
@@ -1437,7 +1439,7 @@ function BuiltTeams() {
         .bt-cat{ display:flex; flex-direction:column; gap:6px; }
         .bt-cat-t{ font-family:var(--font-display); font-weight:800; font-size:16px; letter-spacing:-.01em; color:var(--warm-900); }
         .bt-cat-d{ font:400 14px/1.35 var(--font-body); color:var(--warm-400); }
-        @media (max-width:820px){ .bt-grid{ grid-template-columns:1fr; gap:32px; } .bt-cats{ grid-template-columns:repeat(2,1fr); gap:26px 20px; } }
+        @media (max-width:900px){ .bt-grid{ grid-template-columns:1fr; gap:32px; } .bt-cats{ grid-template-columns:repeat(2,1fr); gap:26px 20px; } }
       `}</style>
     </section>
   );

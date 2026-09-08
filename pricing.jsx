@@ -50,7 +50,7 @@ function PubHero() {
       <div className="prh-honey" aria-hidden="true"><PricingHexField /></div>
       <div className="wrap prh-wrap">
         <span className="prh-eyebrow" data-reveal>Affiliate Marketing Pricing for Advertisers</span>
-        <h1 className="prh-title" data-reveal data-reveal-delay="1">The plans that fit your grow.</h1>
+        <h1 className="prh-title" data-reveal data-reveal-delay="1">The plan that fits your growth.</h1>
         <p className="prh-sub" data-reveal data-reveal-delay="2">Whether you are launching your first program or scaling an established one,<br />pick the plan that matches your stage.</p>
       </div>
       <style>{`
@@ -75,11 +75,11 @@ function PubHero() {
 const PRICING_PLANS = [
   { key: 'startup', name: 'Startup', desc: 'For brands launching their first affiliate program.',
     price: '$99', unit: '/mo', cta: 'Get started', href: '/advertisers/',
-    feats: ['Track up to 100,000 clicks a month', '1 offer setup', 'Single tier commission', 'Access to the publisher marketplace', 'Dashboard access', 'Helpdesk support'] },
+    feats: ['Track up to 100,000 clicks a month', '1 offer setup', 'Single-tier commission', 'Access to the publisher marketplace', 'Dashboard access', 'Helpdesk support'] },
   { key: 'growth', name: 'Growth', desc: 'For brands ready to make affiliates a core growth channel.',
     price: '$499', unit: '/mo', cta: 'Get started', href: '/advertisers/', recommended: true,
     plus: 'Everything in Startup, plus:',
-    feats: ['Track up to 1,000,000 clicks a month', 'Up to 3 offer setups', 'Multi tier commission', 'Up to 3 recruitment campaigns a month', 'Publisher introductions', 'A dedicated account manager', 'Quarterly performance review'] },
+    feats: ['Track up to 1,000,000 clicks a month', 'Up to 3 offer setups', 'Multi-tier commission', 'Up to 3 recruitment campaigns a month', 'Publisher introductions', 'A dedicated account manager', 'Quarterly performance review'] },
   { key: 'enterprise', name: 'Enterprise', desc: 'For large brands with high volumes or custom requirements.',
     price: 'Custom', priceNote: 'Volume based pricing.', cta: 'Talk to us', href: '/advertisers/',
     plus: 'Everything in Growth, plus:',
@@ -109,9 +109,11 @@ function PricingPlans() {
             </div>
           ))}
         </div>
+        <p className="pp-terms" data-reveal>All plans include a one-time $1,000 setup and launch fee and a 3-month minimum term.</p>
       </div>
       <style>{`
         .pp-sec{ position:relative; background:transparent; padding:clamp(44px,7vh,80px) 0 clamp(56px,9vh,112px); }
+        .pp-terms{ text-align:center; margin-top:clamp(24px,3.4vh,36px); font:400 14px/1.5 var(--font-body); color:var(--warm-600); }
         .pp-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; align-items:stretch; max-width:1120px; margin:0 auto; }
         .pp-card{ position:relative; display:flex; flex-direction:column; background:#fff; border:1px solid var(--warm-200); border-radius:22px;
           padding:34px 30px; box-shadow:0 14px 34px rgba(15,28,46,.05); }
@@ -297,9 +299,9 @@ function PricingAudit() {
 
 /* ---------- Section 1e — "Every plan comes with the essentials" ----------- */
 const PR_ESSENTIALS = [
-  { icon: 'users', title: '1.1 M+ publisher network', desc: 'Access to 800,000+ publishers across retail, travel, beauty, finance, and more.' },
+  { icon: 'users', title: '1,000,000+ publishers', desc: 'Access to over 1,000,000 publishers across retail, travel, beauty, finance, and more.' },
   { icon: 'activity', title: 'Precision tracking', desc: 'Real tracking, down to every click and conversion, in one dashboard.' },
-  { icon: 'shield', title: 'Conversion verification', desc: 'Every conversion verified before you pay, with fraud protection built in.' },
+  { icon: 'shield', title: 'Conversion verification', desc: 'Every conversion verified before you pay.' },
   { icon: 'chat', title: 'Dedicated human support', desc: 'Real human support, from day one.' },
 ];
 function EssIcon({ name }) {
@@ -1069,12 +1071,12 @@ const PUB_VOICES = [
   {
     quote: 'I used Involve to start a side income, but now my website generates me a full-time income.',
     body: 'I used Involve to start a side income, but now my website is able to generate me a full-time income. It’s also much better from any site that I have worked with. I like that Involve has strong offers from brands from Southeast Asia, which my audience is.',
-    name: 'Tyha Abdullah', initials: 'TA',
+    name: 'Tyha Abdullah', avatar: 'publisher-tyhaAbdullah.png', initials: 'TA',
   },
   {
     quote: 'Who would have thought that we would make 5-figure income in just 2 months.',
     body: 'Who would have thought that we would be able to make 5 figure income in just 2 months, definitely Affiliate Marketing with Involve Asia can help us make money online more easily.',
-    name: 'Media Terkini', initials: 'MT',
+    name: 'Media Terkini', avatar: 'publisher-MediaTerkini.png', initials: 'MT',
   },
   {
     quote: 'There are branded products to promote, and it’s risk-free.',
@@ -1084,32 +1086,32 @@ const PUB_VOICES = [
   {
     quote: 'For the first time, I hit 5-digits in commissions and peaked during the 11.11 Sales.',
     body: 'I started to push in promoting Offers at the beginning of 2020 on my website and Facebook page. Later, in July 2020, for the first time, I hit 5-digits in commissions and peaked in November during the 11.11 Sales.',
-    name: 'Promocodes.My', initials: 'PM',
+    name: 'Promocodes.My', avatar: 'publisher-promoCodesMy.png', initials: 'PM',
   },
   {
     quote: 'Involve Asia is always the perfect choice for us to gain commission from our promoted products.',
     body: 'Involve Asia is always the perfect choice for Vocket in order for us to gain commission from our promoted products. Most importantly, with Involve Asia we gain conversions directly from the promoted products with their affiliate links.',
-    name: 'The Vocket', initials: 'TV',
+    name: 'The Vocket', avatar: 'publisher-vocket.png', initials: 'TV',
   },
   {
     quote: 'We couldn’t have done it without this valuable partnership.',
     body: 'Thanks to Involve Asia support, then only we can continue to provide high-quality content to our audience while earning a decent affiliate commission. We couldn’t have done it without this valuable partnership.',
-    name: 'My Weekend Plan', initials: 'MW',
+    name: 'My Weekend Plan', avatar: 'publisher-weekendPlan.png', initials: 'MW',
   },
   {
     quote: 'I find it user-friendly and convenient to browse and search for Offers in the dashboard.',
     body: 'With Involve Asia, I find it user-friendly and convenient to browse and search for Offers in the dashboard. The filters provide me options to choose from so I can promote suitable Offers for my followers.',
-    name: 'MY Great Sales', initials: 'MG',
+    name: 'MY Great Sales', avatar: 'publisher-myGreatSales.png', initials: 'MG',
   },
   {
     quote: 'Such a good overall experience with IA — very friendly & professional.',
     body: 'Had such a good overall experience with IA esp Jia who assisted us – very friendly & professional consultations. She was thorough & informative. IA helps increase and gain pretty good income from the generated link.',
-    name: 'Siakap Keli', initials: 'SK',
+    name: 'Siakap Keli', avatar: 'publisher-siakapkeli.png', initials: 'SK',
   },
   {
     quote: 'It’s a win-win situation.',
     body: 'Keep making videos that are informational, not just for yourself, but for your audience too. Your audience believes in you and this is one way for them to support their favorite YouTubers while also helping themselves purchase products. It’s a win-win situation.',
-    name: 'Fazli Halim', initials: 'FH',
+    name: 'Fazli Halim', avatar: 'publisher-fazlihalim.png', initials: 'FH',
   },
 ];
 function PubVoices() {
@@ -1210,7 +1212,7 @@ const PUB_FAQ = [
   ['Can I change plans later?',
     'Yes. Move from Startup to Growth, or up to Enterprise, as your program scales.'],
   ['Which plan should I pick?',
-    'Most brands making affiliates a core channel choose Growth. Start with Startup to launch and test, and talk to us for Enterprise volumes. Or take the 2-minute quiz.'],
+    'Most brands making affiliates a core channel choose Growth. Start with Startup to launch and test, and talk to us for Enterprise volumes. Or get a free growth audit.'],
   ['How are results tracked?',
     'Every click and conversion is tracked to the publisher who drove it, and verified before payout.'],
 ];

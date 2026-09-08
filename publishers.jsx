@@ -45,7 +45,7 @@ function PubHero() {
           <div className="ph-actions" data-reveal data-reveal-delay="3">
             <a href="/partners/" className="btn btn-primary btn-lg">Start Earning <Arrow /></a>
           </div>
-          <span className="ph-free" data-reveal data-reveal-delay="3">Free to join. No fees, no catch.</span>
+          <span className="ph-free" data-reveal data-reveal-delay="3">Free to join. Start earning today.</span>
         </div>
 
         <div className="ph-visual" data-reveal data-reveal-delay="1">
@@ -252,7 +252,7 @@ function PubLogos() {
   return (
     <section id="pub-logos" className="pl-sec">
       <div className="wrap">
-        <p className="pl-cap" data-reveal>Explore and promote 4,000+ brands who are looking for publishers like you today.</p>
+        <p className="pl-cap" data-reveal>Explore and promote thousands of offers from 500+ brands, ready for publishers like you today.</p>
       </div>
       <div className="pl-marquee" ref={marqRef} data-reveal data-reveal-delay="1">
         <div ref={trackRef} className="pl-track">
@@ -277,13 +277,12 @@ function PubLogos() {
 
 /* ---------- Section 3 — "If you have an audience, you can earn." ----------- */
 const PUB_AUDIENCE = [
-  ['Creators', 'Influencers and video makers. Share products your followers already trust, and earn every time they buy.', 'pub-aud-creators-v2.png'],
-  ['Content and news sites', 'Blogs, review sites, publishers. Turn your articles and reviews into income that keeps earning after you publish.', 'pub-aud-content.png'],
-  ['Cashback and loyalty sites', 'Cashback, rewards, points. Give members deals worth coming back for, and earn on the sales they drive.', 'pub-aud-cashback.png'],
-  ['Coupon and deal sites', 'Promo codes, offers, discounts. Post the deals people are already searching for, and earn on every purchase.', 'pub-aud-coupon.png'],
-  ['Comparison sites', 'Reviews and buying guides. Help people choose the right product, and earn when they buy through you.', 'pub-aud-comparison.png'],
-  ['App owners', 'Show relevant products and cashback to your users, automated through our premium API integration.', 'pub-aud-appowners.png'],
-  ['Media buyers and agencies', 'Run paid campaigns across hundreds of brands, with tracking and reports built in.', 'pub-aud-mediabuyers-v2.png'],
+  ['Creators', 'Social, influencers, video. Share what you love, and earn every time a follower buys.', 'pub-aud-creators-v3.png'],
+  ['Content sites', 'Blogs, review sites, news and media. Turn the articles you already publish into income that keeps earning.', 'pub-aud-c02.png'],
+  ['Affiliate & rewards sites', 'Cashback, coupon, comparison, and loyalty sites. Run affiliate as your business, at scale.', 'pub-aud-c03.png'],
+  ['App owners', 'Show relevant offers and cashback to your users, automated through our API.', 'pub-aud-c04.png'],
+  ['Media buyers', 'Run paid traffic across hundreds of brands, with the tracking and margins to make it pay.', 'pub-aud-c05.png'],
+  ['Networks & agencies', 'Bring your own publishers, or manage client programs, all on one platform.', 'pub-aud-c06.png'],
 ];
 function PubAudience() {
   const scrollRef = React.useRef(null);
@@ -335,7 +334,7 @@ function PubAudience() {
     <section id="pub-audience" className="au-sec">
       <div className="wrap au-head">
         <div className="au-head-l" data-reveal>
-          <h2 className="au-title">If you have an audience, you can earn.</h2>
+          <h2 className="au-title">However you reach people, there's a way to earn.</h2>
           <p className="au-sub">Whatever you run, there's a way to earn with it, across campaigns, promo codes, product deals and more.</p>
         </div>
         <div ref={barRef} className="au-bar" data-reveal data-reveal-delay="1" aria-hidden="true"><span ref={thumbRef} className="au-bar-thumb" /></div>
@@ -362,7 +361,10 @@ function PubAudience() {
         .au-bar{ position:relative; width:134px; height:12px; border-radius:160px; background:var(--warm-200); flex:0 0 auto; cursor:pointer; touch-action:none; }
         .au-bar.dragging{ cursor:grabbing; }
         .au-bar-thumb{ position:absolute; left:0; top:0; height:12px; width:66px; border-radius:160px; background:var(--ember); will-change:transform,width; pointer-events:none; }
-        .au-scroll{ margin-top:clamp(24px,3.4vh,40px); overflow-x:auto; overflow-y:hidden; cursor:grab; scrollbar-width:none; -ms-overflow-style:none;
+        /* vertical padding gives the card drop-shadow room inside the overflow-y:hidden clip (was being cropped);
+           margins pull the layout back so spacing stays put */
+        .au-scroll{ margin-top:clamp(2px,1.6vh,18px); margin-bottom:-34px; overflow-x:auto; overflow-y:hidden; cursor:grab; scrollbar-width:none; -ms-overflow-style:none;
+          padding-block:26px 62px;
           padding-inline:max(32px, calc((100% - var(--maxw)) / 2 + 32px)); }
         .au-scroll::-webkit-scrollbar{ display:none; }
         .au-scroll.grabbing{ cursor:grabbing; }
@@ -372,7 +374,7 @@ function PubAudience() {
           background:#ffffff; box-shadow:0 12px 30px rgba(15,28,46,.06);
           transition:transform .34s cubic-bezier(.22,1,.36,1), box-shadow .34s; }
         /* image anchored to the BOTTOM of the card, faded into the surface at its top so it never sits under the text */
-        .au-card-img{ position:absolute; left:0; right:0; bottom:0; width:100%; height:60%; object-fit:cover; object-position:center 24%; opacity:.32; transition:opacity .34s ease; -webkit-user-drag:none; pointer-events:none;
+        .au-card-img{ position:absolute; left:0; right:0; bottom:0; width:100%; height:80%; object-fit:cover; object-position:center 24%; opacity:.32; transition:opacity .34s ease; -webkit-user-drag:none; pointer-events:none;
           -webkit-mask:linear-gradient(180deg, transparent 0%, #000 30%); mask:linear-gradient(180deg, transparent 0%, #000 30%); }
         .au-card-body{ position:relative; z-index:1; padding:26px 28px; opacity:.7; transition:opacity .34s ease; }
         .au-card-t{ font-family:var(--font-display); font-weight:800; font-size:21px; line-height:1.25; letter-spacing:-.02em; color:var(--warm-900); }
@@ -414,21 +416,39 @@ const PUB_PILLS = [['pTL', 'Grow and repeat'], ['pTR', 'Pick and promote'], ['pB
    Same interaction as the advertiser page's "One platform…" section: left tabs auto-advance on a
    timer (a fill bar tracks the dwell), each swaps the dashboard image on the right. Ember accent. */
 const PUB_PLATFORM = [
-  { key: 'find', t: 'Find offers to promote', d: 'Browse thousands of brands and pick the offers that fit your audience.', img: 'publisher-feature-01.png' },
+  { key: 'find', t: 'Find offers to promote', d: 'Browse 500+ brands and thousands of offers, and pick the ones that fit your audience.', img: 'publisher-feature-01.png' },
   { key: 'links', t: 'Generate your links', d: 'Create a trackable link, coupon, or banner in a couple of clicks, in bulk when you need to.', img: 'publisher-feature-02.png' },
   { key: 'track', t: 'Track your earnings', d: 'Watch your clicks, sales, and commissions update in real time, on web or the app.', img: 'publisher-feature-03.png' },
   { key: 'paid', t: 'Get paid', d: 'Withdraw in your preferred currency once your conversions are validated, or sooner with Express Withdrawal.', img: 'publisher-feature-04.png' },
 ];
 const PUB_PLATFORM_MS = 5000;
 function PubPlatform() {
-  const [active, setActive] = React.useState(0);
+  const isMobile = () => typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width:900px)').matches;
+  const mobileRef = React.useRef(isMobile());
+  const secRef = React.useRef(null);
+  // Desktop starts on the first card + auto-advances; mobile starts all-closed and opens the
+  // first card only when the section scrolls into view (then stays tap-to-open, no auto-advance).
+  const [active, setActive] = React.useState(() => (mobileRef.current ? -1 : 0));
   React.useEffect(() => {
+    if (mobileRef.current) return;                // no auto-advance on mobile
     if (prefersReduced()) return;                 // no auto-advance under reduced motion
     const t = setTimeout(() => setActive((a) => (a + 1) % PUB_PLATFORM.length), PUB_PLATFORM_MS);
     return () => clearTimeout(t);
   }, [active]);
+  // Mobile: open the FIRST card once, when the section enters the viewport (entrance animation).
+  React.useEffect(() => {
+    if (!mobileRef.current) return;
+    const el = secRef.current;
+    if (!el) return;
+    if (prefersReduced() || !('IntersectionObserver' in window)) { setActive(0); return; }
+    const io = new IntersectionObserver((es) => {
+      if (es[0].isIntersecting) { setActive((a) => (a < 0 ? 0 : a)); io.disconnect(); }
+    }, { threshold: 0.3 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   return (
-    <section id="pub-platform" className="pf-sec">
+    <section id="pub-platform" className="pf-sec" ref={secRef}>
       <div className="wrap">
         <h2 className="pf-title" data-reveal>Built for how you actually earn.</h2>
         <p className="pf-sub" data-reveal data-reveal-delay="1">Find offers, share your links, track every sale, and get paid, all from one dashboard.</p>
@@ -493,7 +513,11 @@ function PubPlatform() {
         @media (max-width:900px){
           .pf-grid{ grid-template-columns:1fr; gap:0; }
           .pf-visual{ display:none; }
-          .pf-step{ gap:0; padding:24px 0; }
+          /* each step becomes a white bordered card; tap to open (no auto-advance) */
+          .pf-steps{ gap:12px; }
+          .pf-step{ gap:0; padding:6%; background:#fff; border:0.5px solid #D2D2CC; border-radius:16px; }
+          .pf-step + .pf-step{ border-top:0.5px solid #D2D2CC; }
+          .pf-step:not(.on){ opacity:1; }
           .pf-rail{ display:none; }
           .pf-step-fig{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s ease; }
           .pf-step.on .pf-step-fig{ grid-template-rows:1fr; }
@@ -782,7 +806,7 @@ function PubBuilt() {
               </div>
             </div>
             <h3 className="be-col-t">Brands your audience already knows</h3>
-            <p className="be-col-d">Promote Shopee, Lazada, Zalora, Nike and hundreds more across retail, travel, beauty and finance. One account, hundreds of brands, so you earn more in one place instead of chasing programs one by one.</p>
+            <p className="be-col-d">Promote Shopee, Lazada, Zalora, Nike and more across retail, travel, beauty and finance. One account, 500+ brands, so you earn more in one place instead of chasing programs one by one.</p>
           </div>
           {/* 3 — Live stats chart */}
           <div className="be-col" data-reveal data-reveal-delay="2">
@@ -898,12 +922,12 @@ const PUB_VOICES = [
   {
     quote: 'I used Involve to start a side income, but now my website generates me a full-time income.',
     body: 'I used Involve to start a side income, but now my website is able to generate me a full-time income. It’s also much better from any site that I have worked with. I like that Involve has strong offers from brands from Southeast Asia, which my audience is.',
-    name: 'Tyha Abdullah', initials: 'TA',
+    name: 'Tyha Abdullah', avatar: 'publisher-tyhaAbdullah.png', initials: 'TA',
   },
   {
     quote: 'Who would have thought that we would make 5-figure income in just 2 months.',
     body: 'Who would have thought that we would be able to make 5 figure income in just 2 months, definitely Affiliate Marketing with Involve Asia can help us make money online more easily.',
-    name: 'Media Terkini', initials: 'MT',
+    name: 'Media Terkini', avatar: 'publisher-MediaTerkini.png', initials: 'MT',
   },
   {
     quote: 'There are branded products to promote, and it’s risk-free.',
@@ -913,32 +937,32 @@ const PUB_VOICES = [
   {
     quote: 'For the first time, I hit 5-digits in commissions and peaked during the 11.11 Sales.',
     body: 'I started to push in promoting Offers at the beginning of 2020 on my website and Facebook page. Later, in July 2020, for the first time, I hit 5-digits in commissions and peaked in November during the 11.11 Sales.',
-    name: 'Promocodes.My', initials: 'PM',
+    name: 'Promocodes.My', avatar: 'publisher-promoCodesMy.png', initials: 'PM',
   },
   {
     quote: 'Involve Asia is always the perfect choice for us to gain commission from our promoted products.',
     body: 'Involve Asia is always the perfect choice for Vocket in order for us to gain commission from our promoted products. Most importantly, with Involve Asia we gain conversions directly from the promoted products with their affiliate links.',
-    name: 'The Vocket', initials: 'TV',
+    name: 'The Vocket', avatar: 'publisher-vocket.png', initials: 'TV',
   },
   {
     quote: 'We couldn’t have done it without this valuable partnership.',
     body: 'Thanks to Involve Asia support, then only we can continue to provide high-quality content to our audience while earning a decent affiliate commission. We couldn’t have done it without this valuable partnership.',
-    name: 'My Weekend Plan', initials: 'MW',
+    name: 'My Weekend Plan', avatar: 'publisher-weekendPlan.png', initials: 'MW',
   },
   {
     quote: 'I find it user-friendly and convenient to browse and search for Offers in the dashboard.',
     body: 'With Involve Asia, I find it user-friendly and convenient to browse and search for Offers in the dashboard. The filters provide me options to choose from so I can promote suitable Offers for my followers.',
-    name: 'MY Great Sales', initials: 'MG',
+    name: 'MY Great Sales', avatar: 'publisher-myGreatSales.png', initials: 'MG',
   },
   {
     quote: 'Such a good overall experience with IA — very friendly & professional.',
     body: 'Had such a good overall experience with IA esp Jia who assisted us – very friendly & professional consultations. She was thorough & informative. IA helps increase and gain pretty good income from the generated link.',
-    name: 'Siakap Keli', initials: 'SK',
+    name: 'Siakap Keli', avatar: 'publisher-siakapkeli.png', initials: 'SK',
   },
   {
     quote: 'It’s a win-win situation.',
     body: 'Keep making videos that are informational, not just for yourself, but for your audience too. Your audience believes in you and this is one way for them to support their favorite YouTubers while also helping themselves purchase products. It’s a win-win situation.',
-    name: 'Fazli Halim', initials: 'FH',
+    name: 'Fazli Halim', avatar: 'publisher-fazlihalim.png', initials: 'FH',
   },
 ];
 function PubVoices() {
@@ -1016,7 +1040,10 @@ function PubVoices() {
         .tv-arrow{ width:44px; height:44px; border-radius:50%; border:none; background:var(--warm-900); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:opacity .15s, transform .15s; }
         .tv-arrow:hover{ opacity:.85; }
         .tv-arrow:active{ transform:scale(.94); }
-        @media (max-width:900px){ .tv-card{ width:min(440px,88vw); } .tv-card:not(.is-active){ opacity:0 !important; } }
+        @media (max-width:900px){ .tv-card{ width:min(440px, calc(100vw - 80px)); height:auto; min-height:440px; } .tv-card:not(.is-active){ opacity:0 !important; }
+          /* inset the gradient box from the screen edges instead of full-bleed */
+          .tv-sec{ padding-left:20px; padding-right:20px; }
+          .tv-stage{ min-height:440px; } }
         @media (prefers-reduced-motion: reduce){ .tv-card{ transition:none; } }
       `}</style>
     </section>
@@ -1043,7 +1070,7 @@ const PUB_FAQ = [
   ['Do I need a website?',
     'No. You can earn with a blog, a YouTube channel, Instagram, Facebook, TikTok, an email list, an app, and more. Just create an account, add your property, and start.'],
   ['Is it free to join?',
-    'Yes. Joining is free, there are no fees to sign up, and no cost to use the platform.'],
+    "Yes, joining is free and there's no cost to sign up. Two fees to know about: a processing fee applies when you withdraw your earnings, and if your account stays inactive for a long period an inactivity maintenance fee may apply. Both are shown clearly in your dashboard."],
   ['How do I get started and approved?',
     'Create your account, add your property, and apply to the programs you want to promote. Some advertisers approve publishers before promotion begins; once you are approved, you can generate links and start earning.'],
   ['How are commissions calculated?',

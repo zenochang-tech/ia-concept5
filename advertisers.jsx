@@ -901,12 +901,12 @@ const PUB_VOICES = [
   {
     quote: 'I used Involve to start a side income, but now my website generates me a full-time income.',
     body: 'I used Involve to start a side income, but now my website is able to generate me a full-time income. It’s also much better from any site that I have worked with. I like that Involve has strong offers from brands from Southeast Asia, which my audience is.',
-    name: 'Tyha Abdullah', initials: 'TA',
+    name: 'Tyha Abdullah', avatar: 'publisher-tyhaAbdullah.png', initials: 'TA',
   },
   {
     quote: 'Who would have thought that we would make 5-figure income in just 2 months.',
     body: 'Who would have thought that we would be able to make 5 figure income in just 2 months, definitely Affiliate Marketing with Involve Asia can help us make money online more easily.',
-    name: 'Media Terkini', initials: 'MT',
+    name: 'Media Terkini', avatar: 'publisher-MediaTerkini.png', initials: 'MT',
   },
   {
     quote: 'There are branded products to promote, and it’s risk-free.',
@@ -916,32 +916,32 @@ const PUB_VOICES = [
   {
     quote: 'For the first time, I hit 5-digits in commissions and peaked during the 11.11 Sales.',
     body: 'I started to push in promoting Offers at the beginning of 2020 on my website and Facebook page. Later, in July 2020, for the first time, I hit 5-digits in commissions and peaked in November during the 11.11 Sales.',
-    name: 'Promocodes.My', initials: 'PM',
+    name: 'Promocodes.My', avatar: 'publisher-promoCodesMy.png', initials: 'PM',
   },
   {
     quote: 'Involve Asia is always the perfect choice for us to gain commission from our promoted products.',
     body: 'Involve Asia is always the perfect choice for Vocket in order for us to gain commission from our promoted products. Most importantly, with Involve Asia we gain conversions directly from the promoted products with their affiliate links.',
-    name: 'The Vocket', initials: 'TV',
+    name: 'The Vocket', avatar: 'publisher-vocket.png', initials: 'TV',
   },
   {
     quote: 'We couldn’t have done it without this valuable partnership.',
     body: 'Thanks to Involve Asia support, then only we can continue to provide high-quality content to our audience while earning a decent affiliate commission. We couldn’t have done it without this valuable partnership.',
-    name: 'My Weekend Plan', initials: 'MW',
+    name: 'My Weekend Plan', avatar: 'publisher-weekendPlan.png', initials: 'MW',
   },
   {
     quote: 'I find it user-friendly and convenient to browse and search for Offers in the dashboard.',
     body: 'With Involve Asia, I find it user-friendly and convenient to browse and search for Offers in the dashboard. The filters provide me options to choose from so I can promote suitable Offers for my followers.',
-    name: 'MY Great Sales', initials: 'MG',
+    name: 'MY Great Sales', avatar: 'publisher-myGreatSales.png', initials: 'MG',
   },
   {
     quote: 'Such a good overall experience with IA — very friendly & professional.',
     body: 'Had such a good overall experience with IA esp Jia who assisted us – very friendly & professional consultations. She was thorough & informative. IA helps increase and gain pretty good income from the generated link.',
-    name: 'Siakap Keli', initials: 'SK',
+    name: 'Siakap Keli', avatar: 'publisher-siakapkeli.png', initials: 'SK',
   },
   {
     quote: 'It’s a win-win situation.',
     body: 'Keep making videos that are informational, not just for yourself, but for your audience too. Your audience believes in you and this is one way for them to support their favorite YouTubers while also helping themselves purchase products. It’s a win-win situation.',
-    name: 'Fazli Halim', initials: 'FH',
+    name: 'Fazli Halim', avatar: 'publisher-fazlihalim.png', initials: 'FH',
   },
 ];
 function PubVoices() {
@@ -1242,7 +1242,7 @@ const ADV_GOALS = [
   },
   {
     key: 'revenue', title: 'Grow revenue',
-    desc: 'Drive result-driven growth with publishers who are paid to perform, tracked down to every conversion.',
+    desc: 'Drive measurable growth with publishers who are paid to perform, tracked down to every conversion.',
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17" /><polyline points="16 7 22 7 22 13" /></svg>),
   },
 ];
@@ -1251,7 +1251,7 @@ function AdvGoals() {
     <section id="adv-goals" className="ag-sec">
       <div className="wrap">
         <h2 className="ag-title" data-reveal>Whatever your goal, grow it here.</h2>
-        <p className="ag-sub" data-reveal data-reveal-delay="1">Whatever your goal, there is a publisher and a strategy for it.</p>
+        <p className="ag-sub" data-reveal data-reveal-delay="1">There's a publisher and a strategy for every objective, awareness, customers, or revenue.</p>
         <div className="ag-grid">
           {ADV_GOALS.map((g, i) => (
             <div className="ag-item" key={g.key} data-reveal data-reveal-delay={i + 1}>
@@ -1287,8 +1287,8 @@ const ADV_PLATFORM = [
     img: 'Adv-feature-slide01.png',
   },
   {
-    key: 'reward', t: 'Recruits and grows your publisher base',
-    d: 'Prefer a hand? Our Advertiser Solutions team finds and recruits publishers that fit your brand, and wins back the ones who go quiet, so your program keeps growing.',
+    key: 'reward', t: 'Or we recruit them for you.',
+    d: 'Prefer a hand? Our team runs recruitment campaigns and introduces publishers that fit your brand, and you approve who joins.',
     img: 'Adv-feature-slide05.png',
   },
   {
@@ -1297,21 +1297,39 @@ const ADV_PLATFORM = [
     img: 'Adv-feature-slide02.png',
   },
   {
-    key: 'track', t: 'Track every result in real time',
-    d: 'Watch clicks, conversions, and payouts as they happen, with conversion-level detail and exports whenever you need them.',
+    key: 'track', t: 'Track every result',
+    d: 'Watch clicks, conversions, and payouts in one dashboard, with conversion-level detail and exports whenever you need them.',
     img: 'Adv-feature-slide03.png',
   },
 ];
 const ADV_PLATFORM_MS = 5000;
 function AdvPlatform() {
-  const [active, setActive] = React.useState(0);
+  const isMobile = () => typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width:900px)').matches;
+  const mobileRef = React.useRef(isMobile());
+  const secRef = React.useRef(null);
+  // Desktop starts on the first card + auto-advances; mobile starts all-closed and opens the
+  // first card only when the section scrolls into view (then stays tap-to-open, no auto-advance).
+  const [active, setActive] = React.useState(() => (mobileRef.current ? -1 : 0));
   React.useEffect(() => {
+    if (mobileRef.current) return;                // no auto-advance on mobile
     if (prefersReduced()) return;                 // no auto-advance under reduced motion
     const t = setTimeout(() => setActive((a) => (a + 1) % ADV_PLATFORM.length), ADV_PLATFORM_MS);
     return () => clearTimeout(t);
   }, [active]);
+  // Mobile: open the FIRST card once, when the section enters the viewport (entrance animation).
+  React.useEffect(() => {
+    if (!mobileRef.current) return;
+    const el = secRef.current;
+    if (!el) return;
+    if (prefersReduced() || !('IntersectionObserver' in window)) { setActive(0); return; }
+    const io = new IntersectionObserver((es) => {
+      if (es[0].isIntersecting) { setActive((a) => (a < 0 ? 0 : a)); io.disconnect(); }
+    }, { threshold: 0.3 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   return (
-    <section id="adv-platform" className="pf-sec">
+    <section id="adv-platform" className="pf-sec" ref={secRef}>
       <div className="wrap">
         <h2 className="pf-title" data-reveal>One platform, everything you need to run your program</h2>
         <p className="pf-sub" data-reveal data-reveal-delay="1">Find publishers, launch offers, share your creatives, and track every sale, all in one place.</p>
@@ -1378,7 +1396,11 @@ function AdvPlatform() {
         @media (max-width:900px){
           .pf-grid{ grid-template-columns:1fr; gap:0; }
           .pf-visual{ display:none; }
-          .pf-step{ gap:0; padding:24px 0; }
+          /* each step becomes a white bordered card; tap to open (no auto-advance) */
+          .pf-steps{ gap:12px; }
+          .pf-step{ gap:0; padding:6%; background:#fff; border:0.5px solid #D2D2CC; border-radius:16px; }
+          .pf-step + .pf-step{ border-top:0.5px solid #D2D2CC; }
+          .pf-step:not(.on){ opacity:1; }
           .pf-rail{ display:none; }
           .pf-step-fig{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s ease; }
           .pf-step.on .pf-step-fig{ grid-template-rows:1fr; }
@@ -1469,7 +1491,7 @@ function TrafficViz() {
 /* ---------- Advertiser Section 5 — "You only pay for sales that are real" ---- */
 const ADV_REAL_POINTS = [
   'Every conversion verified before payout',
-  'Fraud protection built in',
+  'Validated before payout',
   'Every sale tracked to the publisher who drove it',
 ];
 function AdvReal() {
@@ -1480,7 +1502,7 @@ function AdvReal() {
           <div className="rl-viz" aria-hidden="true"><TrafficViz /></div>
           <div className="rl-body">
             <h2 className="rl-title">You only pay for<br />sales that are real</h2>
-            <p className="rl-desc">Every conversion is checked and validated before you pay, and fraud protection screens out fake clicks and junk traffic. You approve what counts, so your budget only ever goes to genuine results, never wasted spend.</p>
+            <p className="rl-desc">Every conversion is checked and validated before you pay, so your budget only ever goes to genuine results, never wasted spend. You approve what counts.</p>
             <ul className="rl-list">
               {ADV_REAL_POINTS.map((t) => (
                 <li key={t}>
@@ -1522,9 +1544,9 @@ const ADV_STAT_HEX = [
   { x: 87.64, y: 65.72 }, { x: 87.64, y: 33.88 }, { x: 65.21, y: 16.98 }, { x: 87.29, y: 0 },
 ];
 // number that counts up 0 → value the first time it scrolls into view
-function CountStat({ prefix = '', value, decimals = 0, suffix = '' }) {
+function CountStat({ prefix = '', value, decimals = 0, suffix = '', comma = false }) {
   const ref = React.useRef(null);
-  const fmt = (n) => prefix + n.toFixed(decimals) + suffix;
+  const fmt = (n) => prefix + (comma ? Math.round(n).toLocaleString() : n.toFixed(decimals)) + suffix;
   const [txt, setTxt] = React.useState(fmt(0));
   React.useEffect(() => {
     const el = ref.current; if (!el) return;
@@ -1557,7 +1579,7 @@ function AdvStats() {
         ))}
         <h2 className="as-heading">This is what real sales<br />add up to.</h2>
         <div className="as-stat as-s500"><CountStat value={500} suffix="+" /><span>brands</span></div>
-        <div className="as-stat as-s11m"><CountStat value={1.1} decimals={1} suffix="M+" /><span>trusted publishers</span></div>
+        <div className="as-stat as-s11m"><CountStat value={1000000} comma suffix="+" /><span>publishers</span></div>
         <div className="as-stat as-s32b"><CountStat prefix="$" value={3.2} decimals={1} suffix="B+" /><span>sales driven for brands</span></div>
       </div>
       <style>{`
@@ -1599,7 +1621,7 @@ const ADV_CASES = [
   },
   {
     key: 'decathlon', bg: 'adv-case-decathlon-bg.png', logo: 'adv-case-decathlon-logo.png', logoAlt: 'Decathlon',
-    head: 'Involve saves time onboarding new partnerships & optimizes your existing ones',
+    head: 'Involve saves time onboarding new partnerships and optimises your existing ones',
     quote: "Involve saves us so much time by not having to reach out to new partners one by one. Involve also optimized our existing partnerships, where we saw a 3.4% growth despite implementing a commission cut.",
     who: 'DECATHLON',
   },
@@ -1727,6 +1749,11 @@ function AdvAwards() {
         .aw-head{ text-align:center; font:400 clamp(17px,1.7vw,20px)/1.4 var(--font-body); color:var(--warm-600); }
         .aw-row{ margin-top:clamp(26px,4vh,44px); display:flex; align-items:center; justify-content:center; gap:clamp(36px,6vw,89px); flex-wrap:wrap; }
         .aw-badge{ height:clamp(96px,10vw,145px); width:auto; max-width:180px; object-fit:contain; }
+        /* mobile: lay the four badges out as a clean 2-column × 2-row grid */
+        @media (max-width:700px){
+          .aw-row{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(28px,6vw,42px) clamp(18px,5vw,34px); justify-items:center; align-items:center; }
+          .aw-badge{ height:clamp(80px,20vw,120px); max-width:100%; }
+        }
       `}</style>
     </section>
   );
