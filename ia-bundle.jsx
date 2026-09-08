@@ -2052,7 +2052,7 @@ function StartStatic() {
       <div className="wrap">
         <div className="st-head" data-reveal>
           <h2 className="st-title">Simple enough to start today.</h2>
-          <p className="st-sub">Whether you're here to earn or to grow, you're four steps from live.</p>
+          <p className="st-sub">Whether you're here to earn or to grow, you're four steps from your first payout.</p>
         </div>
         <div className="st-steps">
           {START_STEPS.map((s) => (
@@ -2127,7 +2127,7 @@ function StartAnimated() {
         <div className="wrap">
           <div className="st2-head">
             <h2 className="st-title">Simple enough to start today.</h2>
-            <p className="st-sub">Whether you're here to earn or to grow, you're four steps from live.</p>
+            <p className="st-sub">Whether you're here to earn or to grow, you're four steps from your first payout.</p>
           </div>
           <div className="st2-cols">
             <div className="st2-stack">
@@ -2165,7 +2165,7 @@ function StartToday() {
       <div className="wrap">
         <div className="st-head" data-reveal>
           <h2 className="st-title">Simple enough to start today.</h2>
-          <p className="st-sub">Whether you're here to earn or to grow, you're four steps from live.</p>
+          <p className="st-sub">Whether you're here to earn or to grow, you're four steps from your first payout.</p>
         </div>
         <div className="st-grid">
           {START_STEPS.map((s, i) => (
@@ -2347,14 +2347,14 @@ function SupportBanner() {
    anchored right; upcoming cards peek toward the centre. Arrows advance BOTH stacks
    at once — the left stack slides left, the right stack slides right. */
 const PUB_STORIES = [
-  { photo: 's7-pub.png', big: '3', unit: ' properties', head: 'Bought from her affiliate earnings', tag: 'Facebook creator, Philippines', desc: 'How a mother of four turned Facebook content into a new life with Involve.' },
-  { photo: 's7-pub-travel.png', big: 'RM 1M', unit: '+', head: 'In sales driven for one travel brand, Q4 2023', tag: 'Affiliate network, AI content', desc: 'How Flickstree scaled travel sales through Involve.' },
-  { photo: 's7-pub-food.png', big: 'RM 1,130', unit: ' earned', head: 'From just 10.5k followers, part-time', tag: 'Travel and Food creator', desc: "Proof you don't need to be big to earn with Involve." },
+  { photo: 's7-pub.png', big: '3', unit: ' properties', head: 'Bought from her affiliate earnings', tag: 'Facebook creator, Philippines', desc: 'How a mother of four built a new life from Facebook content with Involve.' },
+  { photo: 's7-pub-travel.png', big: '$220K', unit: '+', head: 'In sales driven for one travel brand, Q4 2023', tag: 'Affiliate network, AI content', desc: 'How Flickstree scaled travel sales through Involve.' },
+  { photo: 's7-pub-food.png', big: '$250', unit: ' earned', head: 'From just 10.5k followers, part-time', tag: 'Travel and food creator', desc: "Proof you don't need to be big to earn with Involve." },
 ];
 const ADV_STORIES = [
   { photo: 's7-adv.png', big: '796', unit: '%', head: 'Increase in sales', tag: 'E-commerce', desc: 'How Big Bang Sales scaled through affiliate partnerships.' },
   { photo: 's7-adv-telco.png', big: '4.3', unit: 'x', head: 'Increase in sales', tag: 'Telco', desc: 'How Involve partners drove growth for TIME Internet.' },
-  { photo: 's7-adv-health.png', big: 'RM 723k', unit: '', head: 'In sales · 4,912 conversions', tag: 'Health & Wellness', desc: 'How a global health and wellness brand launched a CPS programme on Involve.' },
+  { photo: 's7-adv-health.png', big: '$160K', unit: '', head: 'In sales · 4,912 conversions', tag: 'Health & Wellness', desc: 'How a global health and wellness brand launched a CPS programme on Involve.' },
 ];
 function RRChevron({ dir }) {
   return (
@@ -2715,7 +2715,7 @@ function BlogSection() {
    Centered caption + a 4-up row of headline stats that count up when scrolled into view. */
 const STAT_BAND = [
   { to: 1000000, fmt: (v) => Math.round(v).toLocaleString() + '+', label: 'publishers' },
-  { to: 270, fmt: (v) => '$' + Math.round(v) + 'M+', label: 'commissions paid' }, // TODO confirm figure
+  { to: 270, fmt: (v) => '$' + Math.round(v) + 'M+', label: 'commissions paid' }, // confirmed: $270M+
   { to: 3.2, fmt: (v) => '$' + v.toFixed(1) + 'B+', label: 'sales generated' },
   { to: 500, fmt: (v) => Math.round(v) + '+', label: 'brands' },
 ];
@@ -2725,7 +2725,7 @@ function StatCount({ to, fmt }) {
     const el = ref.current;
     if (!el) return;
     if (prefersReduced() || !('IntersectionObserver' in window)) { el.textContent = fmt(to); return; }
-    let raf = 0, started = false;
+    let raf = 0, started = false, tid = 0;
     const run = () => {
       const dur = 1500, t0 = performance.now();
       const tick = (now) => {
@@ -2735,11 +2735,13 @@ function StatCount({ to, fmt }) {
       };
       raf = requestAnimationFrame(tick);
     };
-    const io = new IntersectionObserver((es) => {
-      if (es[0].isIntersecting && !started) { started = true; run(); io.disconnect(); }
-    }, { threshold: 0.45 });
+    const start = () => { if (started) return; started = true; run(); io.disconnect(); if (tid) clearTimeout(tid); };
+    const io = new IntersectionObserver((es) => { if (es[0].isIntersecting) start(); }, { threshold: 0.45 });
     io.observe(el);
-    return () => { io.disconnect(); if (raf) cancelAnimationFrame(raf); };
+    // Fallback: if the band is already within the viewport shortly after mount (e.g. above
+    // the fold on a tall screen) and the observer hasn't fired, run anyway so it never sticks at 0.
+    tid = setTimeout(() => { const t = el.getBoundingClientRect().top; if (t < window.innerHeight && t > -el.offsetHeight) start(); }, 1200);
+    return () => { io.disconnect(); if (raf) cancelAnimationFrame(raf); if (tid) clearTimeout(tid); };
   }, [to, fmt]);
   return <span ref={ref} className="sb-num">{fmt(0)}</span>;
 }
@@ -2876,7 +2878,7 @@ function HexFinaleAnimated({ emphasis = 'equal', hex = 3 }) {
         </div>
         <h2 ref={headRef} className="hfa-head">Pick your side and grow with us.</h2>
         <div ref={cLRef} className="hfa-card hfa-card-l">
-          <span className="hfa-kick">Influencers. Websites. Affiliate sites.</span>
+          <span className="hfa-kick">Creators. Content sites. Affiliate sites.</span>
           <h3 className="hfa-ct">I'm a<br />Publisher</h3>
           <p className="hfa-cd">Promote brands you love. Turn your audience or traffic into income.</p>
           <a href="/partners/" className="btn btn-primary">Start Earning <Arrow /></a>
@@ -2978,7 +2980,7 @@ function HexFinaleStatic({ emphasis = 'equal', hex = 3 }) {
           <img className="hf-photohex hf-ph-pub" src="media/figma/s9-hex-pub.png" alt="A publisher creating content" />
           <img className="hf-photohex hf-ph-adv" src="media/figma/s9-hex-adv.png" alt="An advertiser growing their brand" />
           <div className="hf-card hf-card-pub">
-            <span className="hf-kick">Influencers. Websites. Affiliate sites.</span>
+            <span className="hf-kick">Creators. Content sites. Affiliate sites.</span>
             <h3 className="hf-ct">I'm a <br />Publisher</h3>
             <p className="hf-cd">Promote brands you love. <span className="hf-cd-more">Turn your audience or traffic into income.</span></p>
             <a href="/partners/" className="btn btn-primary">Start Earning <Arrow /></a>
@@ -3979,7 +3981,7 @@ function NetworkMorphCTA({ emphasis = 'equal', hex = 3 }) {
 
 /* ---------------- Footer (Midnight — shared anchor) ---------------- */
 const FOOT = [
-  { h: 'For Publishers', links: [['Overview','/partners/overview'],['Creators','/partners/content-creators/'],['All Brands Directory','https://app.involve.asia/directory'],['Express Withdrawal','/partners/express-withdrawal/'],['Academy','/academy/'],['API Overview','/partners/api-overview/']] },
+  { h: 'For Publishers', links: [['Overview','/partners/overview'],['Creators','/partners/content-creators/'],['Content sites','/partners/content-sites/'],['Affiliate & rewards sites','/partners/affiliate-rewards-sites/'],['App owners','/partners/app-owners/'],['Media buyers','/partners/media-buyers/'],['Networks & agencies','/partners/networks-agencies/'],['All Brands Directory','https://app.involve.asia/directory'],['Express Withdrawal','/partners/express-withdrawal/'],['API Overview','/partners/api-overview/']] },
   { h: 'For Advertisers', links: [['Overview','/advertisers/'],['How We Track','/advertisers/how-we-track/'],['Partner Discovery','/advertisers/partner-discovery/'],['Automation','/advertisers/automation/'],['Case Studies','/advertisers/case-studies/']] },
   { h: 'Top Programs', links: [['Shopee Affiliate','/blog/shopee-affiliate-program/'],['Lazada Affiliate','/blog/lazada-affiliate-program/'],['Zalora Affiliate','/blog/zalora-affiliate-program/'],['Sephora Affiliate','/blog/sephora-affiliate-program/'],['See all programs','/top-affiliate-programs/']] },
   { h: 'Company', links: [['About Us','/about/'],['Careers','https://career.involve.asia/'],['Blog','/blog/'],['Support','https://helpcentre.involve.asia/'],['Release Notes','/release-notes/'],['Terms & Privacy','/terms-conditions/']] },

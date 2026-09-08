@@ -81,7 +81,7 @@ const PRICING_PLANS = [
     plus: 'Everything in Startup, plus:',
     feats: ['Track up to 1,000,000 clicks a month', 'Up to 3 offer setups', 'Multi-tier commission', 'Up to 3 recruitment campaigns a month', 'Publisher introductions', 'A dedicated account manager', 'Quarterly performance review'] },
   { key: 'enterprise', name: 'Enterprise', desc: 'For large brands with high volumes or custom requirements.',
-    price: 'Custom', priceNote: 'Volume based pricing.', cta: 'Talk to us', href: '/advertisers/',
+    price: 'Custom', priceNote: 'Volume-based pricing.', cta: 'Talk to us', href: '/advertisers/',
     plus: 'Everything in Growth, plus:',
     feats: ['A dedicated account manager and priority support', 'Custom volumes, offers, and reporting built around your goals.'] },
 ];

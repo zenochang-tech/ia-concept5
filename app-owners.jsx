@@ -387,7 +387,7 @@ function PubPlatform() {
       <div className="wrap">
         <div className="pf-grid" data-reveal>
           <div className="pf-left">
-          <h2 className="pf-title">Built for any app with engaged audience.</h2>
+          <h2 className="pf-title">Built for any app with an engaged audience.</h2>
           <p className="pf-sub">If your users act on what you show them, you can earn from it. Connect once through our API, and relevant offers and tracking run in the background.</p>
           <div className="pf-steps">
             {PUB_PLATFORM.map((s, i) => {

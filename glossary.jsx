@@ -31,7 +31,10 @@ const GLOSSARY = {
 };
 const GLOSSARY_MAX = 9; // default terms shown per letter before "Show all"
 const glossarySlug = (t) => t.toLowerCase().replace(/[()]/g, ' ').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-const glossaryHref = (t) => `https://involve.asia/glossary-term/${glossarySlug(t)}/`;
+// Locally-generated term pages (from build-glossary.py) link to the real static page;
+// terms not yet built fall back to the live involve.asia glossary.
+const glossaryIsLocal = (t) => ((typeof window !== 'undefined' && window.__GLOSSARY_LOCAL) || []).includes(glossarySlug(t));
+const glossaryHref = (t) => glossaryIsLocal(t) ? `glossary-term/${glossarySlug(t)}/` : `https://involve.asia/glossary-term/${glossarySlug(t)}/`;
 
 /* Decorative honeycomb backdrop — same hex field as the pricing hero (pub-cta-hexfield.svg),
    but filled with the homepage hero's flowing ember→blue gradient (#F05826 → #6A9CDF). */
@@ -74,7 +77,7 @@ function GlossaryHero() {
       <div className="wrap gh-wrap">
         <span className="gh-eyebrow" data-reveal>Affiliate Marketing Glossary</span>
         <h1 className="gh-title" data-reveal data-reveal-delay="1">Understand affiliate marketing terms without the jargon.</h1>
-        <p className="gh-sub" data-reveal data-reveal-delay="1">Explore beginner-friendly explanations for affiliate marketing concepts, tracking terms, commission models, publisher jargon, attribution methods, and digital marketing definitions used across the industry.</p>
+        <p className="gh-sub" data-reveal data-reveal-delay="1">Explore beginner-friendly explanations for affiliate marketing concepts, tracking terms, commission models, publisher jargon, attribution methods, and affiliate marketing definitions used across the industry.</p>
       </div>
       <style>{`
         .gh-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(44px,8vh,92px) 0 clamp(16px,2.4vh,30px); text-align:center; }
@@ -131,7 +134,7 @@ function GlossaryList() {
                 <h2 className="gl-letter">{L}</h2>
                 <ul className="gl-terms">
                   {shown.map((t) => (
-                    <li key={t}><a href={glossaryHref(t)} target="_blank" rel="noopener noreferrer">{t}</a></li>
+                    <li key={t}><a href={glossaryHref(t)} {...(glossaryIsLocal(t) ? {} : { target: '_blank', rel: 'noopener noreferrer' })}>{t}</a></li>
                   ))}
                 </ul>
                 {terms.length > GLOSSARY_MAX && (
@@ -177,7 +180,7 @@ function GlossaryList() {
         .gl-ix:hover{ color:var(--ember); }
         .gl-ix-off{ color:var(--warm-400); opacity:.5; }
         @media (prefers-reduced-motion: reduce){ .gl-indexbar, .gl-index, .gl-ix{ transition:color .15s ease; } }
-        .gl-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(30px,4.6vh,52px) clamp(32px,4vw,64px); align-items:start; }
+        .gl-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(36px,5.52vh,62px) clamp(32px,4vw,64px); align-items:start; }
         .gl-col{ min-width:0; scroll-margin-top:128px; }
         .gl-letter{ font-family:var(--font-display); font-weight:800; font-size:24px; letter-spacing:-.02em; color:var(--midnight); margin-bottom:10px; }
         .gl-terms{ list-style:none; padding:0; margin:0; }
@@ -225,7 +228,7 @@ function HexFinaleStatic() {
           <img className="hf-photohex hf-ph-pub" src="media/figma/s9-hex-pub.png" alt="A publisher creating content" />
           <img className="hf-photohex hf-ph-adv" src="media/figma/s9-hex-adv.png" alt="An advertiser growing their brand" />
           <div className="hf-card hf-card-pub">
-            <span className="hf-kick">Influencers. Websites. Affiliate sites.</span>
+            <span className="hf-kick">Creators. Content sites. Affiliate sites.</span>
             <h3 className="hf-ct">I'm a <br />Publisher</h3>
             <p className="hf-cd">Promote brands you love. <span className="hf-cd-more">Turn your audience or traffic into income.</span></p>
             <a href="/partners/" className="btn btn-primary">Start Earning <Arrow /></a>

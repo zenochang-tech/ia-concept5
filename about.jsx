@@ -45,8 +45,8 @@ function AboutHero() {
     <section id="about-hero" className="ah-sec">
       <div className="ah-honey" aria-hidden="true"><AboutHexField /></div>
       <div className="wrap ah-wrap">
-        <span className="ah-eyebrow" data-reveal>About Us</span>
-        <h1 className="ah-title" data-reveal data-reveal-delay="1">Driving performance growth across Asia.</h1>
+        <span className="ah-eyebrow" data-reveal>About us</span>
+        <h1 className="ah-title" data-reveal data-reveal-delay="1">Driving growth across Asia.</h1>
         <p className="ah-sub" data-reveal data-reveal-delay="1">We connect brands, creators and partners through transparent technology, seamless commission payouts, and global opportunities.</p>
         <div className="ah-chips" data-reveal data-reveal-delay="2">
           {ABOUT_CHIPS.map((c) => <span className="ah-chip" key={c}>{c}</span>)}
@@ -80,7 +80,7 @@ function CountStat({ prefix = '', value, decimals = 0, suffix = '', comma = fals
   React.useEffect(() => {
     const el = ref.current; if (!el) return;
     if (prefersReduced()) { setTxt(fmt(value)); return; }
-    let raf = 0, done = false;
+    let raf = 0, done = false, tid = 0;
     const animate = () => {
       const dur = 1600; let start = null;
       const step = (now) => {
@@ -91,9 +91,12 @@ function CountStat({ prefix = '', value, decimals = 0, suffix = '', comma = fals
       };
       raf = requestAnimationFrame(step);
     };
-    const io = new IntersectionObserver((es) => { if (es[0].isIntersecting && !done) { done = true; animate(); io.disconnect(); } }, { threshold: 0.35 });
+    const go = () => { if (done) return; done = true; animate(); io.disconnect(); if (tid) clearTimeout(tid); };
+    const io = new IntersectionObserver((es) => { if (es[0].isIntersecting) go(); }, { threshold: 0.35 });
     io.observe(el);
-    return () => { io.disconnect(); if (raf) cancelAnimationFrame(raf); };
+    // Fallback: populate if the stat is already within view shortly after mount and the observer hasn't fired.
+    tid = setTimeout(() => { const t = el.getBoundingClientRect().top; if (t < window.innerHeight && t > -el.offsetHeight) go(); }, 1200);
+    return () => { io.disconnect(); if (raf) cancelAnimationFrame(raf); if (tid) clearTimeout(tid); };
   }, []);
   return <b ref={ref}>{txt}</b>;
 }
@@ -144,7 +147,7 @@ function AboutStory() {
       <div className="wrap">
         <div className="ast-wrap">
           <div className="ast-head" data-reveal>
-            <span className="ast-eyebrow">Our Story</span>
+            <span className="ast-eyebrow">Our story</span>
             <h2 className="ast-title">Built for Southeast Asia from day one.</h2>
           </div>
           <div className="ast-body" data-reveal data-reveal-delay="1">
@@ -196,7 +199,7 @@ function AboutExpertise() {
   return (
     <section id="about-expertise" className="hiw-sec">
       <div className="wrap">
-        <span className="hiw-eyebrow" data-reveal>Our Expertise</span>
+        <span className="hiw-eyebrow" data-reveal>Our expertise</span>
         <h2 className="hiw-title" data-reveal>What we do.</h2>
         <p className="hiw-sub" data-reveal>We connect brands with the publishers who can grow them, and give both sides the tracking and payouts to trust the results.</p>
         <div className="hiw-grid">
@@ -235,7 +238,7 @@ function AboutMission() {
   return (
     <section id="about-mission" className="am-sec">
       <div className="wrap">
-        <span className="am-eyebrow" data-reveal>Why We Exist</span>
+        <span className="am-eyebrow" data-reveal>Why we exist</span>
         <h2 className="am-title" data-reveal>Mission, vision & values.</h2>
         <div className="am-mv">
           <div className="am-card am-mission" data-reveal data-reveal-delay="1">
@@ -298,7 +301,7 @@ function AboutAwards() {
   return (
     <section id="about-awards" className="aw-sec">
       <div className="wrap">
-        <span className="aw-eyebrow" data-reveal>Proof of Performance</span>
+        <span className="aw-eyebrow" data-reveal>Proof of performance</span>
         <h2 className="aw-title" data-reveal>Awards & recognition.</h2>
         <p className="aw-sub" data-reveal>From startup recognition to industry awards, we're proud of our journey, and the partners who made it possible.</p>
         <div className="aw-cols">
@@ -345,15 +348,15 @@ const ABOUT_REGIONS = [
   ['Singapore', '', 'Regional brand and enterprise relationships.'],
   ['Philippines', '', 'A fast-growing creator and cashback community.'],
   ['Thailand', '', 'Local-language support and market-specific insights.'],
-  ['Vietnam', '', 'Emerging performance marketing partnerships.'],
+  ['Vietnam', '', 'Emerging affiliate marketing partnerships.'],
 ];
 function AboutRegions() {
   return (
     <section id="about-regions" className="ar-sec">
       <div className="wrap">
-        <span className="ar-eyebrow" data-reveal>Regional Presence</span>
+        <span className="ar-eyebrow" data-reveal>Regional presence</span>
         <h2 className="ar-title" data-reveal>Where you can find us.</h2>
-        <p className="ar-sub" data-reveal>We operate across six Southeast Asian markets, connecting local brands, creators, and communities through performance marketing.</p>
+        <p className="ar-sub" data-reveal>We operate across six Southeast Asian markets, connecting local brands, creators, and communities through affiliate marketing.</p>
         <div className="ar-grid">
           {ABOUT_REGIONS.map(([name, tag, desc], i) => (
             <div className={'ar-card' + (i === 0 ? ' ar-hq' : '')} key={name} data-reveal data-reveal-delay={(i % 3) + 1}>
@@ -427,7 +430,7 @@ function AboutCareers() {
         <div className="ac-box">
           <div className="ac-grid">
             <div className="ac-left" data-reveal>
-              <h2 className="ac-title">Build the future of performance marketing with us.</h2>
+              <h2 className="ac-title">Build the future of affiliate marketing with us.</h2>
               <p className="ac-body">Join a team of creators, marketers, and data experts solving real problems across Southeast Asia. Let's grow brands, and your career, together.</p>
               <a className="ac-link" href="/careers/">
                 View open roles
@@ -481,7 +484,7 @@ function HexFinaleStatic() {
           <img className="hf-photohex hf-ph-pub" src="media/figma/s9-hex-pub.png" alt="A publisher creating content" />
           <img className="hf-photohex hf-ph-adv" src="media/figma/s9-hex-adv.png" alt="An advertiser growing their brand" />
           <div className="hf-card hf-card-pub">
-            <span className="hf-kick">Influencers. Websites. Affiliate sites.</span>
+            <span className="hf-kick">Creators. Content sites. Affiliate sites.</span>
             <h3 className="hf-ct">I'm a <br />Publisher</h3>
             <p className="hf-cd">Promote brands you love. <span className="hf-cd-more">Turn your audience or traffic into income.</span></p>
             <a href="/partners/" className="btn btn-primary">Start Earning <Arrow /></a>
