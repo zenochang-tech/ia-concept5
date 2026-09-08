@@ -1351,9 +1351,9 @@ function PublisherApp() {
       <main>
         <PubHero />
         <BuiltKinds />
-        <WhyChoose />
-        <ScaleApi />
         <HowItWorks />
+        <ScaleApi />
+        <WhyChoose />
         <PubVoices />
         <PubFAQ />
         <PubCTA />
