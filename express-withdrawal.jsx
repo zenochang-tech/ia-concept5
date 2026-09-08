@@ -1089,14 +1089,17 @@ function PubCTA() {
 
 /* ---------- Sticky app-download QR (collapsible; sits above Back-to-Top) ---- */
 function AppDownload() {
-  const [open, setOpen] = React.useState(true);   // starts expanded to grab attention
+  const [open, setOpen] = React.useState(() => {
+    // stay dismissed across publisher pages within the same browser session
+    try { return sessionStorage.getItem('ia-appdl-dismissed') !== '1'; } catch (e) { return true; }
+  });
   return (
     <div className={'adl' + (open ? ' adl-open' : '')}>
       <div className="adl-card" role="dialog" aria-label="Download the Involve Asia app" aria-hidden={!open}>
         <h3 className="adl-title">Scan to start earning</h3>
         <p className="adl-sub">Sign up and track your earnings on the app.</p>
         <span className="adl-qr"><img src="media/figma/pub-app-qr.png" alt="QR code to download the Involve Asia app" /></span>
-        <button type="button" className="adl-dismiss" onClick={() => setOpen(false)}>Maybe later</button>
+        <button type="button" className="adl-dismiss" onClick={() => { try { sessionStorage.setItem('ia-appdl-dismissed', '1'); } catch (e) {} setOpen(false); }}>Maybe later</button>
       </div>
       <button type="button" className="adl-bubble" onClick={() => setOpen(true)} aria-label="Get the Involve Asia app" aria-hidden={open} tabIndex={open ? -1 : 0}>
         <img src="media/figma/pub-app-icon.png" alt="" aria-hidden="true" />
