@@ -1537,9 +1537,9 @@ function PublisherApp() {
       <main>
         <PubHero />
         <PubPlatform />
+        <HowItWorks />
         <AppEarn />
         <AppApi />
-        <HowItWorks />
         <WhyBuild />
         <PubVoices />
         <PubFAQ />
