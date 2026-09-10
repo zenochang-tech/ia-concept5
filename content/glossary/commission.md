@@ -1,6 +1,6 @@
 ---
 title: Commission
-metaTitle: What Is a Commission? — Involve Asia Glossary
+metaTitle: What Is a Commission? | Involve Asia Glossary
 metaDescription: A commission is the amount a publisher earns for each qualifying action they drive for an advertiser — a percentage of the sale or a fixed fee.
 tldr: A commission is the amount a publisher earns for each qualifying action — usually a percentage of the sale value or a fixed fee. The advertiser sets the rate, and the publisher earns it once the action is tracked and validated.
 related: advertiser, publisher
