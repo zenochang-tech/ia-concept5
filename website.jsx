@@ -1170,7 +1170,7 @@ function AppDownload() {
 /* ---------- Website §3 — "Made for content that already has an audience." (3 cards) ---------- */
 const AFF_KINDS = [
   ['website-kind-1.png', 'Blogs', 'Add relevant links to the posts you already write, and earn from content you were making anyway.'],
-  ['website-kind-2(v2).png', 'Niche sites', 'Run a specialist blog or site your niche follows. Add links to the reviews and guides you already write, and earn on what your readers buy.', ['Running a comparison, coupon, or cashback site?', 'See Affiliate & rewards sites', 'affiliates.html']],
+  ['website-kind-2(v2).png', 'Niche sites', 'Run a specialist blog or site your niche follows. Add links to the reviews and guides you already write, and earn on what your readers buy.'],
   ['website-kind-3.png', 'News and media sites', 'Turn your articles into income that keeps earning long after you publish.'],
 ];
 function BuiltKinds() {
