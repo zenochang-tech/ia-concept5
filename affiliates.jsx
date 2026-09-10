@@ -1169,9 +1169,9 @@ function AppDownload() {
 }
 /* ---------- Affiliates §2 — "Built for every kind of affiliate site." (3 cards) ---------- */
 const AFF_KINDS = [
-  ['aff-kind-1.png', 'Coupon and deal sites', 'Promo codes, offers, discounts. Post the deals people are already searching for, and earn on every purchase.'],
-  ['aff-kind-2.png', 'Cashback and loyalty sites', 'Pass on deals and rewards that keep members coming back, and earn on the sales they drive.'],
-  ['aff-kind-3.png', 'Comparison and review sites', 'Help people choose the right product, and earn when they buy through you.'],
+  ['aff-kind-1.png', 'Coupon and deal sites', 'For shoppers who already know what they want. Share promo codes, vouchers, and deals, and earn when they buy at a better price.'],
+  ['aff-kind-2.png', 'Cashback and loyalty sites', 'For shoppers who come back for rewards. Give members cashback and points on what they buy, and earn on the sales they drive.'],
+  ['aff-kind-3.png', 'Comparison sites', 'For shoppers still choosing. Compare products and prices to help them decide, and earn when they buy through you.', ['Just an editorial blog that reviews what you use?', 'See Content sites', 'website.html']],
 ];
 function BuiltKinds() {
   return (
@@ -1179,12 +1179,13 @@ function BuiltKinds() {
       <div className="wrap">
         <h2 className="ak-title" data-reveal>Built for every kind of affiliate site.</h2>
         <div className="ak-grid">
-          {AFF_KINDS.map(([img, t, d], i) => (
+          {AFF_KINDS.map(([img, t, d, cross], i) => (
             <div className="ak-card" key={t} data-reveal data-reveal-delay={(i % 3) + 1}>
               <img className="ak-mock" src={`media/figma/${img}`} alt="" loading="lazy" />
               <div className="ak-body">
                 <h3 className="ak-ct">{t}</h3>
                 <p className="ak-cd">{d}</p>
+                {cross && <p className="ak-xlink">{cross[0]} <a href={cross[2]}>{cross[1]}</a>.</p>}
               </div>
             </div>
           ))}
@@ -1199,6 +1200,9 @@ function BuiltKinds() {
         .ak-body{ position:relative; z-index:1; padding:22px 22px 0; }
         .ak-ct{ font-family:var(--font-display); font-weight:800; font-size:clamp(16px,1.2vw,18px); letter-spacing:-.01em; color:var(--warm-900); }
         .ak-cd{ margin-top:8px; font:400 14px/1.42 var(--font-body); color:var(--warm-600); }
+        .ak-xlink{ margin-top:10px; font:400 12.5px/1.4 var(--font-body); color:var(--warm-400); }
+        .ak-xlink a{ color:var(--ember); font-weight:600; text-decoration:none; }
+        .ak-xlink a:hover{ text-decoration:underline; }
         @media (max-width:900px){ .ak-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px 22px; } }
         @media (max-width:540px){ .ak-grid{ grid-template-columns:1fr; max-width:360px; margin-inline:auto; }
           /* single-column cards get very tall at full width, opening a big blank band between the

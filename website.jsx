@@ -31,7 +31,7 @@ function PubHero() {
         <div className="ph-copy">
           <span className="ph-eyebrow" data-reveal>For Content Sites</span>
           <h1 className="ph-title" data-reveal data-reveal-delay="1">Turn the traffic you already have into income.</h1>
-          <p className="ph-sub" data-reveal data-reveal-delay="2">Blogs, review sites, and news. Earn on the content you already publish, without changing how you write.</p>
+          <p className="ph-sub" data-reveal data-reveal-delay="2">Blogs, niche sites, and news. Earn on the content you already publish, without changing how you write.</p>
           <div className="ph-actions" data-reveal data-reveal-delay="3">
             <a href="/partners/" className="btn btn-primary btn-lg">Start Earning <Arrow /></a>
           </div>
@@ -989,7 +989,7 @@ const PUB_FAQ = [
   ['Do old articles still earn?',
     'Yes. Any post with a live link keeps earning on every sale it drives.'],
   ['What kinds of sites qualify?',
-    'Blogs, review sites, news and media. Any site with content and readers.'],
+    'Blogs, niche sites, news and media. Any site with content and readers.'],
 ];
 function PubFAQ() {
   const [open, setOpen] = React.useState(() => new Set([0]));
@@ -1170,7 +1170,7 @@ function AppDownload() {
 /* ---------- Website §3 — "Made for content that already has an audience." (3 cards) ---------- */
 const AFF_KINDS = [
   ['website-kind-1.png', 'Blogs', 'Add relevant links to the posts you already write, and earn from content you were making anyway.'],
-  ['website-kind-2(v2).png', 'Niche sites', 'Recommend the products your audience trusts, and earn every time they buy.'],
+  ['website-kind-2(v2).png', 'Niche sites', 'Run a specialist blog or site your niche follows. Add links to the reviews and guides you already write, and earn on what your readers buy.', ['Running a comparison, coupon, or cashback site?', 'See Affiliate & rewards sites', 'affiliates.html']],
   ['website-kind-3.png', 'News and media sites', 'Turn your articles into income that keeps earning long after you publish.'],
 ];
 function BuiltKinds() {
@@ -1179,12 +1179,13 @@ function BuiltKinds() {
       <div className="wrap">
         <h2 className="ak-title" data-reveal>Made for content that already has an audience.</h2>
         <div className="ak-grid">
-          {AFF_KINDS.map(([img, t, d], i) => (
+          {AFF_KINDS.map(([img, t, d, cross], i) => (
             <div className="ak-card" key={t} data-reveal data-reveal-delay={(i % 3) + 1}>
               <img className="ak-mock" src={`media/figma/${img}`} alt="" loading="lazy" />
               <div className="ak-body">
                 <h3 className="ak-ct">{t}</h3>
                 <p className="ak-cd">{d}</p>
+                {cross && <p className="ak-xlink">{cross[0]} <a href={cross[2]}>{cross[1]}</a>.</p>}
               </div>
             </div>
           ))}
@@ -1199,6 +1200,9 @@ function BuiltKinds() {
         .ak-body{ position:relative; z-index:1; padding:24px 24px 0; }
         .ak-ct{ font-family:var(--font-display); font-weight:800; font-size:clamp(17px,1.4vw,20px); letter-spacing:-.01em; color:var(--warm-900); }
         .ak-cd{ margin-top:9px; font:400 15px/1.45 var(--font-body); color:var(--warm-600); max-width:300px; }
+        .ak-xlink{ margin-top:10px; font:400 12.5px/1.4 var(--font-body); color:var(--warm-400); max-width:300px; }
+        .ak-xlink a{ color:var(--ember); font-weight:600; text-decoration:none; }
+        .ak-xlink a:hover{ text-decoration:underline; }
         @media (max-width:860px){ .ak-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:26px 22px; } }
         @media (max-width:560px){ .ak-grid{ grid-template-columns:1fr; max-width:420px; margin-inline:auto; } }
       `}</style>
