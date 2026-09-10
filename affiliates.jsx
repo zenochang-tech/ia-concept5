@@ -1167,12 +1167,11 @@ function AppDownload() {
     </div>
   );
 }
-/* ---------- Affiliates §2 — "Built for every kind of affiliate site." (4 cards) ---------- */
+/* ---------- Affiliates §2 — "Built for every kind of affiliate site." (3 cards) ---------- */
 const AFF_KINDS = [
   ['aff-kind-1.png', 'Coupon and deal sites', 'Promo codes, offers, discounts. Post the deals people are already searching for, and earn on every purchase.'],
   ['aff-kind-2.png', 'Cashback and loyalty sites', 'Pass on deals and rewards that keep members coming back, and earn on the sales they drive.'],
   ['aff-kind-3.png', 'Comparison and review sites', 'Help people choose the right product, and earn when they buy through you.'],
-  ['aff-kind-4.png', 'High-volume and professional affiliates', 'Run affiliate marketing as your core business, with the tools to scale.'],
 ];
 function BuiltKinds() {
   return (
@@ -1194,7 +1193,7 @@ function BuiltKinds() {
       <style>{`
         .ak-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
         .ak-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
-        .ak-grid{ margin-top:clamp(34px,5vh,54px); display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(18px,2vw,26px); }
+        .ak-grid{ margin-top:clamp(34px,5vh,54px); display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(18px,2vw,26px); }
         .ak-card{ position:relative; min-width:0; aspect-ratio:300/426; border-radius:16px; overflow:hidden; }
         .ak-mock{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
         .ak-body{ position:relative; z-index:1; padding:22px 22px 0; }
