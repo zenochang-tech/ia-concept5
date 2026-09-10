@@ -2866,8 +2866,8 @@ function HexFinaleAnimated({ emphasis = 'equal', hex = 3 }) {
         <div ref={combRef} className="hfa-comb" aria-hidden="true">
           {HFA_HONEY.map(([g, x, y], i) => <img key={i} className="hfa-combhex" src={`media/figma/s9-hex-${g}.png`} alt="" style={{ left: `calc(50% + ${x}px)`, top: `calc(50% + ${y}px)` }} />)}
         </div>
-        <div ref={aRef} className="hfa-hex"><span ref={aOut} className="hfa-outwrap"><HexOut id="hgA" /></span><img ref={aPh} className="hfa-photo" src="media/figma/s9-hex-pub.png" alt="A publisher creating content" style={{ transform: 'scaleX(-1)' }} /></div>
-        <div ref={bRef} className="hfa-hex"><span ref={bOut} className="hfa-outwrap"><HexOut id="hgB" /></span><img ref={bPh} className="hfa-photo" src="media/figma/s9-hex-adv.png" alt="An advertiser growing their brand" /></div>
+        <div ref={aRef} className="hfa-hex"><span ref={aOut} className="hfa-outwrap"><HexOut id="hgA" /></span><img ref={aPh} className="hfa-photo" src="media/figma/s9-hex-pub.webp" alt="A publisher creating content" style={{ transform: 'scaleX(-1)' }} /></div>
+        <div ref={bRef} className="hfa-hex"><span ref={bOut} className="hfa-outwrap"><HexOut id="hgB" /></span><img ref={bPh} className="hfa-photo" src="media/figma/s9-hex-adv.webp" alt="An advertiser growing their brand" /></div>
         <div ref={statsRef} className="hfa-stats" aria-hidden="true">
           <div className="hfa-stat s1"><span className="hfa-num" ref={n0}>800,000+</span><span className="hfa-lbl">publishers</span></div>
           <p className="hfa-blurb">Behind every number,<br />a creator earning and a brand growing.</p>
@@ -2977,8 +2977,8 @@ function HexFinaleStatic({ emphasis = 'equal', hex = 3 }) {
           {/* mobile-only kickers, placed ABOVE the photos (the desktop kickers stay inside the cards) */}
           <span className="hf-kick hf-kick-m" aria-hidden="true">Influencers. Websites. App owner.</span>
           <span className="hf-kick adv hf-kick-m" aria-hidden="true">Brands. Retailers. Enterprises.</span>
-          <img className="hf-photohex hf-ph-pub" src="media/figma/s9-hex-pub.png" alt="A publisher creating content" />
-          <img className="hf-photohex hf-ph-adv" src="media/figma/s9-hex-adv.png" alt="An advertiser growing their brand" />
+          <img className="hf-photohex hf-ph-pub" src="media/figma/s9-hex-pub.webp" alt="A publisher creating content" />
+          <img className="hf-photohex hf-ph-adv" src="media/figma/s9-hex-adv.webp" alt="An advertiser growing their brand" />
           <div className="hf-card hf-card-pub">
             <span className="hf-kick">Creators. Content sites. Affiliate sites.</span>
             <h3 className="hf-ct">I'm a <br />Publisher</h3>
