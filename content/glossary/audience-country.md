@@ -1,23 +1,21 @@
 ---
 title: Audience Country
 metaTitle: What is audience country? | Involve Asia Glossary
-metaDescription: Audience country is the country where a publisher's traffic or followers are based, used to match them to relevant offers.
-tldr: Audience country is the country (or countries) where a publisher's audience is mainly located. Advertisers use it to match offers to publishers whose traffic actually falls within their target market.
-related: click-origin-country, geo-targeting, commissionable-country, offer-region
+metaDescription: Audience country is the country where most of a publisher's audience is based, used to match them to region-specific offers.
+tldr: Audience country is the country, or countries, where most of a publisher's audience actually is. It is set per property in a publisher's account and used to match them to offers in the right market.
+related: click-origin-country, geo-targeting, offer-region, property
 ---
 
 ## What is audience country?
 
-Audience country is the country, or countries, where a [publisher](publisher)'s followers, readers, or site visitors are mainly based. It is usually declared when a publisher sets up their account or applies to an [affiliate program](affiliate-program), and it helps advertisers judge whether a publisher's traffic fits the markets they sell in.
+Audience country is the country where most of a [publisher](publisher)'s audience, the people actually seeing and clicking their content, is based. It is set per [property](property) in a publisher's account, and it can differ from the publisher's own registered country.
 
 ## Why it matters
 
-Advertisers often run offers only in certain markets, so audience country is one of the first things reviewed during approval.
-
-- **Offer matching** — a publisher whose audience sits in Malaysia is a poor fit for an offer restricted to the Philippines.
-- **Publisher vetting** — mismatched audience country is a common reason an application is rejected or flagged for review.
-- **Reporting** — platforms may show performance split by audience country alongside [click origin country](click-origin-country), since the two do not always match (for example, a regional blog with readers across several countries).
+- **Offer matching** — advertisers often run offers only in certain markets, so audience country helps match a publisher to region-specific offers and avoid region-lock issues.
+- **Not the publisher's own location** — a publisher based in one country can have an audience concentrated elsewhere; audience country should reflect the audience, not where the publisher lives.
+- **Editable** — publishers can update audience country at any time from Manage Account, by editing the property's profile.
 
 ## Audience country vs click origin country
 
-Audience country describes who a publisher generally reaches; click origin country records where an individual click actually came from. Advertisers typically use [geo-targeting](geo-targeting) and [commissionable country](commissionable-country) rules based on the latter, while audience country is more of a fit check at onboarding.
+Audience country describes where a publisher's audience generally sits; [click origin country](click-origin-country) records where an individual click actually came from. Advertisers rely on click origin country for real-time [geo-targeting](geo-targeting) checks against an offer's [offer region](offer-region), while audience country works more as a fit check during onboarding and offer matching.

@@ -1,21 +1,21 @@
 ---
 title: Upsize Commission
 metaTitle: What is upsize commission? | Involve Asia Glossary
-metaDescription: Upsize commission is a temporary boosted commission rate an advertiser offers on top of the standard rate to drive extra publisher promotion.
-tldr: Upsize commission is a temporary increase to an offer's standard commission rate, run for a limited period to encourage publishers to promote it more heavily. It sits on top of the normal rate rather than replacing it long-term.
-related: commission-rate, bonus-commission, commission-xtra, commission
+metaDescription: Upsize commission is a time-limited boost to an offer's standard commission rate, run by the advertiser to drive extra publisher promotion.
+tldr: Upsize commission is a temporary, time-limited increase to an offer's standard commission rate, set by the advertiser for a defined campaign window. It applies automatically to normal qualifying actions and reverts to the base rate once the window ends.
+related: commission-rate, bonus-commission, commission-xtra, advertiser
 ---
 
 ## What is upsize commission?
 
-Upsize commission is a temporary boost to an offer's standard [commission rate](commission-rate), run by the [advertiser](advertiser) for a limited time to encourage [publishers](publisher) to push extra traffic and sales. Once the promotional period ends, the rate reverts to its normal level.
+Upsize commission is a temporary boost to an offer's standard [commission rate](commission-rate), set by the [advertiser](advertiser) for a defined campaign window with its own start and end date. During that window, [publishers](publisher) earn an elevated rate on every qualifying action they drive, such as a sale, lead, install or click, and the rate reverts automatically to normal once the window closes.
 
 ## How it works
 
-- **Time-bound** — the increase applies only for a set campaign window, such as a week or a sale period.
-- **Applies on top of the base rate** — publishers earn the standard commission plus the upsized amount on qualifying sales during that window.
-- **Offer-specific** — the boost is tied to a particular offer, not the publisher's account as a whole.
+- **Time-bound** — runs for a set campaign period, such as a sale event, rather than indefinitely.
+- **No special links needed** — the boost applies automatically to normal qualifying actions, so publishers do not need a separate link or campaign to qualify.
+- **Applies on top of the base rate** — commissions still move through the usual stages, from pending to paid, just at the upsized rate while the window is active.
 
-## On Involve Asia
+## Why advertisers use it
 
-Upsize commission is a feature advertisers can use on the Involve Asia platform to run short-term promotions, similar in spirit to [Commission Xtra](commission-xtra) or a [bonus commission](bonus-commission), and it shows up clearly on the offer page so publishers know exactly when the higher rate is active.
+Advertisers typically run an upsize commission to build momentum during a shopping event, reward already-active publishers, attract new partners, or stay competitive during a high-spending period. It is similar in spirit to [Commission Xtra](commission-xtra), though Commission Xtra rewards specific Shopee brands via direct links, while an upsize commission lifts the standard rate across the whole offer.

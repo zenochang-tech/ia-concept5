@@ -1,21 +1,21 @@
 ---
 title: Commission Xtra
 metaTitle: What is Commission Xtra? | Involve Asia Glossary
-metaDescription: Commission Xtra is an Involve Asia feature that gives publishers an additional, time-limited commission boost on top of an offer's standard rate.
-tldr: Commission Xtra is an Involve Asia platform feature that adds an extra, time-limited commission boost on top of an offer's usual rate.
-related: bonus-commission, commission-rate, upsize-commission, involve-app
+metaDescription: Commission Xtra is an Involve Asia feature adding a bonus commission layer for publishers on qualifying Shopee sales, on top of the base rate.
+tldr: Commission Xtra is an Involve Asia platform feature that adds a bonus commission layer on top of the base commission rate for qualifying Shopee sales, rewarding specific brands and products rather than an entire offer.
+related: bonus-commission, commission-rate, upsize-commission, publisher
 ---
 
 ## What is Commission Xtra?
 
-Commission Xtra is an Involve Asia platform feature that gives [publishers](publisher) an additional commission on top of an offer's standard [commission rate](commission-rate), usually for a limited time or a specific promotion.
+Commission Xtra is an Involve Asia platform feature that adds a bonus [commission](commission) layer on top of the standard base [commission rate](commission-rate) a [publisher](publisher) earns on qualifying Shopee sales. Rather than lifting an entire offer, it rewards specific, pre-selected Shopee brands and products.
 
-## How it works
+## How direct and indirect links are treated
 
-- **Boosted rate** — the extra amount is added on top of the base commission, not instead of it.
-- **Time-bound** — Commission Xtra typically runs for a set campaign window rather than indefinitely.
-- **Visible on the offer** — publishers can see when Commission Xtra applies directly on the offer listing.
+- **Direct link** — a customer buys the promoted product from the promoted store, so the publisher earns base commission plus the Commission Xtra rate.
+- **Indirect link** — a customer clicks through but buys a different product from a different store, so only the base commission applies.
+- **Same-store exception** — if the customer buys a different product from the same promoted store, base commission plus the Commission Xtra bonus still applies.
 
-## Why it matters
+## Eligibility and scope
 
-It gives advertisers a way to drive short bursts of extra promotion, and gives publishers, alongside features like [Upsize Commission](upsize-commission) and [bonus commission](bonus-commission), a clear incentive to prioritise a specific offer while the boost is active.
+Commission Xtra applies across Malaysia, Singapore, Indonesia, the Philippines, Thailand, Vietnam and Taiwan. Only specific Shopee brand stores and products qualify at any given time, and the current list is visible on the publisher's Involve Asia dashboard. It is distinct from an [upsize commission](upsize-commission), which lifts the standard rate for a whole offer rather than specific brands.

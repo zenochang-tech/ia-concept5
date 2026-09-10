@@ -1,7 +1,7 @@
 ---
 title: Publisher
 metaTitle: What Is a Publisher? | Involve Asia Glossary
-metaDescription: A publisher promotes an advertiser's offers (creators, content sites, cashback sites, app owners, media buyers) and earns a commission on the results they drive.
+metaDescription: A publisher promotes an advertiser's offers (creators, content sites, cashback, app owners, media buyers) and earns a commission on the results they drive.
 tldr: A publisher is anyone who promotes an advertiser's offers with a trackable link and earns a commission on the sales, leads, or actions they drive. "Publisher" is the umbrella term for creators, content and review sites, cashback and coupon sites, app owners, media buyers, and more.
 related: advertiser, commission
 ---

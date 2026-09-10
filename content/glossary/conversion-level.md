@@ -1,21 +1,23 @@
 ---
 title: Conversion Level
 metaTitle: What is conversion level? | Involve Asia Glossary
-metaDescription: Conversion level refers to the depth of detail recorded for a single conversion, such as order, item, or click-level data.
-tldr: Conversion level describes how granular a recorded conversion is, ranging from a simple order total down to individual line items or click data.
-related: conversion-creation, order-id, conversion-flow, commissionable-product
+metaDescription: Conversion level is how deep in the customer journey a qualifying action sits, from a simple sign-up to a completed purchase.
+tldr: Conversion level describes how much commitment a user must show for a publisher to earn commission, from a shallow action like a sign-up to a deeper one like a completed purchase. It's tied to the offer's commission model.
+related: commission-model, conversion-rate-cvr, cost-per-sale-cps, cost-per-lead-cpl
 ---
 
 ## What is conversion level?
 
-Conversion level refers to the granularity at which a conversion is recorded and reported, from a single order total down to individual products within that [order](order-id).
+Conversion level describes the depth of the action a user must complete for a publisher to earn [commission](commission). A shallow conversion level is relatively easy to achieve, such as a form fill or a free sign-up. A deeper conversion level requires more commitment, such as a completed purchase or a subscription payment.
 
-## Common levels
+## How it's defined
 
-- **Order level** — one conversion record per transaction, with a total sale value.
-- **Item level** — separate records per product, useful when [commissionable products](commissionable-product) carry different rates.
-- **Click level** — data tied back to the specific click that generated the conversion.
+On Involve Asia, conversion level follows the offer's [commission model](commission-model):
+
+- **[Cost per sale (CPS)](cost-per-sale-cps)** — the deepest level; the user must complete a purchase.
+- **[Cost per lead (CPL)](cost-per-lead-cpl)** — a mid level; the user must submit a qualified lead, such as a form fill or sign-up.
+- **Cost per action (CPA)** — varies depending on the specific action the advertiser defines.
 
 ## Why it matters
 
-A more detailed conversion level gives publishers and advertisers clearer reporting, particularly when a single order includes products with different [commission rates](commission-rate), and helps pinpoint issues during [conversion creation](conversion-creation).
+Conversion level affects both [conversion rate](conversion-rate-cvr) and commission value: shallow conversions happen more often but usually pay less, while deeper conversions happen less often but usually pay more. Publishers should match an offer's conversion level to their audience's intent, a high-intent, ready-to-buy audience suits a deeper CPS offer, while a broader audience may convert better on a lower-commitment CPL or CPA offer.

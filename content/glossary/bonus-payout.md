@@ -1,21 +1,21 @@
 ---
 title: Bonus Payout
 metaTitle: What is bonus payout? | Involve Asia Glossary
-metaDescription: Bonus payout is an additional amount paid to a publisher on top of their base payout, usually tied to targets or a promotion.
-tldr: Bonus payout is an extra amount added on top of a publisher's base payout, often awarded for reaching a target or promoting an offer during a campaign period.
-related: base-payout, bonus-commission, tiered-commission-structure, upsize-commission
+metaDescription: Bonus payout is any commission paid above an offer's base rate, such as a campaign boost or a threshold-based flat fee.
+tldr: Bonus payout is any commission paid above an offer's standard base payout, such as a higher rate during a campaign, an extra flat fee for hitting a threshold, or a lift for a specific product category.
+related: base-payout, commission-rate, upsize-commission, offer-page
 ---
 
 ## What is bonus payout?
 
-Bonus payout is an additional amount an [advertiser](advertiser) adds on top of a [publisher](publisher)'s [base payout](base-payout) for a given offer. It is a way to reward extra effort or strong results without changing the standard commission rate for everyone.
+Bonus payout is any [commission](commission) paid above an offer's standard [base payout](base-payout). It can take a few forms: a higher percentage rate during a campaign period, an extra flat fee once a publisher hits a conversion threshold, or an additional rate for a specific product category within the offer.
 
-## When bonus payout is used
+## Key characteristics
 
-- **Performance targets** — a publisher who hits an agreed sales or lead volume unlocks an additional payout, similar to a [tiered commission structure](tiered-commission-structure).
-- **Time-limited campaigns** — a short-term boost during a sale event to encourage more promotion.
-- **Individual arrangements** — negotiated directly between an advertiser and a publisher, often for a top-performing partner.
+- **Time-limited** — bonus payouts are usually tied to a campaign window rather than lasting indefinitely.
+- **Conditional** — publishers must meet a requirement, such as a campaign period, a sales threshold, or a product focus, to qualify, unlike base payout which applies from the first sale.
+- **Notified** — publishers are typically notified when a bonus payout activates on an offer.
 
-## Bonus payout vs bonus commission
+## On Involve Asia
 
-The two terms are largely interchangeable. Where a distinction is made, "bonus payout" more often refers to a flat extra amount, while "[bonus commission](bonus-commission)" refers to an extra percentage. Either way, it sits above the base rate and is usually conditional rather than permanent, much like an [upsize commission](upsize-commission).
+Bonus payouts are communicated to publishers as [upsize commissions](upsize-commission) on the Involve Asia platform. Details of any active bonus appear on the offer's [offer page](offer-page) alongside the standard [commission rate](commission-rate).

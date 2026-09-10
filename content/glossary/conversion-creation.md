@@ -1,21 +1,23 @@
 ---
 title: Conversion Creation
 metaTitle: What is conversion creation? | Involve Asia Glossary
-metaDescription: Conversion creation is the moment a tracked click results in a recorded conversion, such as a sale or lead, in the tracking system.
-tldr: Conversion creation is the point at which a tracked click turns into a recorded conversion, such as a sale or lead, inside the tracking platform.
-related: conversion-flow, conversion-level, validation, missing-conversions
+metaDescription: Conversion creation is the moment a referred user completes a qualifying action and a conversion record is generated in the system.
+tldr: Conversion creation is the moment a referred user completes a qualifying action, such as a purchase, sign-up, or install, and a conversion record is generated. It's the point a click becomes a commission, once the conversion passes validation.
+related: conversion-flow, track-type, validation, missing-conversions
 ---
 
 ## What is conversion creation?
 
-Conversion creation is the step in the [conversion flow](conversion-flow) where a customer's action, such as completing a purchase, is recorded as a conversion against the [click](clicks) that referred them.
+Conversion creation is the step in the [conversion flow](conversion-flow) where a user completes the required action for an offer, such as placing an order, filling a form, or installing an app, and the platform records a new conversion linked to the publisher who drove that traffic.
 
-## How it happens
+## What has to align
 
-- **Pixel or postback** — the advertiser's site fires a tracking pixel or [postback URL](postback-url) once the action completes.
-- **Matched to a click** — the system matches the conversion to the original click using a [click ID](click-id) or cookie.
-- **Recorded, then validated** — once created, the conversion still needs to pass [validation](validation) before commission is confirmed.
+A conversion is created when three things line up:
+
+- **A tracked click** — from the publisher's affiliate link.
+- **A completed action** — within the offer's cookie window.
+- **A successful handshake** — between the advertiser's platform and the tracking system, confirming the event happened, based on the offer's [track type](track-type).
 
 ## Why it matters
 
-Delays or errors at conversion creation are a common cause of [missing conversions](missing-conversions), which is why publishers are encouraged to report suspected gaps at the correct [conversion level](conversion-level) for review.
+Conversion creation starts the commission lifecycle: from this point, the conversion moves through [validation](validation) and on toward payout, but none of those stages happen without it being created first. Delays or gaps at this stage are a common cause of [missing conversions](missing-conversions), which is why checking an offer's track type is a useful first step before reporting one.
