@@ -772,9 +772,10 @@ Object.assign(window, { Hexagon, HexBadge, HexHeroField, HexTexture, useScrollPr
 const NAV = [
   { label: 'For Advertisers', href: 'for-advertisers.html', tone: 'adv',
     columns: [
-      { head: 'Overview', links: [
+      { head: 'Explore', links: [
         ['Advertiser overview', 'for-advertisers.html'],
         ['Pricing', 'pricing.html'],
+        ['Case Study', 'https://involve.asia/blog/category/advertisers/success-stories/'],
       ]},
       { head: 'Features', links: [
         ['Automation', 'automation.html'],
