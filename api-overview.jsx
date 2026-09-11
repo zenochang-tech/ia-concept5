@@ -31,7 +31,7 @@ function PubHero() {
         <div className="ph-copy">
           <span className="ph-eyebrow" data-reveal>Affiliate Marketing for Publishers</span>
           <h1 className="ph-title" data-reveal data-reveal-delay="1">Build and automate with the Involve Asia API.</h1>
-          <p className="ph-sub" data-reveal data-reveal-delay="1">Pull promotions, generate links in bulk, and get your reports, all without logging into the dashboard. Bring affiliate earning into your own app or workflow.</p>
+          <p className="ph-sub" data-reveal data-reveal-delay="1">Pull promotions, generate tracking links, and get your reports, all without logging into the dashboard. Bring affiliate earning into your own app or workflow.</p>
           <div className="ph-actions" data-reveal data-reveal-delay="2">
             <a href="/partners/" className="btn btn-primary btn-lg">Apply for an API Key <Arrow /></a>
             <a href="https://api.involve.asia/docs/" className="btn btn-secondary btn-lg">Read the API docs <Arrow /></a>
@@ -1341,8 +1341,8 @@ function ExwCompare() {
 }
 /* ---------- API §2 — "Automate the work, scale your earnings." (4 cards) ---------- */
 const AUTO_CARDS = [
-  ['api-auto-1.png', 'Get the latest promotion data', 'Commission rates and payout terms for every offer.'],
-  ['api-auto-2.png', 'Generate affiliate links in bulk', 'With no manual clicking.'],
+  ['api-auto-1.png', 'Get the latest promotion data', 'Commission rates and payout terms for every offer you have access to.'],
+  ['api-auto-2.png', 'Generate tracking links', 'Turn product URLs into trackable deeplinks through the API, up to 1,000 unique links every 30 days.'],
   ['api-auto-3.png', 'Pull performance reports', 'Conversions and earnings, in your own format.'],
   ['api-auto-4.png', 'Get campaign banners and vouchers', 'Ready-made creatives and seasonal deals.'],
 ];
@@ -1407,11 +1407,10 @@ function ShopeeBand() {
 }
 /* ---------- API §4 — "Built for teams that build" (category grid) ---------- */
 const TEAM_CATS = [
-  ['Media buyers', 'High volume paid ads'],
-  ['KOL agencies', 'Creator networks'],
-  ['Programmatic networks', 'Automated distribution'],
-  ['Affiliate networks', 'Sub-network solutions'],
-  ['Cashback sites', 'Instant link conversion'],
+  ['Media buyers', 'High-volume paid ads'],
+  ['Affiliate & rewards sites', 'Cashback and comparison, instant link conversion'],
+  ['App owners', 'Offers and cashback inside your app'],
+  ['Networks & agencies', 'Sub-network and multi-client solutions'],
   ['Content sites', 'Auto-updated offers'],
 ];
 function BuiltTeams() {
@@ -1421,7 +1420,7 @@ function BuiltTeams() {
         <div className="bt-grid">
           <div className="bt-head" data-reveal>
             <h2 className="bt-title">Built for teams that build</h2>
-            <p className="bt-sub">For anyone who wants affiliate data and links inside their own systems.</p>
+            <p className="bt-sub">For teams that run affiliate data and links inside their own systems, through automation.</p>
           </div>
           <div className="bt-cats" data-reveal data-reveal-delay="1">
             {TEAM_CATS.map(([t, d]) => (

@@ -1217,7 +1217,7 @@ function BuiltKinds() {
 const AFF_WHY = [
   { t: 'Depth and rates.', d: '4,000+ offers, with upsized commissions on many brands.',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z" /><path d="M3 12l9 5 9-5" /><path d="M3 16.5l9 5 9-5" /></svg> },
-  { t: 'Built for volume.', d: 'Datafeeds, bulk links, and the API to run at the scale your site needs.',
+  { t: 'Built for volume.', d: 'Datafeeds and API link generation to run at the scale your site needs.',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="6" rx="7.5" ry="3" /><path d="M4.5 6v6c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3V6" /><path d="M4.5 12v6c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3v-6" /></svg> },
   { t: 'Reliable tracking and payouts.', d: 'Every sale is validated, with reporting you can check yourself.',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5" /><path d="M9 14.5l2 2 4-4" /></svg> },
@@ -1261,7 +1261,7 @@ function ScaleApi() {
         <div className="sa-grid">
           <div className="sa-left" data-reveal>
             <h2 className="sa-title">Scale with bulk tools<br />and our API.</h2>
-            <p className="sa-body">For high-volume affiliates and agencies, generate links in bulk and connect Involve to your own systems with our API, so affiliate data and links live inside your own stack.</p>
+            <p className="sa-body">For high-volume affiliates and agencies, generate tracking links and connect Involve to your own systems with our API, so affiliate data and links live inside your own stack.</p>
             <a className="sa-link" href="#">
               API overview
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5.5l6.5 6.5L9 18.5" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
@@ -1316,7 +1316,7 @@ function ScaleApi() {
 const HIW_STEPS = [
   ['01', 'Access every offer', 'Browse 4,000+ offers across 500+ brands, with the rates and terms up front.'],
   ['02', 'Pull the datafeed', 'Feed live product data into your site to keep prices and offers current. You add your own tracking to the links.'],
-  ['03', 'Generate links at scale', 'Create trackable links in bulk, or automate it through the API.'],
+  ['03', 'Generate tracking links via the API', 'Create trackable links through the API, up to 1,000 unique links every 30 days.'],
   ['04', 'Get paid', 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.'],
 ];
 function HowItWorks() {
