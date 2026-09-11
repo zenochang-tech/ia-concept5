@@ -785,20 +785,21 @@ const NAV = [
     ]},
   { label: 'For Publishers', href: 'for-publishers.html', tone: 'pub',
     columns: [
-      { head: 'Overview', links: [
+      { head: 'Explore', links: [
         ['Publisher overview', 'for-publishers.html'],
+        ['Brand Directory', 'https://app.involve.asia/directory'],
       ]},
-      { head: 'Features', links: [
-        ['Express Withdrawal', 'express-withdrawal.html'],
-        ['API Overview', 'api-overview.html'],
-        ['Data Feed', 'datafeed.html'],
-      ]},
-      { head: 'Publisher types', links: [
+      { head: "Who it's for", links: [
         ['Creators', 'content-creators.html'],
         ['Affiliate & Rewards Sites', 'affiliates.html'],
         ['Content Sites', 'website.html'],
         ['App Owners', 'app-owners.html'],
         ['Media Buyers', 'media-buyer.html'],
+      ]},
+      { head: 'Features', links: [
+        ['Express Withdrawal', 'express-withdrawal.html'],
+        ['API Overview', 'api-overview.html'],
+        ['Data Feed', 'datafeed.html'],
       ]},
     ]},
   { label: 'Resources', href: '/blog/',
