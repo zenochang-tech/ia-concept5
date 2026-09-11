@@ -51,12 +51,11 @@ const NAV = [
       { head: 'Learn', links: [
         ['Blog', '/blog/'],
         ['Glossary', 'glossary.html'],
-        ['Release Notes', '/release-notes/'],
       ]},
       { head: 'Support', links: [
         ['Help Centre', 'https://helpcentre.involve.asia/'],
         ['Download App', 'download-app.html'],
-        ['API Docs', '/partners/api-overview/'],
+        ['API Docs', 'https://api.involve.asia/docs/'],
       ]},
     ]},
   { label: 'Company', href: 'about.html',
