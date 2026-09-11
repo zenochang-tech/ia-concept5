@@ -788,6 +788,7 @@ const NAV = [
       { head: 'Explore', links: [
         ['Publisher overview', 'for-publishers.html'],
         ['Brand Directory', 'https://app.involve.asia/directory'],
+        ['Success Stories', 'https://involve.asia/blog/category/partners/success-stories-partners/'],
       ]},
       { head: "Who it's for", links: [
         ['Creators', 'content-creators.html'],
