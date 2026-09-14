@@ -14,7 +14,7 @@ const prefersReduced = () => window.matchMedia('(prefers-reduced-motion: reduce)
 // rename freely. No feature image card.
 const NAV = [
   { label: 'For Publishers', href: 'for-publishers.html', tone: 'pub',
-    feat: { head: 'See what you could earn', desc: 'Estimate your affiliate earnings in a few clicks.', cta: 'Estimate my earnings', href: 'earnings-estimate.html', img: 'media/webp/Success-story-publisher.webp' },
+    feat: { head: 'See what you could earn', desc: 'Estimate your affiliate earnings in a few clicks.', cta: 'Estimate my earnings', href: 'earnings-estimate.html', img: 'media/webp/sub-card-publisher.webp' },
     columns: [
       { head: 'Explore', links: [
         ['Publisher overview', 'for-publishers.html'],
@@ -36,7 +36,7 @@ const NAV = [
       ]},
     ]},
   { label: 'For Advertisers', href: 'for-advertisers.html', tone: 'adv',
-    feat: { head: 'Simple, scalable pricing', desc: 'Volume-based plans that grow with your program.', cta: 'See pricing', href: 'pricing.html', img: 'media/webp/success-advertiser-category.webp' },
+    feat: { head: 'Simple, scalable pricing', desc: 'Volume-based plans that grow with your program.', cta: 'See pricing', href: 'pricing.html', img: 'media/webp/sub-card-advertiser.webp' },
     columns: [
       { head: 'Explore', links: [
         ['Advertiser overview', 'for-advertisers.html'],
@@ -50,7 +50,7 @@ const NAV = [
       ]},
     ]},
   { label: 'Resources', href: '/blog/',
-    feat: { head: 'The Involve blog', desc: 'Guides, trends, and affiliate marketing insights.', cta: 'Read the blog', href: '/blog/', img: 'media/webp/best-affiliate-program-blog image.webp' },
+    feat: { head: 'The Involve blog', desc: 'Guides, trends, and affiliate marketing insights.', cta: 'Read the blog', href: '/blog/', img: 'media/webp/sub-card-resources.webp' },
     columns: [
       { head: 'Learn', links: [
         ['Blog', '/blog/'],
@@ -63,7 +63,7 @@ const NAV = [
       ]},
     ]},
   { label: 'Company', href: 'about.html',
-    feat: { head: 'About Involve Asia', desc: '12 years connecting brands and partners across Asia.', cta: 'Our story', href: 'about.html', img: 'media/webp/12-years-success-image-recolor.webp' },
+    feat: { head: 'About Involve Asia', desc: '12 years connecting brands and partners across Asia.', cta: 'Our story', href: 'about.html', img: 'media/webp/sub-card-company.webp' },
     columns: [
       { head: 'Company', links: [
         ['About Us', 'about.html'],
@@ -259,7 +259,7 @@ function Nav({ getStartedTone = 'midnight' }) {
         .mega4-soon b{color:var(--warm-400);}
         .mega4-soon em{font-style:normal;font-size:12px;color:var(--warm-400);margin-left:7px;}
         /* right-side feature card in the mega panel: image + dark scrim overlay, whole card clickable */
-        .mega4-feat{ position:relative; display:block; margin-left:auto; flex:0 0 clamp(260px,24vw,320px); height:clamp(292px,30vh,332px); border-radius:16px; overflow:hidden; text-decoration:none; box-shadow:0 12px 30px rgba(15,28,46,.14); }
+        .mega4-feat{ position:relative; display:block; margin-left:auto; flex:0 0 clamp(260px,24vw,320px); height:clamp(263px,27vh,299px); border-radius:16px; overflow:hidden; text-decoration:none; box-shadow:0 12px 30px rgba(15,28,46,.14); }
         .mega4-feat img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; will-change:transform; transition:transform .5s cubic-bezier(.22,1,.36,1); }
         .mega4-feat:hover img{ transform:scale(1.05); }
         .mega4-feat-scrim{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,28,46,.10) 0%, rgba(15,28,46,.55) 56%, rgba(15,28,46,.86) 100%); }
