@@ -36,7 +36,7 @@ function EarningsHero() {
           <h1 className="ee-title" data-reveal>Estimate your possible earnings</h1>
           <p className="ee-sub" data-reveal data-reveal-delay="1">Have a social following, a blog, or a site with traffic? <br />Drop your link and we'll estimate what you could earn, in about a minute.</p>
           <form className="ee-form" data-reveal data-reveal-delay="2" onSubmit={(e) => e.preventDefault()}>
-            <input className="ee-input" type="text" inputMode="url" placeholder="Paste your social following, blog, website url here..." aria-label="Your social following, blog, or website URL" />
+            <input className="ee-input" type="text" inputMode="url" placeholder="Paste your social following, blog, website url here…" aria-label="Your social following, blog, or website URL" />
             <button type="submit" className="btn btn-primary ee-cta">Estimate my earnings <Arrow /></button>
           </form>
           <p className="ee-micro" data-reveal data-reveal-delay="2">No sign up needed. We only read what's already public, no password.</p>
@@ -46,15 +46,15 @@ function EarningsHero() {
       <style>{`
         .ee-sec{ position:relative; overflow:hidden; background:var(--warm-50); }
         .ee-honey{ position:absolute; left:0; right:0; bottom:0; height:82%; z-index:0; pointer-events:none; }
-        .ee-hexfield{ position:absolute; inset:0; width:100%; height:100%; opacity:.5;
+        .ee-hexfield{ position:absolute; inset:0; width:100%; height:100%; opacity:.3;
           -webkit-mask-image:linear-gradient(180deg, transparent 0%, #000 58%);
           mask-image:linear-gradient(180deg, transparent 0%, #000 58%); }
         .ee-hexfield polygon{ fill:var(--warm-200); }
         .ee-wrap{ position:relative; z-index:1; min-height:calc(100vh - 74px); display:flex; flex-direction:column; align-items:center; text-align:center;
           padding:clamp(56px,12vh,140px) 0 clamp(32px,5vh,56px); }
         .ee-top{ display:flex; flex-direction:column; align-items:center; width:100%; }
-        .ee-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(38px,6vw,72px); line-height:1.02; letter-spacing:-.03em; color:var(--warm-900); }
-        .ee-sub{ margin:clamp(20px,3vh,30px) auto 0; max-width:660px; font:400 clamp(16px,1.5vw,20px)/1.5 var(--font-body); color:var(--warm-600); }
+        .ee-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(28px,4.4vw,50px); line-height:1.0; letter-spacing:-.03em; color:var(--warm-900); }
+        .ee-sub{ margin:clamp(20px,3vh,30px) auto 0; max-width:600px; font:400 clamp(16px,1.4vw,19px)/1.55 var(--font-body); color:var(--warm-600); }
         .ee-form{ display:flex; align-items:center; gap:8px; width:min(720px,100%); margin:clamp(28px,4.5vh,46px) auto 0;
           background:#fff; border:1px solid var(--warm-200); border-radius:var(--r-full); box-shadow:0 12px 34px rgba(15,28,46,.07); padding:7px 7px 7px 6px; }
         .ee-input{ flex:1; min-width:0; border:none; outline:none; background:transparent; font:400 16px/1.4 var(--font-body); color:var(--warm-900); padding:14px 18px; }
