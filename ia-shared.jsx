@@ -212,9 +212,9 @@ function Nav({ getStartedTone = 'midnight' }) {
                 <div style={{ padding: '0 4px 12px' }}>
                   {n.columns
                     ? n.columns.map((col, ci) => (
-                        <div key={ci} style={{ marginTop: ci ? 6 : 0 }}>
+                        <div key={ci} style={{ marginTop: ci ? 22 : 6 }}>
                           {col.top && <a href={col.top[1]} style={{ display: 'block', padding: '10px 12px', color: 'var(--warm-600)', fontSize: 15 }}>{col.top[0]}</a>}
-                          {col.head && <div style={{ padding: '8px 12px 4px', font: '700 11px/1 var(--font-body)', letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--warm-400)' }}>{col.head}</div>}
+                          {col.head && <div style={{ margin: '0 12px 10px', padding: '2px 0 9px', borderBottom: '1px solid var(--warm-200)', font: '700 11px/1 var(--font-body)', letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--warm-400)' }}>{col.head}</div>}
                           {col.links.map(([t, href, soon]) => soon
                             ? <span key={t} style={{ display: 'block', padding: '10px 12px', color: 'var(--warm-400)', fontSize: 15 }}>{t} <em style={{ fontStyle: 'normal', fontSize: 13 }}>(coming soon)</em></span>
                             : <a key={t} href={href} style={{ display: 'block', padding: '10px 12px', color: 'var(--warm-600)', fontSize: 15 }}>{t}</a>)}
@@ -259,7 +259,7 @@ function Nav({ getStartedTone = 'midnight' }) {
         .mega4-soon b{color:var(--warm-400);}
         .mega4-soon em{font-style:normal;font-size:12px;color:var(--warm-400);margin-left:7px;}
         /* right-side feature card in the mega panel: image + dark scrim overlay, whole card clickable */
-        .mega4-feat{ position:relative; display:block; margin-left:auto; flex:0 0 clamp(260px,24vw,320px); height:clamp(263px,27vh,299px); border-radius:16px; overflow:hidden; text-decoration:none; box-shadow:0 12px 30px rgba(15,28,46,.14); }
+        .mega4-feat{ position:relative; display:block; margin-left:auto; flex:0 0 clamp(260px,24vw,320px); height:clamp(224px,23vh,254px); border-radius:16px; overflow:hidden; text-decoration:none; box-shadow:0 12px 30px rgba(15,28,46,.14); }
         .mega4-feat img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; will-change:transform; transition:transform .5s cubic-bezier(.22,1,.36,1); }
         .mega4-feat:hover img{ transform:scale(1.05); }
         .mega4-feat-scrim{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,28,46,.10) 0%, rgba(15,28,46,.55) 56%, rgba(15,28,46,.86) 100%); }
