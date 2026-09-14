@@ -46,7 +46,7 @@ function EarningsHero() {
       <style>{`
         .ee-sec{ position:relative; overflow:hidden; background:var(--warm-50); }
         .ee-honey{ position:absolute; left:0; right:0; bottom:0; height:82%; z-index:0; pointer-events:none; }
-        .ee-hexfield{ position:absolute; inset:0; width:100%; height:100%; opacity:.3;
+        .ee-hexfield{ position:absolute; inset:0; width:100%; height:100%; opacity:.15;
           -webkit-mask-image:linear-gradient(180deg, transparent 0%, #000 58%);
           mask-image:linear-gradient(180deg, transparent 0%, #000 58%); }
         .ee-hexfield polygon{ fill:var(--warm-200); }
@@ -54,7 +54,7 @@ function EarningsHero() {
           padding:clamp(56px,12vh,140px) 0 clamp(32px,5vh,56px); }
         .ee-top{ display:flex; flex-direction:column; align-items:center; width:100%; }
         .ee-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(28px,4.4vw,50px); line-height:1.0; letter-spacing:-.03em; color:var(--warm-900); }
-        .ee-sub{ margin:clamp(20px,3vh,30px) auto 0; max-width:600px; font:400 clamp(16px,1.4vw,19px)/1.55 var(--font-body); color:var(--warm-600); }
+        .ee-sub{ margin:clamp(20px,3vh,30px) auto 0; max-width:780px; font:400 clamp(16px,1.4vw,19px)/1.55 var(--font-body); color:var(--warm-600); }
         .ee-form{ display:flex; align-items:center; gap:8px; width:min(720px,100%); margin:clamp(28px,4.5vh,46px) auto 0;
           background:#fff; border:1px solid var(--warm-200); border-radius:var(--r-full); box-shadow:0 12px 34px rgba(15,28,46,.07); padding:7px 7px 7px 6px; }
         .ee-input{ flex:1; min-width:0; border:none; outline:none; background:transparent; font:400 16px/1.4 var(--font-body); color:var(--warm-900); padding:14px 18px; }
