@@ -770,20 +770,8 @@ Object.assign(window, { Hexagon, HexBadge, HexHeroField, HexTexture, useScrollPr
 // with a thin #E8E8E2 divider under it, then its links. Column titles are suggestions —
 // rename freely. No feature image card.
 const NAV = [
-  { label: 'For Advertisers', href: 'for-advertisers.html', tone: 'adv',
-    columns: [
-      { head: 'Explore', links: [
-        ['Advertiser overview', 'for-advertisers.html'],
-        ['Pricing', 'pricing.html'],
-        ['Case Study', 'https://involve.asia/blog/category/advertisers/success-stories/'],
-      ]},
-      { head: 'Features', links: [
-        ['Automation', 'automation.html'],
-        ['Partner Discovery', 'partner-discovery.html'],
-        ['How We Track', 'how-we-track.html'],
-      ]},
-    ]},
   { label: 'For Publishers', href: 'for-publishers.html', tone: 'pub',
+    feat: { head: 'See what you could earn', desc: 'Estimate your affiliate earnings in a few clicks.', cta: 'Estimate my earnings', href: 'earnings-estimate.html', img: 'media/webp/Success-story-publisher.webp' },
     columns: [
       { head: 'Explore', links: [
         ['Publisher overview', 'for-publishers.html'],
@@ -804,7 +792,22 @@ const NAV = [
         ['Data Feed', 'datafeed.html'],
       ]},
     ]},
+  { label: 'For Advertisers', href: 'for-advertisers.html', tone: 'adv',
+    feat: { head: 'Simple, scalable pricing', desc: 'Volume-based plans that grow with your program.', cta: 'See pricing', href: 'pricing.html', img: 'media/webp/success-advertiser-category.webp' },
+    columns: [
+      { head: 'Explore', links: [
+        ['Advertiser overview', 'for-advertisers.html'],
+        ['Pricing', 'pricing.html'],
+        ['Case Study', 'https://involve.asia/blog/category/advertisers/success-stories/'],
+      ]},
+      { head: 'Features', links: [
+        ['Automation', 'automation.html'],
+        ['Partner Discovery', 'partner-discovery.html'],
+        ['How We Track', 'how-we-track.html'],
+      ]},
+    ]},
   { label: 'Resources', href: '/blog/',
+    feat: { head: 'The Involve blog', desc: 'Guides, trends, and affiliate marketing insights.', cta: 'Read the blog', href: '/blog/', img: 'media/webp/best-affiliate-program-blog image.webp' },
     columns: [
       { head: 'Learn', links: [
         ['Blog', '/blog/'],
@@ -817,6 +820,7 @@ const NAV = [
       ]},
     ]},
   { label: 'Company', href: 'about.html',
+    feat: { head: 'About Involve Asia', desc: '12 years connecting brands and partners across Asia.', cta: 'Our story', href: 'about.html', img: 'media/webp/12-years-success-image-recolor.webp' },
     columns: [
       { head: 'Company', links: [
         ['About Us', 'about.html'],
@@ -854,15 +858,6 @@ function MegaLink({ link }) {
   return <a href={href} role="menuitem" className="mega4-link"><b>{t}</b></a>;
 }
 
-// Featured card shown on the right of each mega panel (Concept 3 image-card design).
-// Uses the real bundled brand imagery (offline, on-brand — no stock photos) + a real
-// destination for every top-level menu.
-const NAV_FEAT = [
-  { img: 'media/webp/success-advertiser-category.webp',    label: 'Reach 800,000+ partners',          href: '/advertisers/' },
-  { img: 'media/webp/Success-story-publisher.webp',        label: 'Turn your audience into earnings', href: '/partners/' },
-  { img: 'media/webp/best-affiliate-program-blog image.webp', label: 'The Involve Blog',              href: '/blog/' },
-  { img: 'media/webp/12-years-success-image-recolor.webp', label: 'Life at Involve Asia',             href: '/about/' },
-];
 
 function Nav({ getStartedTone = 'midnight' }) {
   const [open, setOpen] = React.useState(null);
@@ -1016,8 +1011,17 @@ function Nav({ getStartedTone = 'midnight' }) {
         .mega4-soon{cursor:default;}
         .mega4-soon b{color:var(--warm-400);}
         .mega4-soon em{font-style:normal;font-size:12px;color:var(--warm-400);margin-left:7px;}
-        .mega4-feat img{will-change:transform;}
-        .mega4-feat-soon:hover img{transform:none;}
+        /* right-side feature card in the mega panel: image + dark scrim overlay, whole card clickable */
+        .mega4-feat{ position:relative; display:block; margin-left:auto; flex:0 0 clamp(260px,24vw,320px); height:clamp(292px,30vh,332px); border-radius:16px; overflow:hidden; text-decoration:none; box-shadow:0 12px 30px rgba(15,28,46,.14); }
+        .mega4-feat img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; will-change:transform; transition:transform .5s cubic-bezier(.22,1,.36,1); }
+        .mega4-feat:hover img{ transform:scale(1.05); }
+        .mega4-feat-scrim{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,28,46,.10) 0%, rgba(15,28,46,.55) 56%, rgba(15,28,46,.86) 100%); }
+        .mega4-feat-body{ position:absolute; left:0; right:0; bottom:0; z-index:1; display:flex; flex-direction:column; gap:7px; padding:22px; }
+        .mega4-feat-head{ font-family:var(--font-display); font-weight:800; font-size:19px; line-height:1.15; letter-spacing:-.01em; color:#fff; }
+        .mega4-feat-desc{ font:400 13.5px/1.45 var(--font-body); color:rgba(255,255,255,.86); }
+        .mega4-feat-cta{ display:inline-flex; align-items:center; gap:7px; margin-top:5px; font:700 13.5px/1 var(--font-body); color:#fff; }
+        .mega4-feat-cta svg{ transition:transform .2s ease; }
+        .mega4-feat:hover .mega4-feat-cta svg{ transform:translateX(3px); }
         /* Nav over the dark Midnight surface: links + icons go light, in lockstep with the white logo. */
         .nav-on-dark .nav-desk a{color:rgba(255,255,255,.82) !important;}
         .nav-on-dark .nav-desk a:hover, .nav-on-dark .nav-desk a.is-open{color:#fff !important;}
@@ -1063,6 +1067,17 @@ function Nav({ getStartedTone = 'midnight' }) {
                 {col.links.map(l => <MegaLink key={l[0]} link={l} />)}
               </div>
             ))}
+            {n.feat && (
+              <a className="mega4-feat" href={n.feat.href} role="menuitem">
+                <img src={n.feat.img} alt="" loading="lazy" />
+                <span className="mega4-feat-scrim" aria-hidden="true" />
+                <span className="mega4-feat-body">
+                  <span className="mega4-feat-head">{n.feat.head}</span>
+                  <span className="mega4-feat-desc">{n.feat.desc}</span>
+                  <span className="mega4-feat-cta">{n.feat.cta} <Arrow s={15} /></span>
+                </span>
+              </a>
+            )}
           </div>
         </div>
       ))}
