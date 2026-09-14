@@ -14,7 +14,7 @@ const prefersReduced = () => window.matchMedia('(prefers-reduced-motion: reduce)
 // rename freely. No feature image card.
 const NAV = [
   { label: 'For Publishers', href: 'for-publishers.html', tone: 'pub',
-    feat: { head: 'See what you could earn', desc: 'Estimate your affiliate earnings in a few clicks.', cta: 'Estimate my earnings', href: 'earnings-estimate.html', img: 'media/webp/sub-card-publisher.webp' },
+    feat: { head: 'See what you could earn', desc: 'Estimate your affiliate earnings in a few clicks.', cta: 'Estimate my earnings', href: 'earnings-estimate.html', img: 'media/webp/sub-card-publisher.webp', scrim: 'linear-gradient(26.17deg, rgba(196, 62, 24, 0.32) 19.76%, rgba(196, 62, 24, 0.1024) 55.25%)' },
     columns: [
       { head: 'Explore', links: [
         ['Publisher overview', 'for-publishers.html'],
@@ -36,7 +36,7 @@ const NAV = [
       ]},
     ]},
   { label: 'For Advertisers', href: 'for-advertisers.html', tone: 'adv',
-    feat: { head: 'Simple, scalable pricing', desc: 'Volume-based plans that grow with your program.', cta: 'See pricing', href: 'pricing.html', img: 'media/webp/sub-card-advertiser.webp' },
+    feat: { head: 'Simple, scalable pricing', desc: 'Volume-based plans that grow with your program.', cta: 'See pricing', href: 'pricing.html', img: 'media/webp/sub-card-advertiser.webp', scrim: 'linear-gradient(26.17deg, rgba(61, 90, 128, 0.32) 19.76%, rgba(61, 90, 128, 0.1024) 55.25%)' },
     columns: [
       { head: 'Explore', links: [
         ['Advertiser overview', 'for-advertisers.html'],
@@ -50,7 +50,7 @@ const NAV = [
       ]},
     ]},
   { label: 'Resources', href: '/blog/',
-    feat: { head: 'The Involve blog', desc: 'Guides, trends, and affiliate marketing insights.', cta: 'Read the blog', href: '/blog/', img: 'media/webp/sub-card-resources.webp' },
+    feat: { head: 'The Involve blog', desc: 'Guides, trends, and affiliate marketing insights.', cta: 'Read the blog', href: '/blog/', img: 'media/webp/sub-card-resources.webp', scrim: 'linear-gradient(26.17deg, rgba(3, 3, 3, 0.32) 19.76%, rgba(2, 2, 2, 0.1024) 55.25%)' },
     columns: [
       { head: 'Learn', links: [
         ['Blog', '/blog/'],
@@ -63,7 +63,7 @@ const NAV = [
       ]},
     ]},
   { label: 'Company', href: 'about.html',
-    feat: { head: 'About Involve Asia', desc: '12 years connecting brands and partners across Asia.', cta: 'Our story', href: 'about.html', img: 'media/webp/sub-card-company.webp' },
+    feat: { head: 'About Involve Asia', desc: '12 years connecting brands and partners across Asia.', cta: 'Our story', href: 'about.html', img: 'media/webp/sub-card-company.webp', scrim: 'linear-gradient(26.17deg, rgba(3, 3, 3, 0.32) 19.76%, rgba(2, 2, 2, 0.1024) 55.25%)' },
     columns: [
       { head: 'Company', links: [
         ['About Us', 'about.html'],
@@ -270,7 +270,7 @@ function Nav({ getStartedTone = 'midnight' }) {
         .mega4-feat{ position:relative; display:block; margin-left:auto; flex:0 0 clamp(260px,24vw,320px); height:clamp(224px,23vh,254px); border-radius:16px; overflow:hidden; text-decoration:none; box-shadow:0 12px 30px rgba(15,28,46,.14); }
         .mega4-feat img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; will-change:transform; transition:transform .5s cubic-bezier(.22,1,.36,1); }
         .mega4-feat:hover img{ transform:scale(1.05); }
-        .mega4-feat-scrim{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,28,46,.10) 0%, rgba(15,28,46,.55) 56%, rgba(15,28,46,.86) 100%); }
+        .mega4-feat-scrim{ position:absolute; inset:0; }
         .mega4-feat-body{ position:absolute; left:0; right:0; bottom:0; z-index:1; display:flex; flex-direction:column; gap:7px; padding:22px; }
         .mega4-feat-head{ font-family:var(--font-display); font-weight:800; font-size:19px; line-height:1.15; letter-spacing:-.01em; color:#fff; }
         .mega4-feat-desc{ font:400 13.5px/1.45 var(--font-body); color:rgba(255,255,255,.86); }
@@ -325,7 +325,7 @@ function Nav({ getStartedTone = 'midnight' }) {
             {n.feat && (
               <a className="mega4-feat" href={n.feat.href} role="menuitem">
                 <img src={n.feat.img} alt="" loading="lazy" />
-                <span className="mega4-feat-scrim" aria-hidden="true" />
+                <span className="mega4-feat-scrim" aria-hidden="true" style={{ background: n.feat.scrim }} />
                 <span className="mega4-feat-body">
                   <span className="mega4-feat-head">{n.feat.head}</span>
                   <span className="mega4-feat-desc">{n.feat.desc}</span>
