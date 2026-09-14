@@ -978,9 +978,17 @@ function Nav({ getStartedTone = 'midnight' }) {
                 </div>
               </details>
             ))}
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', padding: '14px 4px 4px' }}>
-              {LANGS.map(l => <button key={l.code} onClick={() => setLang(l.code)} style={{ padding: '7px 12px', borderRadius: 'var(--r-full)', border: `1.5px solid ${l.code === lang ? 'var(--midnight)' : 'var(--warm-300)'}`, background: l.code === lang ? 'var(--midnight)' : '#fff', color: l.code === lang ? 'var(--warm-50)' : 'var(--warm-600)', font: '600 13px/1 var(--font-body)', cursor: 'pointer' }}>{l.code}</button>)}
-            </div>
+            <details style={{ borderBottom: '1px solid var(--warm-200)' }}>
+              <summary style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 4px', fontWeight: 600, fontSize: 16, cursor: 'pointer', listStyle: 'none' }}>Language: {lang}<Caret /></summary>
+              <div style={{ padding: '0 4px 12px' }}>
+                {LANGS.map(l => (
+                  <button key={l.code} onClick={(e) => { setLang(l.code); const d = e.currentTarget.closest('details'); if (d) d.open = false; }} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', textAlign: 'left', background: l.code === lang ? 'var(--warm-100)' : 'none', border: 'none', padding: '11px 12px', color: l.code === lang ? 'var(--warm-900)' : 'var(--warm-600)', font: '600 15px/1 var(--font-body)', cursor: 'pointer', borderRadius: 8 }}>
+                    <span>{l.label}</span>
+                    <span style={{ fontSize: 13, color: 'var(--warm-400)' }}>{l.code}</span>
+                  </button>
+                ))}
+              </div>
+            </details>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 14 }}>
               <a href="https://app.involve.asia/v2/login" className="btn btn-secondary btn-block">Login</a>
               <a href="#hero" className={`btn ${gsClass} btn-block`}>Get Started</a>
