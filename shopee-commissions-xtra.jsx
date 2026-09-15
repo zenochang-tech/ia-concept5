@@ -29,19 +29,13 @@ function PubHero() {
       <span className="ph-basefade" aria-hidden="true" />
       <div className="wrap ph-wrap">
         <div className="ph-copy">
-          <span className="ph-eyebrow" data-reveal>For Affiliate & Rewards Sites</span>
-          <h1 className="ph-title" data-reveal data-reveal-delay="1">Built to run affiliate as your business.</h1>
-          <p className="ph-sub" data-reveal data-reveal-delay="2">Cashback, coupon, and comparison sites scale here, with the offers, feeds, and tools built for high volume.</p>
+          <span className="ph-eyebrow" data-reveal>For Shopee affiliates</span>
+          <h1 className="ph-title" data-reveal data-reveal-delay="1">Shopee Commissions XTRA: earn extra on top of your base commission</h1>
+          <p className="ph-sub" data-reveal data-reveal-delay="2">With Shopee Commissions XTRA, earn extra commission on top of your base commission from brand stores and top-selling products on Shopee.</p>
           <div className="ph-actions" data-reveal data-reveal-delay="3">
             <a href="/partners/" className="btn btn-primary btn-lg">Start Earning <Arrow /></a>
           </div>
-          <span className="ph-free" data-reveal data-reveal-delay="3">Free to join. Start earning today.</span>
-        </div>
-
-        <div className="ph-visual" data-reveal data-reveal-delay="1">
-          <span className="ph-hexglow" aria-hidden="true" />
-          <span className="ph-hexplate" aria-hidden="true" />
-          <div className="ph-photo ph-photo-fill"><img src="media/figma/affiliates-hero.png" alt="An affiliate site dashboard shown on a laptop" loading="eager" /></div>
+          <span className="ph-free" data-reveal data-reveal-delay="3">Live in Malaysia, Singapore, Indonesia, the Philippines, Thailand, Vietnam, and Taiwan.</span>
         </div>
       </div>
 
@@ -58,14 +52,14 @@ function PubHero() {
         /* gradient blend from the hero into the logo strip below */
         .ph-basefade{ position:absolute; left:0; right:0; bottom:0; height:clamp(120px,24%,240px); z-index:0; pointer-events:none;
           background:linear-gradient(180deg, rgba(250,250,248,0) 0%, rgba(250,250,248,.65) 55%, var(--warm-50) 100%); }
-        .ph-wrap{ position:relative; z-index:1; display:grid; grid-template-columns:1.02fr .98fr; gap:clamp(24px,4vw,60px); align-items:center; }
+        .ph-wrap{ position:relative; z-index:1; max-width:860px; margin:0 auto; text-align:center; }
         /* copy */
         .ph-copy{ min-width:0; }
         .ph-eyebrow{ display:inline-block; font:600 13px/1 var(--font-body); letter-spacing:.02em; color:var(--ember);
           background:rgba(240,88,38,.10); border-radius:9999px; padding:8px 15px; }
         .ph-title{ margin-top:20px; font-size:clamp(28px,4.4vw,50px); line-height:1.0; letter-spacing:-.03em; color:var(--warm-900); }
-        .ph-sub{ margin-top:20px; max-width:520px; font-size:clamp(16px,1.4vw,19px); line-height:1.55; color:var(--warm-600); }
-        .ph-actions{ margin-top:30px; display:flex; gap:12px; flex-wrap:wrap; }
+        .ph-sub{ margin:20px auto 0; max-width:640px; font-size:clamp(16px,1.4vw,19px); line-height:1.55; color:var(--warm-600); }
+        .ph-actions{ margin-top:30px; display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
         .ph-free{ display:block; margin-top:16px; font:500 14px/1 var(--font-body); color:var(--warm-400); }
         /* visual */
         /* match the advertiser hero: 1/1 container, 520px; the hexagon mask uses contain so the
@@ -984,12 +978,14 @@ function PubVoices() {
    Withdrawal) — hrefs are placeholders pending the real URLs. Example figures
    (4.2% commission, 10 working days) are illustrative — confirm before launch. */
 const PUB_FAQ = [
-  ['Can I get a product datafeed?',
-    'Yes. Pull live product data per advertiser and add your own tracking to the links. Feeds vary by advertiser.'],
-  ['Do you support cashback and coupon models?',
-    'Yes. Cashback, coupon, comparison, loyalty, and deal sites all run on the platform.'],
-  ['Is there an API?',
-    'Yes. Generate deeplinks, pull offers, and automate promotion. Deeplink generation is capped at 1,000 per rolling 30 days.'],
+  ['Do direct and indirect links attribute across all regions?',
+    'For now, it applies only to Malaysia, Singapore, Indonesia, the Philippines, Thailand, Vietnam, and Taiwan.'],
+  ['As a partner, how do I know whether a conversion is direct or indirect?',
+    'Check Advertiser Sub ID 5 in the Conversion Report. Direct = ORDERED_IN_SAME_SHOP; indirect = ORDERED_IN_DIFFERENT_SHOP. ORDERED_IN_SAME_SHOP covers both the same SKU and a different SKU bought from the same shop.'],
+  ['What is the best way to maximise your earnings?',
+    'Promote Shopee Commissions XTRA brands and products directly to a relevant audience, and get to know your audience\'s preferences and needs.'],
+  ['If there is an indirect purchase from my link, will I still get commission?',
+    'Yes. You will earn base commission.'],
 ];
 function PubFAQ() {
   const [open, setOpen] = React.useState(() => new Set([0]));
@@ -1095,8 +1091,9 @@ function PubCTA() {
       <span className="pc-topfade" aria-hidden="true" />
       <span className="pc-wash" aria-hidden="true" />
       <div className="wrap pc-inner">
-        <h2 className="pc-title" data-reveal>Grow your affiliate site, faster.</h2>
-        <a href="/partners/" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="1">Start Earning <Arrow /></a>
+        <h2 className="pc-title" data-reveal>Get more commissions with Shopee Smart URL.</h2>
+        <p className="pc-sub" data-reveal data-reveal-delay="1">One link that sends your audience to a Shopee Commissions XTRA brand store, rotating on every click.</p>
+        <a href="for-publishers.html" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="2">Learn More <Arrow /></a>
       </div>
       <style>{`
         .pc-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(96px,16vh,200px) 0 clamp(104px,17vh,210px); }
@@ -1110,6 +1107,7 @@ function PubCTA() {
           background:radial-gradient(ellipse at center, var(--warm-50) 32%, rgba(250,250,248,0) 72%); }
         .pc-inner{ position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; text-align:center; }
         .pc-title{ font-size:clamp(24px,3vw,34px); line-height:1.15; letter-spacing:-.03em; color:var(--warm-900); max-width:900px; }
+        .pc-sub{ margin-top:16px; font:400 16px/1.55 var(--font-body); color:var(--warm-600); max-width:580px; }
         .pc-btn{ margin-top:26px; }
         @media (max-width:700px){ .pc-sec{ padding:clamp(60px,9vh,84px) 0 clamp(68px,10vh,96px); } }
       `}</style>
@@ -1215,18 +1213,16 @@ function BuiltKinds() {
 }
 /* ---------- Affiliates §3 — "Why affiliate sites choose Involve." (4 icon columns) ---------- */
 const AFF_WHY = [
-  { t: 'Depth and rates.', d: '4,000+ offers, with upsized commissions on many brands.',
-    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z" /><path d="M3 12l9 5 9-5" /><path d="M3 16.5l9 5 9-5" /></svg> },
-  { t: 'Built for volume.', d: 'Datafeeds and API link generation to run at the scale your site needs.',
-    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="6" rx="7.5" ry="3" /><path d="M4.5 6v6c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3V6" /><path d="M4.5 12v6c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3v-6" /></svg> },
-  { t: 'Reliable tracking and payouts.', d: 'Every sale is validated, with reporting you can check yourself.',
-    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5" /><path d="M9 14.5l2 2 4-4" /></svg> },
+  { t: 'Direct links', d: 'Your customer buys the same product from the same store. You earn base commission plus Commissions XTRA. If the store is not a Commissions XTRA brand, you earn base commission only.',
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5" /><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5" /></svg> },
+  { t: 'Indirect links', d: 'Your customer buys a different product from a different store. You earn base commission only.',
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M16 3h5v5" /><path d="M21 3l-8 8" /><path d="M16 21h5v-5" /><path d="M21 21l-6-6" /><path d="M3 5l6 6" /></svg> },
 ];
 function WhyChoose() {
   return (
     <section id="aff-why" className="wy-sec">
       <div className="wrap">
-        <h2 className="wy-title" data-reveal>Why affiliate &amp; rewards sites choose Involve.</h2>
+        <h2 className="wy-title" data-reveal>Two link types, one simple rule.</h2>
         <div className="wy-grid">
           {AFF_WHY.map((c, i) => (
             <div className="wy-col" key={c.t} data-reveal data-reveal-delay={(i % 3) + 1}>
@@ -1236,12 +1232,12 @@ function WhyChoose() {
             </div>
           ))}
         </div>
-        <p className="wy-proof" data-reveal>Cashback, coupon, and comparison sites across the region run on Involve Asia.</p>
+        <p className="wy-proof" data-reveal>You still earn base commission plus Commissions XTRA when a customer buys a different product at the same store.</p>
       </div>
       <style>{`
         .wy-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
         .wy-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
-        .wy-grid{ margin-top:clamp(34px,5vh,54px); display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(28px,4vw,56px); }
+        .wy-grid{ margin:clamp(34px,5vh,54px) auto 0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(28px,4vw,56px); max-width:840px; }
         .wy-col{ min-width:0; }
         .wy-ic{ width:48px; height:48px; border-radius:12px; background:var(--ember-tint); color:var(--ember); display:flex; align-items:center; justify-content:center; }
         .wy-ic svg{ width:24px; height:24px; }
@@ -1314,16 +1310,15 @@ function ScaleApi() {
 }
 /* ---------- Affiliates §4b — "How it works" (3 numbered steps) — Figma 2546:45012 ---------- */
 const HIW_STEPS = [
-  ['01', 'Access every offer', 'Browse 4,000+ offers across 500+ brands, with the rates and terms up front.'],
-  ['02', 'Pull the datafeed', 'Feed live product data into your site to keep prices and offers current. You add your own tracking to the links.'],
-  ['03', 'Generate tracking links via the API', 'Create trackable links through the API, up to 1,000 unique links every 30 days.'],
-  ['04', 'Get paid', 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.'],
+  ['01', 'Promote brand stores', 'Share affiliate links to brand stores that are under Shopee Commissions XTRA.'],
+  ['02', 'Promote XTRA products', 'Feature products that are part of Shopee Commissions XTRA.'],
+  ['03', 'When unsure, link a store or product', 'Always generate your affiliate link from a product or brand store, so it can qualify.'],
 ];
 function HowItWorks() {
   return (
     <section id="af-how" className="hiw-sec">
       <div className="wrap">
-        <h2 className="hiw-title" data-reveal>How you earn.</h2>
+        <h2 className="hiw-title" data-reveal>Tips to earn more with Commissions XTRA.</h2>
         <div className="hiw-grid">
           {HIW_STEPS.map(([n, t, d], i) => (
             <div className="hiw-step" key={n} data-reveal data-reveal-delay={i + 1}>
@@ -1337,7 +1332,7 @@ function HowItWorks() {
       <style>{`
         .hiw-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
         .hiw-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
-        .hiw-grid{ margin-top:clamp(34px,5.5vh,58px); display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(26px,3vw,44px); }
+        .hiw-grid{ margin-top:clamp(34px,5.5vh,58px); display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(26px,3vw,44px); max-width:1000px; margin-inline:auto; }
         .hiw-step{ min-width:0; }
         .hiw-num{ display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:50%; background:var(--ember); color:#fff; font-family:var(--font-display); font-weight:800; font-size:17px; letter-spacing:-.01em; }
         .hiw-ct{ margin-top:clamp(20px,3vh,28px); font-family:var(--font-display); font-weight:800; font-size:20px; letter-spacing:-.01em; color:var(--warm-900); }
@@ -1356,11 +1351,8 @@ function PublisherApp() {
       <Nav getStartedTone="pub" />
       <main>
         <PubHero />
-        <BuiltKinds />
-        <HowItWorks />
-        <ScaleApi />
         <WhyChoose />
-        <PubVoices />
+        <HowItWorks />
         <PubFAQ />
         <PubCTA />
       </main>
