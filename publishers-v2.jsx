@@ -1083,7 +1083,7 @@ function PubCTA() {
       <span className="pc-wash" aria-hidden="true" />
       <div className="wrap pc-inner">
         <h2 className="pc-title" data-reveal>Start earning with your audience today.</h2>
-        <a href="/partners/" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="1">Create your free account <Arrow /></a>
+        <a href="https://app.involve.asia/v2/create-account" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="1">Create your free account <Arrow /></a>
       </div>
       <style>{`
         .pc-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(199px,33.12vh,365px) 0 clamp(232px,35.88vh,430px); }

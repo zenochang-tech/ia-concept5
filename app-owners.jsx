@@ -1092,7 +1092,7 @@ function PubCTA() {
       <span className="pc-wash" aria-hidden="true" />
       <div className="wrap pc-inner">
         <h2 className="pc-title" data-reveal>Start monetizing your app today.</h2>
-        <a href="/partners/" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="1">Start Earning <Arrow /></a>
+        <a href="https://app.involve.asia/v2/create-account" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="1">Start Earning <Arrow /></a>
       </div>
       <style>{`
         .pc-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(96px,16vh,200px) 0 clamp(104px,17vh,210px); }
@@ -1401,7 +1401,7 @@ function AppApi() {
         <div className="aa-box">
         <div className="aa-grid">
           <div className="aa-left" data-reveal>
-            <h2 className="aa-title">Automated through<br />our API.</h2>
+            <h2 className="aa-title">Automated through <br />our API.</h2>
             <p className="aa-body">Connect once, and our API keeps your app stocked with the latest offers, generates your links, and tracks every conversion, so earning runs in the background while you focus on your product.</p>
             <a className="aa-link" href="#">
               API overview

@@ -41,7 +41,7 @@ function PubHero() {
         <div className="ph-visual" data-reveal data-reveal-delay="1">
           <span className="ph-hexglow" aria-hidden="true" />
           <span className="ph-hexplate" aria-hidden="true" />
-          <div className="ph-photo ph-photo-fill"><img src="media/figma/affiliates-hero.png" alt="Shopee Commissions XTRA" loading="eager" /></div>
+          <div className="ph-photo ph-photo-fill"><img src="media/figma/commissions-xtra-hero-img.png" alt="Shopee Commissions XTRA" loading="eager" /></div>
         </div>
       </div>
 
@@ -1372,29 +1372,19 @@ function XtraAttribution() {
     <section id="sx-attr" className="sx-attr">
       <div className="wrap">
         <h2 className="sx-attr-h" data-reveal>Here's how the latest Shopee attribution works.</h2>
-        <p className="sx-attr-note" data-reveal data-reveal-delay="1">On mobile, zoom in to view the old and new Shopee attribution journeys.</p>
-        <div className="sx-attr-grid">
-          <figure className="sx-attr-card" data-reveal data-reveal-delay="1">
-            <img src="media/figma/sxtra-attribution-old.png" alt="The old Shopee attribution journey" loading="lazy" />
-            <figcaption>Old attribution</figcaption>
-          </figure>
-          <figure className="sx-attr-card" data-reveal data-reveal-delay="2">
-            <img src="media/figma/sxtra-attribution-new.png" alt="The new Shopee attribution journey" loading="lazy" />
-            <figcaption>New attribution</figcaption>
-          </figure>
-        </div>
+        <p className="sx-attr-note" data-reveal data-reveal-delay="1">On mobile, zoom in to view the full Shopee attribution journey.</p>
+        <figure className="sx-attr-figure" data-reveal data-reveal-delay="1">
+          <img src="media/figma/Shopee-Commissions-XTRA-NEW-V2.jpg" alt="The Shopee Commissions XTRA attribution journey" loading="lazy" />
+        </figure>
         <p className="sx-attr-eg" data-reveal>Here, Nike is used as an example of a Shopee Commissions XTRA brand.</p>
       </div>
       <style>{`
         .sx-attr{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; text-align:center; }
         .sx-attr-h{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
         .sx-attr-note{ margin:14px auto 0; font:400 15px/1.5 var(--font-body); color:var(--warm-400); }
-        .sx-attr-grid{ margin:clamp(28px,4vh,44px) auto 0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(20px,3vw,40px); max-width:960px; }
-        .sx-attr-card{ margin:0; background:#fff; border:1px solid var(--warm-200); border-radius:16px; overflow:hidden; box-shadow:var(--shadow-sm); }
-        .sx-attr-card img{ display:block; width:100%; height:auto; aspect-ratio:16/10; object-fit:cover; background:var(--warm-100); color:var(--warm-400); font:400 13px/1.4 var(--font-body); }
-        .sx-attr-card figcaption{ padding:14px; font:700 14px/1 var(--font-body); color:var(--warm-900); }
+        .sx-attr-figure{ margin:clamp(28px,4vh,44px) auto 0; max-width:1000px; }
+        .sx-attr-figure img{ display:block; width:100%; height:auto; border-radius:16px; }
         .sx-attr-eg{ margin:clamp(24px,3.5vh,36px) auto 0; font:400 15px/1.5 var(--font-body); color:var(--warm-600); }
-        @media (max-width:700px){ .sx-attr-grid{ grid-template-columns:1fr; max-width:420px; } }
       `}</style>
     </section>
   );

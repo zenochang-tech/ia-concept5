@@ -30,7 +30,7 @@ function PubHero() {
       <div className="wrap ph-wrap">
         <div className="ph-copy">
           <span className="ph-eyebrow" data-reveal>For Content Sites</span>
-          <h1 className="ph-title" data-reveal data-reveal-delay="1">Turn the traffic you already have into income.</h1>
+          <h1 className="ph-title" data-reveal data-reveal-delay="1">Add income to the content you already publish.</h1>
           <p className="ph-sub" data-reveal data-reveal-delay="2">Blogs, niche sites, and news. Earn on the content you already publish, without changing how you write.</p>
           <div className="ph-actions" data-reveal data-reveal-delay="3">
             <a href="/partners/" className="btn btn-primary btn-lg">Start Earning <Arrow /></a>
@@ -1096,7 +1096,7 @@ function PubCTA() {
       <span className="pc-wash" aria-hidden="true" />
       <div className="wrap pc-inner">
         <h2 className="pc-title" data-reveal>Start earning from your website.</h2>
-        <a href="/partners/" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="1">Start Earning <Arrow /></a>
+        <a href="https://app.involve.asia/v2/create-account" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="1">Start Earning <Arrow /></a>
       </div>
       <style>{`
         .pc-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(96px,16vh,200px) 0 clamp(104px,17vh,210px); }

@@ -949,7 +949,7 @@ function Nav({ getStartedTone = 'midnight' }) {
             )}
           </div>
           <a href="https://app.involve.asia/v2/login" className="nav-login" style={{ font: '600 14px/1 var(--font-body)', color: 'var(--warm-900)', padding: '8px 4px' }}>Login</a>
-          <a href="#hero" className={`btn ${gsClass}`} style={{ padding: '11px 22px', fontSize: 14 }}>Get Started <span className="arw" style={{ transition: 'transform .2s' }}>→</span></a>
+          <a href="https://app.involve.asia/v2/create-account" className={`btn ${gsClass}`} style={{ padding: '11px 22px', fontSize: 14 }}>Get Started <span className="arw" style={{ transition: 'transform .2s' }}>→</span></a>
         </div>
         <button className="nav-burger" aria-label="Open menu" aria-expanded={mobile} onClick={() => setMobile(v => !v)} style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer', padding: 8, color: 'var(--midnight)', marginLeft: 'auto', zIndex: 2 }}>
           <svg width="26" height="26" viewBox="0 0 24 24"><path d={mobile ? 'M5 5l14 14M19 5L5 19' : 'M4 7h16M4 12h16M4 17h16'} stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
@@ -991,7 +991,7 @@ function Nav({ getStartedTone = 'midnight' }) {
             </details>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 14 }}>
               <a href="https://app.involve.asia/v2/login" className="btn btn-secondary btn-block">Login</a>
-              <a href="#hero" className={`btn ${gsClass} btn-block`}>Get Started</a>
+              <a href="https://app.involve.asia/v2/create-account" className={`btn ${gsClass} btn-block`}>Get Started</a>
             </div>
           </div>
         </div>
