@@ -37,6 +37,12 @@ function PubHero() {
           </div>
           <span className="ph-free" data-reveal data-reveal-delay="3">Live in Malaysia, Singapore, Indonesia, the Philippines, Thailand, Vietnam, and Taiwan.</span>
         </div>
+
+        <div className="ph-visual" data-reveal data-reveal-delay="1">
+          <span className="ph-hexglow" aria-hidden="true" />
+          <span className="ph-hexplate" aria-hidden="true" />
+          <div className="ph-photo ph-photo-fill"><img src="media/figma/affiliates-hero.png" alt="Shopee Commissions XTRA" loading="eager" /></div>
+        </div>
       </div>
 
       <style>{`
@@ -52,14 +58,14 @@ function PubHero() {
         /* gradient blend from the hero into the logo strip below */
         .ph-basefade{ position:absolute; left:0; right:0; bottom:0; height:clamp(120px,24%,240px); z-index:0; pointer-events:none;
           background:linear-gradient(180deg, rgba(250,250,248,0) 0%, rgba(250,250,248,.65) 55%, var(--warm-50) 100%); }
-        .ph-wrap{ position:relative; z-index:1; max-width:860px; margin:0 auto; text-align:center; }
+        .ph-wrap{ position:relative; z-index:1; display:grid; grid-template-columns:1.02fr .98fr; gap:clamp(24px,4vw,60px); align-items:center; }
         /* copy */
         .ph-copy{ min-width:0; }
         .ph-eyebrow{ display:inline-block; font:600 13px/1 var(--font-body); letter-spacing:.02em; color:var(--ember);
           background:rgba(240,88,38,.10); border-radius:9999px; padding:8px 15px; }
         .ph-title{ margin-top:20px; font-size:clamp(28px,4.4vw,50px); line-height:1.0; letter-spacing:-.03em; color:var(--warm-900); }
-        .ph-sub{ margin:20px auto 0; max-width:640px; font-size:clamp(16px,1.4vw,19px); line-height:1.55; color:var(--warm-600); }
-        .ph-actions{ margin-top:30px; display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+        .ph-sub{ margin-top:20px; max-width:520px; font-size:clamp(16px,1.4vw,19px); line-height:1.55; color:var(--warm-600); }
+        .ph-actions{ margin-top:30px; display:flex; gap:12px; flex-wrap:wrap; }
         .ph-free{ display:block; margin-top:16px; font:500 14px/1 var(--font-body); color:var(--warm-400); }
         /* visual */
         /* match the advertiser hero: 1/1 container, 520px; the hexagon mask uses contain so the
@@ -1343,6 +1349,57 @@ function HowItWorks() {
     </section>
   );
 }
+/* ---------- Shopee XTRA — "What is Commissions XTRA" intro ---------- */
+function XtraIntro() {
+  return (
+    <section id="sx-intro" className="sx-intro">
+      <div className="wrap">
+        <h2 className="sx-intro-h" data-reveal>Earn Commissions XTRA on brand stores and top products.</h2>
+        <p className="sx-intro-p" data-reveal data-reveal-delay="1">Promote a brand's stores and products that are under Shopee Commissions XTRA, and earn extra commission on top of your base commission. The full list of eligible stores is on the Shopee Commissions XTRA page in your Involve dashboard.</p>
+      </div>
+      <style>{`
+        .sx-intro{ background:var(--warm-50); padding:clamp(40px,7vh,80px) 0 0; text-align:center; }
+        .sx-intro-h{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); max-width:760px; margin:0 auto; }
+        .sx-intro-p{ margin:18px auto 0; max-width:660px; font:400 clamp(16px,1.4vw,19px)/1.55 var(--font-body); color:var(--warm-600); }
+      `}</style>
+    </section>
+  );
+}
+
+/* ---------- Shopee XTRA — old vs new attribution journey (diagram images to be provided) ---------- */
+function XtraAttribution() {
+  return (
+    <section id="sx-attr" className="sx-attr">
+      <div className="wrap">
+        <h2 className="sx-attr-h" data-reveal>Here's how the latest Shopee attribution works.</h2>
+        <p className="sx-attr-note" data-reveal data-reveal-delay="1">On mobile, zoom in to view the old and new Shopee attribution journeys.</p>
+        <div className="sx-attr-grid">
+          <figure className="sx-attr-card" data-reveal data-reveal-delay="1">
+            <img src="media/figma/sxtra-attribution-old.png" alt="The old Shopee attribution journey" loading="lazy" />
+            <figcaption>Old attribution</figcaption>
+          </figure>
+          <figure className="sx-attr-card" data-reveal data-reveal-delay="2">
+            <img src="media/figma/sxtra-attribution-new.png" alt="The new Shopee attribution journey" loading="lazy" />
+            <figcaption>New attribution</figcaption>
+          </figure>
+        </div>
+        <p className="sx-attr-eg" data-reveal>Here, Nike is used as an example of a Shopee Commissions XTRA brand.</p>
+      </div>
+      <style>{`
+        .sx-attr{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; text-align:center; }
+        .sx-attr-h{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
+        .sx-attr-note{ margin:14px auto 0; font:400 15px/1.5 var(--font-body); color:var(--warm-400); }
+        .sx-attr-grid{ margin:clamp(28px,4vh,44px) auto 0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(20px,3vw,40px); max-width:960px; }
+        .sx-attr-card{ margin:0; background:#fff; border:1px solid var(--warm-200); border-radius:16px; overflow:hidden; box-shadow:var(--shadow-sm); }
+        .sx-attr-card img{ display:block; width:100%; height:auto; aspect-ratio:16/10; object-fit:cover; background:var(--warm-100); color:var(--warm-400); font:400 13px/1.4 var(--font-body); }
+        .sx-attr-card figcaption{ padding:14px; font:700 14px/1 var(--font-body); color:var(--warm-900); }
+        .sx-attr-eg{ margin:clamp(24px,3.5vh,36px) auto 0; font:400 15px/1.5 var(--font-body); color:var(--warm-600); }
+        @media (max-width:700px){ .sx-attr-grid{ grid-template-columns:1fr; max-width:420px; } }
+      `}</style>
+    </section>
+  );
+}
+
 function PublisherApp() {
   useSmoothScroll();
   useScrollReveal();
@@ -1351,7 +1408,9 @@ function PublisherApp() {
       <Nav getStartedTone="pub" />
       <main>
         <PubHero />
+        <XtraIntro />
         <WhyChoose />
+        <XtraAttribution />
         <HowItWorks />
         <PubFAQ />
         <PubCTA />
