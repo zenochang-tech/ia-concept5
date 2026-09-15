@@ -1368,23 +1368,63 @@ function XtraIntro() {
 
 /* ---------- Shopee XTRA — old vs new attribution journey (diagram images to be provided) ---------- */
 function XtraAttribution() {
+  const IMG = 'media/figma/Shopee-Commissions-XTRA-NEW-V2.png';
+  const [open, setOpen] = React.useState(false);
+  const [zoom, setZoom] = React.useState(false);
+  const isMobile = () => typeof window !== 'undefined' && window.matchMedia('(max-width:700px)').matches;
+  const openLb = () => { if (isMobile()) { setZoom(false); setOpen(true); } };
+  const close = () => setOpen(false);
+  React.useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => { if (e.key === 'Escape') close(); };
+    document.addEventListener('keydown', onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = prev; };
+  }, [open]);
   return (
     <section id="sx-attr" className="sx-attr">
       <div className="wrap">
         <h2 className="sx-attr-h" data-reveal>Here's how the latest Shopee attribution works.</h2>
-        <p className="sx-attr-note" data-reveal data-reveal-delay="1">On mobile, zoom in to view the full Shopee attribution journey.</p>
+        <p className="sx-attr-note" data-reveal data-reveal-delay="1">Please tap to enlarge</p>
         <figure className="sx-attr-figure" data-reveal data-reveal-delay="1">
-          <img src="media/figma/Shopee-Commissions-XTRA-NEW-V2.jpg" alt="The Shopee Commissions XTRA attribution journey" loading="lazy" />
+          <img src={IMG} alt="The Shopee Commissions XTRA attribution journey" loading="lazy" onClick={openLb} />
         </figure>
         <p className="sx-attr-eg" data-reveal>Here, Nike is used as an example of a Shopee Commissions XTRA brand.</p>
       </div>
+      {open && (
+        <div className="sx-lb" role="dialog" aria-modal="true" aria-label="Shopee attribution journey" onClick={close}>
+          <button type="button" className="sx-lb-x" aria-label="Close" onClick={close}>&times;</button>
+          <div className="sx-lb-scroll" onClick={(e) => e.stopPropagation()}>
+            <div className="sx-lb-inner">
+              <img
+                src={IMG}
+                alt="The Shopee Commissions XTRA attribution journey"
+                className={`sx-lb-img${zoom ? ' zoomed' : ''}`}
+                onClick={() => setZoom((z) => !z)}
+              />
+            </div>
+          </div>
+        </div>
+      )}
       <style>{`
         .sx-attr{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; text-align:center; }
         .sx-attr-h{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
-        .sx-attr-note{ margin:14px auto 0; font:400 15px/1.5 var(--font-body); color:var(--warm-400); }
+        .sx-attr-note{ display:none; margin:14px auto 0; font:400 15px/1.5 var(--font-body); color:var(--warm-400); }
         .sx-attr-figure{ margin:clamp(28px,4vh,44px) auto 0; max-width:1000px; }
         .sx-attr-figure img{ display:block; width:100%; height:auto; border-radius:16px; }
         .sx-attr-eg{ margin:clamp(24px,3.5vh,36px) auto 0; font:400 15px/1.5 var(--font-body); color:var(--warm-600); }
+        .sx-lb{ position:fixed; inset:0; z-index:1000; background:rgba(15,28,46,.92); }
+        .sx-lb-x{ position:fixed; top:14px; right:16px; z-index:2; width:44px; height:44px; border:none; border-radius:var(--r-full); background:rgba(255,255,255,.14); color:#fff; font-size:26px; line-height:1; cursor:pointer; }
+        .sx-lb-x:hover{ background:rgba(255,255,255,.24); }
+        .sx-lb-scroll{ position:absolute; inset:0; overflow:auto; -webkit-overflow-scrolling:touch; }
+        .sx-lb-inner{ min-width:100%; min-height:100%; display:flex; align-items:center; justify-content:center; padding:16px; box-sizing:border-box; }
+        .sx-lb-img{ max-width:100%; max-height:calc(100vh - 32px); height:auto; border-radius:8px; cursor:zoom-in; touch-action:pinch-zoom; }
+        .sx-lb-img.zoomed{ max-width:none; max-height:none; width:min(1600px,300vw); height:auto; cursor:zoom-out; }
+        @media (max-width:700px){
+          .sx-attr-note{ display:block; }
+          .sx-attr-figure img{ cursor:zoom-in; }
+        }
       `}</style>
     </section>
   );
