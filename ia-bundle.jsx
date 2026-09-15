@@ -1427,7 +1427,7 @@ function Hero({ dark = false, hex = 3, emphasis = 'equal' }) {
         /* fonts matched to the advertiser "Sales Driven" card (.hs-label / .hs-sub / .hs-num) */
         .pcard-status{ font:600 11px/1.3 var(--font-body); color:var(--warm-900); }
         .pcard-brand{ font:400 10px/1 var(--font-body); color:var(--warm-400); white-space:nowrap; }
-        .pcard-amt{ margin-top:3px; font-family:var(--font-display); font-weight:800; font-size:13px; letter-spacing:-.02em; color:var(--warm-900); white-space:nowrap; }
+        .pcard-amt{ margin-top:3px; font-family:var(--font-display); font-weight:800; font-size:21px; letter-spacing:-.02em; color:var(--warm-900); white-space:nowrap; }
         .pcard-amt strong{ font-weight:800; font-size:21px; }
         /* total-sales card */
         .hero2-sales{ position:absolute; z-index:3; right:-6%; top:62%; background:rgba(255,255,255,.88); border-radius:14px; box-shadow:var(--shadow-lg); padding:13px 16px; display:flex; flex-direction:column; gap:2px; max-width:210px; }
@@ -1469,7 +1469,7 @@ function Hero({ dark = false, hex = 3, emphasis = 'equal' }) {
           .hero2-payouts .pcard{ padding:9px 11px; gap:1px; }
           .hero2-payouts .pcard-status{ font-size:9.5px; }
           .hero2-payouts .pcard-brand{ font-size:8.5px; }
-          .hero2-payouts .pcard-amt{ font-size:9px; }
+          .hero2-payouts .pcard-amt{ font-size:15px; }
           .hero2-payouts .pcard-amt strong{ font-size:15px; }
         }
       `}</style>
