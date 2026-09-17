@@ -277,7 +277,7 @@ function PubLogos() {
 
 /* ---------- Section 3 — "If you have an audience, you can earn." ----------- */
 const PUB_AUDIENCE = [
-  ['Creators', 'Social, influencers, video. Share what you love, and earn every time a follower buys.', 'pub-aud-creators-v3.png'],
+  ['Creators and Influencers', 'Social, influencers, video. Share what you love, and earn every time a follower buys.', 'pub-aud-creators-v3.png'],
   ['Content sites', 'Blogs, review sites, news and media. Turn the articles you already publish into income that keeps earning.', 'pub-aud-c02.png'],
   ['Affiliate & rewards sites', 'Cashback, coupon, comparison, and loyalty sites. Run affiliate as your business, at scale.', 'pub-aud-c03.png'],
   ['App owners', 'Show relevant offers and cashback to your users, automated through our API.', 'pub-aud-c04.png'],
