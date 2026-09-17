@@ -785,6 +785,7 @@ const NAV = [
         ['Content Sites', 'website.html'],
         ['App Owners', 'app-owners.html'],
         ['Media Buyers', 'media-buyer.html'],
+        ['For Agencies', 'for-agencies.html'],
       ]},
       { head: 'Features', links: [
         ['Express Withdrawal', 'express-withdrawal.html'],
@@ -4007,7 +4008,7 @@ function NetworkMorphCTA({ emphasis = 'equal', hex = 3 }) {
 
 /* ---------------- Footer (Midnight — shared anchor) ---------------- */
 const FOOT = [
-  { h: 'For Publishers', links: [['Overview','/partners/overview'],['Creators','/partners/content-creators/'],['Content sites','/partners/content-sites/'],['Affiliate & rewards sites','/partners/affiliate-rewards-sites/'],['App owners','/partners/app-owners/'],['Media buyers','/partners/media-buyers/'],['Networks & agencies','/partners/networks-agencies/'],['All Brands Directory','https://app.involve.asia/directory'],['Express Withdrawal','/partners/express-withdrawal/'],['API Overview','/partners/api-overview/']] },
+  { h: 'For Publishers', links: [['Overview','/partners/overview'],['Creators','/partners/content-creators/'],['Content sites','/partners/content-sites/'],['Affiliate & rewards sites','/partners/affiliate-rewards-sites/'],['App owners','/partners/app-owners/'],['Media buyers','/partners/media-buyers/'],['Agencies','for-agencies.html'],['All Brands Directory','https://app.involve.asia/directory'],['Express Withdrawal','/partners/express-withdrawal/'],['API Overview','/partners/api-overview/']] },
   { h: 'For Advertisers', links: [['Overview','/advertisers/'],['How We Track','/advertisers/how-we-track/'],['Partner Discovery','/advertisers/partner-discovery/'],['Automation','/advertisers/automation/'],['Case Studies','/advertisers/case-studies/']] },
   { h: 'Top Programs', links: [['Shopee Affiliate','/blog/shopee-affiliate-program/'],['Lazada Affiliate','/blog/lazada-affiliate-program/'],['Zalora Affiliate','/blog/zalora-affiliate-program/'],['Sephora Affiliate','/blog/sephora-affiliate-program/'],['See all programs','/top-affiliate-programs/']] },
   { h: 'Company', links: [['About Us','/about/'],['Careers','https://career.involve.asia/'],['Blog','/blog/'],['Support','https://helpcentre.involve.asia/'],['Release Notes','/release-notes/'],['Terms & Privacy','/terms-conditions/']] },
