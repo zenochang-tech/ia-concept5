@@ -4008,7 +4008,7 @@ function NetworkMorphCTA({ emphasis = 'equal', hex = 3 }) {
 
 /* ---------------- Footer (Midnight — shared anchor) ---------------- */
 const FOOT = [
-  { h: 'For Publishers', links: [['Overview','/partners/overview'],['Creators','/partners/content-creators/'],['Content sites','/partners/content-sites/'],['Affiliate & rewards sites','/partners/affiliate-rewards-sites/'],['App owners','/partners/app-owners/'],['Media buyers','/partners/media-buyers/'],['Agencies','for-agencies.html'],['All Brands Directory','https://app.involve.asia/directory'],['Express Withdrawal','/partners/express-withdrawal/'],['API Overview','/partners/api-overview/']] },
+  { h: 'For Publishers', links: [['Overview','/partners/overview'],['All Brands Directory','https://app.involve.asia/directory'],['Express Withdrawal','/partners/express-withdrawal/'],['API Overview','/partners/api-overview/'],['Data Feed','datafeed.html']] },
   { h: 'For Advertisers', links: [['Overview','/advertisers/'],['How We Track','/advertisers/how-we-track/'],['Partner Discovery','/advertisers/partner-discovery/'],['Automation','/advertisers/automation/'],['Case Studies','/advertisers/case-studies/']] },
   { h: 'Involve', links: [['About Us','/about/'],['Careers','https://career.involve.asia/'],['Blog','/blog/'],['Support','https://helpcentre.involve.asia/'],['Terms & Conditions','terms-conditions.html'],['Privacy Policy','https://app.involve.asia/publisher/privacypolicy']] },
 ];
