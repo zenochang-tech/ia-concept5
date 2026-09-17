@@ -29,9 +29,9 @@ function PubHero() {
       <span className="ph-basefade" aria-hidden="true" />
       <div className="wrap ph-wrap">
         <div className="ph-copy">
-          <span className="ph-eyebrow" data-reveal>For Creators</span>
+          <span className="ph-eyebrow" data-reveal>For creators &amp; influencers</span>
           <h1 className="ph-title" data-reveal data-reveal-delay="1">Turn the content you already make into income.</h1>
-          <p className="ph-sub" data-reveal data-reveal-delay="2">Thousands of brands want to work with creators like you, whatever your follower count. Share what you love, earn on every sale.</p>
+          <p className="ph-sub" data-reveal data-reveal-delay="2">Thousands of brands want to work with creators and influencers like you, whatever your follower count. Share what you love, earn on every sale.</p>
           <div className="ph-actions" data-reveal data-reveal-delay="3">
             <a href="/partners/" className="btn btn-primary btn-lg">Start Earning <Arrow /></a>
           </div>
@@ -994,6 +994,8 @@ const PUB_FAQ = [
     'Instagram, TikTok, YouTube, and more. Anywhere you can share a link or a code.'],
   ['How and when do I get paid?',
     'Once your sales are validated you withdraw in your local currency, with Express Withdrawal for early access.'],
+  ["I'm an influencer — is this for me?",
+    'Yes. Whether you call yourself a creator or an influencer, if you have an audience on any platform, you can earn — whatever your follower count.'],
 ];
 function PubFAQ() {
   const [open, setOpen] = React.useState(() => new Set([0]));
