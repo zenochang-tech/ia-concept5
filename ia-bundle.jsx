@@ -4019,7 +4019,7 @@ function Footer() {
     <footer style={{ background: 'var(--midnight)', color: 'var(--warm-300)', paddingTop: 64 }}>
       <div className="wrap">
         <div aria-hidden="true" style={{ height: 1, background: 'linear-gradient(to right, transparent, var(--midnight-mid) 18%, var(--midnight-mid) 82%, transparent)', marginBottom: 56 }}></div>
-        <div className="foot-grid" style={{ display: 'grid', gridTemplateColumns: '1.4fr repeat(4, 1fr)', gap: 32, paddingBottom: 48 }}>
+        <div className="foot-grid" style={{ display: 'grid', gridTemplateColumns: '1.4fr repeat(3, 1fr)', gap: 32, paddingBottom: 48 }}>
           <div style={{ maxWidth: 280 }}>
             <img src={(window.__resources && window.__resources.logoWhite) || "https://ia-design-system.vercel.app/assets/logo/wordmark-white.png"} alt="Involve Asia" width="140" height="30" style={{ height: 30, width: 'auto' }} />
             <p style={{ marginTop: 16, fontSize: 14, color: '#9aa1a9', lineHeight: 1.6 }}>

@@ -357,8 +357,8 @@ function Footer() {
   return (
     <footer style={{ background: 'var(--midnight)', color: 'var(--warm-300)', paddingTop: 64 }}>
       <style>{`
-        .foot-grid{ display:grid; grid-template-columns:1.4fr repeat(4,1fr); gap:32px; padding-bottom:48px; }
-        @media (max-width:900px){ .foot-grid{ grid-template-columns:repeat(4,1fr) !important; gap:32px 24px !important; } .foot-grid > :first-child{ grid-column:1 / -1; } }
+        .foot-grid{ display:grid; grid-template-columns:1.4fr repeat(3,1fr); gap:32px; padding-bottom:48px; }
+        @media (max-width:900px){ .foot-grid{ grid-template-columns:repeat(3,1fr) !important; gap:32px 24px !important; } .foot-grid > :first-child{ grid-column:1 / -1; } }
         @media (max-width:560px){ .foot-grid{ grid-template-columns:1fr 1fr !important; gap:30px 20px !important; } }
       `}</style>
       <div className="wrap">
