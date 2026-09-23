@@ -780,7 +780,7 @@ const NAV = [
         ['Earnings Estimate', 'earnings-estimate.html'],
       ]},
       { head: "Who it's for", links: [
-        ['Creators & Influencers', 'content-creators.html'],
+        ['Creator partners', 'content-creators.html'],
         ['Affiliate & Rewards Sites', 'affiliates.html'],
         ['Content Sites', 'website.html'],
         ['App Owners', 'app-owners.html'],

@@ -29,7 +29,7 @@ function PubHero() {
       <span className="ph-basefade" aria-hidden="true" />
       <div className="wrap ph-wrap">
         <div className="ph-copy">
-          <span className="ph-eyebrow" data-reveal>For creators &amp; influencers</span>
+          <span className="ph-eyebrow" data-reveal>Creator partners</span>
           <h1 className="ph-title" data-reveal data-reveal-delay="1">Turn the content you already make into income.</h1>
           <p className="ph-sub" data-reveal data-reveal-delay="2">Thousands of brands want to work with creators and influencers like you, whatever your follower count. Share what you love, earn on every sale.</p>
           <div className="ph-actions" data-reveal data-reveal-delay="3">
@@ -1235,38 +1235,165 @@ function MadeFor() {
     </section>
   );
 }
-/* ---------- CC §3 — "Built for the way you create." (4 cards) ---------- */
-const CREATE_CARDS = [
-  ['cc-create-1.png', 'Pick brands you actually like.', 'Choose from 500+ brands and thousands of live offers, and promote only what fits your audience.'],
-  ['cc-create-2.png', 'One dashboard for every partnership.', 'Work with multiple brands and track all your links, clicks, and earnings in one place.'],
-  ['cc-create-3.png', 'See what your audience buys.', 'Know which products, posts, and platforms drive the most sales, so you make more of what works.'],
-  ['cc-create-4.png', 'Get paid faster.', 'Withdraw in 7 to 10 working days, or in as little as 5 to 7 with Express Withdrawal.'],
+/* ---------- CC §2 — real content → tracked link ----------
+   Shows how a creator turns normal social content into earnings: existing content
+   (TikTok 9:16 / YouTube 16:9 / Instagram 4:5) with the tracking link shown in place.
+   Media are clearly-marked PLACEHOLDERS — brand-styled examples get dropped in later. */
+const RC_LINK = (
+  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l2-2a5 5 0 0 0-7.07-7.07l-1 1" /><path d="M14 11a5 5 0 0 0-7.07 0l-2 2a5 5 0 0 0 7.07 7.07l1-1" /></svg>
+);
+const RC_EXAMPLES = [
+  { plat: 'TikTok · Reels', ratio: 'rc-9x16', where: 'in your caption' },
+  { plat: 'YouTube', ratio: 'rc-16x9', where: 'in your description' },
+  { plat: 'Instagram', ratio: 'rc-4x5', where: 'in your bio' },
 ];
-function BuiltCreate() {
+function RealContent() {
   return (
-    <section id="cc-create" className="cc-sec">
+    <section id="cc-real" className="rc-sec">
       <div className="wrap">
-        <h2 className="cc-title" data-reveal>Built for the way you create.</h2>
-        <div className="cc-grid">
-          {CREATE_CARDS.map(([img, t, d], i) => (
-            <div className="cc-card" key={t} data-reveal data-reveal-delay={(i % 2) + 1}>
-              <div className="cc-visual"><img src={`media/figma/${img}`} alt="" loading="lazy" /></div>
-              <h3 className="cc-ct">{t}</h3>
-              <p className="cc-cd">{d}</p>
-            </div>
+        <h2 className="rc-title" data-reveal>Your content already earns.</h2>
+        <p className="rc-sub" data-reveal data-reveal-delay="1">Keep posting the way you do on TikTok, YouTube, and Instagram. Drop your trackable link into the caption, bio, or description, and earn on every sale it drives.</p>
+        <div className="rc-flow" data-reveal data-reveal-delay="1">
+          <span className="rc-flow-step">Existing content</span>
+          <span className="rc-flow-arrow" aria-hidden="true">&rarr;</span>
+          <span className="rc-flow-step">Add your link</span>
+          <span className="rc-flow-arrow" aria-hidden="true">&rarr;</span>
+          <span className="rc-flow-step rc-flow-earn">Earn on every sale</span>
+        </div>
+        <div className="rc-grid" data-reveal data-reveal-delay="2">
+          {RC_EXAMPLES.map((e) => (
+            <figure className="rc-ex" key={e.plat}>
+              <div className={'rc-media ' + e.ratio}>
+                <span className="rc-ph-badge">{e.plat.split(' · ')[0]} example</span>
+                <span className="rc-ph-note">Design asset — to be added</span>
+                <span className="rc-link-chip">{RC_LINK} invl.co/your-link</span>
+              </div>
+              <figcaption className="rc-cap"><span className="rc-plat">{e.plat}</span><span className="rc-where">Link {e.where}</span></figcaption>
+            </figure>
           ))}
         </div>
       </div>
       <style>{`
-        .cc-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
-        .cc-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
-        .cc-grid{ margin-top:clamp(34px,5vh,54px); display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(20px,3vw,32px); }
-        .cc-card{ min-width:0; }
-        .cc-visual{ border-radius:18px; overflow:hidden; aspect-ratio:560/300; background:var(--warm-100); }
-        .cc-visual img{ width:100%; height:100%; object-fit:cover; display:block; }
-        .cc-ct{ margin-top:20px; font-family:var(--font-display); font-weight:800; font-size:20px; letter-spacing:-.01em; color:var(--warm-900); }
-        .cc-cd{ margin-top:8px; font:400 16px/1.45 var(--font-body); color:var(--warm-600); max-width:440px; }
-        @media (max-width:720px){ .cc-grid{ grid-template-columns:1fr; max-width:440px; margin-inline:auto; } }
+        .rc-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
+        .rc-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
+        .rc-sub{ text-align:center; margin:16px auto 0; max-width:660px; font:400 16px/1.55 var(--font-body); color:var(--warm-600); }
+        .rc-flow{ margin:clamp(24px,3.5vh,36px) auto 0; display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap; }
+        .rc-flow-step{ font:700 13px/1 var(--font-body); letter-spacing:.01em; color:var(--warm-800); background:var(--warm-100); border:1px solid var(--warm-200); border-radius:9999px; padding:9px 16px; }
+        .rc-flow-earn{ color:#fff; background:var(--grad-ember); border-color:transparent; }
+        .rc-flow-arrow{ color:var(--ember); font-weight:700; }
+        .rc-grid{ margin-top:clamp(30px,4.5vh,50px); display:flex; align-items:flex-start; justify-content:center; gap:clamp(20px,3vw,40px); flex-wrap:wrap; }
+        .rc-ex{ margin:0; display:flex; flex-direction:column; }
+        .rc-media{ position:relative; height:clamp(260px,34vh,340px); width:auto; border-radius:16px; background:var(--warm-100);
+          border:2px dashed var(--warm-300); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; overflow:hidden; }
+        .rc-9x16{ aspect-ratio:9/16; } .rc-16x9{ aspect-ratio:16/9; } .rc-4x5{ aspect-ratio:4/5; }
+        .rc-ph-badge{ font-family:var(--font-display); font-weight:800; font-size:15px; color:var(--warm-800); text-align:center; padding:0 14px; }
+        .rc-ph-note{ font:500 12px/1.3 var(--font-body); color:var(--warm-400); }
+        .rc-link-chip{ position:absolute; left:10px; right:10px; bottom:10px; display:inline-flex; align-items:center; justify-content:center; gap:6px;
+          background:rgba(255,255,255,.94); border:1px solid var(--warm-200); border-radius:9999px; padding:7px 10px;
+          font:600 12px/1 var(--font-body); color:var(--ember); box-shadow:0 6px 16px rgba(15,28,46,.10); white-space:nowrap; }
+        .rc-cap{ margin-top:12px; display:flex; flex-direction:column; gap:3px; text-align:center; }
+        .rc-plat{ font:700 14px/1.3 var(--font-body); color:var(--warm-900); }
+        .rc-where{ font:400 13px/1.3 var(--font-body); color:var(--warm-600); }
+        @media (max-width:520px){ .rc-media{ height:auto; width:100%; max-width:300px; } .rc-16x9{ width:100%; } }
+      `}</style>
+    </section>
+  );
+}
+/* ---------- CC §3 — "Built for the way you create." (tab view, reused from the
+   publisher overview's platform stepper — pf-* pattern). One tab per tool. ---------- */
+const CREATE_TABS = [
+  { key: 'deeplink', t: 'Deep link generator', d: 'Promote a specific product, not just the homepage.',
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg> },
+  { key: 'creative', t: 'Creative hub', d: 'Get the latest banners and coupons from top brands.',
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="M21 15l-5-5L5 21" /></svg> },
+  { key: 'reporting', t: 'Reporting', d: 'See what your audience buys and what you earn.',
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18" /><path d="M8 17v-5" /><path d="M13 17V8" /><path d="M18 17v-8" /></svg> },
+  { key: 'payout', t: 'Get paid faster', d: 'Withdraw in 7 to 10 working days, or in as little as 5 to 7 with Express Withdrawal.',
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="6" width="18" height="13" rx="2" /><path d="M3 10h18" /><path d="M16 14h2" /></svg> },
+];
+const CREATE_TABS_MS = 5000;
+function BuiltCreate() {
+  const [active, setActive] = React.useState(0);
+  React.useEffect(() => {
+    if (prefersReduced()) return;
+    const t = setTimeout(() => setActive((a) => (a + 1) % CREATE_TABS.length), CREATE_TABS_MS);
+    return () => clearTimeout(t);
+  }, [active]);
+  return (
+    <section id="cc-create" className="pf-sec cct-sec">
+      <div className="wrap">
+        <h2 className="pf-title" data-reveal>Built for the way you create.</h2>
+        <p className="pf-sub" data-reveal data-reveal-delay="1">Everything you need to turn your content into income, in one place.</p>
+        <div className="pf-grid" data-reveal data-reveal-delay="1">
+          <div className="pf-steps">
+            {CREATE_TABS.map((s, i) => {
+              const on = i === active;
+              return (
+                <button type="button" className={'pf-step' + (on ? ' on' : '')} key={s.key} onClick={() => setActive(i)} aria-expanded={on}>
+                  <span className="pf-rail" aria-hidden="true"><span className="pf-rail-track" />{on && <span className="pf-rail-fill" key={active} />}</span>
+                  <span className="pf-step-body">
+                    <span className="pf-step-t"><span className="pf-step-ic" aria-hidden="true">{s.ic}</span>{s.t}</span>
+                    <span className="pf-step-dw"><span className="pf-step-d">{s.d}</span></span>
+                    <span className="pf-step-fig"><span className="pf-step-fig-in"><span className="cct-ph cct-ph-m"><b>{s.t}</b><i>Visual placeholder</i></span></span></span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+          <div className="pf-visual">
+            {CREATE_TABS.map((s, i) => (
+              <div key={s.key} className={'pf-img cct-ph' + (i === active ? ' on' : '')} aria-hidden={i !== active}><b>{s.t}</b><i>Visual placeholder</i></div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <style>{`
+        .pf-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; overflow:hidden; }
+        .pf-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
+        .pf-sub{ text-align:center; margin-top:14px; font-size:16px; line-height:1.4; color:var(--warm-600); }
+        .pf-grid{ margin-top:clamp(40px,6vh,72px); display:grid; grid-template-columns:minmax(0,412px) 1fr; gap:clamp(32px,4vw,64px); align-items:stretch; }
+        .pf-steps{ display:flex; flex-direction:column; }
+        .pf-step{ position:relative; display:flex; gap:20px; align-items:stretch; text-align:left; background:none; border:none; cursor:pointer; padding:30px 0; width:100%; }
+        .pf-step + .pf-step{ border-top:1px solid var(--warm-200); }
+        .pf-rail{ position:relative; width:8px; flex:0 0 auto; align-self:stretch; }
+        .pf-rail-track{ position:absolute; inset:0; border-radius:64px; background:var(--warm-200); opacity:0; transition:opacity .3s ease; }
+        .pf-rail-fill{ position:absolute; left:0; top:0; width:8px; border-radius:64px; background:var(--ember); height:0; }
+        .pf-step.on .pf-rail-track{ opacity:1; }
+        .pf-step.on .pf-rail-fill{ animation:cctFill ${CREATE_TABS_MS}ms linear forwards; }
+        @keyframes cctFill{ from{ height:0; } to{ height:100%; } }
+        .pf-step-body{ min-width:0; }
+        .pf-step-t{ display:flex; align-items:center; gap:11px; font-family:var(--font-display); font-weight:800; font-size:21px; letter-spacing:-.02em; color:var(--warm-900); }
+        .pf-step-ic{ display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; flex:0 0 auto; color:var(--ember); }
+        .pf-step-ic svg{ width:24px; height:24px; }
+        .pf-step-dw{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .4s ease; }
+        .pf-step.on .pf-step-dw{ grid-template-rows:1fr; }
+        .pf-step-d{ overflow:hidden; margin-top:0; font:400 16px/1.5 var(--font-body); color:var(--warm-600); }
+        .pf-step.on .pf-step-d{ margin-top:12px; }
+        .pf-step:not(.on){ opacity:.4; } .pf-step:not(.on):hover{ opacity:.7; }
+        .pf-visual{ position:relative; align-self:stretch; min-height:clamp(420px,52vh,600px); overflow:hidden;
+          margin-right:calc(min(100vw, var(--maxw)) / 2 - 50vw - 32px); border-radius:22px 0 0 22px;
+          background:linear-gradient(150deg, #fbe9df 0%, #f6f1ec 50%, #fde4d8 100%); }
+        .pf-img{ position:absolute; top:clamp(20px,3.2vw,40px); left:clamp(20px,3.2vw,40px);
+          width:calc(100% - clamp(20px,3.2vw,40px)); height:calc(100% - clamp(20px,3.2vw,40px));
+          border-radius:16px 0 0 0; opacity:0; transition:opacity .5s ease; }
+        .pf-img.on{ opacity:1; }
+        .cct-ph{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+          background:rgba(255,255,255,.55); border:2px dashed var(--warm-300); }
+        .cct-ph b{ font-family:var(--font-display); font-weight:800; font-size:20px; color:var(--warm-800); }
+        .cct-ph i{ font-style:normal; font:500 13px/1 var(--font-body); color:var(--warm-400); }
+        .pf-step-fig{ display:none; }
+        @media (max-width:900px){
+          .pf-grid{ grid-template-columns:1fr; gap:0; }
+          .pf-visual{ display:none; }
+          .pf-step{ gap:0; padding:22px 0; }
+          .pf-rail{ display:none; }
+          .pf-step-fig{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s ease; }
+          .pf-step.on .pf-step-fig{ grid-template-rows:1fr; }
+          .pf-step-fig-in{ overflow:hidden; min-height:0; }
+          .cct-ph-m{ min-height:150px; margin:16px 0 4px; border-radius:14px; background:var(--warm-100); }
+          .cct-ph-m b{ font-size:16px; } .cct-ph-m i{ font-size:12px; }
+        }
+        @media (prefers-reduced-motion: reduce){ .pf-rail-fill{ animation:none; height:100%; } .pf-img{ transition:none; } .pf-step-fig{ transition:none; } }
       `}</style>
     </section>
   );
@@ -1355,6 +1482,7 @@ function PublisherApp() {
       <Nav getStartedTone="pub" />
       <main>
         <PubHero />
+        <RealContent />
         <MadeFor />
         <HowItWorks />
         <BuiltCreate />
