@@ -2861,7 +2861,7 @@ function HexFinaleAnimated({ emphasis = 'equal', hex = 3 }) {
       let counted = false;
       const countUp = () => {
         if (counted) return; counted = true;
-        gsap.to(c, { a: 800000, b: 270, cc: 15, d: 4000, duration: 1.0, ease: 'power2.out', onUpdate: setNums });
+        gsap.to(c, { a: 1000000, b: 270, cc: 15, d: 4000, duration: 1.0, ease: 'power2.out', onUpdate: setNums });
       };
       const tl = gsap.timeline({ defaults: { ease: 'none' } });
       tl.from([A, B], { autoAlpha: 0, y: '+=50', duration: 0.5 }, 0);                                  // 1 connected mark in
@@ -2896,7 +2896,7 @@ function HexFinaleAnimated({ emphasis = 'equal', hex = 3 }) {
         <div ref={aRef} className="hfa-hex"><span ref={aOut} className="hfa-outwrap"><HexOut id="hgA" /></span><img ref={aPh} className="hfa-photo" src="media/figma/s9-hex-pub.webp" alt="A publisher creating content" style={{ transform: 'scaleX(-1)' }} /></div>
         <div ref={bRef} className="hfa-hex"><span ref={bOut} className="hfa-outwrap"><HexOut id="hgB" /></span><img ref={bPh} className="hfa-photo" src="media/figma/s9-hex-adv.webp" alt="An advertiser growing their brand" /></div>
         <div ref={statsRef} className="hfa-stats" aria-hidden="true">
-          <div className="hfa-stat s1"><span className="hfa-num" ref={n0}>800,000+</span><span className="hfa-lbl">publishers</span></div>
+          <div className="hfa-stat s1"><span className="hfa-num" ref={n0}>1,000,000+</span><span className="hfa-lbl">publishers</span></div>
           <p className="hfa-blurb">Behind every number,<br />a creator earning and a brand growing.</p>
           <div className="hfa-stat s2"><span className="hfa-num" ref={n1}>$270M+</span><span className="hfa-lbl">Commissions paid</span></div>
           <div className="hfa-stat s3"><span className="hfa-num" ref={n2}>$15B+</span><span className="hfa-lbl">Sales Generated</span></div>
@@ -2958,7 +2958,7 @@ function HexFinaleAnimated({ emphasis = 'equal', hex = 3 }) {
 }
 
 /* ---------------- Section 8 + 9 — Stat band + "Pick your side" hexagon finale ----------------
-   Stat band (800k / $270M / $15B / 4,000, Since 2014) around a connected-hex mark,
+   Stat band (1M / $270M / $15B / 4,000, Since 2014) around a connected-hex mark,
    flowing into the hexagon CTA. Pass 1: composed layout, live counters, reveals.
    Pass 2 (below, in effect): scroll-scrubbed split → flip → fill choreography. */
 const HEX_CLIP = 'polygon(50% 2%, 91.57% 26%, 91.57% 74%, 50% 98%, 8.43% 74%, 8.43% 26%)';
@@ -3176,7 +3176,7 @@ Object.assign(window, { TwoDoor, Hero, TrustStrip, OffersSection, HowItWorks, Ar
 
 /* ---------------- Stats ----------------
    Count-up never starts at 0 (brief §2.4). Starts at ~60% of the real value
-   and is reduced-motion aware. Real anchors: 800,000+ partners, 4,000+ brands. */
+   and is reduced-motion aware. Real anchors: 1,000,000+ partners, 4,000+ brands. */
 function useCountUp(target, run, startFrac = 0.6) {
   // Baseline is the REAL value (brief §2.4) — never a partial seed. We only drop to
   // the lower start value at the moment the in-view animation actually begins.
@@ -3200,12 +3200,12 @@ function useCountUp(target, run, startFrac = 0.6) {
   return v;
 }
 
-// Stats per brief Change 2, in order: 800,000+ / 4,000+ / 12 years / 15 Billion+.
+// Stats per brief Change 2, in order: 1,000,000+ / 4,000+ / 12 years / 15 Billion+.
 // Each carries the sticky image that swaps in as it becomes the active stat.
 // NOTE: the "15 Billion+" revenue figure is pending finance confirmation (it must
 // represent advertiser sales generated, not Involve's own revenue) — open item.
 const STATS = [
-  { value: 800000, tone: 'pub', fmt: (n) => Intl.NumberFormat('en').format(n) + '+', kicker: 'The network', label: 'Creators and publishers', sub: 'Creators, content sites, affiliate marketers, coupon and loyalty sites, all in one place.', imgLabel: 'community',
+  { value: 1000000, tone: 'pub', fmt: (n) => Intl.NumberFormat('en').format(n) + '+', kicker: 'The network', label: 'Creators and publishers', sub: 'Creators, content sites, affiliate marketers, coupon and loyalty sites, all in one place.', imgLabel: 'community',
     img: 'media/webp/800000%20globalpartners.webp', alt: 'Creators and publishers across the network' },
   { value: 4000, tone: 'adv', fmt: (n) => Intl.NumberFormat('en').format(n) + '+', kicker: 'The brands', label: 'Brands and advertisers', sub: 'From marketplaces to travel, finance and beauty, across every major category.', imgLabel: 'retail',
     img: 'media/webp/4000%20brand%20images.webp', alt: 'Brands and advertisers on the platform' },

@@ -768,7 +768,7 @@ Object.assign(window, { Hexagon, HexBadge, HexHeroField, HexTexture, useScrollPr
 
 const NAV = [
   { label: 'For Advertisers', href: '/advertisers/', tone: 'adv',
-    feature: { kicker: "I'm an Advertiser", title: 'Reach 800,000+ partners', body: 'Acquire new customers through creators, content sites and affiliates across Asia.', cta: 'List Your Brand', href: '/advertisers/' },
+    feature: { kicker: "I'm an Advertiser", title: 'Reach 1,000,000+ partners', body: 'Acquire new customers through creators, content sites and affiliates across Asia.', cta: 'List Your Brand', href: '/advertisers/' },
     items: [
       { t: 'Overview', d: 'Why brands grow with Involve', href: '/advertisers/' },
       { t: 'How We Track', d: 'Attribution & reporting', href: '/advertisers/how-we-track/' },
@@ -826,7 +826,7 @@ function MegaItem({ it }) {
 // Uses the real bundled brand imagery (offline, on-brand — no stock photos) + a real
 // destination for every top-level menu.
 const NAV_FEAT = [
-  { img: 'media/webp/success-advertiser-category.webp',    label: 'Reach 800,000+ partners',          href: '/advertisers/' },
+  { img: 'media/webp/success-advertiser-category.webp',    label: 'Reach 1,000,000+ partners',          href: '/advertisers/' },
   { img: 'media/webp/Success-story-publisher.webp',        label: 'Turn your audience into earnings', href: '/partners/' },
   { img: 'media/webp/best-affiliate-program-blog image.webp', label: 'The Involve Blog',              href: '/blog/' },
   { img: 'media/webp/12-years-success-image-recolor.webp', label: 'Life at Involve Asia',             href: '/about/' },
@@ -1281,7 +1281,7 @@ function Hero({ dark = false, hex = 3, emphasis = 'equal' }) {
       <HeroHexField />
       <div className="wrap hero2" style={{ position: 'relative', zIndex: 1 }}>
         <h1 className="hero2-title" data-reveal>One affiliate marketing platform</h1>
-        <p className="hero2-sub" data-reveal data-reveal-delay="1">Browse thousands of brands to promote, or reach 800,000+ creators and publishers, and watch the sales and payouts happen in real time.</p>
+        <p className="hero2-sub" data-reveal data-reveal-delay="1">Browse thousands of brands to promote, or reach 1,000,000+ creators and publishers, and watch the sales and payouts happen in real time.</p>
         <div className="hero2-grid">
           <div className="hero2-side pub" data-reveal data-reveal-delay="2">
             <span className="hero2-kicker">For <i>Publisher</i></span>
@@ -2504,7 +2504,7 @@ function HexFinaleAnimated({ emphasis = 'equal', hex = 3 }) {
       let counted = false;
       const countUp = () => {
         if (counted) return; counted = true;
-        gsap.to(c, { a: 800000, b: 270, cc: 15, d: 4000, duration: 1.0, ease: 'power2.out', onUpdate: setNums });
+        gsap.to(c, { a: 1000000, b: 270, cc: 15, d: 4000, duration: 1.0, ease: 'power2.out', onUpdate: setNums });
       };
       const tl = gsap.timeline({ defaults: { ease: 'none' } });
       tl.from([A, B], { autoAlpha: 0, y: '+=50', duration: 0.5 }, 0);                                  // 1 connected mark in
@@ -2539,7 +2539,7 @@ function HexFinaleAnimated({ emphasis = 'equal', hex = 3 }) {
         <div ref={aRef} className="hfa-hex"><span ref={aOut} className="hfa-outwrap"><HexOut id="hgA" /></span><img ref={aPh} className="hfa-photo" src="media/figma/s9-hex-pub.webp" alt="A publisher creating content" style={{ transform: 'scaleX(-1)' }} /></div>
         <div ref={bRef} className="hfa-hex"><span ref={bOut} className="hfa-outwrap"><HexOut id="hgB" /></span><img ref={bPh} className="hfa-photo" src="media/figma/s9-hex-adv.webp" alt="An advertiser growing their brand" /></div>
         <div ref={statsRef} className="hfa-stats" aria-hidden="true">
-          <div className="hfa-stat s1"><span className="hfa-num" ref={n0}>800,000+</span><span className="hfa-lbl">publishers</span></div>
+          <div className="hfa-stat s1"><span className="hfa-num" ref={n0}>1,000,000+</span><span className="hfa-lbl">publishers</span></div>
           <p className="hfa-blurb">Behind every number,<br />a creator earning and a brand growing.</p>
           <div className="hfa-stat s2"><span className="hfa-num" ref={n1}>$270M+</span><span className="hfa-lbl">Commissions paid</span></div>
           <div className="hfa-stat s3"><span className="hfa-num" ref={n2}>$15B+</span><span className="hfa-lbl">Sales Generated</span></div>
@@ -2601,7 +2601,7 @@ function HexFinaleAnimated({ emphasis = 'equal', hex = 3 }) {
 }
 
 /* ---------------- Section 8 + 9 — Stat band + "Pick your side" hexagon finale ----------------
-   Stat band (800k / $270M / $15B / 4,000, Since 2014) around a connected-hex mark,
+   Stat band (1M / $270M / $15B / 4,000, Since 2014) around a connected-hex mark,
    flowing into the hexagon CTA. Pass 1: composed layout, live counters, reveals.
    Pass 2 (below, in effect): scroll-scrubbed split → flip → fill choreography. */
 const HEX_CLIP = 'polygon(50% 2%, 91.57% 26%, 91.57% 74%, 50% 98%, 8.43% 74%, 8.43% 26%)';
@@ -2634,7 +2634,7 @@ function HexFinaleStatic({ emphasis = 'equal', hex = 3 }) {
     <section id="cta" className="hf">
       {/* ---- Stat band ---- */}
       <div className="wrap hf-stats" data-reveal>
-        <div className="hf-stat hf-s1"><StatBig to={800000} fmt={(v) => Math.round(v).toLocaleString() + '+'} size="80px" /><span className="hf-lbl">publishers</span></div>
+        <div className="hf-stat hf-s1"><StatBig to={1000000} fmt={(v) => Math.round(v).toLocaleString() + '+'} size="80px" /><span className="hf-lbl">publishers</span></div>
         <p className="hf-blurb">Behind every number,<br />a creator earning and a brand growing.</p>
         <div className="hf-stat hf-s2"><StatBig to={270} fmt={(v) => '$' + Math.round(v) + 'M+'} size="56px" /><span className="hf-lbl">Commissions paid</span></div>
         <div className="hf-mark" aria-hidden="true">
@@ -2810,7 +2810,7 @@ Object.assign(window, { TwoDoor, Hero, TrustStrip, OffersSection, HowItWorks, Ar
 
 /* ---------------- Stats ----------------
    Count-up never starts at 0 (brief §2.4). Starts at ~60% of the real value
-   and is reduced-motion aware. Real anchors: 800,000+ partners, 4,000+ brands. */
+   and is reduced-motion aware. Real anchors: 1,000,000+ partners, 4,000+ brands. */
 function useCountUp(target, run, startFrac = 0.6) {
   // Baseline is the REAL value (brief §2.4) — never a partial seed. We only drop to
   // the lower start value at the moment the in-view animation actually begins.
@@ -2834,12 +2834,12 @@ function useCountUp(target, run, startFrac = 0.6) {
   return v;
 }
 
-// Stats per brief Change 2, in order: 800,000+ / 4,000+ / 12 years / 15 Billion+.
+// Stats per brief Change 2, in order: 1,000,000+ / 4,000+ / 12 years / 15 Billion+.
 // Each carries the sticky image that swaps in as it becomes the active stat.
 // NOTE: the "15 Billion+" revenue figure is pending finance confirmation (it must
 // represent advertiser sales generated, not Involve's own revenue) — open item.
 const STATS = [
-  { value: 800000, tone: 'pub', fmt: (n) => Intl.NumberFormat('en').format(n) + '+', kicker: 'The network', label: 'Creators and publishers', sub: 'Creators, content sites, affiliate marketers, coupon and loyalty sites, all in one place.', imgLabel: 'community',
+  { value: 1000000, tone: 'pub', fmt: (n) => Intl.NumberFormat('en').format(n) + '+', kicker: 'The network', label: 'Creators and publishers', sub: 'Creators, content sites, affiliate marketers, coupon and loyalty sites, all in one place.', imgLabel: 'community',
     img: 'media/webp/800000%20globalpartners.webp', alt: 'Creators and publishers across the network' },
   { value: 4000, tone: 'adv', fmt: (n) => Intl.NumberFormat('en').format(n) + '+', kicker: 'The brands', label: 'Brands and advertisers', sub: 'From marketplaces to travel, finance and beauty, across every major category.', imgLabel: 'retail',
     img: 'media/webp/4000%20brand%20images.webp', alt: 'Brands and advertisers on the platform' },
