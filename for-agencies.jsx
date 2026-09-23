@@ -993,7 +993,7 @@ function PubVoices() {
    (4.2% commission, 10 working days) are illustrative — confirm before launch. */
 const PUB_FAQ = [
   ['Can I manage more than one client?',
-    'Yes. Run multiple client programs from one platform, with reporting across every account.'],
+    'Yes. Run all your clients from one account and separate each with sub-IDs, or hold a separate account per client for clean billing. Either way, the API lets you pull the data into your own reporting.'],
   ['Do I need my own audience or traffic?',
     <>No. This path is for agencies running affiliate activity for clients, not for monetising your own audience — if that's you, see the <a href="for-publishers.html">five publisher types</a> instead.</>],
   ['How do we integrate technically?',
@@ -1233,7 +1233,7 @@ const AFF_WHY = [
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z" /><path d="M3 12l9 5 9-5" /><path d="M3 16.5l9 5 9-5" /></svg> },
   { t: 'Separate clients with sub-IDs', d: 'Tag activity by client and see conversions broken out per client.',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="6" rx="7.5" ry="3" /><path d="M4.5 6v6c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3V6" /><path d="M4.5 12v6c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3v-6" /></svg> },
-  { t: 'Talk to us to scale', d: 'For consolidated management and reporting across multiple client accounts, our team sets up the right structure.',
+  { t: 'Talk to us to scale', d: 'Our team helps you pick the right setup — one account with sub-IDs for a combined view, or a separate account per client — and gets you running.',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5" /><path d="M9 14.5l2 2 4-4" /></svg> },
 ];
 function WhyChoose() {
@@ -1329,7 +1329,7 @@ function ScaleApi() {
 const HIW_STEPS = [
   ['01', 'Access to the catalogue', '500+ brands and 4,000+ offers to activate for any client.'],
   ['02', 'One place for every client', "Run and track each client's campaigns without juggling separate tools."],
-  ['03', 'Consolidated tracking and reporting', 'See performance across every client account in one view, and separate activity cleanly with sub-IDs.'],
+  ['03', 'Consolidated tracking and reporting', "See every client's performance in one account, separated cleanly with sub-IDs — or pull it all into your own dashboard through the API."],
 ];
 function HowItWorks() {
   return (
