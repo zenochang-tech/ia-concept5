@@ -37,10 +37,6 @@ function PubHero() {
               <a href="https://app.involve.asia/v2/create-account" className="btn btn-primary btn-lg">Sign up free <Arrow /></a>
               <span className="ph-act-note">Free to join. Get API access in ~48 hours.</span>
             </span>
-            <span className="ph-act">
-              <a href="https://involve.asia/contact/" className="btn btn-secondary btn-lg">Talk to our team</a>
-              <span className="ph-act-note">For multi-client setups and consolidated reporting.</span>
-            </span>
           </div>
         </div>
 
