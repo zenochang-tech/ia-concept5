@@ -63,7 +63,7 @@ function PubHero() {
           <div className={on(1)} aria-hidden={slide !== 1}>
             <div className="ph-photo"><img src="media/figma/pub-hero-slide2.png" alt="A publisher reviewing their sales in the dashboard" loading="eager" /></div>
             <div className="ph-slide-ui">
-              <div className="ph-glass ph-g-sales"><div className="ph-stat"><span className="ph-stat-lbl"><span className="ph-stat-cur">$</span> Total Sales</span><span className="ph-stat-row"><b>136,578</b><em>&uarr;36%</em></span></div></div>
+              <div className="ph-glass ph-g-sales"><div className="ph-stat"><span className="ph-stat-lbl">Total Sales</span><span className="ph-stat-row"><b>$136,578</b><em>&uarr;36%</em></span></div></div>
             </div>
           </div>
 
@@ -335,7 +335,7 @@ function PubAudience() {
       <div className="wrap au-head">
         <div className="au-head-l" data-reveal>
           <h2 className="au-title">However you reach people, there's a way to earn.</h2>
-          <p className="au-sub">Whatever you run, there's a way to earn with it, across campaigns, promo codes, product deals and more.</p>
+          <p className="au-sub">Whatever you run, there's a fit for it, across campaigns, promo codes, product deals and more.</p>
         </div>
         <div ref={barRef} className="au-bar" data-reveal data-reveal-delay="1" aria-hidden="true"><span ref={thumbRef} className="au-bar-thumb" /></div>
       </div>
@@ -788,7 +788,6 @@ function PubBuilt() {
   return (
     <section id="pub-built" className="be-sec">
       <div className="wrap">
-        <h2 className="be-title" data-reveal>Built for how you actually earn.</h2>
         <div className="be-grid">
           {/* 1 — Payout status pill (cycles Validating → Processing → Commission Paid) */}
           <div className="be-col" data-reveal>

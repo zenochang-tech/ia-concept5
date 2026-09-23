@@ -47,7 +47,7 @@ function AboutHero() {
       <div className="wrap ah-wrap">
         <span className="ah-eyebrow" data-reveal>About us</span>
         <h1 className="ah-title" data-reveal data-reveal-delay="1">Driving growth across Asia.</h1>
-        <p className="ah-sub" data-reveal data-reveal-delay="1">We connect brands, creators and partners through transparent technology, seamless commission payouts, and global opportunities.</p>
+        <p className="ah-sub" data-reveal data-reveal-delay="1">We connect brands and partners through transparent technology, seamless commission payouts, and global opportunities.</p>
         <div className="ah-chips" data-reveal data-reveal-delay="2">
           {ABOUT_CHIPS.map((c) => <span className="ah-chip" key={c}>{c}</span>)}
         </div>
@@ -479,7 +479,7 @@ function HexFinaleStatic() {
               <img key={i} className="hf-combhex" src={`media/figma/s9-hex-${g}.png`} alt="" style={{ left: `calc(50% + ${x}px)`, top: `calc(50% + ${y}px)` }} />
             ))}
           </div>
-          <span className="hf-kick hf-kick-m" aria-hidden="true">Influencers. Websites. App owner.</span>
+          <span className="hf-kick hf-kick-m" aria-hidden="true">Influencers. Websites. App owners.</span>
           <span className="hf-kick adv hf-kick-m" aria-hidden="true">Brands. Retailers. Enterprises.</span>
           <img className="hf-photohex hf-ph-pub" src="media/figma/s9-hex-pub.webp" alt="A publisher creating content" />
           <img className="hf-photohex hf-ph-adv" src="media/figma/s9-hex-adv.webp" alt="An advertiser growing their brand" />

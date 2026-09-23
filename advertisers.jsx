@@ -1494,7 +1494,6 @@ function TrafficViz() {
 /* ---------- Advertiser Section 5 — "You only pay for sales that are real" ---- */
 const ADV_REAL_POINTS = [
   'Every conversion verified before payout',
-  'Validated before payout',
   'Every sale tracked to the publisher who drove it',
 ];
 function AdvReal() {

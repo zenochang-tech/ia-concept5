@@ -2023,7 +2023,7 @@ function OffersSection() {
    Static (Phase 1); overlay cards rebuilt in CSS for crispness. */
 const START_STEPS = [
   { n: 'Step 1', title: 'Match', img: 'home-start-img-01.png', overlay: 'match',
-    desc: 'We match you with the right brands, or the right creators. No cold outreach.',
+    desc: 'We match you with the right brands, or the right publishers. No cold outreach.',
     quote: '“Found 40 brands to promote in a day, the filter and category makes the process much easier.”',
     name: 'John Doe', role: 'Publisher · Food Blogger', avatar: 's5-avatar-1.png' },
   { n: 'Step 2', title: 'Go live', img: 'home-start-img-02.png', overlay: 'golive',
@@ -2035,7 +2035,7 @@ const START_STEPS = [
     quote: '“Found 40 brands to promote in a day, the filter and category makes the process much easier.”',
     name: 'Jane Doe', role: 'Publisher · Lifestyle Content Creator', avatar: 's5-avatar-2.png' },
   { n: 'Step 4', title: 'Grow and get paid', img: 'home-start-img-04.png', overlay: 'payout',
-    desc: "Creators get paid for every sale they drive. Brands grow from those sales, and only pay when they're real and verified.",
+    desc: "Publishers get paid for every sale they drive. Brands grow from those sales, and only pay when they're real and verified.",
     quote: '“The data provided is clear which makes the validation process easier, and we only pay when it actually converts.”',
     name: 'Brand Name', role: 'Advertiser · Brand Category', avatar: 's5-avatar-3.png' },
 ];
@@ -2312,7 +2312,7 @@ function SupportBanner() {
           <h2 className="sup-title" data-reveal>Real human support, at every step.</h2>
           <p className="sup-desc" data-reveal data-reveal-delay="1">Not bots, not dead-end FAQs. Real people who know the platform and are ready to help, whether you're a creator setting up your first link or a brand launching your biggest campaign.</p>
           <div className="sup-badge" data-reveal data-reveal-delay="2">
-            <p className="sup-badge-lbl">95% of users rate our support as great.</p>
+            <p className="sup-badge-lbl">95% of users rate our support as excellent.</p>
             <div className="sup-quote-card">
               <p className="sup-quote">“It's easy to reach customer service, and they fix things quickly.”</p>
               <p className="sup-verified">Verified Publisher</p>
@@ -3002,7 +3002,7 @@ function HexFinaleStatic({ emphasis = 'equal', hex = 3 }) {
             ))}
           </div>
           {/* mobile-only kickers, placed ABOVE the photos (the desktop kickers stay inside the cards) */}
-          <span className="hf-kick hf-kick-m" aria-hidden="true">Influencers. Websites. App owner.</span>
+          <span className="hf-kick hf-kick-m" aria-hidden="true">Influencers. Websites. App owners.</span>
           <span className="hf-kick adv hf-kick-m" aria-hidden="true">Brands. Retailers. Enterprises.</span>
           <img className="hf-photohex hf-ph-pub" src="media/figma/s9-hex-pub.webp" alt="A publisher creating content" />
           <img className="hf-photohex hf-ph-adv" src="media/figma/s9-hex-adv.webp" alt="An advertiser growing their brand" />
