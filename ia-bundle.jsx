@@ -785,7 +785,6 @@ const NAV = [
         ['Content Sites', 'website.html'],
         ['App Owners', 'app-owners.html'],
         ['Media Buyers', 'media-buyer.html'],
-        ['For Agencies', 'for-agencies.html'],
       ]},
       { head: 'Features', links: [
         ['Express Withdrawal', 'express-withdrawal.html'],
