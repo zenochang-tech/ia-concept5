@@ -41,7 +41,7 @@ function PubHero() {
         <div className="ph-visual" data-reveal data-reveal-delay="1">
           <span className="ph-hexglow" aria-hidden="true" />
           <span className="ph-hexplate" aria-hidden="true" />
-          <div className="ph-photo ph-photo-fill"><img src="media/figma/content-creators-hero.png" alt="A content creator sharing product recommendations with her audience" loading="eager" /></div>
+          <div className="ph-photo ph-photo-fill"><img src="media/figma/creator-partner-hero-image.png" alt="A content creator sharing product recommendations with her audience" loading="eager" /></div>
           <div className="ph-static-ui">
             <div className="ph-glass ph-g-pay-a"><div className="ph-pay"><span>Commission Earned</span><b>+ $816</b></div></div>
           </div>
@@ -1195,7 +1195,7 @@ function MadeFor() {
             </div>
           </div>
           <div className="mf-visual">
-            <div className="mf-photo" data-reveal><img src="media/figma/content-creators-social.png" alt="A creator sharing a product recommendation with her followers" loading="lazy" /></div>
+            <div className="mf-photo" data-reveal><img src="media/figma/creator-partner-social.png" alt="A creator sharing a product recommendation with her followers" loading="lazy" /></div>
             <div className="mf-prod" data-reveal data-reveal-delay="2">
               <div className="mf-prod-card">
                 <span className="mf-prod-lbl">Serum M</span>
