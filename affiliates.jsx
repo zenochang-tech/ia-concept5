@@ -329,7 +329,7 @@ function PubAudience() {
         .au-scroll.grabbing{ cursor:grabbing; }
         .au-track{ display:flex; gap:16px; width:max-content; }
         .au-track-end{ flex:0 0 max(1px, calc((100% - var(--maxw)) / 2)); }
-        .au-card{ position:relative; flex:0 0 auto; width:clamp(268px,80vw,320px); height:426px; border-radius:20px; overflow:hidden;
+        .au-card{ position:relative; flex:0 0 auto; width:clamp(268px,80vw,320px); height:366px; border-radius:20px; overflow:hidden;
           background:#ffffff; box-shadow:0 12px 30px rgba(15,28,46,.06);
           transition:transform .34s cubic-bezier(.22,1,.36,1), box-shadow .34s; }
         /* image anchored to the BOTTOM of the card, faded into the surface at its top so it never sits under the text */
@@ -1262,10 +1262,10 @@ function BuiltKinds() {
         .au-scroll.grabbing{ cursor:grabbing; }
         .au-track{ display:flex; gap:16px; width:max-content; }
         .au-track-end{ flex:0 0 max(1px, calc((100% - var(--maxw)) / 2)); }
-        .au-card{ position:relative; flex:0 0 auto; width:clamp(268px,80vw,320px); height:426px; border-radius:20px; overflow:hidden;
+        .au-card{ position:relative; flex:0 0 auto; width:clamp(268px,80vw,320px); height:366px; border-radius:20px; overflow:hidden;
           background:#ffffff; box-shadow:0 12px 30px rgba(15,28,46,.06);
           transition:transform .34s cubic-bezier(.22,1,.36,1), box-shadow .34s; }
-        .au-card-img{ position:absolute; left:0; right:0; bottom:0; width:100%; height:80%; object-fit:cover; object-position:center 24%; opacity:.32; transition:opacity .34s ease; -webkit-user-drag:none; pointer-events:none;
+        .au-card-img{ position:absolute; left:0; right:0; bottom:0; width:100%; height:80%; object-fit:cover; object-position:center 100%; opacity:.32; transition:opacity .34s ease; -webkit-user-drag:none; pointer-events:none;
           -webkit-mask:linear-gradient(180deg, transparent 0%, #000 30%); mask:linear-gradient(180deg, transparent 0%, #000 30%); }
         .au-card-body{ position:relative; z-index:1; padding:26px 28px; opacity:.7; transition:opacity .34s ease; }
         .au-card-t{ font-family:var(--font-display); font-weight:800; font-size:21px; line-height:1.25; letter-spacing:-.02em; color:var(--warm-900); }
