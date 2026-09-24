@@ -1182,44 +1182,98 @@ const AFF_KINDS = [
   ['aff-kind-1.png', 'Coupon & deal', 'Share promo codes, vouchers, and deals, and earn when shoppers buy at a better price.'],
   ['aff-kind-3.png', 'Comparison', 'Help shoppers choose with side-by-side comparisons, and earn when they click through and buy.'],
 ];
+/* Sub-type slider — same draggable carousel + ember progress bar as the publisher
+   overview's "However you reach people" section (au-* pattern). */
 function BuiltKinds() {
+  const scrollRef = React.useRef(null);
+  const thumbRef = React.useRef(null);
+  const barRef = React.useRef(null);
+  React.useEffect(() => {
+    const sc = scrollRef.current, thumb = thumbRef.current, bar = barRef.current;
+    if (!sc || !thumb) return;
+    const trackW = () => (bar ? bar.clientWidth : 134);
+    let tw = 28;
+    const update = () => {
+      const T = trackW(), max = sc.scrollWidth - sc.clientWidth;
+      tw = Math.max(28, Math.round(T * (sc.clientWidth / sc.scrollWidth)));
+      const x = max > 0 ? (sc.scrollLeft / max) * (T - tw) : 0;
+      thumb.style.width = tw + 'px';
+      thumb.style.transform = `translateX(${x.toFixed(1)}px)`;
+    };
+    update();
+    sc.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    let cDown = false, sX = 0, sLeft = 0, moved = false, cPid = null;
+    const cMove = (e) => { if (!cDown) return; const dx = e.clientX - sX; if (Math.abs(dx) > 3) moved = true; sc.scrollLeft = sLeft - dx; };
+    const cEnd = () => { if (!cDown) return; cDown = false; sc.classList.remove('grabbing'); if (cPid != null) { try { sc.releasePointerCapture(cPid); } catch (_) {} cPid = null; } window.removeEventListener('pointermove', cMove); window.removeEventListener('pointerup', cEnd); window.removeEventListener('pointercancel', cEnd); };
+    const cStart = (e) => { if (e.pointerType === 'mouse' && e.button !== 0) return; cDown = true; moved = false; sX = e.clientX; sLeft = sc.scrollLeft; cPid = e.pointerId; sc.classList.add('grabbing'); try { sc.setPointerCapture(e.pointerId); } catch (_) {} window.addEventListener('pointermove', cMove); window.addEventListener('pointerup', cEnd); window.addEventListener('pointercancel', cEnd); };
+    const onClick = (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); } };
+    sc.addEventListener('pointerdown', cStart);
+    sc.addEventListener('click', onClick, true);
+    let bDown = false, bPid = null;
+    const bSeek = (clientX) => { const T = trackW(), max = sc.scrollWidth - sc.clientWidth, r = bar.getBoundingClientRect(); let x = clientX - r.left - tw / 2; x = Math.max(0, Math.min(T - tw, x)); sc.scrollLeft = (T - tw) > 0 ? (x / (T - tw)) * max : 0; };
+    const bMove = (e) => { if (bDown) bSeek(e.clientX); };
+    const bEnd = () => { if (!bDown) return; bDown = false; bar.classList.remove('dragging'); if (bPid != null) { try { bar.releasePointerCapture(bPid); } catch (_) {} bPid = null; } window.removeEventListener('pointermove', bMove); window.removeEventListener('pointerup', bEnd); window.removeEventListener('pointercancel', bEnd); };
+    const bStart = (e) => { if (e.pointerType === 'mouse' && e.button !== 0) return; bDown = true; bPid = e.pointerId; bar.classList.add('dragging'); try { bar.setPointerCapture(e.pointerId); } catch (_) {} bSeek(e.clientX); window.addEventListener('pointermove', bMove); window.addEventListener('pointerup', bEnd); window.addEventListener('pointercancel', bEnd); e.preventDefault(); };
+    if (bar) bar.addEventListener('pointerdown', bStart);
+    return () => {
+      sc.removeEventListener('scroll', update); window.removeEventListener('resize', update);
+      sc.removeEventListener('pointerdown', cStart); sc.removeEventListener('click', onClick, true);
+      window.removeEventListener('pointermove', cMove); window.removeEventListener('pointerup', cEnd); window.removeEventListener('pointercancel', cEnd);
+      if (bar) bar.removeEventListener('pointerdown', bStart);
+      window.removeEventListener('pointermove', bMove); window.removeEventListener('pointerup', bEnd); window.removeEventListener('pointercancel', bEnd);
+    };
+  }, []);
   return (
-    <section id="aff-kinds" className="ak-sec">
-      <div className="wrap">
-        <h2 className="ak-title" data-reveal>Built for every kind of affiliate site.</h2>
-        <p className="ak-sub" data-reveal data-reveal-delay="1">Whatever kind of site you run, there's a way to earn.</p>
-        <div className="ak-grid">
-          {AFF_KINDS.map(([img, t, d, cross], i) => (
-            <div className="ak-card" key={t} data-reveal data-reveal-delay={(i % 3) + 1}>
-              <img className="ak-mock" src={`media/figma/${img}`} alt="" loading="lazy" />
-              <div className="ak-body">
-                <h3 className="ak-ct">{t}</h3>
-                <p className="ak-cd">{d}</p>
-                {cross && <p className="ak-xlink">{cross[0]} <a href={cross[2]}>{cross[1]}</a>.</p>}
+    <section id="aff-kinds" className="au-sec">
+      <div className="wrap au-head">
+        <div className="au-head-l" data-reveal>
+          <h2 className="au-title">Built for every kind of affiliate site.</h2>
+          <p className="au-sub">Whatever kind of site you run, there's a way to earn.</p>
+        </div>
+        <div ref={barRef} className="au-bar" data-reveal data-reveal-delay="1" aria-hidden="true"><span ref={thumbRef} className="au-bar-thumb" /></div>
+      </div>
+      <div ref={scrollRef} className="au-scroll" data-reveal data-reveal-delay="1">
+        <div className="au-track">
+          {AFF_KINDS.map(([img, t, d]) => (
+            <article className="au-card" key={t}>
+              <img className="au-card-img" src={`media/figma/${img}`} alt="" draggable="false" loading="lazy" />
+              <div className="au-card-body">
+                <h3 className="au-card-t">{t}</h3>
+                <p className="au-card-d">{d}</p>
               </div>
-            </div>
+            </article>
           ))}
+          <span className="au-track-end" aria-hidden="true" />
         </div>
       </div>
       <style>{`
-        .ak-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
-        .ak-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
-        .ak-sub{ text-align:center; margin:14px auto 0; max-width:620px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); }
-        .ak-grid{ margin-top:clamp(34px,5vh,54px); display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(18px,2vw,26px); }
-        .ak-card{ position:relative; min-width:0; aspect-ratio:300/426; border-radius:16px; overflow:hidden; }
-        .ak-mock{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
-        .ak-body{ position:relative; z-index:1; padding:22px 22px 0; }
-        .ak-ct{ font-family:var(--font-display); font-weight:800; font-size:clamp(16px,1.2vw,18px); letter-spacing:-.01em; color:var(--warm-900); }
-        .ak-cd{ margin-top:8px; font:400 14px/1.42 var(--font-body); color:var(--warm-600); }
-        .ak-xlink{ margin-top:10px; font:400 12.5px/1.4 var(--font-body); color:var(--warm-400); }
-        .ak-xlink a{ color:var(--ember); font-weight:600; text-decoration:none; }
-        .ak-xlink a:hover{ text-decoration:underline; }
-        @media (max-width:900px){ .ak-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px 22px; } }
-        @media (max-width:540px){ .ak-grid{ grid-template-columns:1fr; max-width:360px; margin-inline:auto; }
-          /* single-column cards get very tall at full width, opening a big blank band between the
-             copy and the mockup; shorten the card so the mockup rises up right under the text
-             (the extra bottom just bleeds off, as intended) */
-          .ak-card{ aspect-ratio:300/300; } .ak-mock{ object-position:center 72%; } }
+        .au-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; overflow:hidden; }
+        .au-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+        .au-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.06; letter-spacing:-.03em; color:var(--warm-900); }
+        .au-sub{ margin-top:14px; max-width:620px; font-size:16px; line-height:1.4; color:var(--warm-600); }
+        .au-bar{ position:relative; width:134px; height:12px; border-radius:160px; background:var(--warm-200); flex:0 0 auto; cursor:pointer; touch-action:none; }
+        .au-bar.dragging{ cursor:grabbing; }
+        .au-bar-thumb{ position:absolute; left:0; top:0; height:12px; width:66px; border-radius:160px; background:var(--ember); will-change:transform,width; pointer-events:none; }
+        .au-scroll{ margin-top:clamp(2px,1.6vh,18px); margin-bottom:-34px; overflow-x:auto; overflow-y:hidden; cursor:grab; scrollbar-width:none; -ms-overflow-style:none;
+          padding-block:26px 62px;
+          padding-inline:max(32px, calc((100% - var(--maxw)) / 2 + 32px)); }
+        .au-scroll::-webkit-scrollbar{ display:none; }
+        .au-scroll.grabbing{ cursor:grabbing; }
+        .au-track{ display:flex; gap:16px; width:max-content; }
+        .au-track-end{ flex:0 0 max(1px, calc((100% - var(--maxw)) / 2)); }
+        .au-card{ position:relative; flex:0 0 auto; width:clamp(268px,80vw,320px); height:426px; border-radius:20px; overflow:hidden;
+          background:#ffffff; box-shadow:0 12px 30px rgba(15,28,46,.06);
+          transition:transform .34s cubic-bezier(.22,1,.36,1), box-shadow .34s; }
+        .au-card-img{ position:absolute; left:0; right:0; bottom:0; width:100%; height:80%; object-fit:cover; object-position:center 24%; opacity:.32; transition:opacity .34s ease; -webkit-user-drag:none; pointer-events:none;
+          -webkit-mask:linear-gradient(180deg, transparent 0%, #000 30%); mask:linear-gradient(180deg, transparent 0%, #000 30%); }
+        .au-card-body{ position:relative; z-index:1; padding:26px 28px; opacity:.7; transition:opacity .34s ease; }
+        .au-card-t{ font-family:var(--font-display); font-weight:800; font-size:21px; line-height:1.25; letter-spacing:-.02em; color:var(--warm-900); }
+        .au-card-d{ margin-top:10px; font:400 16px/1.31 var(--font-body); color:var(--warm-600); max-width:277px; }
+        .au-card:hover{ transform:translateY(-5px); box-shadow:0 24px 50px rgba(15,28,46,.16); }
+        .au-card:hover .au-card-img{ opacity:.9; }
+        .au-card:hover .au-card-body{ opacity:.96; }
+        @media (max-width:820px){ .au-bar{ display:none; } }
       `}</style>
     </section>
   );
