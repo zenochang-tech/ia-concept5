@@ -29,9 +29,9 @@ function PubHero() {
       <span className="ph-basefade" aria-hidden="true" />
       <div className="wrap ph-wrap">
         <div className="ph-copy">
-          <span className="ph-eyebrow" data-reveal>For Affiliate & Rewards Sites</span>
-          <h1 className="ph-title" data-reveal data-reveal-delay="1">Built to run affiliate as your business.</h1>
-          <p className="ph-sub" data-reveal data-reveal-delay="2">Cashback, coupon, and comparison sites scale here, with the offers, feeds, and tools built for high volume.</p>
+          <span className="ph-eyebrow" data-reveal>For Affiliate Partners</span>
+          <h1 className="ph-title" data-reveal data-reveal-delay="1">Turn your website's traffic into income.</h1>
+          <p className="ph-sub" data-reveal data-reveal-delay="2">From a blog with a few links to a cashback site running at volume — earn on what your readers and members buy, with the offers, feeds, and tools to match.</p>
           <div className="ph-actions" data-reveal data-reveal-delay="3">
             <a href="/partners/" className="btn btn-primary btn-lg">Start Earning <Arrow /></a>
           </div>
@@ -984,12 +984,18 @@ function PubVoices() {
    Withdrawal) — hrefs are placeholders pending the real URLs. Example figures
    (4.2% commission, 10 working days) are illustrative — confirm before launch. */
 const PUB_FAQ = [
+  ['Will affiliate links change how my site looks?',
+    'No. You choose where links go. There are no forced ads or banners.'],
+  ['Do old articles still earn?',
+    'Yes. Any post with a live link keeps earning on every sale it drives.'],
+  ['What kinds of sites qualify?',
+    'Blogs, niche sites, news and media, plus cashback, coupon, comparison, loyalty and deal sites.'],
   ['Can I get a product datafeed?',
     'Yes. Pull live product data per advertiser and add your own tracking to the links. Feeds vary by advertiser.'],
   ['Do you support cashback and coupon models?',
     'Yes. Cashback, coupon, comparison, loyalty, and deal sites all run on the platform.'],
   ['Is there an API?',
-    'Yes. Generate deeplinks, pull offers, and automate promotion. Deeplink generation is capped at 1,000 per rolling 30 days.'],
+    <>Yes. Generate deep links and pull conversions and offers programmatically. See the <a href="api-overview.html">API page</a>.</>],
 ];
 function PubFAQ() {
   const [open, setOpen] = React.useState(() => new Set([0]));
@@ -1169,15 +1175,19 @@ function AppDownload() {
 }
 /* ---------- Affiliates §2 — "Built for every kind of affiliate site." (3 cards) ---------- */
 const AFF_KINDS = [
-  ['aff-kind-1.png', 'Coupon and deal sites', 'For shoppers who already know what they want. Share promo codes, vouchers, and deals, and earn when they buy at a better price.'],
-  ['aff-kind-2.png', 'Cashback and loyalty sites', 'For shoppers who come back for rewards. Give members cashback and points on what they buy, and earn on the sales they drive.'],
-  ['aff-kind-3.png', 'Comparison sites', 'For shoppers still choosing. Compare products and prices to help them decide, and earn when they buy through you.', ['Just an editorial blog that reviews what you use?', 'See Content sites', 'website.html']],
+  ['website-kind-1.png', 'Blogs', 'Add relevant links to the posts you already write, and earn from content you were making anyway.'],
+  ['website-kind-2.png', 'Niche sites', 'Run a specialist site your niche follows. Add links to the reviews and guides you already write, and earn on what your readers buy.'],
+  ['website-kind-3.png', 'News & media', 'Add contextual links to your articles, and earn as your audience reads and buys.'],
+  ['aff-kind-2.png', 'Cashback & loyalty', 'Give members cashback and points on what they buy, and earn on every order they place.'],
+  ['aff-kind-1.png', 'Coupon & deal', 'Share promo codes, vouchers, and deals, and earn when shoppers buy at a better price.'],
+  ['aff-kind-3.png', 'Comparison', 'Help shoppers choose with side-by-side comparisons, and earn when they click through and buy.'],
 ];
 function BuiltKinds() {
   return (
     <section id="aff-kinds" className="ak-sec">
       <div className="wrap">
         <h2 className="ak-title" data-reveal>Built for every kind of affiliate site.</h2>
+        <p className="ak-sub" data-reveal data-reveal-delay="1">Whatever kind of site you run, there's a way to earn.</p>
         <div className="ak-grid">
           {AFF_KINDS.map(([img, t, d, cross], i) => (
             <div className="ak-card" key={t} data-reveal data-reveal-delay={(i % 3) + 1}>
@@ -1194,6 +1204,7 @@ function BuiltKinds() {
       <style>{`
         .ak-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
         .ak-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
+        .ak-sub{ text-align:center; margin:14px auto 0; max-width:620px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); }
         .ak-grid{ margin-top:clamp(34px,5vh,54px); display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(18px,2vw,26px); }
         .ak-card{ position:relative; min-width:0; aspect-ratio:300/426; border-radius:16px; overflow:hidden; }
         .ak-mock{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
@@ -1215,18 +1226,20 @@ function BuiltKinds() {
 }
 /* ---------- Affiliates §3 — "Why affiliate sites choose Involve." (4 icon columns) ---------- */
 const AFF_WHY = [
-  { t: 'Depth and rates.', d: '4,000+ offers, with upsized commissions on many brands.',
-    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z" /><path d="M3 12l9 5 9-5" /><path d="M3 16.5l9 5 9-5" /></svg> },
+  { t: 'Links that fit your site.', d: 'Place contextual links yourself — no forced ads or banners cluttering your pages.',
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg> },
+  { t: 'Your content keeps earning.', d: 'A review you wrote last year still earns today, every time it drives a sale.',
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5" /><path d="M8 13h6M8 17h4" /></svg> },
   { t: 'Built for volume.', d: 'Datafeeds and API link generation to run at the scale your site needs.',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="6" rx="7.5" ry="3" /><path d="M4.5 6v6c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3V6" /><path d="M4.5 12v6c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3v-6" /></svg> },
-  { t: 'Reliable tracking and payouts.', d: 'Every sale is validated, with reporting you can check yourself.',
+  { t: 'Reliable tracking and payouts.', d: 'Every sale is validated, with reporting you can check yourself — and Express Withdrawal when you want paying sooner.',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5" /><path d="M9 14.5l2 2 4-4" /></svg> },
 ];
 function WhyChoose() {
   return (
     <section id="aff-why" className="wy-sec">
       <div className="wrap">
-        <h2 className="wy-title" data-reveal>Why affiliate &amp; rewards sites choose Involve.</h2>
+        <h2 className="wy-title" data-reveal>Why affiliate sites choose Involve.</h2>
         <div className="wy-grid">
           {AFF_WHY.map((c, i) => (
             <div className="wy-col" key={c.t} data-reveal data-reveal-delay={(i % 3) + 1}>
@@ -1236,12 +1249,12 @@ function WhyChoose() {
             </div>
           ))}
         </div>
-        <p className="wy-proof" data-reveal>Cashback, coupon, and comparison sites across the region run on Involve Asia.</p>
+        <p className="wy-proof" data-reveal>Content, cashback, coupon, and comparison sites across the region run on Involve Asia.</p>
       </div>
       <style>{`
         .wy-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
         .wy-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
-        .wy-grid{ margin-top:clamp(34px,5vh,54px); display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(28px,4vw,56px); }
+        .wy-grid{ margin-top:clamp(34px,5vh,54px); display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(28px,4vw,48px); max-width:900px; margin-inline:auto; }
         .wy-col{ min-width:0; }
         .wy-ic{ width:48px; height:48px; border-radius:12px; background:var(--ember-tint); color:var(--ember); display:flex; align-items:center; justify-content:center; }
         .wy-ic svg{ width:24px; height:24px; }
@@ -1314,10 +1327,10 @@ function ScaleApi() {
 }
 /* ---------- Affiliates §4b — "How it works" (3 numbered steps) — Figma 2546:45012 ---------- */
 const HIW_STEPS = [
-  ['01', 'Access every offer', 'Browse 4,000+ offers across 500+ brands, with the rates and terms up front.'],
-  ['02', 'Pull the datafeed', 'Feed live product data into your site to keep prices and offers current. You add your own tracking to the links.'],
-  ['03', 'Generate tracking links via the API', 'Create trackable links through the API, up to 1,000 unique links every 30 days.'],
-  ['04', 'Get paid', 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.'],
+  ['01', 'Find offers', 'Browse 4,000+ offers across 500+ brands, with the rates and terms up front.'],
+  ['02', 'Add links, or pull the datafeed', 'Drop trackable links into your content in a couple of clicks, or feed live product data into your site to run at scale.'],
+  ['03', 'Earn on every sale', 'Every click that leads to a purchase earns commission, and older posts keep earning too.'],
+  ['04', 'Get paid', 'Withdraw your earnings, sooner with Express Withdrawal if you want them faster.'],
 ];
 function HowItWorks() {
   return (
@@ -1348,6 +1361,103 @@ function HowItWorks() {
     </section>
   );
 }
+/* ---------- Affiliates §4 — "Built to run at any scale." (tab view, reused from the
+   Creator Partners tools section — pf-* pattern). Datafeed Manager / API / Creative Hub. ---------- */
+const AFF_TOOLS = [
+  { key: 'datafeed', t: 'Datafeed Manager', d: 'Feed live product data — prices, offers, stock — straight into your site, and keep it current automatically.',
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3" /><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" /><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" /></svg> },
+  { key: 'api', t: 'API', d: 'Pull offers and conversions and generate tracking links programmatically, so affiliate data and links live inside your own systems.',
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M8 8l-4 4 4 4" /><path d="M16 8l4 4-4 4" /><path d="M13 6l-2 12" /></svg> },
+  { key: 'creative', t: 'Creative Hub', d: 'Grab ready-made banners and campaign coupon codes from top brands to promote.',
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="M21 15l-5-5L5 21" /></svg> },
+];
+const AFF_TOOLS_MS = 5000;
+function AffTools() {
+  const [active, setActive] = React.useState(0);
+  React.useEffect(() => {
+    if (prefersReduced()) return;
+    const t = setTimeout(() => setActive((a) => (a + 1) % AFF_TOOLS.length), AFF_TOOLS_MS);
+    return () => clearTimeout(t);
+  }, [active]);
+  return (
+    <section id="aff-tools" className="pf-sec">
+      <div className="wrap">
+        <h2 className="pf-title" data-reveal>Built to run at any scale.</h2>
+        <p className="pf-sub" data-reveal data-reveal-delay="1">The tools that grow with your site.</p>
+        <div className="pf-grid" data-reveal data-reveal-delay="1">
+          <div className="pf-steps">
+            {AFF_TOOLS.map((s, i) => {
+              const on = i === active;
+              return (
+                <button type="button" className={'pf-step' + (on ? ' on' : '')} key={s.key} onClick={() => setActive(i)} aria-expanded={on}>
+                  <span className="pf-rail" aria-hidden="true"><span className="pf-rail-track" />{on && <span className="pf-rail-fill" key={active} />}</span>
+                  <span className="pf-step-body">
+                    <span className="pf-step-t"><span className="pf-step-ic" aria-hidden="true">{s.ic}</span>{s.t}</span>
+                    <span className="pf-step-dw"><span className="pf-step-d">{s.d}</span></span>
+                    <span className="pf-step-fig"><span className="pf-step-fig-in"><span className="cct-ph cct-ph-m"><b>{s.t}</b><i>Visual placeholder</i></span></span></span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+          <div className="pf-visual">
+            {AFF_TOOLS.map((s, i) => (
+              <div key={s.key} className={'pf-img cct-ph' + (i === active ? ' on' : '')} aria-hidden={i !== active}><b>{s.t}</b><i>Visual placeholder</i></div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <style>{`
+        .pf-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; overflow:hidden; }
+        .pf-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
+        .pf-sub{ text-align:center; margin-top:14px; font-size:16px; line-height:1.4; color:var(--warm-600); }
+        .pf-grid{ margin-top:clamp(40px,6vh,72px); display:grid; grid-template-columns:minmax(0,412px) 1fr; gap:clamp(32px,4vw,64px); align-items:stretch; }
+        .pf-steps{ display:flex; flex-direction:column; }
+        .pf-step{ position:relative; display:flex; gap:20px; align-items:stretch; text-align:left; background:none; border:none; cursor:pointer; padding:30px 0; width:100%; }
+        .pf-step + .pf-step{ border-top:1px solid var(--warm-200); }
+        .pf-rail{ position:relative; width:8px; flex:0 0 auto; align-self:stretch; }
+        .pf-rail-track{ position:absolute; inset:0; border-radius:64px; background:var(--warm-200); opacity:0; transition:opacity .3s ease; }
+        .pf-rail-fill{ position:absolute; left:0; top:0; width:8px; border-radius:64px; background:var(--ember); height:0; }
+        .pf-step.on .pf-rail-track{ opacity:1; }
+        .pf-step.on .pf-rail-fill{ animation:affToolsFill ${AFF_TOOLS_MS}ms linear forwards; }
+        @keyframes affToolsFill{ from{ height:0; } to{ height:100%; } }
+        .pf-step-body{ min-width:0; }
+        .pf-step-t{ display:flex; align-items:center; gap:11px; font-family:var(--font-display); font-weight:800; font-size:21px; letter-spacing:-.02em; color:var(--warm-900); }
+        .pf-step-ic{ display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; flex:0 0 auto; color:var(--ember); }
+        .pf-step-ic svg{ width:24px; height:24px; }
+        .pf-step-dw{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .4s ease; }
+        .pf-step.on .pf-step-dw{ grid-template-rows:1fr; }
+        .pf-step-d{ overflow:hidden; margin-top:0; font:400 16px/1.5 var(--font-body); color:var(--warm-600); }
+        .pf-step.on .pf-step-d{ margin-top:12px; }
+        .pf-step:not(.on){ opacity:.4; } .pf-step:not(.on):hover{ opacity:.7; }
+        .pf-visual{ position:relative; align-self:stretch; min-height:clamp(420px,52vh,600px); overflow:hidden;
+          margin-right:calc(min(100vw, var(--maxw)) / 2 - 50vw - 32px); border-radius:22px 0 0 22px;
+          background:linear-gradient(150deg, #fbe9df 0%, #f6f1ec 50%, #fde4d8 100%); }
+        .pf-img{ position:absolute; top:clamp(20px,3.2vw,40px); left:clamp(20px,3.2vw,40px);
+          width:calc(100% - clamp(20px,3.2vw,40px)); height:calc(100% - clamp(20px,3.2vw,40px));
+          border-radius:16px 0 0 0; opacity:0; transition:opacity .5s ease; }
+        .pf-img.on{ opacity:1; }
+        .cct-ph{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+          background:rgba(255,255,255,.55); border:2px dashed var(--warm-300); }
+        .cct-ph b{ font-family:var(--font-display); font-weight:800; font-size:20px; color:var(--warm-800); }
+        .cct-ph i{ font-style:normal; font:500 13px/1 var(--font-body); color:var(--warm-400); }
+        .pf-step-fig{ display:none; }
+        @media (max-width:900px){
+          .pf-grid{ grid-template-columns:1fr; gap:0; }
+          .pf-visual{ display:none; }
+          .pf-step{ gap:0; padding:22px 0; }
+          .pf-rail{ display:none; }
+          .pf-step-fig{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s ease; }
+          .pf-step.on .pf-step-fig{ grid-template-rows:1fr; }
+          .pf-step-fig-in{ overflow:hidden; min-height:0; }
+          .cct-ph-m{ min-height:150px; margin:16px 0 4px; border-radius:14px; background:var(--warm-100); }
+          .cct-ph-m b{ font-size:16px; } .cct-ph-m i{ font-size:12px; }
+        }
+        @media (prefers-reduced-motion: reduce){ .pf-rail-fill{ animation:none; height:100%; } .pf-img{ transition:none; } .pf-step-fig{ transition:none; } }
+      `}</style>
+    </section>
+  );
+}
 function PublisherApp() {
   useSmoothScroll();
   useScrollReveal();
@@ -1358,7 +1468,7 @@ function PublisherApp() {
         <PubHero />
         <BuiltKinds />
         <HowItWorks />
-        <ScaleApi />
+        <AffTools />
         <WhyChoose />
         <PubVoices />
         <PubFAQ />

@@ -24,8 +24,7 @@ const NAV = [
       ]},
       { head: "Who it's for", links: [
         ['Creator partners', 'content-creators.html'],
-        ['Affiliate & Rewards Sites', 'affiliates.html'],
-        ['Content Sites', 'website.html'],
+        ['Affiliate Partners', 'affiliates.html'],
         ['App Owners', 'app-owners.html'],
         ['Media Buyers', 'media-buyer.html'],
       ]},
