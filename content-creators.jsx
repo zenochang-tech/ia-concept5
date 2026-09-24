@@ -1235,70 +1235,6 @@ function MadeFor() {
     </section>
   );
 }
-/* ---------- CC §2 — real content → tracked link ----------
-   Shows how a creator turns normal social content into earnings: existing content
-   (TikTok 9:16 / YouTube 16:9 / Instagram 4:5) with the tracking link shown in place.
-   Media are clearly-marked PLACEHOLDERS — brand-styled examples get dropped in later. */
-const RC_LINK = (
-  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l2-2a5 5 0 0 0-7.07-7.07l-1 1" /><path d="M14 11a5 5 0 0 0-7.07 0l-2 2a5 5 0 0 0 7.07 7.07l1-1" /></svg>
-);
-const RC_EXAMPLES = [
-  { plat: 'TikTok · Reels', ratio: 'rc-9x16', where: 'in your caption' },
-  { plat: 'YouTube', ratio: 'rc-16x9', where: 'in your description' },
-  { plat: 'Instagram', ratio: 'rc-4x5', where: 'in your bio' },
-];
-function RealContent() {
-  return (
-    <section id="cc-real" className="rc-sec">
-      <div className="wrap">
-        <h2 className="rc-title" data-reveal>Your content already earns.</h2>
-        <p className="rc-sub" data-reveal data-reveal-delay="1">Keep posting the way you do on TikTok, YouTube, and Instagram. Drop your trackable link into the caption, bio, or description, and earn on every sale it drives.</p>
-        <div className="rc-flow" data-reveal data-reveal-delay="1">
-          <span className="rc-flow-step">Existing content</span>
-          <span className="rc-flow-arrow" aria-hidden="true">&rarr;</span>
-          <span className="rc-flow-step">Add your link</span>
-          <span className="rc-flow-arrow" aria-hidden="true">&rarr;</span>
-          <span className="rc-flow-step rc-flow-earn">Earn on every sale</span>
-        </div>
-        <div className="rc-grid" data-reveal data-reveal-delay="2">
-          {RC_EXAMPLES.map((e) => (
-            <figure className="rc-ex" key={e.plat}>
-              <div className={'rc-media ' + e.ratio}>
-                <span className="rc-ph-badge">{e.plat.split(' · ')[0]} example</span>
-                <span className="rc-ph-note">Design asset — to be added</span>
-                <span className="rc-link-chip">{RC_LINK} invl.co/your-link</span>
-              </div>
-              <figcaption className="rc-cap"><span className="rc-plat">{e.plat}</span><span className="rc-where">Link {e.where}</span></figcaption>
-            </figure>
-          ))}
-        </div>
-      </div>
-      <style>{`
-        .rc-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
-        .rc-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
-        .rc-sub{ text-align:center; margin:16px auto 0; max-width:660px; font:400 16px/1.55 var(--font-body); color:var(--warm-600); }
-        .rc-flow{ margin:clamp(24px,3.5vh,36px) auto 0; display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap; }
-        .rc-flow-step{ font:700 13px/1 var(--font-body); letter-spacing:.01em; color:var(--warm-800); background:var(--warm-100); border:1px solid var(--warm-200); border-radius:9999px; padding:9px 16px; }
-        .rc-flow-earn{ color:#fff; background:var(--grad-ember); border-color:transparent; }
-        .rc-flow-arrow{ color:var(--ember); font-weight:700; }
-        .rc-grid{ margin-top:clamp(30px,4.5vh,50px); display:flex; align-items:flex-start; justify-content:center; gap:clamp(20px,3vw,40px); flex-wrap:wrap; }
-        .rc-ex{ margin:0; display:flex; flex-direction:column; }
-        .rc-media{ position:relative; height:clamp(260px,34vh,340px); width:auto; border-radius:16px; background:var(--warm-100);
-          border:2px dashed var(--warm-300); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; overflow:hidden; }
-        .rc-9x16{ aspect-ratio:9/16; } .rc-16x9{ aspect-ratio:16/9; } .rc-4x5{ aspect-ratio:4/5; }
-        .rc-ph-badge{ font-family:var(--font-display); font-weight:800; font-size:15px; color:var(--warm-800); text-align:center; padding:0 14px; }
-        .rc-ph-note{ font:500 12px/1.3 var(--font-body); color:var(--warm-400); }
-        .rc-link-chip{ position:absolute; left:10px; right:10px; bottom:10px; display:inline-flex; align-items:center; justify-content:center; gap:6px;
-          background:rgba(255,255,255,.94); border:1px solid var(--warm-200); border-radius:9999px; padding:7px 10px;
-          font:600 12px/1 var(--font-body); color:var(--ember); box-shadow:0 6px 16px rgba(15,28,46,.10); white-space:nowrap; }
-        .rc-cap{ margin-top:12px; display:flex; flex-direction:column; gap:3px; text-align:center; }
-        .rc-plat{ font:700 14px/1.3 var(--font-body); color:var(--warm-900); }
-        .rc-where{ font:400 13px/1.3 var(--font-body); color:var(--warm-600); }
-        @media (max-width:520px){ .rc-media{ height:auto; width:100%; max-width:300px; } .rc-16x9{ width:100%; } }
-      `}</style>
-    </section>
-  );
-}
 /* ---------- CC §3 — "Built for the way you create." (tab view, reused from the
    publisher overview's platform stepper — pf-* pattern). One tab per tool. ---------- */
 const CREATE_TABS = [
@@ -1482,7 +1418,6 @@ function PublisherApp() {
       <Nav getStartedTone="pub" />
       <main>
         <PubHero />
-        <RealContent />
         <MadeFor />
         <HowItWorks />
         <BuiltCreate />
