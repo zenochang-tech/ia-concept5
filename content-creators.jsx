@@ -1196,13 +1196,6 @@ function MadeFor() {
           </div>
           <div className="mf-visual">
             <div className="mf-photo" data-reveal><img src="media/figma/creator-partner-social.png" alt="A creator sharing a product recommendation with her followers" loading="lazy" /></div>
-            <div className="mf-prod" data-reveal data-reveal-delay="2">
-              <div className="mf-prod-card">
-                <span className="mf-prod-lbl">Serum M</span>
-                <div className="mf-prod-tile"><img src="media/figma/content-creators-serum.png" alt="Serum M" loading="lazy" /></div>
-              </div>
-            </div>
-            <div className="mf-icons" data-reveal data-reveal-delay="3"><img src="media/figma/content-creators-social-icons.png" alt="Facebook, Instagram, YouTube and TikTok" loading="lazy" /></div>
           </div>
         </div>
       </div>
