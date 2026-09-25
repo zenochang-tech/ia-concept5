@@ -29,9 +29,9 @@ function PubHero() {
       <span className="ph-basefade" aria-hidden="true" />
       <div className="wrap ph-wrap">
         <div className="ph-copy">
-          <span className="ph-eyebrow" data-reveal>Creator partners</span>
-          <h1 className="ph-title" data-reveal data-reveal-delay="1">Turn the content you already make into income.</h1>
-          <p className="ph-sub" data-reveal data-reveal-delay="2">Thousands of brands want to work with creators and influencers like you, whatever your follower count. Share what you love, earn on every sale.</p>
+          <span className="ph-eyebrow" data-reveal>For Technology Partners</span>
+          <h1 className="ph-title" data-reveal data-reveal-delay="1">Turn your product's users into revenue.</h1>
+          <p className="ph-sub" data-reveal data-reveal-delay="2">Whether you run an app, a web platform, or your own software, integrate once and earn when your users act on the offers and cashback you surface — all through our API.</p>
           <div className="ph-actions" data-reveal data-reveal-delay="3">
             <a href="/partners/" className="btn btn-primary btn-lg">Start Earning <Arrow /></a>
           </div>
@@ -988,14 +988,16 @@ function PubVoices() {
    Withdrawal) — hrefs are placeholders pending the real URLs. Example figures
    (4.2% commission, 10 working days) are illustrative — confirm before launch. */
 const PUB_FAQ = [
-  ['Do I need a big following?',
-    'No. You earn on the sales you drive, not on follower count, so engagement matters more than size.'],
-  ['Which platforms can I use?',
-    'Instagram, TikTok, YouTube, and more. Anywhere you can share a link or a code.'],
-  ['How and when do I get paid?',
-    'Once your sales are validated you withdraw in your local currency, with Express Withdrawal for early access.'],
-  ["I'm an influencer — is this for me?",
-    'Yes. Whether you call yourself a creator or an influencer, if you have an audience on any platform, you can earn — whatever your follower count.'],
+  ['What can the API do?',
+    'Generate deeplinks, pull offers and product data, and track sales at item level. Deeplink generation is capped at 1,000 per rolling 30 days.'],
+  ['How does postback work?',
+    'When a conversion is created or updated, we send the data to a URL you configure, so your system is notified in real time. You handle the received data on your own server.'],
+  ['Can I pull a product datafeed?',
+    'Yes. Pull live product data per advertiser to surface in your product. Feeds vary by advertiser.'],
+  ['How technical is the integration?',
+    "You'll need a developer to set up the API and postback, but the docs are clear and the endpoints are simple."],
+  ['What kind of products qualify?',
+    'Apps, web apps, software, and platforms with their own users.'],
 ];
 function PubFAQ() {
   const [open, setOpen] = React.useState(() => new Set([0]));
@@ -1101,7 +1103,7 @@ function PubCTA() {
       <span className="pc-topfade" aria-hidden="true" />
       <span className="pc-wash" aria-hidden="true" />
       <div className="wrap pc-inner">
-        <h2 className="pc-title" data-reveal>Turn your audience into income.</h2>
+        <h2 className="pc-title" data-reveal>Start monetizing your product today.</h2>
         <a href="https://app.involve.asia/v2/create-account" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="1">Start Earning <Arrow /></a>
       </div>
       <style>{`
@@ -1175,8 +1177,8 @@ function AppDownload() {
 }
 /* ---------- CC §2 — "Made for TikTok, YouTube, Instagram, and more." ---------- */
 const MADE_POINTS = [
-  ['Earn on any platform.', "Involve works on any platform your followers are on. Your link works wherever you post, so you're never tied to one channel. Wherever you can share a link, you can earn."],
-  ['No website, no shop, no minimum following.', "You don't need a store or a big audience to start. Share your link wherever your followers are, and earn when they buy."],
+  ['Runs inside your own product.', 'One API integration puts offers, links, and tracking inside your app, web platform, or software — in your own UI, on your own terms.'],
+  ['Real-time, hands-off.', 'Postback pushes every conversion to your server the moment it happens, so your systems stay in sync without anyone logging in to check.'],
 ];
 function MadeFor() {
   return (
@@ -1184,7 +1186,8 @@ function MadeFor() {
       <div className="wrap">
         <div className="mf-grid">
           <div className="mf-left">
-            <h2 className="mf-title" data-reveal>Made for TikTok, YouTube, Instagram, and more.</h2>
+            <h2 className="mf-title" data-reveal>Built for teams that build.</h2>
+            <p className="mf-sub" data-reveal data-reveal-delay="1">If you run your own product and have the engineers to integrate, you can plug Involve straight in.</p>
             <div className="mf-points" data-reveal data-reveal-delay="1">
               {MADE_POINTS.map(([t, d]) => (
                 <div className="mf-point" key={t}>
@@ -1195,7 +1198,7 @@ function MadeFor() {
             </div>
           </div>
           <div className="mf-visual">
-            <div className="mf-photo" data-reveal><img src="media/figma/creator-partner-social.png" alt="A creator sharing a product recommendation with her followers" loading="lazy" /></div>
+            <div className="mf-photo" data-reveal><div className="mf-ph"><b>Product integration</b><i>Visual placeholder</i></div></div>
           </div>
         </div>
       </div>
@@ -1203,11 +1206,15 @@ function MadeFor() {
         .mf-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
         .mf-grid{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,440px); gap:clamp(32px,5vw,72px); align-items:center; }
         .mf-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); max-width:520px; }
+        .mf-sub{ margin-top:14px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); max-width:520px; }
         .mf-points{ margin-top:clamp(24px,4vh,40px); display:flex; flex-direction:column; gap:clamp(20px,3vh,30px); }
         .mf-pt{ font-family:var(--font-display); font-weight:800; font-size:19px; letter-spacing:-.01em; color:var(--warm-900); }
         .mf-pd{ margin-top:8px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); max-width:520px; }
         .mf-visual{ position:relative; }
         .mf-photo img{ width:100%; height:auto; border-radius:20px; display:block; }
+        .mf-ph{ aspect-ratio:16/13; border-radius:20px; background:var(--warm-100); border:2px dashed var(--warm-300); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; }
+        .mf-ph b{ font-family:var(--font-display); font-weight:800; font-size:20px; color:var(--warm-800); }
+        .mf-ph i{ font-style:normal; font:500 13px/1 var(--font-body); color:var(--warm-400); }
         /* floating UI spills outside the photo edges */
         /* coded "Serum M" product card (frosted glass frame, Figma style) */
         .mf-prod{ position:absolute; top:-2%; left:-5%; width:33%; }
@@ -1231,12 +1238,12 @@ function MadeFor() {
 /* ---------- CC §3 — "Built for the way you create." (tab view, reused from the
    publisher overview's platform stepper — pf-* pattern). One tab per tool. ---------- */
 const CREATE_TABS = [
-  { key: 'app', t: 'Mobile app', d: 'Generate links and grab codes on the go. Share to your socials in seconds, and check your clicks, conversions, and earnings from your phone.',
-    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="6" y="2" width="12" height="20" rx="3" /><path d="M11 18h2" /></svg> },
-  { key: 'code', t: 'Code Generator', d: "Get a unique code to share where links don't work, like your Instagram captions. Your audience uses it at checkout and the sale tracks back to you.",
-    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0l-7.2-7.2a2 2 0 0 1-.6-1.4V4a1 1 0 0 1 1-1h7.8a2 2 0 0 1 1.4.6l7.6 7.6a2 2 0 0 1 0 2.6Z" /><path d="M7.5 7.5h.01" /></svg> },
-  { key: 'creative', t: 'Creative hub', d: 'Grab ready-made banners and coupon codes from top brands and drop them straight into your content.',
-    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="M21 15l-5-5L5 21" /></svg> },
+  { key: 'api', t: 'API', d: 'Authenticate with your key and secret, pull offers and conversions, and generate tracking links programmatically — no manual dashboard work.',
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M8 8l-4 4 4 4" /><path d="M16 8l4 4-4 4" /><path d="M13 6l-2 12" /></svg> },
+  { key: 'postback', t: 'Postback', d: 'Get conversions pushed to your server in real time (server-to-server), so you never have to log in and check reports. You handle the data on your own system.',
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M4 9h11a4 4 0 0 1 0 8h-2" /><path d="M7 20l-3-3 3-3" /><path d="M20 5v4h-4" /></svg> },
+  { key: 'datafeed', t: 'Datafeed Manager', d: 'Pull live product data — prices, offers, stock — to surface catalogues inside your product.',
+    ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3" /><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" /><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" /></svg> },
 ];
 const CREATE_TABS_MS = 5000;
 function BuiltCreate() {
@@ -1249,8 +1256,8 @@ function BuiltCreate() {
   return (
     <section id="cc-create" className="pf-sec cct-sec">
       <div className="wrap">
-        <h2 className="pf-title" data-reveal>Built for the way you create.</h2>
-        <p className="pf-sub" data-reveal data-reveal-delay="1">Everything you need to turn your content into income, in one place.</p>
+        <h2 className="pf-title" data-reveal>Built to integrate.</h2>
+        <p className="pf-sub" data-reveal data-reveal-delay="1">The three tools your engineers will use.</p>
         <div className="pf-grid" data-reveal data-reveal-delay="1">
           <div className="pf-steps">
             {CREATE_TABS.map((s, i) => {
@@ -1330,17 +1337,22 @@ const WE_ICONS = {
   bag: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 8h12l-1 12.5H7L6 8Z" /><path d="M9 8a3 3 0 0 1 6 0" /></svg>,
   heart: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 20.5S4.5 16 4.5 10.6A3.6 3.6 0 0 1 12 7.5a3.6 3.6 0 0 1 7.5 3.1C19.5 16 12 20.5 12 20.5Z" /></svg>,
   file: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" /><path d="M14 3v5h5" /><path d="M9.3 14.4l1.9 1.9 3.5-3.7" /></svg>,
+  ui: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 9h18" /><path d="M8 4v5" /></svg>,
+  grid: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /></svg>,
+  bolt: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" /></svg>,
+  code: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M8 8l-4 4 4 4" /><path d="M16 8l4 4-4 4" /><path d="M13 6l-2 12" /></svg>,
 };
 const WHY_EARN = [
-  ['bag', 'You earn per sale, not per follower.', 'A small, engaged audience can out-earn a big one. No minimum following to start.'],
-  ['heart', 'Promote what already fits.', 'Keep making what you make. Add links to the products you would recommend anyway.'],
-  ['file', 'Get paid faster.', 'Earnings are validated daily, and Express Withdrawal lets you withdraw before validation finishes.'],
+  ['ui', 'Your product, your experience.', 'Offers live inside your own UI. You control how they look and where they appear.'],
+  ['grid', 'One integration, hundreds of brands.', 'Connect once to access 500+ brands and 4,000+ offers.'],
+  ['bolt', 'Real-time and hands-off.', 'Postback and the API keep offers current and conversions flowing — no one has to check a dashboard.'],
+  ['code', 'Built for developers.', 'Clear API docs, item-level tracking, and reliable payouts.'],
 ];
 function WhyEarn() {
   return (
     <section id="cc-why" className="we-sec">
       <div className="wrap">
-        <h2 className="we-title" data-reveal>Why creators earn with Involve.</h2>
+        <h2 className="we-title" data-reveal>Why technology partners build on Involve.</h2>
         <div className="we-grid">
           {WHY_EARN.map(([ic, t, d], i) => (
             <div className="we-item" key={t} data-reveal data-reveal-delay={i + 1}>
@@ -1354,7 +1366,8 @@ function WhyEarn() {
       <style>{`
         .we-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
         .we-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
-        .we-grid{ margin-top:clamp(34px,5vh,54px); display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(28px,4vw,56px); }
+        .we-grid{ margin-top:clamp(34px,5vh,54px); display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(24px,3vw,40px); }
+        @media (max-width:960px){ .we-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
         .we-item{ min-width:0; }
         .we-icon{ display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:12px; background:rgba(240,88,38,.12); color:var(--ember); }
         .we-icon svg{ width:24px; height:24px; display:block; }
@@ -1367,10 +1380,10 @@ function WhyEarn() {
 }
 /* ---------- CC §2b — "How it works" (3 numbered steps) — Figma 2546:45011 ---------- */
 const HIW_STEPS = [
-  ['01', 'Pick a brand', 'Browse 500+ brands and choose products that fit your audience.'],
-  ['02', 'Share your link', 'Drop a trackable link in your bio, stories, or captions, or share a promo code.'],
-  ['03', 'Earn on every sale', 'When a follower buys through your link, the sale is credited to you.'],
-  ['04', 'Get paid', 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.'],
+  ['01', 'Connect the API', 'Integrate once, and pull offers, links, and tracking straight into your product.'],
+  ['02', 'Surface relevant offers', 'Show cashback and deals your users actually want, inside your own UI.'],
+  ['03', 'Earn on every sale', 'When a user buys through your product, the sale is tracked to you.'],
+  ['04', 'Get paid', 'Withdraw in your local currency, sooner with Express Withdrawal.'],
 ];
 function HowItWorks() {
   return (
