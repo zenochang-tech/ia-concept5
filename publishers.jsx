@@ -277,12 +277,9 @@ function PubLogos() {
 
 /* ---------- Section 3 — "If you have an audience, you can earn." ----------- */
 const PUB_AUDIENCE = [
-  ['Creators and Influencers', 'Social, influencers, video. Share what you love, and earn every time a follower buys.', 'pub-aud-creators-v3.png'],
-  ['Content sites', 'Blogs, review sites, news and media. Turn the articles you already publish into income that keeps earning.', 'pub-aud-c02.png'],
-  ['Affiliate & rewards sites', 'Cashback, coupon, comparison, and loyalty sites. Run affiliate as your business, at scale.', 'pub-aud-c03.png'],
-  ['App owners', 'Show relevant offers and cashback to your users, automated through our API.', 'pub-aud-c04.png'],
-  ['Media buyers', 'Run paid traffic across hundreds of brands, with the tracking and margins to make it pay.', 'pub-aud-c05.png'],
-  ['Networks & agencies', 'Bring your own publishers, or manage client programs, all on one platform.', 'pub-aud-c06.png'],
+  ['Creator Partners', 'Social, influencers, video. Share what you love, and earn every time a follower buys.', 'pub-aud-creators-v3.png', 'content-creators.html'],
+  ['Affiliate Partners', "Blogs, review, cashback, coupon and comparison sites. Turn your site's traffic into affiliate income, at any scale.", 'pub-aud-c03.png', 'affiliates.html'],
+  ['Technology Partners', 'Apps, web platforms, and software. Plug Involve into your own product through our API, and earn from your users.', 'pub-aud-c04.png', 'technology-partners.html'],
 ];
 function PubAudience() {
   const scrollRef = React.useRef(null);
@@ -341,14 +338,14 @@ function PubAudience() {
       </div>
       <div ref={scrollRef} className="au-scroll" data-reveal data-reveal-delay="1">
         <div className="au-track">
-          {PUB_AUDIENCE.map(([t, d, img]) => (
-            <article className="au-card" key={t}>
+          {PUB_AUDIENCE.map(([t, d, img, href]) => (
+            <a className="au-card" key={t} href={href}>
               <img className="au-card-img" src={`media/figma/${img}`} alt="" draggable="false" loading="lazy" />
               <div className="au-card-body">
                 <h3 className="au-card-t">{t}</h3>
                 <p className="au-card-d">{d}</p>
               </div>
-            </article>
+            </a>
           ))}
           <span className="au-track-end" aria-hidden="true" />
         </div>
