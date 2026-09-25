@@ -1418,11 +1418,11 @@ function HowItWorks() {
 /* ---------- Affiliates §4 — "Built to run at any scale." (tab view, reused from the
    Creator Partners tools section — pf-* pattern). Datafeed Manager / API / Creative Hub. ---------- */
 const AFF_TOOLS = [
-  { key: 'datafeed', t: 'Datafeed Manager', d: 'Feed live product data like prices, offers, and stock straight into your site, and keep it current automatically.',
+  { key: 'datafeed', t: 'Datafeed Manager', d: 'Feed live product data like prices, offers, and stock straight into your site, and keep it current automatically.', img: 'aff-partner-slide1.png',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3" /><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" /><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" /></svg> },
-  { key: 'api', t: 'API', d: 'Pull offers and conversions and generate tracking links programmatically, so affiliate data and links live inside your own systems.',
+  { key: 'api', t: 'API', d: 'Pull offers and conversions and generate tracking links programmatically, so affiliate data and links live inside your own systems.', img: 'aff-partner-slide2.png',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M8 8l-4 4 4 4" /><path d="M16 8l4 4-4 4" /><path d="M13 6l-2 12" /></svg> },
-  { key: 'creative', t: 'Creative Hub', d: 'Grab ready-made banners and campaign coupon codes from top brands to promote.',
+  { key: 'creative', t: 'Creative Hub', d: 'Grab ready-made banners and campaign coupon codes from top brands to promote.', img: 'creator-partner-slide3.png',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="M21 15l-5-5L5 21" /></svg> },
 ];
 const AFF_TOOLS_MS = 5000;
@@ -1448,7 +1448,7 @@ function AffTools() {
                   <span className="pf-step-body">
                     <span className="pf-step-t"><span className="pf-step-ic" aria-hidden="true">{s.ic}</span>{s.t}</span>
                     <span className="pf-step-dw"><span className="pf-step-d">{s.d}</span></span>
-                    <span className="pf-step-fig"><span className="pf-step-fig-in"><span className="cct-ph cct-ph-m"><b>{s.t}</b><i>Visual placeholder</i></span></span></span>
+                    <span className="pf-step-fig"><span className="pf-step-fig-in"><img className="cct-img-m" src={`media/figma/${s.img}`} alt="" loading="lazy" /></span></span>
                   </span>
                 </button>
               );
@@ -1456,7 +1456,7 @@ function AffTools() {
           </div>
           <div className="pf-visual">
             {AFF_TOOLS.map((s, i) => (
-              <div key={s.key} className={'pf-img cct-ph' + (i === active ? ' on' : '')} aria-hidden={i !== active}><b>{s.t}</b><i>Visual placeholder</i></div>
+              <img key={s.key} className={'pf-img' + (i === active ? ' on' : '')} src={`media/figma/${s.img}`} alt="" loading="lazy" aria-hidden={i !== active} />
             ))}
           </div>
         </div>
@@ -1489,12 +1489,8 @@ function AffTools() {
           background:linear-gradient(150deg, #fbe9df 0%, #f6f1ec 50%, #fde4d8 100%); }
         .pf-img{ position:absolute; top:clamp(20px,3.2vw,40px); left:clamp(20px,3.2vw,40px);
           width:calc(100% - clamp(20px,3.2vw,40px)); height:calc(100% - clamp(20px,3.2vw,40px));
-          border-radius:16px 0 0 0; opacity:0; transition:opacity .5s ease; }
+          object-fit:cover; object-position:left top; border-radius:16px 0 0 0; opacity:0; transition:opacity .5s ease; }
         .pf-img.on{ opacity:1; }
-        .cct-ph{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
-          background:rgba(255,255,255,.55); border:2px dashed var(--warm-300); }
-        .cct-ph b{ font-family:var(--font-display); font-weight:800; font-size:20px; color:var(--warm-800); }
-        .cct-ph i{ font-style:normal; font:500 13px/1 var(--font-body); color:var(--warm-400); }
         .pf-step-fig{ display:none; }
         @media (max-width:900px){
           .pf-grid{ grid-template-columns:1fr; gap:0; }
@@ -1504,8 +1500,7 @@ function AffTools() {
           .pf-step-fig{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s ease; }
           .pf-step.on .pf-step-fig{ grid-template-rows:1fr; }
           .pf-step-fig-in{ overflow:hidden; min-height:0; }
-          .cct-ph-m{ min-height:150px; margin:16px 0 4px; border-radius:14px; background:var(--warm-100); }
-          .cct-ph-m b{ font-size:16px; } .cct-ph-m i{ font-size:12px; }
+          .cct-img-m{ display:block; width:100%; height:auto; margin:16px 0 4px; border-radius:14px; box-shadow:0 12px 28px rgba(15,28,46,.12); }
         }
         @media (prefers-reduced-motion: reduce){ .pf-rail-fill{ animation:none; height:100%; } .pf-img{ transition:none; } .pf-step-fig{ transition:none; } }
       `}</style>
