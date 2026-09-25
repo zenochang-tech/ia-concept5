@@ -31,7 +31,7 @@ function PubHero() {
         <div className="ph-copy">
           <span className="ph-eyebrow" data-reveal>For Technology Partners</span>
           <h1 className="ph-title" data-reveal data-reveal-delay="1">Turn your product's users into revenue.</h1>
-          <p className="ph-sub" data-reveal data-reveal-delay="2">Whether you run an app, a web platform, or your own software, integrate once and earn when your users act on the offers and cashback you surface — all through our API.</p>
+          <p className="ph-sub" data-reveal data-reveal-delay="2">Whether you run an app, a web platform, or your own software, integrate once and earn when your users act on the offers and cashback you surface, all through our API.</p>
           <div className="ph-actions" data-reveal data-reveal-delay="3">
             <a href="/partners/" className="btn btn-primary btn-lg">Start Earning <Arrow /></a>
           </div>
@@ -891,7 +891,7 @@ const PUB_VOICES = [
     name: 'MY Great Sales', avatar: 'publisher-myGreatSales.png', initials: 'MG',
   },
   {
-    quote: 'Such a good overall experience with IA — very friendly & professional.',
+    quote: 'Such a good overall experience with IA, very friendly & professional.',
     body: 'Had such a good overall experience with IA esp Jia who assisted us – very friendly & professional consultations. She was thorough & informative. IA helps increase and gain pretty good income from the generated link.',
     name: 'Siakap Keli', avatar: 'publisher-siakapkeli.png', initials: 'SK',
   },
@@ -1177,7 +1177,7 @@ function AppDownload() {
 }
 /* ---------- CC §2 — "Made for TikTok, YouTube, Instagram, and more." ---------- */
 const MADE_POINTS = [
-  ['Runs inside your own product.', 'One API integration puts offers, links, and tracking inside your app, web platform, or software — in your own UI, on your own terms.'],
+  ['Runs inside your own product.', 'One API integration puts offers, links, and tracking inside your app, web platform, or software, all in your own UI and on your own terms.'],
   ['Real-time, hands-off.', 'Postback pushes every conversion to your server the moment it happens, so your systems stay in sync without anyone logging in to check.'],
 ];
 function MadeFor() {
@@ -1238,11 +1238,11 @@ function MadeFor() {
 /* ---------- CC §3 — "Built for the way you create." (tab view, reused from the
    publisher overview's platform stepper — pf-* pattern). One tab per tool. ---------- */
 const CREATE_TABS = [
-  { key: 'api', t: 'API', d: 'Authenticate with your key and secret, pull offers and conversions, and generate tracking links programmatically — no manual dashboard work.',
+  { key: 'api', t: 'API', d: 'Authenticate with your key and secret, pull offers and conversions, and generate tracking links programmatically, with no manual dashboard work.',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M8 8l-4 4 4 4" /><path d="M16 8l4 4-4 4" /><path d="M13 6l-2 12" /></svg> },
   { key: 'postback', t: 'Postback', d: 'Get conversions pushed to your server in real time (server-to-server), so you never have to log in and check reports. You handle the data on your own system.',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M4 9h11a4 4 0 0 1 0 8h-2" /><path d="M7 20l-3-3 3-3" /><path d="M20 5v4h-4" /></svg> },
-  { key: 'datafeed', t: 'Datafeed Manager', d: 'Pull live product data — prices, offers, stock — to surface catalogues inside your product.',
+  { key: 'datafeed', t: 'Datafeed Manager', d: 'Pull live product data like prices, offers, and stock to surface catalogues inside your product.',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3" /><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" /><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" /></svg> },
 ];
 const CREATE_TABS_MS = 5000;
@@ -1345,7 +1345,7 @@ const WE_ICONS = {
 const WHY_EARN = [
   ['ui', 'Your product, your experience.', 'Offers live inside your own UI. You control how they look and where they appear.'],
   ['grid', 'One integration, hundreds of brands.', 'Connect once to access 500+ brands and 4,000+ offers.'],
-  ['bolt', 'Real-time and hands-off.', 'Postback and the API keep offers current and conversions flowing — no one has to check a dashboard.'],
+  ['bolt', 'Real-time and hands-off.', 'Postback and the API keep offers current and conversions flowing, so no one has to check a dashboard.'],
   ['code', 'Built for developers.', 'Clear API docs, item-level tracking, and reliable payouts.'],
 ];
 function WhyEarn() {

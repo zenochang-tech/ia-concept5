@@ -891,7 +891,7 @@ const PUB_VOICES = [
     name: 'MY Great Sales', avatar: 'publisher-myGreatSales.png', initials: 'MG',
   },
   {
-    quote: 'Such a good overall experience with IA — very friendly & professional.',
+    quote: 'Such a good overall experience with IA, very friendly & professional.',
     body: 'Had such a good overall experience with IA esp Jia who assisted us – very friendly & professional consultations. She was thorough & informative. IA helps increase and gain pretty good income from the generated link.',
     name: 'Siakap Keli', avatar: 'publisher-siakapkeli.png', initials: 'SK',
   },
@@ -994,8 +994,8 @@ const PUB_FAQ = [
     'Instagram, TikTok, YouTube, and more. Anywhere you can share a link or a code.'],
   ['How and when do I get paid?',
     'Once your sales are validated you withdraw in your local currency, with Express Withdrawal for early access.'],
-  ["I'm an influencer — is this for me?",
-    'Yes. Whether you call yourself a creator or an influencer, if you have an audience on any platform, you can earn — whatever your follower count.'],
+  ["I'm an influencer. Is this for me?",
+    'Yes. Whether you call yourself a creator or an influencer, if you have an audience on any platform, you can earn, whatever your follower count.'],
 ];
 function PubFAQ() {
   const [open, setOpen] = React.useState(() => new Set([0]));
@@ -1231,11 +1231,11 @@ function MadeFor() {
 /* ---------- CC §3 — "Built for the way you create." (tab view, reused from the
    publisher overview's platform stepper — pf-* pattern). One tab per tool. ---------- */
 const CREATE_TABS = [
-  { key: 'app', t: 'Mobile app', d: 'Generate links and grab codes on the go. Share to your socials in seconds, and check your clicks, conversions, and earnings from your phone.',
+  { key: 'app', t: 'Mobile app', d: 'Generate links and grab codes on the go. Share to your socials in seconds, and check your clicks, conversions, and earnings from your phone.', img: 'creator-partner-slide1.png',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="6" y="2" width="12" height="20" rx="3" /><path d="M11 18h2" /></svg> },
-  { key: 'code', t: 'Code Generator', d: "Get a unique code to share where links don't work, like your Instagram captions. Your audience uses it at checkout and the sale tracks back to you.",
+  { key: 'code', t: 'Code Generator', d: "Get a unique code to share where links don't work, like your Instagram captions. Your audience uses it at checkout and the sale tracks back to you.", img: 'creator-partner-slide2.png',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0l-7.2-7.2a2 2 0 0 1-.6-1.4V4a1 1 0 0 1 1-1h7.8a2 2 0 0 1 1.4.6l7.6 7.6a2 2 0 0 1 0 2.6Z" /><path d="M7.5 7.5h.01" /></svg> },
-  { key: 'creative', t: 'Creative hub', d: 'Grab ready-made banners and coupon codes from top brands and drop them straight into your content.',
+  { key: 'creative', t: 'Creative hub', d: 'Grab ready-made banners and coupon codes from top brands and drop them straight into your content.', img: 'creator-partner-slide3.png',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="M21 15l-5-5L5 21" /></svg> },
 ];
 const CREATE_TABS_MS = 5000;
@@ -1261,7 +1261,7 @@ function BuiltCreate() {
                   <span className="pf-step-body">
                     <span className="pf-step-t"><span className="pf-step-ic" aria-hidden="true">{s.ic}</span>{s.t}</span>
                     <span className="pf-step-dw"><span className="pf-step-d">{s.d}</span></span>
-                    <span className="pf-step-fig"><span className="pf-step-fig-in"><span className="cct-ph cct-ph-m"><b>{s.t}</b><i>Visual placeholder</i></span></span></span>
+                    <span className="pf-step-fig"><span className="pf-step-fig-in"><img className="cct-img-m" src={`media/figma/${s.img}`} alt="" loading="lazy" /></span></span>
                   </span>
                 </button>
               );
@@ -1269,7 +1269,7 @@ function BuiltCreate() {
           </div>
           <div className="pf-visual">
             {CREATE_TABS.map((s, i) => (
-              <div key={s.key} className={'pf-img cct-ph' + (i === active ? ' on' : '')} aria-hidden={i !== active}><b>{s.t}</b><i>Visual placeholder</i></div>
+              <img key={s.key} className={'pf-img' + (i === active ? ' on' : '')} src={`media/figma/${s.img}`} alt="" loading="lazy" aria-hidden={i !== active} />
             ))}
           </div>
         </div>
@@ -1302,12 +1302,8 @@ function BuiltCreate() {
           background:linear-gradient(150deg, #fbe9df 0%, #f6f1ec 50%, #fde4d8 100%); }
         .pf-img{ position:absolute; top:clamp(20px,3.2vw,40px); left:clamp(20px,3.2vw,40px);
           width:calc(100% - clamp(20px,3.2vw,40px)); height:calc(100% - clamp(20px,3.2vw,40px));
-          border-radius:16px 0 0 0; opacity:0; transition:opacity .5s ease; }
+          object-fit:cover; object-position:left top; border-radius:16px 0 0 0; opacity:0; transition:opacity .5s ease; }
         .pf-img.on{ opacity:1; }
-        .cct-ph{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
-          background:rgba(255,255,255,.55); border:2px dashed var(--warm-300); }
-        .cct-ph b{ font-family:var(--font-display); font-weight:800; font-size:20px; color:var(--warm-800); }
-        .cct-ph i{ font-style:normal; font:500 13px/1 var(--font-body); color:var(--warm-400); }
         .pf-step-fig{ display:none; }
         @media (max-width:900px){
           .pf-grid{ grid-template-columns:1fr; gap:0; }
@@ -1317,8 +1313,7 @@ function BuiltCreate() {
           .pf-step-fig{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s ease; }
           .pf-step.on .pf-step-fig{ grid-template-rows:1fr; }
           .pf-step-fig-in{ overflow:hidden; min-height:0; }
-          .cct-ph-m{ min-height:150px; margin:16px 0 4px; border-radius:14px; background:var(--warm-100); }
-          .cct-ph-m b{ font-size:16px; } .cct-ph-m i{ font-size:12px; }
+          .cct-img-m{ display:block; width:100%; height:auto; margin:16px 0 4px; border-radius:14px; box-shadow:0 12px 28px rgba(15,28,46,.12); }
         }
         @media (prefers-reduced-motion: reduce){ .pf-rail-fill{ animation:none; height:100%; } .pf-img{ transition:none; } .pf-step-fig{ transition:none; } }
       `}</style>
