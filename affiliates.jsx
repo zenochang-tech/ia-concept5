@@ -1175,8 +1175,7 @@ function AppDownload() {
 }
 /* ---------- Affiliates §2 — "Built for every kind of affiliate site." (3 cards) ---------- */
 const AFF_KINDS = [
-  ['website-kind-1.png', 'Blogs', 'Add relevant links to the posts you already write, and earn from content you were making anyway.'],
-  ['website-kind-2.png', 'Niche sites', 'Run a specialist site your niche follows. Add links to the reviews and guides you already write, and earn on what your readers buy.'],
+  ['website-kind-1.png', 'Blogs & niche sites', "Whether it's a general blog or a specialist site your niche follows, add links to the posts, reviews, and guides you already write, and earn on what your readers buy."],
   ['website-kind-3.png', 'News & media', 'Add contextual links to your articles, and earn as your audience reads and buys.'],
   ['aff-kind-2.png', 'Cashback & loyalty', 'Give members cashback and points on what they buy, and earn on every order they place.'],
   ['aff-kind-1.png', 'Coupon & deal', 'Share promo codes, vouchers, and deals, and earn when shoppers buy at a better price.'],
