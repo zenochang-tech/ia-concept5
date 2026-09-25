@@ -1177,9 +1177,9 @@ function AppDownload() {
 const AFF_KINDS = [
   ['website-kind-1.png', 'Blogs & niche sites', "Whether it's a general blog or a specialist site your niche follows, add links to the posts, reviews, and guides you already write, and earn on what your readers buy."],
   ['website-kind-3.png', 'News & media', 'Add contextual links to your articles, and earn as your audience reads and buys.'],
-  ['aff-kind-2.png', 'Cashback & loyalty', 'Give members cashback and points on what they buy, and earn on every order they place.'],
-  ['aff-kind-1.png', 'Coupon & deal', 'Share promo codes, vouchers, and deals, and earn when shoppers buy at a better price.'],
-  ['aff-kind-3.png', 'Comparison', 'Help shoppers choose with side-by-side comparisons, and earn when they click through and buy.'],
+  ['aff-kind-2-v2.png', 'Cashback & loyalty', 'Give members cashback and points on what they buy, and earn on every order they place.'],
+  ['aff-kind-1-v2.png', 'Coupon & deal', 'Share promo codes, vouchers, and deals, and earn when shoppers buy at a better price.'],
+  ['aff-kind-3-v2.png', 'Comparison', 'Help shoppers choose with side-by-side comparisons, and earn when they click through and buy.'],
 ];
 /* Sub-type slider — same draggable carousel + ember progress bar as the publisher
    overview's "However you reach people" section (au-* pattern). */
