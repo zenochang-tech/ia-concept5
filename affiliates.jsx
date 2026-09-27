@@ -41,7 +41,7 @@ function PubHero() {
         <div className="ph-visual" data-reveal data-reveal-delay="1">
           <span className="ph-hexglow" aria-hidden="true" />
           <span className="ph-hexplate" aria-hidden="true" />
-          <div className="ph-photo ph-photo-fill"><img src="media/figma/affiliates-hero.png" alt="An affiliate site dashboard shown on a laptop" loading="eager" /></div>
+          <div className="ph-photo ph-photo-fill"><img src="media/figma/aff-hero-img.png" alt="An affiliate site dashboard shown on a laptop" loading="eager" /></div>
         </div>
       </div>
 
