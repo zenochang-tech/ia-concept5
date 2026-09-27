@@ -1198,7 +1198,7 @@ function MadeFor() {
             </div>
           </div>
           <div className="mf-visual">
-            <div className="mf-photo" data-reveal><div className="mf-ph"><b>Product integration</b><i>Visual placeholder</i></div></div>
+            <div className="mf-photo" data-reveal><img src="media/figma/tech-partner-app-img.png" alt="Involve offers and cashback surfaced inside a partner's own product" loading="lazy" /></div>
           </div>
         </div>
       </div>
