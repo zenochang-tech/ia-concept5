@@ -41,7 +41,7 @@ function PubHero() {
         <div className="ph-visual" data-reveal data-reveal-delay="1">
           <span className="ph-hexglow" aria-hidden="true" />
           <span className="ph-hexplate" aria-hidden="true" />
-          <div className="ph-photo ph-photo-fill"><img src="media/figma/creator-partner-hero-image.png" alt="A content creator sharing product recommendations with her audience" loading="eager" /></div>
+          <div className="ph-photo ph-photo-fill"><img src="media/figma/tech-partner-hero-img.png" alt="A technology partner integrating Involve offers into their own product" loading="eager" /></div>
           <div className="ph-static-ui">
             <div className="ph-glass ph-g-pay-a"><div className="ph-pay"><span>Commission Earned</span><b>+ $816</b></div></div>
           </div>
@@ -1238,11 +1238,11 @@ function MadeFor() {
 /* ---------- CC §3 — "Built for the way you create." (tab view, reused from the
    publisher overview's platform stepper — pf-* pattern). One tab per tool. ---------- */
 const CREATE_TABS = [
-  { key: 'api', t: 'API', d: 'Authenticate with your key and secret, pull offers and conversions, and generate tracking links programmatically, with no manual dashboard work.',
+  { key: 'api', t: 'API', d: 'Authenticate with your key and secret, pull offers and conversions, and generate tracking links programmatically, with no manual dashboard work.', img: 'tech-api-tool-card.png',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M8 8l-4 4 4 4" /><path d="M16 8l4 4-4 4" /><path d="M13 6l-2 12" /></svg> },
-  { key: 'postback', t: 'Postback', d: 'Get conversions pushed to your server in real time (server-to-server), so you never have to log in and check reports. You handle the data on your own system.',
+  { key: 'postback', t: 'Postback', d: 'Get conversions pushed to your server in real time (server-to-server), so you never have to log in and check reports. You handle the data on your own system.', img: 'postback-tool-slide.png',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M4 9h11a4 4 0 0 1 0 8h-2" /><path d="M7 20l-3-3 3-3" /><path d="M20 5v4h-4" /></svg> },
-  { key: 'datafeed', t: 'Datafeed Manager', d: 'Pull live product data like prices, offers, and stock to surface catalogues inside your product.',
+  { key: 'datafeed', t: 'Datafeed Manager', d: 'Pull live product data like prices, offers, and stock to surface catalogues inside your product.', img: 'aff-partner-slide1.png',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3" /><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" /><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" /></svg> },
 ];
 const CREATE_TABS_MS = 5000;
@@ -1268,7 +1268,7 @@ function BuiltCreate() {
                   <span className="pf-step-body">
                     <span className="pf-step-t"><span className="pf-step-ic" aria-hidden="true">{s.ic}</span>{s.t}</span>
                     <span className="pf-step-dw"><span className="pf-step-d">{s.d}</span></span>
-                    <span className="pf-step-fig"><span className="pf-step-fig-in"><span className="cct-ph cct-ph-m"><b>{s.t}</b><i>Visual placeholder</i></span></span></span>
+                    <span className="pf-step-fig"><span className="pf-step-fig-in"><img className="cct-img-m" src={`media/figma/${s.img}`} alt="" loading="lazy" /></span></span>
                   </span>
                 </button>
               );
@@ -1276,7 +1276,7 @@ function BuiltCreate() {
           </div>
           <div className="pf-visual">
             {CREATE_TABS.map((s, i) => (
-              <div key={s.key} className={'pf-img cct-ph' + (i === active ? ' on' : '')} aria-hidden={i !== active}><b>{s.t}</b><i>Visual placeholder</i></div>
+              <img key={s.key} className={'pf-img' + (i === active ? ' on' : '')} src={`media/figma/${s.img}`} alt="" loading="lazy" aria-hidden={i !== active} />
             ))}
           </div>
         </div>
@@ -1309,12 +1309,8 @@ function BuiltCreate() {
           background:linear-gradient(150deg, #fbe9df 0%, #f6f1ec 50%, #fde4d8 100%); }
         .pf-img{ position:absolute; top:clamp(20px,3.2vw,40px); left:clamp(20px,3.2vw,40px);
           width:calc(100% - clamp(20px,3.2vw,40px)); height:calc(100% - clamp(20px,3.2vw,40px));
-          border-radius:16px 0 0 0; opacity:0; transition:opacity .5s ease; }
+          object-fit:cover; object-position:left top; border-radius:16px 0 0 0; opacity:0; transition:opacity .5s ease; }
         .pf-img.on{ opacity:1; }
-        .cct-ph{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
-          background:rgba(255,255,255,.55); border:2px dashed var(--warm-300); }
-        .cct-ph b{ font-family:var(--font-display); font-weight:800; font-size:20px; color:var(--warm-800); }
-        .cct-ph i{ font-style:normal; font:500 13px/1 var(--font-body); color:var(--warm-400); }
         .pf-step-fig{ display:none; }
         @media (max-width:900px){
           .pf-grid{ grid-template-columns:1fr; gap:0; }
@@ -1324,8 +1320,7 @@ function BuiltCreate() {
           .pf-step-fig{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s ease; }
           .pf-step.on .pf-step-fig{ grid-template-rows:1fr; }
           .pf-step-fig-in{ overflow:hidden; min-height:0; }
-          .cct-ph-m{ min-height:150px; margin:16px 0 4px; border-radius:14px; background:var(--warm-100); }
-          .cct-ph-m b{ font-size:16px; } .cct-ph-m i{ font-size:12px; }
+          .cct-img-m{ display:block; width:100%; height:auto; margin:16px 0 4px; border-radius:14px; box-shadow:0 12px 28px rgba(15,28,46,.12); }
         }
         @media (prefers-reduced-motion: reduce){ .pf-rail-fill{ animation:none; height:100%; } .pf-img{ transition:none; } .pf-step-fig{ transition:none; } }
       `}</style>
