@@ -1407,11 +1407,9 @@ function ShopeeBand() {
 }
 /* ---------- API §4 — "Built for teams that build" (category grid) ---------- */
 const TEAM_CATS = [
-  ['Media buyers', 'High-volume paid ads'],
-  ['Affiliate & rewards sites', 'Cashback and comparison, instant link conversion'],
-  ['App owners', 'Offers and cashback inside your app'],
-  ['Networks & agencies', 'Sub-network and multi-client solutions'],
-  ['Content sites', 'Auto-updated offers'],
+  ['Product & app teams', 'Surface offers and cashback inside your own app or platform, and earn on what your users buy.'],
+  ['High-volume publishers', 'Generate tracking links and sync conversions programmatically, without touching the dashboard.'],
+  ['Data-driven teams', 'Pull offers, conversions, and product feeds into your own systems and reporting.'],
 ];
 function BuiltTeams() {
   return (
@@ -1419,7 +1417,7 @@ function BuiltTeams() {
       <div className="wrap">
         <div className="bt-grid">
           <div className="bt-head" data-reveal>
-            <h2 className="bt-title">Built for teams that build</h2>
+            <h2 className="bt-title">Who builds with the API</h2>
             <p className="bt-sub">For teams that run affiliate data and links inside their own systems, through automation.</p>
           </div>
           <div className="bt-cats" data-reveal data-reveal-delay="1">
