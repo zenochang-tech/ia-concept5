@@ -112,14 +112,14 @@ function PubHero() {
         .gs-stats{ margin-top:clamp(28px,4vh,40px); display:flex; gap:clamp(20px,3vw,40px); flex-wrap:wrap; }
         .gs-stat b{ display:block; font-family:var(--font-display); font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-.02em; color:var(--midnight-light); }
         .gs-stat span{ display:block; margin-top:4px; font:400 13px/1.4 var(--font-body); color:var(--warm-600); }
-        .gs-form{ background:#fff; border:1px solid var(--warm-200); border-radius:20px; box-shadow:0 24px 60px rgba(15,28,46,.10); padding:clamp(24px,3vw,34px); }
+        .gs-form{ background:#fff; border:1px solid var(--warm-200); border-radius:var(--r-lg); box-shadow:0 24px 60px rgba(15,28,46,.10); padding:clamp(24px,3vw,34px); }
         .gs-form-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(20px,2vw,24px); letter-spacing:-.02em; color:var(--warm-900); }
         .gs-fieldset{ border:none; margin:0; padding:0; margin-top:22px; display:flex; flex-direction:column; gap:14px; }
         .gs-legend{ font:700 12px/1 var(--font-body); letter-spacing:.04em; text-transform:uppercase; color:var(--midnight-light); padding:0; margin-bottom:2px; }
         .gs-2col{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
         .gs-field{ display:flex; flex-direction:column; gap:6px; min-width:0; }
         .gs-lbl{ font:600 13px/1.3 var(--font-body); color:var(--warm-800); }
-        .gs-input{ width:100%; border:1px solid var(--warm-300); border-radius:10px; background:#fff; font:400 15px/1.3 var(--font-body); color:var(--warm-900); padding:11px 13px; outline:none; transition:border-color .15s, box-shadow .15s; }
+        .gs-input{ width:100%; border:1px solid var(--warm-200); border-radius:var(--r-sm); background:#fff; font:400 15px/1.3 var(--font-body); color:var(--warm-900); padding:11px 13px; outline:none; transition:border-color .15s, box-shadow .15s; }
         .gs-input::placeholder{ color:var(--warm-400); }
         .gs-input:focus{ border-color:var(--midnight-light); box-shadow:0 0 0 3px var(--midnight-light-tint); }
         .gs-select{ appearance:none; -webkit-appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%233D5A80' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 13px center; padding-right:34px; cursor:pointer; }

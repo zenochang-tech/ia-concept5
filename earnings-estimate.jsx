@@ -56,7 +56,7 @@ function EarningsHero() {
         .ee-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(28px,4.4vw,50px); line-height:1.0; letter-spacing:-.03em; color:var(--warm-900); }
         .ee-sub{ margin:clamp(20px,3vh,30px) auto 0; max-width:780px; font:400 clamp(16px,1.4vw,19px)/1.55 var(--font-body); color:var(--warm-600); }
         .ee-form{ display:flex; align-items:center; gap:8px; width:min(720px,100%); margin:clamp(28px,4.5vh,46px) auto 0;
-          background:#fff; border:1px solid var(--warm-200); border-radius:var(--r-full); box-shadow:0 12px 34px rgba(15,28,46,.07); padding:7px 7px 7px 6px; }
+          background:#fff; border:1px solid var(--warm-200); border-radius:var(--r-md); box-shadow:0 12px 34px rgba(15,28,46,.07); padding:7px 7px 7px 6px; }
         .ee-input{ flex:1; min-width:0; border:none; outline:none; background:transparent; font:400 16px/1.4 var(--font-body); color:var(--warm-900); padding:14px 18px; }
         .ee-input::placeholder{ color:var(--warm-400); }
         .ee-cta{ flex:0 0 auto; white-space:nowrap; }
