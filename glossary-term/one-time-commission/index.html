@@ -25,7 +25,7 @@
   --grad-ember:linear-gradient(135deg,#F05826,#C43E18);
   --grad-midnight:linear-gradient(135deg,#0F1C2E,#1A3251);
   --grad-midnight-light:linear-gradient(135deg,#3D5A80,#1A2E47);
-  --r-sm:8px; --r-md:12px; --r-lg:16px; --r-full:9999px;
+  --r-sm:4px; --r-md:6px; --r-lg:8px; --r-xl:12px; --r-full:9999px;
   --shadow-sm:0 1px 3px rgba(15,28,46,.06); --shadow-md:0 4px 12px rgba(15,28,46,.08);
   --shadow-lg:0 10px 30px rgba(15,28,46,.10); --shadow-xl:0 24px 60px rgba(15,28,46,.16);
   --shadow-ember:0 8px 24px rgba(240,88,38,.22); --shadow-ml:0 8px 24px rgba(61,90,128,.22);
@@ -74,11 +74,11 @@ p{margin:0;} a{color:inherit; text-decoration:none;} img{display:block; max-widt
 @media (max-width:600px){ .gt-hero{ padding-top:32px; } }
 
 /* Buttons (needed by the "Pick your side" CTA) */
-.btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; font:600 15px/1 var(--font-body); border-radius:var(--r-full); border:1.5px solid transparent; padding:14px 26px; cursor:pointer; transition:transform var(--fast), box-shadow var(--fast), background var(--fast); white-space:nowrap; text-align:center; }
-.btn:hover{ transform:scale(1.02); }
-.btn-primary{ background:var(--grad-ember); color:#fff; box-shadow:var(--shadow-ember); }
-.btn-primary:hover{ box-shadow:none; }
-.btn-advertiser{ background:var(--grad-midnight-light); color:#fff; box-shadow:var(--shadow-ml); }
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; font:600 15px/1 var(--font-body); border-radius:var(--r-md); border:1.5px solid transparent; padding:14px 26px; cursor:pointer; transition:background var(--fast), box-shadow var(--fast), border-color var(--fast); white-space:nowrap; text-align:center; }
+.btn-primary{ background:var(--ember); color:#fff; }
+.btn-primary:hover{ background:var(--ember-dark); }
+.btn-advertiser{ background:var(--midnight-light); color:#fff; }
+.btn-advertiser:hover{ background:var(--midnight); }
 
 /* "Pick your side and grow with us." finale (static port of homepage HexFinaleStatic) */
 .hf{ background:var(--warm-50); position:relative; overflow:hidden; }
