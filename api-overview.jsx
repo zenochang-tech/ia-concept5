@@ -29,8 +29,8 @@ function PubHero() {
       <span className="ph-basefade" aria-hidden="true" />
       <div className="wrap ph-wrap">
         <div className="ph-copy">
-          <span className="ph-eyebrow" data-reveal>Affiliate Marketing for Publishers</span>
-          <h1 className="ph-title" data-reveal data-reveal-delay="1">Build and automate with the Involve Asia API.</h1>
+          <span className="ph-eyebrow" data-reveal>Developer API</span>
+          <h1 className="ph-title" data-reveal data-reveal-delay="1">Build and automate with the Involve Asia Developer API.</h1>
           <p className="ph-sub" data-reveal data-reveal-delay="1">Pull promotions, generate tracking links, and get your reports, all without logging into the dashboard. Bring affiliate earning into your own app or workflow.</p>
           <div className="ph-actions" data-reveal data-reveal-delay="2">
             <a href="/partners/" className="btn btn-primary btn-lg">Apply for an API Key <Arrow /></a>

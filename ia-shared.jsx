@@ -29,7 +29,7 @@ const NAV = [
       ]},
       { head: 'Features', links: [
         ['Express Withdrawal', 'express-withdrawal.html'],
-        ['API Overview', 'api-overview.html'],
+        ['Developer API', 'api-overview.html'],
         ['Data Feed', 'datafeed.html'],
       ]},
     ]},
@@ -268,7 +268,7 @@ function Nav({ getStartedTone = 'midnight' }) {
         .mega4-feat{ position:relative; display:block; margin-left:auto; flex:0 0 clamp(260px,24vw,320px); height:clamp(224px,23vh,254px); border-radius:16px; overflow:hidden; text-decoration:none; box-shadow:0 12px 30px rgba(15,28,46,.14); }
         .mega4-feat img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; will-change:transform; transition:transform .5s cubic-bezier(.22,1,.36,1); }
         .mega4-feat:hover img{ transform:scale(1.05); }
-        .mega4-feat-scrim{ position:absolute; inset:0; }
+        .mega4-feat-scrim{ display:none; }
         .mega4-feat-body{ position:absolute; left:0; right:0; bottom:0; z-index:1; display:flex; flex-direction:column; gap:7px; padding:22px; }
         .mega4-feat-head{ font-family:var(--font-display); font-weight:800; font-size:19px; line-height:1.15; letter-spacing:-.01em; color:#fff; }
         .mega4-feat-desc{ font:400 13.5px/1.45 var(--font-body); color:rgba(255,255,255,.86); }
@@ -344,7 +344,7 @@ function Arrow({ s = 16 }) {
 }
 
 const FOOT = [
-  { h: 'For Publishers', links: [['Overview','/partners/overview'],['All Brands Directory','https://app.involve.asia/directory'],['Express Withdrawal','/partners/express-withdrawal/'],['API Overview','/partners/api-overview/'],['Data Feed','datafeed.html']] },
+  { h: 'For Publishers', links: [['Overview','/partners/overview'],['All Brands Directory','https://app.involve.asia/directory'],['Express Withdrawal','/partners/express-withdrawal/'],['Developer API','/partners/api-overview/'],['Data Feed','datafeed.html']] },
   { h: 'For Advertisers', links: [['Overview','/advertisers/'],['How We Track','/advertisers/how-we-track/'],['Partner Discovery','/advertisers/partner-discovery/'],['Automation','/advertisers/automation/'],['Case Studies','/advertisers/case-studies/']] },
   { h: 'Involve', links: [['About Us','/about/'],['Careers','https://career.involve.asia/'],['Blog','/blog/'],['Support','https://helpcentre.involve.asia/'],['Terms & Conditions','terms-conditions.html'],['Privacy Policy','https://app.involve.asia/publisher/privacypolicy']] },
 ];

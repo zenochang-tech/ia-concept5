@@ -42,9 +42,6 @@ function PubHero() {
           <span className="ph-hexglow" aria-hidden="true" />
           <span className="ph-hexplate" aria-hidden="true" />
           <div className="ph-photo ph-photo-fill"><img src="media/figma/tech-partner-hero-img.png" alt="A technology partner integrating Involve offers into their own product" loading="eager" /></div>
-          <div className="ph-static-ui">
-            <div className="ph-glass ph-g-pay-a"><div className="ph-pay"><span>Commission Earned</span><b>+ $816</b></div></div>
-          </div>
         </div>
       </div>
 

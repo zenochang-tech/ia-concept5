@@ -995,7 +995,7 @@ const PUB_FAQ = [
   ['Do you support cashback and coupon models?',
     'Yes. Cashback, coupon, comparison, loyalty, and deal sites all run on the platform.'],
   ['Is there an API?',
-    <>Yes. Generate deep links and pull conversions and offers programmatically. See the <a href="api-overview.html">API page</a>.</>],
+    <>Yes. Generate deep links and pull conversions and offers programmatically. See the <a href="api-overview.html">Developer API</a>.</>],
 ];
 function PubFAQ() {
   const [open, setOpen] = React.useState(() => new Set([0]));
@@ -1267,8 +1267,8 @@ function ScaleApi() {
           <div className="sa-left" data-reveal>
             <h2 className="sa-title">Scale with datafeeds <br />and our API.</h2>
             <p className="sa-body">For high-volume affiliates and agencies, generate tracking links and connect Involve to your own systems with our API, so affiliate data and links live inside your own stack.</p>
-            <a className="sa-link" href="#">
-              API overview
+            <a className="sa-link" href="api-overview.html">
+              Developer API
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5.5l6.5 6.5L9 18.5" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
             </a>
           </div>
