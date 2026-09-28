@@ -282,62 +282,14 @@ const PUB_AUDIENCE = [
   ['Technology Partners', 'Apps, web platforms, and software. Plug Involve into your own product through our API, and earn from your users.', 'pub-aud-c04.png', 'technology-partners.html'],
 ];
 function PubAudience() {
-  const scrollRef = React.useRef(null);
-  const thumbRef = React.useRef(null);
-  const barRef = React.useRef(null);
-  React.useEffect(() => {
-    const sc = scrollRef.current, thumb = thumbRef.current, bar = barRef.current;
-    if (!sc || !thumb) return;
-    const trackW = () => (bar ? bar.clientWidth : 134);
-    let tw = 28;
-    const update = () => {
-      const T = trackW(), max = sc.scrollWidth - sc.clientWidth;
-      tw = Math.max(28, Math.round(T * (sc.clientWidth / sc.scrollWidth)));
-      const x = max > 0 ? (sc.scrollLeft / max) * (T - tw) : 0;
-      thumb.style.width = tw + 'px';
-      thumb.style.transform = `translateX(${x.toFixed(1)}px)`;
-    };
-    update();
-    sc.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-
-    // ---- drag the cards. Release listeners live on WINDOW so a mouseup anywhere
-    // (even off the element / off-window) always ends the drag → never stays stuck. ----
-    let cDown = false, sX = 0, sLeft = 0, moved = false, cPid = null;
-    const cMove = (e) => { if (!cDown) return; const dx = e.clientX - sX; if (Math.abs(dx) > 3) moved = true; sc.scrollLeft = sLeft - dx; };
-    const cEnd = () => { if (!cDown) return; cDown = false; sc.classList.remove('grabbing'); if (cPid != null) { try { sc.releasePointerCapture(cPid); } catch (_) {} cPid = null; } window.removeEventListener('pointermove', cMove); window.removeEventListener('pointerup', cEnd); window.removeEventListener('pointercancel', cEnd); };
-    const cStart = (e) => { if (e.pointerType === 'mouse' && e.button !== 0) return; cDown = true; moved = false; sX = e.clientX; sLeft = sc.scrollLeft; cPid = e.pointerId; sc.classList.add('grabbing'); try { sc.setPointerCapture(e.pointerId); } catch (_) {} window.addEventListener('pointermove', cMove); window.addEventListener('pointerup', cEnd); window.addEventListener('pointercancel', cEnd); };
-    const onClick = (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); } };
-    sc.addEventListener('pointerdown', cStart);
-    sc.addEventListener('click', onClick, true);
-
-    // ---- drag the ember scrollbar (grab the track/thumb → scrolls the cards) ----
-    let bDown = false, bPid = null;
-    const bSeek = (clientX) => { const T = trackW(), max = sc.scrollWidth - sc.clientWidth, r = bar.getBoundingClientRect(); let x = clientX - r.left - tw / 2; x = Math.max(0, Math.min(T - tw, x)); sc.scrollLeft = (T - tw) > 0 ? (x / (T - tw)) * max : 0; };
-    const bMove = (e) => { if (bDown) bSeek(e.clientX); };
-    const bEnd = () => { if (!bDown) return; bDown = false; bar.classList.remove('dragging'); if (bPid != null) { try { bar.releasePointerCapture(bPid); } catch (_) {} bPid = null; } window.removeEventListener('pointermove', bMove); window.removeEventListener('pointerup', bEnd); window.removeEventListener('pointercancel', bEnd); };
-    const bStart = (e) => { if (e.pointerType === 'mouse' && e.button !== 0) return; bDown = true; bPid = e.pointerId; bar.classList.add('dragging'); try { bar.setPointerCapture(e.pointerId); } catch (_) {} bSeek(e.clientX); window.addEventListener('pointermove', bMove); window.addEventListener('pointerup', bEnd); window.addEventListener('pointercancel', bEnd); e.preventDefault(); };
-    if (bar) bar.addEventListener('pointerdown', bStart);
-
-    return () => {
-      sc.removeEventListener('scroll', update); window.removeEventListener('resize', update);
-      sc.removeEventListener('pointerdown', cStart); sc.removeEventListener('click', onClick, true);
-      window.removeEventListener('pointermove', cMove); window.removeEventListener('pointerup', cEnd); window.removeEventListener('pointercancel', cEnd);
-      if (bar) bar.removeEventListener('pointerdown', bStart);
-      window.removeEventListener('pointermove', bMove); window.removeEventListener('pointerup', bEnd); window.removeEventListener('pointercancel', bEnd);
-    };
-  }, []);
   return (
     <section id="pub-audience" className="au-sec">
-      <div className="wrap au-head">
+      <div className="wrap">
         <div className="au-head-l" data-reveal>
           <h2 className="au-title">However you reach people, there's a way to earn.</h2>
           <p className="au-sub">Whatever you run, there's a fit for it, across campaigns, promo codes, product deals and more.</p>
         </div>
-        <div ref={barRef} className="au-bar" data-reveal data-reveal-delay="1" aria-hidden="true"><span ref={thumbRef} className="au-bar-thumb" /></div>
-      </div>
-      <div ref={scrollRef} className="au-scroll" data-reveal data-reveal-delay="1">
-        <div className="au-track">
+        <div className="au-grid" data-reveal data-reveal-delay="1">
           {PUB_AUDIENCE.map(([t, d, img, href]) => (
             <a className="au-card" key={t} href={href}>
               <img className="au-card-img" src={`media/figma/${img}`} alt="" draggable="false" loading="lazy" />
@@ -347,27 +299,14 @@ function PubAudience() {
               </div>
             </a>
           ))}
-          <span className="au-track-end" aria-hidden="true" />
         </div>
       </div>
       <style>{`
         .au-sec{ background:var(--warm-50); padding:clamp(67px,9.66vh,132px) 0 clamp(55px,8.28vh,105px); overflow:hidden; }
-        .au-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
         .au-title{ font-size:clamp(24px,3vw,34px); line-height:1.06; letter-spacing:-.03em; color:var(--warm-900); }
         .au-sub{ margin-top:14px; max-width:620px; font-size:16px; line-height:1.4; color:var(--warm-600); }
-        .au-bar{ position:relative; width:134px; height:12px; border-radius:160px; background:var(--warm-200); flex:0 0 auto; cursor:pointer; touch-action:none; }
-        .au-bar.dragging{ cursor:grabbing; }
-        .au-bar-thumb{ position:absolute; left:0; top:0; height:12px; width:66px; border-radius:160px; background:var(--ember); will-change:transform,width; pointer-events:none; }
-        /* vertical padding gives the card drop-shadow room inside the overflow-y:hidden clip (was being cropped);
-           margins pull the layout back so spacing stays put */
-        .au-scroll{ margin-top:clamp(2px,1.6vh,18px); margin-bottom:-34px; overflow-x:auto; overflow-y:hidden; cursor:grab; scrollbar-width:none; -ms-overflow-style:none;
-          padding-block:26px 62px;
-          padding-inline:max(32px, calc((100% - var(--maxw)) / 2 + 32px)); }
-        .au-scroll::-webkit-scrollbar{ display:none; }
-        .au-scroll.grabbing{ cursor:grabbing; }
-        .au-track{ display:flex; gap:16px; width:max-content; }
-        .au-track-end{ flex:0 0 max(1px, calc((100% - var(--maxw)) / 2)); }
-        .au-card{ position:relative; flex:0 0 auto; width:clamp(268px,80vw,320px); height:426px; border-radius:20px; overflow:hidden;
+        .au-grid{ margin-top:clamp(28px,4vh,44px); display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(18px,2vw,24px); }
+        .au-card{ position:relative; display:block; min-width:0; height:426px; border-radius:20px; overflow:hidden;
           background:#ffffff; box-shadow:0 12px 30px rgba(15,28,46,.06);
           transition:transform .34s cubic-bezier(.22,1,.36,1), box-shadow .34s; }
         /* image anchored to the BOTTOM of the card, faded into the surface at its top so it never sits under the text */
@@ -379,7 +318,7 @@ function PubAudience() {
         .au-card:hover{ transform:translateY(-5px); box-shadow:0 24px 50px rgba(15,28,46,.16); }
         .au-card:hover .au-card-img{ opacity:.9; }
         .au-card:hover .au-card-body{ opacity:.96; }
-        @media (max-width:820px){ .au-bar{ display:none; } }
+        @media (max-width:820px){ .au-grid{ grid-template-columns:1fr; max-width:420px; margin-inline:auto; } }
       `}</style>
     </section>
   );
