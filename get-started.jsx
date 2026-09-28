@@ -49,21 +49,24 @@ const GS_COUNTRIES = ['Malaysia', 'Singapore', 'Indonesia', 'Thailand', 'Philipp
 const GS_INDUSTRIES = ['E-commerce & Retail', 'Fashion & Apparel', 'Beauty & Personal Care', 'Electronics', 'Travel & Hospitality', 'Financial Services', 'Food & Beverage', 'Health & Wellness', 'Gaming', 'Other'];
 const GS_BUDGETS = ['Under $1,000', '$1,000 – $5,000', '$5,000 – $20,000', '$20,000 – $50,000', '$50,000+'];
 function PubHero() {
+  // Plan carried from the Pricing page via ?plan= (validated against known plans; nothing else from the URL is used).
+  const VALID_PLANS = ['Startup', 'Growth', 'Enterprise'];
+  const rawPlan = (typeof window !== 'undefined') ? new URLSearchParams(window.location.search).get('plan') : null;
+  const plan = VALID_PLANS.includes(rawPlan) ? rawPlan : null;
+  const heading = plan ? `Get started with the ${plan} plan.` : 'Get started with Involve Asia.';
+  const interestedPlan = plan || 'Not specified';
   return (
     <section id="get-started-hero" className="prh-sec gs-sec">
       <div className="prh-honey" aria-hidden="true"><PricingHexField /></div>
       <div className="wrap gs-wrap">
         <div className="gs-copy">
           <span className="prh-eyebrow" data-reveal>For Advertisers</span>
-          <h1 className="gs-title" data-reveal data-reveal-delay="1">Scale your brand's reach, action and performance with our platform.</h1>
-          <p className="gs-sub" data-reveal data-reveal-delay="2">Access over 1,000,000 publishers — creators, content sites, affiliate marketers, coupon and loyalty sites, and more.</p>
-          <div className="gs-stats" data-reveal data-reveal-delay="2">
-            <div className="gs-stat"><b>1,000,000+</b><span>Global publishers</span></div>
-            <div className="gs-stat"><b>$270M+</b><span>Paid to publishers</span></div>
-            <div className="gs-stat"><b>$3.2B+</b><span>Sales generated</span></div>
-          </div>
+          <h1 className="gs-title" data-reveal data-reveal-delay="1">{heading}</h1>
+          <p className="gs-sub" data-reveal data-reveal-delay="2">Tell us about your business and our team will help you set up your affiliate program.</p>
         </div>
         <form className="gs-form" data-reveal data-reveal-delay="1" onSubmit={(e) => e.preventDefault()}>
+          {plan && <div className="gs-chip">You selected: <b>{plan} plan</b> <a href="pricing.html" className="gs-chip-change">Change</a></div>}
+          <input type="hidden" name="interestedPlan" value={interestedPlan} />
           <h2 className="gs-form-title">How can we help you?</h2>
           <fieldset className="gs-fieldset">
             <legend className="gs-legend">Tell us about your business</legend>
@@ -113,6 +116,10 @@ function PubHero() {
         .gs-stat b{ display:block; font-family:var(--font-display); font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-.02em; color:var(--midnight-light); }
         .gs-stat span{ display:block; margin-top:4px; font:400 13px/1.4 var(--font-body); color:var(--warm-600); }
         .gs-form{ background:#fff; border:1px solid var(--warm-200); border-radius:var(--r-lg); box-shadow:0 24px 60px rgba(15,28,46,.10); padding:clamp(24px,3vw,34px); }
+        .gs-chip{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:18px; padding:9px 14px; border-radius:var(--r-md); background:var(--midnight-light-tint); font:400 13px/1.4 var(--font-body); color:var(--warm-700); }
+        .gs-chip b{ font-weight:700; color:var(--midnight-light); }
+        .gs-chip-change{ margin-left:auto; color:var(--midnight-light); font-weight:700; text-decoration:underline; text-underline-offset:2px; }
+        .gs-chip-change:hover{ opacity:.82; }
         .gs-form-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(20px,2vw,24px); letter-spacing:-.02em; color:var(--warm-900); }
         .gs-fieldset{ border:none; margin:0; padding:0; margin-top:22px; display:flex; flex-direction:column; gap:14px; }
         .gs-legend{ font:700 12px/1 var(--font-body); letter-spacing:.04em; text-transform:uppercase; color:var(--midnight-light); padding:0; margin-bottom:2px; }
@@ -1957,15 +1964,7 @@ function PricingApp() {
       <Nav getStartedTone="midnight" />
       <main>
         <PubHero />
-        <PricingPlans />
-        <PricingCompare />
-        <PricingAudit />
-        <PricingEssentials />
-        <PricingHow />
-        <PubFAQ />
-        {/* pricing sections added section-by-section; advertiser-only sections retired */}
         <PubLogos />
-        <PubCTA />
       </main>
       <Footer />
       <BackToTop />
