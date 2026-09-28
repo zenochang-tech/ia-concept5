@@ -277,9 +277,9 @@ function PubLogos() {
 
 /* ---------- Section 3 — "If you have an audience, you can earn." ----------- */
 const PUB_AUDIENCE = [
-  ['Creator Partners', 'Social, influencers, video. Share what you love, and earn every time a follower buys.', 'pub-aud-creators-v3.png', 'content-creators.html'],
-  ['Affiliate Partners', "Blogs, review, cashback, coupon and comparison sites. Turn your site's traffic into affiliate income, at any scale.", 'pub-aud-c03.png', 'affiliates.html'],
-  ['Technology Partners', 'Apps, web platforms, and software. Plug Involve into your own product through our API, and earn from your users.', 'pub-aud-c04.png', 'technology-partners.html'],
+  ['Creator Partners', 'Social, influencers, video. Share what you love, and earn every time a follower buys.', 'creator-partner-type-image.png', 'content-creators.html'],
+  ['Affiliate Partners', "Blogs, review, cashback, coupon and comparison sites. Turn your site's traffic into affiliate income, at any scale.", 'aff-partner-type-image.png', 'affiliates.html'],
+  ['Technology Partners', 'Apps, web platforms, and software. Plug Involve into your own product through our API, and earn from your users.', 'tech-partner-type-image.png', 'technology-partners.html'],
 ];
 function PubAudience() {
   return (

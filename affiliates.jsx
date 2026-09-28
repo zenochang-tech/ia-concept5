@@ -1174,105 +1174,43 @@ function AppDownload() {
   );
 }
 /* ---------- Affiliates §2 — "Built for every kind of affiliate site." (3 cards) ---------- */
-const AFF_KINDS = [
-  ['website-kind-1.png', 'Blogs & niche sites', "Whether it's a general blog or a specialist site your niche follows, add links to the posts, reviews, and guides you already write, and earn on what your readers buy."],
-  ['website-kind-3.png', 'News & media', 'Add contextual links to your articles, and earn as your audience reads and buys.'],
-  ['aff-kind-2-v2.png', 'Cashback & loyalty', 'Give members cashback and points on what they buy, and earn on every order they place.'],
-  ['aff-kind-1-v2.png', 'Coupon & deal', 'Share promo codes, vouchers, and deals, and earn when shoppers buy at a better price.'],
-  ['aff-kind-3-v2.png', 'Comparison', 'Help shoppers choose with side-by-side comparisons, and earn when they click through and buy.'],
-];
-/* Sub-type slider — same draggable carousel + ember progress bar as the publisher
-   overview's "However you reach people" section (au-* pattern). */
+/* Sub-type feature section — two cards, same layout as the Creator "Made for…" and
+   Technology "Built for teams that build." sections (mf-* pattern). */
 function BuiltKinds() {
-  const scrollRef = React.useRef(null);
-  const thumbRef = React.useRef(null);
-  const barRef = React.useRef(null);
-  React.useEffect(() => {
-    const sc = scrollRef.current, thumb = thumbRef.current, bar = barRef.current;
-    if (!sc || !thumb) return;
-    const trackW = () => (bar ? bar.clientWidth : 134);
-    let tw = 28;
-    const update = () => {
-      const T = trackW(), max = sc.scrollWidth - sc.clientWidth;
-      tw = Math.max(28, Math.round(T * (sc.clientWidth / sc.scrollWidth)));
-      const x = max > 0 ? (sc.scrollLeft / max) * (T - tw) : 0;
-      thumb.style.width = tw + 'px';
-      thumb.style.transform = `translateX(${x.toFixed(1)}px)`;
-    };
-    update();
-    sc.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    let cDown = false, sX = 0, sLeft = 0, moved = false, cPid = null;
-    const cMove = (e) => { if (!cDown) return; const dx = e.clientX - sX; if (Math.abs(dx) > 3) moved = true; sc.scrollLeft = sLeft - dx; };
-    const cEnd = () => { if (!cDown) return; cDown = false; sc.classList.remove('grabbing'); if (cPid != null) { try { sc.releasePointerCapture(cPid); } catch (_) {} cPid = null; } window.removeEventListener('pointermove', cMove); window.removeEventListener('pointerup', cEnd); window.removeEventListener('pointercancel', cEnd); };
-    const cStart = (e) => { if (e.pointerType === 'mouse' && e.button !== 0) return; cDown = true; moved = false; sX = e.clientX; sLeft = sc.scrollLeft; cPid = e.pointerId; sc.classList.add('grabbing'); try { sc.setPointerCapture(e.pointerId); } catch (_) {} window.addEventListener('pointermove', cMove); window.addEventListener('pointerup', cEnd); window.addEventListener('pointercancel', cEnd); };
-    const onClick = (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); } };
-    sc.addEventListener('pointerdown', cStart);
-    sc.addEventListener('click', onClick, true);
-    let bDown = false, bPid = null;
-    const bSeek = (clientX) => { const T = trackW(), max = sc.scrollWidth - sc.clientWidth, r = bar.getBoundingClientRect(); let x = clientX - r.left - tw / 2; x = Math.max(0, Math.min(T - tw, x)); sc.scrollLeft = (T - tw) > 0 ? (x / (T - tw)) * max : 0; };
-    const bMove = (e) => { if (bDown) bSeek(e.clientX); };
-    const bEnd = () => { if (!bDown) return; bDown = false; bar.classList.remove('dragging'); if (bPid != null) { try { bar.releasePointerCapture(bPid); } catch (_) {} bPid = null; } window.removeEventListener('pointermove', bMove); window.removeEventListener('pointerup', bEnd); window.removeEventListener('pointercancel', bEnd); };
-    const bStart = (e) => { if (e.pointerType === 'mouse' && e.button !== 0) return; bDown = true; bPid = e.pointerId; bar.classList.add('dragging'); try { bar.setPointerCapture(e.pointerId); } catch (_) {} bSeek(e.clientX); window.addEventListener('pointermove', bMove); window.addEventListener('pointerup', bEnd); window.addEventListener('pointercancel', bEnd); e.preventDefault(); };
-    if (bar) bar.addEventListener('pointerdown', bStart);
-    return () => {
-      sc.removeEventListener('scroll', update); window.removeEventListener('resize', update);
-      sc.removeEventListener('pointerdown', cStart); sc.removeEventListener('click', onClick, true);
-      window.removeEventListener('pointermove', cMove); window.removeEventListener('pointerup', cEnd); window.removeEventListener('pointercancel', cEnd);
-      if (bar) bar.removeEventListener('pointerdown', bStart);
-      window.removeEventListener('pointermove', bMove); window.removeEventListener('pointerup', bEnd); window.removeEventListener('pointercancel', bEnd);
-    };
-  }, []);
   return (
-    <section id="aff-kinds" className="au-sec">
-      <div className="wrap au-head">
-        <div className="au-head-l" data-reveal>
-          <h2 className="au-title">Built for every kind of affiliate site.</h2>
-          <p className="au-sub">Whatever kind of site you run, there's a way to earn.</p>
-        </div>
-        <div ref={barRef} className="au-bar" data-reveal data-reveal-delay="1" aria-hidden="true"><span ref={thumbRef} className="au-bar-thumb" /></div>
-      </div>
-      <div ref={scrollRef} className="au-scroll" data-reveal data-reveal-delay="1">
-        <div className="au-track">
-          {AFF_KINDS.map(([img, t, d]) => (
-            <article className="au-card" key={t}>
-              <img className="au-card-img" src={`media/figma/${img}`} alt="" draggable="false" loading="lazy" />
-              <div className="au-card-body">
-                <h3 className="au-card-t">{t}</h3>
-                <p className="au-card-d">{d}</p>
+    <section id="aff-kinds" className="mf-sec">
+      <div className="wrap">
+        <div className="mf-grid">
+          <div className="mf-left">
+            <h2 className="mf-title" data-reveal>Built for every kind of affiliate site.</h2>
+            <p className="mf-sub" data-reveal data-reveal-delay="1">Whatever you run and however big it is, there's a way to earn.</p>
+            <div className="mf-points" data-reveal data-reveal-delay="1">
+              <div className="mf-point">
+                <h3 className="mf-pt">Whatever kind of site you run.</h3>
+                <p className="mf-pd">Blogs, news, cashback, coupon, and comparison sites all earn here. If it has content and an audience, you can turn it into income.</p>
               </div>
-            </article>
-          ))}
-          <span className="au-track-end" aria-hidden="true" />
+              <div className="mf-point">
+                <h3 className="mf-pt">Light touch, or high volume.</h3>
+                <p className="mf-pd">Add a few links to your posts, or run datafeeds and the API at scale. The tools work either way, and grow as you do.</p>
+              </div>
+            </div>
+          </div>
+          <div className="mf-visual">
+            <div className="mf-photo" data-reveal><img src="media/figma/aff-site-image.png" alt="Affiliate content earning across different kinds of sites" loading="lazy" /></div>
+          </div>
         </div>
       </div>
       <style>{`
-        .au-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; overflow:hidden; }
-        .au-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
-        .au-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.06; letter-spacing:-.03em; color:var(--warm-900); }
-        .au-sub{ margin-top:14px; max-width:620px; font-size:16px; line-height:1.4; color:var(--warm-600); }
-        .au-bar{ position:relative; width:134px; height:12px; border-radius:160px; background:var(--warm-200); flex:0 0 auto; cursor:pointer; touch-action:none; }
-        .au-bar.dragging{ cursor:grabbing; }
-        .au-bar-thumb{ position:absolute; left:0; top:0; height:12px; width:66px; border-radius:160px; background:var(--ember); will-change:transform,width; pointer-events:none; }
-        .au-scroll{ margin-top:clamp(2px,1.6vh,18px); margin-bottom:-34px; overflow-x:auto; overflow-y:hidden; cursor:grab; scrollbar-width:none; -ms-overflow-style:none;
-          padding-block:26px 62px;
-          padding-inline:max(32px, calc((100% - var(--maxw)) / 2 + 32px)); }
-        .au-scroll::-webkit-scrollbar{ display:none; }
-        .au-scroll.grabbing{ cursor:grabbing; }
-        .au-track{ display:flex; gap:16px; width:max-content; }
-        .au-track-end{ flex:0 0 max(1px, calc((100% - var(--maxw)) / 2)); }
-        .au-card{ position:relative; flex:0 0 auto; width:clamp(268px,80vw,320px); height:366px; border-radius:var(--r-xl); overflow:hidden;
-          background:#ffffff; box-shadow:0 12px 30px rgba(15,28,46,.06);
-          transition:transform .34s cubic-bezier(.22,1,.36,1), box-shadow .34s; }
-        .au-card-img{ position:absolute; left:0; right:0; bottom:0; width:100%; height:80%; object-fit:cover; object-position:center 100%; opacity:.32; transition:opacity .34s ease; -webkit-user-drag:none; pointer-events:none;
-          -webkit-mask:linear-gradient(180deg, transparent 0%, #000 30%); mask:linear-gradient(180deg, transparent 0%, #000 30%); }
-        .au-card-body{ position:relative; z-index:1; padding:26px 28px; opacity:.7; transition:opacity .34s ease; }
-        .au-card-t{ font-family:var(--font-display); font-weight:800; font-size:21px; line-height:1.25; letter-spacing:-.02em; color:var(--warm-900); }
-        .au-card-d{ margin-top:10px; font:400 16px/1.31 var(--font-body); color:var(--warm-600); max-width:277px; }
-        .au-card:hover{ transform:translateY(-5px); box-shadow:0 24px 50px rgba(15,28,46,.16); }
-        .au-card:hover .au-card-img{ opacity:.9; }
-        .au-card:hover .au-card-body{ opacity:.96; }
-        @media (max-width:820px){ .au-bar{ display:none; } }
+        .mf-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
+        .mf-grid{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,480px); gap:clamp(32px,5vw,72px); align-items:center; }
+        .mf-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); max-width:520px; }
+        .mf-sub{ margin-top:14px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); max-width:520px; }
+        .mf-points{ margin-top:clamp(24px,4vh,40px); display:flex; flex-direction:column; gap:clamp(20px,3vh,30px); }
+        .mf-pt{ font-family:var(--font-display); font-weight:800; font-size:19px; letter-spacing:-.01em; color:var(--warm-900); }
+        .mf-pd{ margin-top:8px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); max-width:520px; }
+        .mf-visual{ position:relative; }
+        .mf-photo img{ width:100%; height:auto; border-radius:var(--r-xl); display:block; }
+        @media (max-width:860px){ .mf-grid{ grid-template-columns:1fr; gap:32px; } .mf-visual{ order:-1; max-width:480px; margin-inline:auto; } }
       `}</style>
     </section>
   );
