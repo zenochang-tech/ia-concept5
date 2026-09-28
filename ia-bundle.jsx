@@ -2902,7 +2902,7 @@ function HexFinaleAnimated({ emphasis = 'equal', hex = 3 }) {
         </div>
         <h2 ref={headRef} className="hfa-head">Pick your side and grow with us.</h2>
         <div ref={cLRef} className="hfa-card hfa-card-l">
-          <span className="hfa-kick">Creators. Content sites. Affiliate sites.</span>
+          <span className="hfa-kick">Creators. Affiliates. Technology partners.</span>
           <h3 className="hfa-ct">I'm a<br />Publisher</h3>
           <p className="hfa-cd">Promote brands you love. Turn your audience or traffic into income.</p>
           <a href="/partners/" className="btn btn-primary">Start Earning <Arrow /></a>
@@ -2999,12 +2999,12 @@ function HexFinaleStatic({ emphasis = 'equal', hex = 3 }) {
             ))}
           </div>
           {/* mobile-only kickers, placed ABOVE the photos (the desktop kickers stay inside the cards) */}
-          <span className="hf-kick hf-kick-m" aria-hidden="true">Influencers. Websites. App owners.</span>
+          <span className="hf-kick hf-kick-m" aria-hidden="true">Creators. Affiliates. Technology partners.</span>
           <span className="hf-kick adv hf-kick-m" aria-hidden="true">Brands. Retailers. Enterprises.</span>
           <img className="hf-photohex hf-ph-pub" src="media/figma/s9-hex-pub.webp" alt="A publisher creating content" />
           <img className="hf-photohex hf-ph-adv" src="media/figma/s9-hex-adv.webp" alt="An advertiser growing their brand" />
           <div className="hf-card hf-card-pub">
-            <span className="hf-kick">Creators. Content sites. Affiliate sites.</span>
+            <span className="hf-kick">Creators. Affiliates. Technology partners.</span>
             <h3 className="hf-ct">I'm a <br />Publisher</h3>
             <p className="hf-cd">Promote brands you love. <span className="hf-cd-more">Turn your audience or traffic into income.</span></p>
             <a href="/partners/" className="btn btn-primary">Start Earning <Arrow /></a>

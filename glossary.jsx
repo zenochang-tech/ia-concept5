@@ -223,12 +223,12 @@ function HexFinaleStatic() {
               <img key={i} className="hf-combhex" src={`media/figma/s9-hex-${g}.png`} alt="" style={{ left: `calc(50% + ${x}px)`, top: `calc(50% + ${y}px)` }} />
             ))}
           </div>
-          <span className="hf-kick hf-kick-m" aria-hidden="true">Influencers. Websites. App owner.</span>
+          <span className="hf-kick hf-kick-m" aria-hidden="true">Creators. Affiliates. Technology partners.</span>
           <span className="hf-kick adv hf-kick-m" aria-hidden="true">Brands. Retailers. Enterprises.</span>
           <img className="hf-photohex hf-ph-pub" src="media/figma/s9-hex-pub.webp" alt="A publisher creating content" />
           <img className="hf-photohex hf-ph-adv" src="media/figma/s9-hex-adv.webp" alt="An advertiser growing their brand" />
           <div className="hf-card hf-card-pub">
-            <span className="hf-kick">Creators. Content sites. Affiliate sites.</span>
+            <span className="hf-kick">Creators. Affiliates. Technology partners.</span>
             <h3 className="hf-ct">I'm a <br />Publisher</h3>
             <p className="hf-cd">Promote brands you love. <span className="hf-cd-more">Turn your audience or traffic into income.</span></p>
             <a href="/partners/" className="btn btn-primary">Start Earning <Arrow /></a>
