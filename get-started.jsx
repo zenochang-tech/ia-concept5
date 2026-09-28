@@ -63,6 +63,11 @@ function PubHero() {
           <span className="prh-eyebrow" data-reveal>For Advertisers</span>
           <h1 className="gs-title" data-reveal data-reveal-delay="1">{heading}</h1>
           <p className="gs-sub" data-reveal data-reveal-delay="2">Tell us about your business and our team will help you set up your affiliate program.</p>
+          <div className="gs-stats" data-reveal data-reveal-delay="2">
+            <div className="gs-stat"><b>1,000,000+</b><span>Global publishers</span></div>
+            <div className="gs-stat"><b>$270M+</b><span>Paid to publishers</span></div>
+            <div className="gs-stat"><b>$3.2B+</b><span>Sales generated</span></div>
+          </div>
         </div>
         <form className="gs-form" data-reveal data-reveal-delay="1" onSubmit={(e) => e.preventDefault()}>
           {plan && <div className="gs-chip">You selected: <b>{plan} plan</b> <a href="pricing.html" className="gs-chip-change">Change</a></div>}
