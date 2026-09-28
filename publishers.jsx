@@ -306,7 +306,7 @@ function PubAudience() {
         .au-title{ font-size:clamp(24px,3vw,34px); line-height:1.06; letter-spacing:-.03em; color:var(--warm-900); }
         .au-sub{ margin-top:14px; max-width:620px; font-size:16px; line-height:1.4; color:var(--warm-600); }
         .au-grid{ margin-top:clamp(28px,4vh,44px); display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(18px,2vw,24px); }
-        .au-card{ position:relative; display:block; min-width:0; height:426px; border-radius:var(--r-xl); overflow:hidden;
+        .au-card{ position:relative; display:block; min-width:0; height:495px; border-radius:var(--r-xl); overflow:hidden;
           background:#ffffff; box-shadow:0 12px 30px rgba(15,28,46,.06);
           transition:transform .34s cubic-bezier(.22,1,.36,1), box-shadow .34s; }
         /* image anchored to the BOTTOM of the card, faded into the surface at its top so it never sits under the text */

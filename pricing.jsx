@@ -166,7 +166,7 @@ const CMP_ROWS = [
 function PricingCompare() {
   const cell = (v) => v === true
     ? <span className="cmp-chk" aria-label="Included"><PlanCheck /></span>
-    : v === false ? <span className="cmp-dash" aria-label="Not included">—</span> : v;
+    : v === false ? <span className="cmp-dash" aria-label="Not included">×</span> : v;
   return (
     <section id="pricing-compare" className="cmp-sec">
       <div className="wrap">
@@ -1104,7 +1104,7 @@ const PUB_VOICES = [
     name: 'MY Great Sales', avatar: 'publisher-myGreatSales.png', initials: 'MG',
   },
   {
-    quote: 'Such a good overall experience with IA — very friendly & professional.',
+    quote: 'Such a good overall experience with IA, very friendly & professional.',
     body: 'Had such a good overall experience with IA esp Jia who assisted us – very friendly & professional consultations. She was thorough & informative. IA helps increase and gain pretty good income from the generated link.',
     name: 'Siakap Keli', avatar: 'publisher-siakapkeli.png', initials: 'SK',
   },

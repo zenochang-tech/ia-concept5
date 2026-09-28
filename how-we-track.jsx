@@ -1691,7 +1691,7 @@ function Verified() {
         <div className="vf-box" data-reveal>
           <div className="vf-grid">
             <div className="vf-left">
-              <h2 className="vf-title">Verified,<br />not just reported</h2>
+              <h2 className="vf-title">Verified, <br />not just reported</h2>
               <p className="vf-body">Every conversion is yours to validate before payout. Approve the real ones, and your budget goes to genuine sales, not a partner&rsquo;s inflated report.</p>
               <ul className="vf-list">
                 {VF_CHECKS.map((t, i) => <li key={i}><span className="vf-ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6 12.5l4 4 8-9" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg></span>{t}</li>)}

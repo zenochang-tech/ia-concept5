@@ -29,7 +29,7 @@ function PubHero() {
       <span className="ph-basefade" aria-hidden="true" />
       <div className="wrap ph-wrap">
         <div className="ph-copy">
-          <span className="ph-eyebrow" data-reveal>Creator partners</span>
+          <span className="ph-eyebrow" data-reveal>For Creator Partners</span>
           <h1 className="ph-title" data-reveal data-reveal-delay="1">Turn the content you already make into income.</h1>
           <p className="ph-sub" data-reveal data-reveal-delay="2">Thousands of brands want to work with creators and influencers like you, whatever your follower count. Share what you love, earn on every sale.</p>
           <div className="ph-actions" data-reveal data-reveal-delay="3">
