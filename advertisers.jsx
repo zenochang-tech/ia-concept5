@@ -1503,7 +1503,7 @@ function AdvReal() {
         <div className="rl-card" data-reveal>
           <div className="rl-viz" aria-hidden="true"><TrafficViz /></div>
           <div className="rl-body">
-            <h2 className="rl-title">You only pay for<br />sales that are real</h2>
+            <h2 className="rl-title">You only pay for <br />sales that are real</h2>
             <p className="rl-desc">Every conversion is checked and validated before you pay, so your budget only ever goes to genuine results, never wasted spend. You approve what counts.</p>
             <ul className="rl-list">
               {ADV_REAL_POINTS.map((t) => (
@@ -1579,7 +1579,7 @@ function AdvStats() {
             <img className="as-heximg" src="media/figma/adv-stat-hex-tint.svg" alt="" aria-hidden="true" />
           </span>
         ))}
-        <h2 className="as-heading">This is what real sales<br />add up to.</h2>
+        <h2 className="as-heading">This is what real sales <br />add up to.</h2>
         <div className="as-stat as-s500"><CountStat value={500} suffix="+" /><span>brands</span></div>
         <div className="as-stat as-s11m"><CountStat value={1000000} comma suffix="+" /><span>publishers</span></div>
         <div className="as-stat as-s32b"><CountStat prefix="$" value={3.2} decimals={1} suffix="B+" /><span>sales driven for brands</span></div>

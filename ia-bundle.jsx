@@ -2849,7 +2849,7 @@ function HexFinaleAnimated({ emphasis = 'equal', hex = 3 }) {
       const setNums = () => {
         if (n0.current) n0.current.textContent = Math.round(c.a).toLocaleString() + '+';
         if (n1.current) n1.current.textContent = '$' + Math.round(c.b) + 'M+';
-        if (n2.current) n2.current.textContent = '$' + Math.round(c.cc) + 'B+';
+        if (n2.current) n2.current.textContent = '$' + c.cc.toFixed(1) + 'B+';
         if (n3.current) n3.current.textContent = Math.round(c.d).toLocaleString() + '+';
       };
       setNums();
@@ -2858,7 +2858,7 @@ function HexFinaleAnimated({ emphasis = 'equal', hex = 3 }) {
       let counted = false;
       const countUp = () => {
         if (counted) return; counted = true;
-        gsap.to(c, { a: 1000000, b: 270, cc: 15, d: 4000, duration: 1.0, ease: 'power2.out', onUpdate: setNums });
+        gsap.to(c, { a: 1000000, b: 270, cc: 3.2, d: 4000, duration: 1.0, ease: 'power2.out', onUpdate: setNums });
       };
       const tl = gsap.timeline({ defaults: { ease: 'none' } });
       tl.from([A, B], { autoAlpha: 0, y: '+=50', duration: 0.5 }, 0);                                  // 1 connected mark in
@@ -2896,7 +2896,7 @@ function HexFinaleAnimated({ emphasis = 'equal', hex = 3 }) {
           <div className="hfa-stat s1"><span className="hfa-num" ref={n0}>1,000,000+</span><span className="hfa-lbl">publishers</span></div>
           <p className="hfa-blurb">Behind every number,<br />a creator earning and a brand growing.</p>
           <div className="hfa-stat s2"><span className="hfa-num" ref={n1}>$270M+</span><span className="hfa-lbl">Commissions paid</span></div>
-          <div className="hfa-stat s3"><span className="hfa-num" ref={n2}>$15B+</span><span className="hfa-lbl">Sales Generated</span></div>
+          <div className="hfa-stat s3"><span className="hfa-num" ref={n2}>$3.2B+</span><span className="hfa-lbl">Sales Generated</span></div>
           <div className="hfa-stat s4"><span className="hfa-num" ref={n3}>4,000+</span><span className="hfa-lbl">advertisers</span></div>
           <div className="hfa-since"><span>Since </span><strong>2014</strong></div>
         </div>
