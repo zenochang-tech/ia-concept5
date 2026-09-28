@@ -771,7 +771,7 @@ Object.assign(window, { Hexagon, HexBadge, HexHeroField, HexTexture, useScrollPr
 // rename freely. No feature image card.
 const NAV = [
   { label: 'For Publishers', href: 'for-publishers.html', tone: 'pub',
-    feat: { head: 'See what you could earn', desc: 'Estimate your affiliate earnings in a few clicks.', cta: 'Estimate my earnings', href: 'earnings-estimate.html', img: 'media/webp/sub-card-publisher.webp', scrim: 'linear-gradient(26.17deg, rgba(196, 62, 24, 0.32) 19.76%, rgba(196, 62, 24, 0.1024) 55.25%)' },
+    feat: { head: '500+ brands, ready to promote', desc: 'Find the ones your audience already loves, and start earning.', cta: 'Browse brands', href: 'https://app.involve.asia/directory', img: 'media/webp/sub-card-publisher.webp', scrim: 'linear-gradient(26.17deg, rgba(196, 62, 24, 0.32) 19.76%, rgba(196, 62, 24, 0.1024) 55.25%)' },
     columns: [
       { head: 'Explore', links: [
         ['Publisher overview', 'for-publishers.html'],
