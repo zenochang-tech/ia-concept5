@@ -1205,13 +1205,13 @@ function MadeForCarousel() {
       const d = (i - active + N) % N;                 // 0 = centre, 1 = right peek, 2 = left peek
       if (d === 1 && animate) {                        // recycled screen re-enters from off-stage right
         el.style.transition = 'none';
-        el.style.left = '150%';
+        el.style.left = '175%';
         void el.offsetWidth;                           // commit the jump without animating it
         el.style.transition = '';
-        el.style.left = '100%';
+        el.style.left = '112.5%';
       } else {
         el.style.transition = animate ? '' : 'none';
-        el.style.left = d === 0 ? '50%' : (d === 2 ? '0%' : '100%');
+        el.style.left = d === 0 ? '50%' : (d === 2 ? '-12.5%' : '112.5%');
       }
       el.style.opacity = d === 0 ? '1' : '0.32';
       el.style.zIndex = d === 0 ? '3' : '1';
@@ -1278,7 +1278,7 @@ function MadeFor() {
         .mf-cv{ position:relative; width:100%; max-width:476px; margin-inline:auto; aspect-ratio:476/445;
           border-radius:24px; overflow:hidden; background:linear-gradient(180deg,#f4f4f0 47%,#e9e9e8 111%); }
         /* top-anchored + taller than the frame, so the bottom crops against the rounded container (Figma) */
-        .mf-cv-screen{ position:absolute; top:7%; left:50%; width:47%; aspect-ratio:9/19.5;
+        .mf-cv-screen{ position:absolute; top:12%; left:50%; width:47%; aspect-ratio:9/19.5;
           transform:translateX(-50%); transition:left .8s cubic-bezier(.45,0,.15,1), opacity .8s ease;
           will-change:left,opacity; }
         .mf-cv-frame{ position:absolute; inset:0; border-radius:12px; overflow:hidden;
@@ -1286,7 +1286,7 @@ function MadeFor() {
         .mf-cv-frame img{ width:100%; height:100%; object-fit:cover; object-position:top center; display:block; }
         .mf-cv-ph{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
           color:rgba(255,255,255,.94); font-family:var(--font-display); font-weight:800; font-size:clamp(15px,2.6vw,20px); letter-spacing:-.01em; }
-        /* platform icon tile over the top-left of the centre screen; pops in when centred */
+        /* platform icon tile on the top-left of the screen; pops in on centre, shrinks/fades on the way out */
         .mf-cv-icon{ position:absolute; top:4%; left:5%; width:29%; aspect-ratio:1; border-radius:22%;
           overflow:hidden; z-index:4; box-shadow:-6px 5px 9px rgba(0,0,0,.16);
           opacity:0; transform:scale(.4); transform-origin:top left;
