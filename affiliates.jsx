@@ -1360,7 +1360,7 @@ const AFF_TOOLS = [
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3" /><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" /><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" /></svg> },
   { key: 'api', t: 'API', d: 'Pull offers and conversions and generate tracking links programmatically, so affiliate data and links live inside your own systems.', img: 'aff-partner-slide2.png',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M8 8l-4 4 4 4" /><path d="M16 8l4 4-4 4" /><path d="M13 6l-2 12" /></svg> },
-  { key: 'creative', t: 'Creative Hub', d: 'Grab ready-made banners and campaign coupon codes from top brands to promote.', img: 'creator-partner-slide3.png',
+  { key: 'creative', t: 'Creative Hub', d: 'Grab ready-made banners and campaign coupon codes from top brands to promote.', img: 'creator-partner-43-slide3.png',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="M21 15l-5-5L5 21" /></svg> },
 ];
 const AFF_TOOLS_MS = 5000;
@@ -1425,9 +1425,8 @@ function AffTools() {
         .pf-visual{ position:relative; align-self:stretch; min-height:clamp(420px,52vh,600px); overflow:hidden;
           margin-right:calc(min(100vw, var(--maxw)) / 2 - 50vw - 32px); border-radius:22px 0 0 22px;
           background:linear-gradient(150deg, #fbe9df 0%, #f6f1ec 50%, #fde4d8 100%); }
-        .pf-img{ position:absolute; top:clamp(20px,3.2vw,40px); left:clamp(20px,3.2vw,40px);
-          width:calc(100% - clamp(20px,3.2vw,40px)); height:calc(100% - clamp(20px,3.2vw,40px));
-          object-fit:cover; object-position:left top; border-radius:16px 0 0 0; opacity:0; transition:opacity .5s ease; }
+        .pf-img{ position:absolute; inset:0; width:100%; height:100%;
+          object-fit:cover; object-position:left top; opacity:0; transition:opacity .5s ease; }
         .pf-img.on{ opacity:1; }
         .pf-step-fig{ display:none; }
         @media (max-width:900px){
