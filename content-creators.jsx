@@ -1287,7 +1287,7 @@ function MadeFor() {
         .mf-cv-ph{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
           color:rgba(255,255,255,.94); font-family:var(--font-display); font-weight:800; font-size:clamp(15px,2.6vw,20px); letter-spacing:-.01em; }
         /* platform icon tile on the top-left of the screen; pops in on centre, shrinks/fades on the way out */
-        .mf-cv-icon{ position:absolute; top:4%; left:5%; width:29%; aspect-ratio:1; border-radius:22%;
+        .mf-cv-icon{ position:absolute; top:-3%; left:-7%; width:29%; aspect-ratio:1; border-radius:22%;
           overflow:hidden; z-index:4; box-shadow:-6px 5px 9px rgba(0,0,0,.16);
           opacity:0; transform:scale(.4); transform-origin:top left;
           transition:opacity .3s ease, transform .38s cubic-bezier(.34,1.56,.64,1); }
