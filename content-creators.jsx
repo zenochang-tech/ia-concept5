@@ -1278,7 +1278,7 @@ function MadeFor() {
         .mf-cv{ position:relative; width:100%; max-width:476px; margin-inline:auto; aspect-ratio:476/445;
           border-radius:24px; overflow:hidden; background:linear-gradient(180deg,#f4f4f0 47%,#e9e9e8 111%); }
         /* top-anchored + taller than the frame, so the bottom crops against the rounded container (Figma) */
-        .mf-cv-screen{ position:absolute; top:12%; left:50%; width:47%; aspect-ratio:9/19.5;
+        .mf-cv-screen{ position:absolute; top:12%; left:50%; width:47%; aspect-ratio:224/452;
           transform:translateX(-50%); transition:left .8s cubic-bezier(.45,0,.15,1), opacity .8s ease;
           will-change:left,opacity; }
         .mf-cv-frame{ position:absolute; inset:0; border-radius:12px; overflow:hidden;
