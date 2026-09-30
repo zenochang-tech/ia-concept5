@@ -442,7 +442,7 @@ function PubPlatform() {
         .pf-step-d a{ color:var(--ember); font-weight:600; text-decoration:underline; text-underline-offset:2px; }
         .pf-step:not(.on){ opacity:.4; } .pf-step:not(.on):hover{ opacity:.7; }
         /* light warm/ember gradient container; the dashboard sits inset top-left and bleeds off the right */
-        .pf-visual{ position:relative; align-self:center; width:100%; aspect-ratio:4/3; overflow:hidden;
+        .pf-visual{ position:relative; align-self:center; width:100%; aspect-ratio:5/3; overflow:hidden;
           border-radius:22px;
           background:linear-gradient(150deg, #fbe9df 0%, #f6f1ec 50%, #fde4d8 100%); }
         .pf-img{ position:absolute; top:clamp(20px,3.2vw,40px); left:clamp(20px,3.2vw,40px);
@@ -1422,7 +1422,7 @@ function AffTools() {
         .pf-step-d{ overflow:hidden; margin-top:0; font:400 16px/1.5 var(--font-body); color:var(--warm-600); }
         .pf-step.on .pf-step-d{ margin-top:12px; }
         .pf-step:not(.on){ opacity:.4; } .pf-step:not(.on):hover{ opacity:.7; }
-        .pf-visual{ position:relative; align-self:center; width:100%; aspect-ratio:4/3; overflow:hidden;
+        .pf-visual{ position:relative; align-self:center; width:100%; aspect-ratio:5/3; overflow:hidden;
           border-radius:22px;
           background:linear-gradient(150deg, #fbe9df 0%, #f6f1ec 50%, #fde4d8 100%); }
         .pf-img{ position:absolute; inset:0; width:100%; height:100%;
