@@ -1175,6 +1175,76 @@ const MADE_POINTS = [
   ['Earn on any platform.', "Involve works on any platform your followers are on. Your link works wherever you post, so you're never tied to one channel. Wherever you can share a link, you can earn."],
   ['No website, no shop, no minimum following.', "You don't need a store or a big audience to start. Share your link wherever your followers are, and earn when they buy."],
 ];
+/* Auto-play peek carousel for the "Made for TikTok, YouTube, Instagram" visual.
+   Coverflow-style: centre screen at full opacity, prev/next neighbours peek at 32%.
+   Motion (per Figma node 3134:4169): each screen slides in from the right to centre,
+   its platform icon pops up; on the way out to the left the icon shrinks and fades;
+   the recycled screen re-enters from off-stage right. Fixed sequence, right→left loop.
+   Placeholder frames/icons until real assets land — swap `img`/`icon` below. */
+const SOCIAL_SCREENS = [
+  { key: 'tiktok',    label: 'TikTok',    img: 'creator-social-1.webp', icon: 'creator-icon-1.svg', tint: 'linear-gradient(155deg,#26262b,#3c3c44)' },
+  { key: 'instagram', label: 'Instagram', img: 'creator-social-2.webp', icon: 'creator-icon-2.svg', tint: 'linear-gradient(155deg,#feda75,#d62976 52%,#5b51d8)' },
+  { key: 'youtube',   label: 'YouTube',   img: 'creator-social-3.webp', icon: 'creator-icon-3.svg', tint: 'linear-gradient(155deg,#ff5b5b,#c1121f)' },
+];
+const MADEFOR_MS = 3000;
+function MadeForCarousel() {
+  const N = SOCIAL_SCREENS.length;
+  const reduced = prefersReduced();
+  const [active, setActive] = React.useState(0);
+  const refs = React.useRef([]);
+  const first = React.useRef(true);
+  React.useEffect(() => {
+    if (reduced) return;
+    const id = setInterval(() => setActive(a => (a + 1) % N), MADEFOR_MS);
+    return () => clearInterval(id);
+  }, [reduced, N]);
+  React.useLayoutEffect(() => {
+    const animate = !first.current && !reduced;
+    refs.current.forEach((el, i) => {
+      if (!el) return;
+      const d = (i - active + N) % N;                 // 0 = centre, 1 = right peek, 2 = left peek
+      if (d === 1 && animate) {                        // recycled screen re-enters from off-stage right
+        el.style.transition = 'none';
+        el.style.left = '150%';
+        void el.offsetWidth;                           // commit the jump without animating it
+        el.style.transition = '';
+        el.style.left = '100%';
+      } else {
+        el.style.transition = animate ? '' : 'none';
+        el.style.left = d === 0 ? '50%' : (d === 2 ? '0%' : '100%');
+      }
+      el.style.opacity = d === 0 ? '1' : '0.32';
+      el.style.zIndex = d === 0 ? '3' : '1';
+    });
+    if (first.current) {                               // let the initial placement paint un-animated, then enable transitions
+      if (refs.current[0]) void refs.current[0].offsetWidth;
+      refs.current.forEach(el => { if (el) el.style.transition = ''; });
+      first.current = false;
+    }
+  }, [active, reduced, N]);
+  return (
+    <div className="mf-cv" role="group" aria-roledescription="carousel" aria-label="The same creator sharing a product across TikTok, Instagram and YouTube">
+      {SOCIAL_SCREENS.map((s, i) => {
+        const d = (i - active + N) % N;
+        return (
+          <div key={s.key} ref={el => (refs.current[i] = el)}
+               className={`mf-cv-screen${d === 0 ? ' is-center' : ''}`} aria-hidden={d !== 0}>
+            <div className="mf-cv-frame" style={s.img ? undefined : { background: s.tint }}>
+              {s.img
+                ? <img src={`media/figma/${s.img}`} alt={`${s.label} preview`} loading="lazy" />
+                : <span className="mf-cv-ph">{s.label}</span>}
+            </div>
+            <div className="mf-cv-icon" aria-hidden="true">
+              {s.icon
+                ? <img src={`media/figma/${s.icon}`} alt="" />
+                : <span className="mf-cv-ico-ph">{s.label[0]}</span>}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 function MadeFor() {
   return (
     <section id="cc-made" className="mf-sec">
@@ -1191,8 +1261,8 @@ function MadeFor() {
               ))}
             </div>
           </div>
-          <div className="mf-visual">
-            <div className="mf-photo" data-reveal><img src="media/figma/creator-partner-social.png" alt="A creator sharing a product recommendation with her followers" loading="lazy" /></div>
+          <div className="mf-visual" data-reveal>
+            <MadeForCarousel />
           </div>
         </div>
       </div>
@@ -1204,23 +1274,29 @@ function MadeFor() {
         .mf-pt{ font-family:var(--font-display); font-weight:800; font-size:19px; letter-spacing:-.01em; color:var(--warm-900); }
         .mf-pd{ margin-top:8px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); max-width:520px; }
         .mf-visual{ position:relative; }
-        .mf-photo img{ width:100%; height:auto; border-radius:20px; display:block; }
-        /* floating UI spills outside the photo edges */
-        /* coded "Serum M" product card (frosted glass frame, Figma style) */
-        .mf-prod{ position:absolute; top:-2%; left:-5%; width:33%; }
-        .mf-prod-card{ aspect-ratio:133/157; border-radius:16px; padding:6% 7%; display:flex; flex-direction:column;
-          background:rgba(255,255,255,.30); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
-          box-shadow:0 18px 36px rgba(15,28,46,.20), inset 0 0 0 1px rgba(255,255,255,.42); }
-        .mf-prod-lbl{ padding-left:2%; font:400 13px/1.1 var(--font-body); color:#fff; text-shadow:0 4px 10px rgba(0,0,0,.28); }
-        .mf-prod-tile{ margin-top:7%; flex:1; border-radius:10px; overflow:hidden; }
-        .mf-prod-tile img{ width:100%; height:100%; object-fit:cover; display:block; }
-        .mf-icons{ position:absolute; bottom:-3%; left:61%; width:47%; }
-        .mf-icons img{ width:100%; height:auto; display:block; filter:drop-shadow(0 10px 20px rgba(15,28,46,.20)); }
-        /* subtle, minimal staggered entrance for the floating UI (gentler than the global reveal) */
-        .mf-prod[data-reveal], .mf-icons[data-reveal]{ transform:translateY(14px) scale(.96); }
-        .mf-prod[data-reveal].in, .mf-icons[data-reveal].in{ transform:none; }
-        @media (max-width:860px){ .mf-grid{ grid-template-columns:1fr; gap:32px; } .mf-visual{ order:-1; max-width:440px; margin-inline:auto; }
-          .mf-prod{ left:-3%; top:-4%; width:32%; } .mf-icons{ left:56%; width:46%; bottom:2%; } }
+        /* ---- auto-play peek carousel (coverflow) ---- */
+        .mf-cv{ position:relative; width:100%; max-width:476px; margin-inline:auto; aspect-ratio:476/445;
+          border-radius:24px; overflow:hidden; background:linear-gradient(180deg,#f4f4f0 47%,#e9e9e8 111%); }
+        /* top-anchored + taller than the frame, so the bottom crops against the rounded container (Figma) */
+        .mf-cv-screen{ position:absolute; top:7%; left:50%; width:47%; aspect-ratio:9/19.5;
+          transform:translateX(-50%); transition:left .8s cubic-bezier(.45,0,.15,1), opacity .8s ease;
+          will-change:left,opacity; }
+        .mf-cv-frame{ position:absolute; inset:0; border-radius:12px; overflow:hidden;
+          box-shadow:-5px 4px 9px rgba(0,0,0,.16); }
+        .mf-cv-frame img{ width:100%; height:100%; object-fit:cover; object-position:top center; display:block; }
+        .mf-cv-ph{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+          color:rgba(255,255,255,.94); font-family:var(--font-display); font-weight:800; font-size:clamp(15px,2.6vw,20px); letter-spacing:-.01em; }
+        /* platform icon tile over the top-left of the centre screen; pops in when centred */
+        .mf-cv-icon{ position:absolute; top:4%; left:5%; width:29%; aspect-ratio:1; border-radius:22%;
+          overflow:hidden; z-index:4; box-shadow:-6px 5px 9px rgba(0,0,0,.16);
+          opacity:0; transform:scale(.4); transform-origin:top left;
+          transition:opacity .3s ease, transform .38s cubic-bezier(.34,1.56,.64,1); }
+        .mf-cv-icon img{ width:100%; height:100%; object-fit:cover; display:block; }
+        .mf-cv-ico-ph{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+          background:#141418; color:#fff; font-family:var(--font-display); font-weight:800; font-size:clamp(14px,3vw,22px); }
+        .mf-cv-screen.is-center .mf-cv-icon{ opacity:1; transform:scale(1); transition-delay:.5s; }
+        @media (prefers-reduced-motion: reduce){ .mf-cv-screen{ transition:none; } .mf-cv-icon{ transition:none; } }
+        @media (max-width:860px){ .mf-grid{ grid-template-columns:1fr; gap:32px; } .mf-visual{ order:-1; max-width:476px; width:100%; margin-inline:auto; } }
       `}</style>
     </section>
   );
