@@ -1176,6 +1176,68 @@ function AppDownload() {
 /* ---------- Affiliates §2 — "Built for every kind of affiliate site." (3 cards) ---------- */
 /* Sub-type feature section — two cards, same layout as the Creator "Made for…" and
    Technology "Built for teams that build." sections (mf-* pattern). */
+/* Browser coverflow (Option A): a browser window centred in the tinted square,
+   cycling through the affiliate site types (blog / cashback / coupon / comparison),
+   with prev/next peeking at 40% opacity. Parallels the creator phone coverflow.
+   Placeholder browser chrome until real site mockups (aff-site-1..4.png) land. */
+const AFF_SITES = [
+  { key: 'blog', label: 'Blog & content', url: 'thestylejournal.com', img: null, tint: 'linear-gradient(135deg,#f1ece6,#e4ddd2)' },
+  { key: 'cashback', label: 'Cashback', url: 'savemore.io', img: null, tint: 'linear-gradient(135deg,#e8f0ea,#d6e5db)' },
+  { key: 'coupon', label: 'Coupon', url: 'dealdrop.co', img: null, tint: 'linear-gradient(135deg,#f4ece7,#ecd9cd)' },
+  { key: 'compare', label: 'Comparison', url: 'pickbest.com', img: null, tint: 'linear-gradient(135deg,#e9ebf3,#d6dcec)' },
+];
+function AffFlow() {
+  const N = AFF_SITES.length;
+  const reduced = prefersReduced();
+  const [active, setActive] = React.useState(0);
+  const refs = React.useRef([]);
+  const first = React.useRef(true);
+  React.useEffect(() => {
+    if (reduced) return;
+    const id = setInterval(() => setActive((a) => (a + 1) % N), 3200);
+    return () => clearInterval(id);
+  }, [reduced, N]);
+  React.useLayoutEffect(() => {
+    const animate = !first.current && !reduced;
+    refs.current.forEach((el, i) => {
+      if (!el) return;
+      const d = (i - active + N) % N;            // 0 centre, 1 right peek, 2 hidden (off-stage right), 3 left peek
+      let left, op, scale, z;
+      if (d === 0) { left = '50%'; op = '1'; scale = '1'; z = '3'; }
+      else if (d === 1) { left = '97%'; op = '0.4'; scale = '0.88'; z = '2'; }
+      else if (d === 3) { left = '3%'; op = '0.4'; scale = '0.88'; z = '2'; }
+      else { left = '140%'; op = '0'; scale = '0.8'; z = '1'; }
+      el.style.transition = (d === 2 && animate) ? 'none' : (animate ? '' : 'none');   // teleport the recycled item off-stage
+      el.style.left = left; el.style.opacity = op; el.style.zIndex = z;
+      el.style.transform = 'translate(-50%,-50%) scale(' + scale + ')';
+    });
+    if (first.current) {
+      if (refs.current[0]) void refs.current[0].offsetWidth;
+      refs.current.forEach((el) => { if (el) el.style.transition = ''; });
+      first.current = false;
+    }
+  }, [active, reduced, N]);
+  return (
+    <div className="afc" role="group" aria-label="Affiliate site types: blog, cashback, coupon and comparison">
+      {AFF_SITES.map((s, i) => (
+        <div key={s.key} ref={(el) => (refs.current[i] = el)} className="afc-item" aria-hidden={((i - active + N) % N) !== 0}>
+          {s.img
+            ? <img className="afc-shot" src={`media/figma/${s.img}`} alt={`${s.label} affiliate site`} loading="lazy" />
+            : (
+              <div className="afc-win">
+                <div className="afc-bar"><span className="afc-dots"><i /><i /><i /></span><span className="afc-url">{s.url}</span></div>
+                <div className="afc-body" style={{ background: s.tint }}>
+                  <span className="afc-kind">{s.label}</span>
+                  <span className="afc-line w1" /><span className="afc-line w2" /><span className="afc-line w3" />
+                </div>
+              </div>
+            )}
+        </div>
+      ))}
+      <div className="afc-tag"><span key={active}>{AFF_SITES[active].label} site</span></div>
+    </div>
+  );
+}
 function BuiltKinds() {
   return (
     <section id="aff-kinds" className="mf-sec">
@@ -1195,22 +1257,44 @@ function BuiltKinds() {
               </div>
             </div>
           </div>
-          <div className="mf-visual">
-            <div className="mf-photo" data-reveal><img src="media/figma/aff-site-image.png" alt="Affiliate content earning across different kinds of sites" loading="lazy" /></div>
+          <div className="mf-visual" data-reveal>
+            <AffFlow />
           </div>
         </div>
       </div>
       <style>{`
         .mf-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
-        .mf-grid{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,480px); gap:clamp(32px,5vw,72px); align-items:center; }
+        .mf-grid{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,440px); gap:clamp(32px,5vw,72px); align-items:center; }
         .mf-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); max-width:520px; }
         .mf-sub{ margin-top:14px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); max-width:520px; }
         .mf-points{ margin-top:clamp(24px,4vh,40px); display:flex; flex-direction:column; gap:clamp(20px,3vh,30px); }
         .mf-pt{ font-family:var(--font-display); font-weight:800; font-size:19px; letter-spacing:-.01em; color:var(--warm-900); }
         .mf-pd{ margin-top:8px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); max-width:520px; }
         .mf-visual{ position:relative; }
-        .mf-photo img{ width:100%; height:auto; border-radius:var(--r-xl); display:block; }
-        @media (max-width:860px){ .mf-grid{ grid-template-columns:1fr; gap:32px; } .mf-visual{ order:-1; max-width:480px; margin-inline:auto; } }
+        /* ---- browser coverflow (affiliate site types) ---- */
+        .afc{ position:relative; width:100%; max-width:476px; margin-inline:auto; aspect-ratio:476/445;
+          border-radius:24px; overflow:hidden; background:linear-gradient(180deg,#f4f4f0 47%,#e9e9e8 111%); }
+        .afc-item{ position:absolute; top:50%; left:50%; width:76%; aspect-ratio:4/3;
+          transform:translate(-50%,-50%); transform-origin:center;
+          transition:left .7s cubic-bezier(.45,0,.15,1), opacity .7s ease, transform .7s cubic-bezier(.45,0,.15,1);
+          will-change:left,opacity,transform; }
+        .afc-shot, .afc-win{ width:100%; height:100%; border-radius:12px; overflow:hidden; display:block;
+          box-shadow:0 20px 44px rgba(15,28,46,.18); background:#fff; }
+        .afc-shot{ object-fit:cover; }
+        .afc-win{ display:flex; flex-direction:column; }
+        .afc-bar{ display:flex; align-items:center; gap:8px; padding:7px 10px; background:#f3f1ee; border-bottom:1px solid var(--warm-100); flex:0 0 auto; }
+        .afc-dots{ display:flex; gap:4px; } .afc-dots i{ width:7px; height:7px; border-radius:50%; background:#d8d3cc; }
+        .afc-url{ flex:1; font:500 10px/1 var(--font-body); color:var(--warm-500); background:#fff; border-radius:5px; padding:4px 8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .afc-body{ flex:1; padding:16px 16px; display:flex; flex-direction:column; gap:8px; justify-content:center; }
+        .afc-kind{ font-family:var(--font-display); font-weight:800; font-size:clamp(15px,2.6vw,19px); color:var(--warm-900); letter-spacing:-.01em; }
+        .afc-line{ height:7px; border-radius:4px; background:rgba(15,28,46,.08); }
+        .afc-line.w1{ width:72%; } .afc-line.w2{ width:52%; } .afc-line.w3{ width:62%; }
+        .afc-tag{ position:absolute; left:50%; bottom:6%; transform:translateX(-50%); z-index:5;
+          background:var(--warm-900); color:#fff; font:600 12px/1 var(--font-body); padding:8px 15px; border-radius:999px; box-shadow:0 8px 20px rgba(15,28,46,.22); }
+        .afc-tag span{ display:inline-block; animation:afcTag .5s ease both; }
+        @keyframes afcTag{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:none; } }
+        @media (prefers-reduced-motion: reduce){ .afc-item{ transition:none; } .afc-tag span{ animation:none; } }
+        @media (max-width:860px){ .mf-grid{ grid-template-columns:1fr; gap:32px; } .mf-visual{ order:-1; width:100%; max-width:476px; margin-inline:auto; } }
       `}</style>
     </section>
   );
