@@ -1292,17 +1292,17 @@ const ADV_PLATFORM = [
   {
     key: 'reward', t: 'Or we recruit them for you.',
     d: 'Prefer a hand? Our team runs recruitment campaigns and introduces publishers that fit your brand, and you approve who joins.',
-    img: 'Adv-feature-slide05.png',
+    img: 'Adv-feature-slide02.png',
   },
   {
     key: 'launch', t: 'Launch offers and share your creatives',
     d: 'Set your commission, launch an offer, and upload your campaigns for publishers to pick up, then see who is promoting them.',
-    img: 'Adv-feature-slide02.png',
+    img: 'Adv-feature-slide03.png',
   },
   {
     key: 'track', t: 'Track every result',
     d: 'Watch clicks, conversions, and payouts in one dashboard, with conversion-level detail and exports whenever you need them.',
-    img: 'Adv-feature-slide03.png',
+    img: 'Adv-feature-slide04.png',
   },
 ];
 const ADV_PLATFORM_MS = 5000;
