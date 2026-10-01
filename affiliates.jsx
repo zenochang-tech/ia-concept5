@@ -1181,10 +1181,10 @@ function AppDownload() {
    with prev/next peeking at 40% opacity. Parallels the creator phone coverflow.
    Placeholder browser chrome until real site mockups (aff-site-1..4.png) land. */
 const AFF_SITES = [
-  { key: 'blog', label: 'Blog & content', url: 'thestylejournal.com', img: null, tint: 'linear-gradient(135deg,#f1ece6,#e4ddd2)' },
-  { key: 'cashback', label: 'Cashback', url: 'savemore.io', img: null, tint: 'linear-gradient(135deg,#e8f0ea,#d6e5db)' },
-  { key: 'coupon', label: 'Coupon', url: 'dealdrop.co', img: null, tint: 'linear-gradient(135deg,#f4ece7,#ecd9cd)' },
-  { key: 'compare', label: 'Comparison', url: 'pickbest.com', img: null, tint: 'linear-gradient(135deg,#e9ebf3,#d6dcec)' },
+  { key: 'blog', label: 'Blog', img: null, tint: 'linear-gradient(135deg,#f1ece6,#e4ddd2)' },
+  { key: 'cashback', label: 'Cashback', img: null, tint: 'linear-gradient(135deg,#e8f0ea,#d6e5db)' },
+  { key: 'coupon', label: 'Coupon', img: null, tint: 'linear-gradient(135deg,#f4ece7,#ecd9cd)' },
+  { key: 'compare', label: 'Comparison', img: null, tint: 'linear-gradient(135deg,#e9ebf3,#d6dcec)' },
 ];
 function AffFlow() {
   const N = AFF_SITES.length;
@@ -1225,16 +1225,15 @@ function AffFlow() {
             ? <img className="afc-shot" src={`media/figma/${s.img}`} alt={`${s.label} affiliate site`} loading="lazy" />
             : (
               <div className="afc-win">
-                <div className="afc-bar"><span className="afc-dots"><i /><i /><i /></span><span className="afc-url">{s.url}</span></div>
+                <div className="afc-bar"><span className="afc-dots"><i /><i /><i /></span><span className="afc-url">{s.label} Site</span></div>
                 <div className="afc-body" style={{ background: s.tint }}>
-                  <span className="afc-kind">{s.label}</span>
+                  <span className="afc-hero" />
                   <span className="afc-line w1" /><span className="afc-line w2" /><span className="afc-line w3" />
                 </div>
               </div>
             )}
         </div>
       ))}
-      <div className="afc-tag"><span key={active}>{AFF_SITES[active].label} site</span></div>
     </div>
   );
 }
@@ -1285,15 +1284,11 @@ function BuiltKinds() {
         .afc-bar{ display:flex; align-items:center; gap:8px; padding:7px 10px; background:#f3f1ee; border-bottom:1px solid var(--warm-100); flex:0 0 auto; }
         .afc-dots{ display:flex; gap:4px; } .afc-dots i{ width:7px; height:7px; border-radius:50%; background:#d8d3cc; }
         .afc-url{ flex:1; font:500 10px/1 var(--font-body); color:var(--warm-500); background:#fff; border-radius:5px; padding:4px 8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-        .afc-body{ flex:1; padding:16px 16px; display:flex; flex-direction:column; gap:8px; justify-content:center; }
-        .afc-kind{ font-family:var(--font-display); font-weight:800; font-size:clamp(15px,2.6vw,19px); color:var(--warm-900); letter-spacing:-.01em; }
+        .afc-body{ flex:1; padding:16px; display:flex; flex-direction:column; gap:8px; justify-content:flex-start; }
+        .afc-hero{ height:46%; border-radius:8px; background:rgba(15,28,46,.07); margin-bottom:4px; }
         .afc-line{ height:7px; border-radius:4px; background:rgba(15,28,46,.08); }
         .afc-line.w1{ width:72%; } .afc-line.w2{ width:52%; } .afc-line.w3{ width:62%; }
-        .afc-tag{ position:absolute; left:50%; bottom:6%; transform:translateX(-50%); z-index:5;
-          background:var(--warm-900); color:#fff; font:600 12px/1 var(--font-body); padding:8px 15px; border-radius:999px; box-shadow:0 8px 20px rgba(15,28,46,.22); }
-        .afc-tag span{ display:inline-block; animation:afcTag .5s ease both; }
-        @keyframes afcTag{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:none; } }
-        @media (prefers-reduced-motion: reduce){ .afc-item{ transition:none; } .afc-tag span{ animation:none; } }
+        @media (prefers-reduced-motion: reduce){ .afc-item{ transition:none; } }
         @media (max-width:860px){ .mf-grid{ grid-template-columns:1fr; gap:32px; } .mf-visual{ order:-1; width:100%; max-width:476px; margin-inline:auto; } }
       `}</style>
     </section>
