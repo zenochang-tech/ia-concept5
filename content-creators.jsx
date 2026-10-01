@@ -1439,6 +1439,33 @@ const HIW_STEPS = [
   { t: 'Earn on every sale', d: 'When a follower buys through your link, the sale is credited to you.', img: 'hiw-creator-3.png' },
   { t: 'Get paid', d: 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.', img: 'hiw-creator-4.png' },
 ];
+// Card 4 (Get paid): one pill whose currency steps USD -> MYR -> EUR, each code
+// fading up & out then the next fading in from below (echoes the publisher tier pill, no icon).
+const GP_CURR = [
+  { key: 'usd', label: 'USD' },
+  { key: 'myr', label: 'MYR' },
+  { key: 'eur', label: 'EUR' },
+];
+const GP_HOLD = 2600;   // each currency holds ~2.6s
+const GP_EXIT = 340;    // last 340ms = old code fades up & out
+function GetPaidPill() {
+  const [step, setStep] = React.useState(0);
+  const [phase, setPhase] = React.useState('in');
+  React.useEffect(() => {
+    if (prefersReduced()) { setStep(0); setPhase('in'); return; }
+    setPhase('in');
+    const tOut = setTimeout(() => setPhase('out'), GP_HOLD - GP_EXIT);
+    const tNext = setTimeout(() => setStep((s) => (s + 1) % GP_CURR.length), GP_HOLD);
+    return () => { clearTimeout(tOut); clearTimeout(tNext); };
+  }, [step]);
+  const c = GP_CURR[step];
+  const ph = phase === 'out' ? ' is-out' : ' is-in';
+  return (
+    <span className="gp-pill" aria-live="polite">
+      <em className={'gp-label' + ph} key={c.key}>{c.label}</em>
+    </span>
+  );
+}
 function HowItWorks() {
   return (
     <section id="cc-how" className="hiw-sec">
@@ -1447,7 +1474,7 @@ function HowItWorks() {
         <div className="hiw-grid">
           {HIW_STEPS.map((s, i) => (
             <div className="hiw-step" key={s.t} data-reveal data-reveal-delay={i + 1}>
-              <div className="hiw-card">{s.img ? <img src={`media/figma/${s.img}`} alt="" loading="lazy" onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }} /> : null}</div>
+              <div className="hiw-card">{s.t === 'Get paid' ? <GetPaidPill /> : (s.img ? <img src={`media/figma/${s.img}`} alt="" loading="lazy" onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }} /> : null)}</div>
               <h3 className="hiw-ct">{i + 1}. {s.t}</h3>
               <p className="hiw-cd">{s.d}</p>
             </div>
@@ -1461,6 +1488,15 @@ function HowItWorks() {
         .hiw-step{ min-width:0; }
         .hiw-card{ height:178px; border-radius:21px; background:linear-gradient(180deg,#f4f4f0 47%,#e9e9e8 111%); overflow:hidden; display:flex; align-items:center; justify-content:center; }
         .hiw-card img{ width:100%; height:100%; object-fit:cover; display:block; }
+        .gp-pill{ display:inline-flex; align-items:center; justify-content:center; min-width:156px; box-sizing:border-box;
+          background:#fff; border-radius:60px; padding:16px 34px; box-shadow:0 8px 18px rgba(15,28,46,.10);
+          font-family:var(--font-display); font-weight:800; font-size:30px; letter-spacing:.005em; color:var(--warm-900); white-space:nowrap; }
+        .gp-label{ font-style:normal; display:inline-block; }
+        .gp-label.is-in{ animation:gp-in .42s cubic-bezier(.2,.7,.3,1) both; }
+        .gp-label.is-out{ animation:gp-out .32s ease both; }
+        @keyframes gp-in{ from{ opacity:0; transform:translateY(12px); } to{ opacity:1; transform:translateY(0); } }
+        @keyframes gp-out{ from{ opacity:1; transform:translateY(0); } to{ opacity:0; transform:translateY(-12px); } }
+        @media (prefers-reduced-motion: reduce){ .gp-label{ animation:none; opacity:1; transform:none; } }
         .hiw-ct{ margin-top:22px; font-family:var(--font-display); font-weight:800; font-size:21px; line-height:1.38; letter-spacing:-.02em; color:var(--warm-900); }
         .hiw-cd{ margin-top:14px; font:400 16px/1.31 var(--font-body); color:var(--warm-600); }
         @media (max-width:900px){ .hiw-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(24px,3vw,32px); } }
