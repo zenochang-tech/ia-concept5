@@ -1386,13 +1386,10 @@ function AdvPlatform() {
         /* inactive steps fade back (header only) */
         .pf-step:not(.on){ opacity:.4; } .pf-step:not(.on):hover{ opacity:.7; }
         /* light ember→cool gradient container; the dashboard sits inset top-left and bleeds off the right */
-        .pf-visual{ position:relative; align-self:stretch; min-height:clamp(420px,52vh,600px); overflow:hidden;
-          margin-right:calc(min(100vw, var(--maxw)) / 2 - 50vw - 32px); border-radius:22px 0 0 22px;
+        .pf-visual{ position:relative; align-self:center; width:100%; aspect-ratio:5/3; overflow:hidden; border-radius:22px;
           background:linear-gradient(150deg, #e6ecf6 0%, #f2f4f9 46%, #d7e1f0 100%); }
-        /* dashboard fills the right half flush to the right/bottom edges (bleeds off right); gradient frames the top-left */
-        .pf-img{ position:absolute; top:clamp(20px,3.2vw,40px); left:clamp(20px,3.2vw,40px);
-          width:calc(100% - clamp(20px,3.2vw,40px)); height:calc(100% - clamp(20px,3.2vw,40px));
-          object-fit:cover; object-position:left top; border-radius:16px 0 0 0;
+        .pf-img{ position:absolute; inset:0; width:100%; height:100%;
+          object-fit:contain; object-position:center;
           opacity:0; transition:opacity .5s ease; }
         .pf-img.on{ opacity:1; }
         .pf-step-fig{ display:none; }
@@ -1408,7 +1405,7 @@ function AdvPlatform() {
           .pf-step-fig{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s ease; }
           .pf-step.on .pf-step-fig{ grid-template-rows:1fr; }
           .pf-step-fig-in{ overflow:hidden; min-height:0; }
-          .pf-step-fig-img{ display:block; width:100%; height:auto; margin:18px 0 4px; border-radius:14px; box-shadow:0 12px 28px rgba(15,28,46,.12); }
+          .pf-step-fig-img{ display:block; width:100%; aspect-ratio:5/3; object-fit:contain; object-position:center; margin:18px 0 4px; border-radius:14px; background:linear-gradient(150deg,#e6ecf6 0%,#f2f4f9 46%,#d7e1f0 100%); box-shadow:0 12px 28px rgba(15,28,46,.12); }
         }
         @media (prefers-reduced-motion: reduce){ .pf-rail-fill{ animation:none; height:100%; } .pf-img{ transition:none; } .pf-step-fig{ transition:none; } }
       `}</style>
