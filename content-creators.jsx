@@ -1462,7 +1462,7 @@ function GetPaidPill() {
   const ph = phase === 'out' ? ' is-out' : ' is-in';
   return (
     <span className="gp-pill" aria-live="polite">
-      <em className={'gp-label' + ph} key={c.key}>{c.label} <span className="gp-amt">{c.amount}</span></em>
+      <em className={'gp-label' + ph} key={c.key}>{c.label}<span className="gp-amt">{c.amount}</span></em>
     </span>
   );
 }
@@ -1494,7 +1494,7 @@ function HowItWorks() {
           background:#fff; border-radius:60px; padding:18px 30px; box-shadow:0 8px 18px rgba(15,28,46,.10);
           font-family:var(--font-display); font-weight:800; font-size:32px; letter-spacing:.005em; color:var(--warm-900); white-space:nowrap; }
         .gp-label{ font-style:normal; display:inline-block; }
-        .gp-amt{ color:var(--warm-300); }
+        .gp-amt{ color:var(--warm-300); margin-left:0.198em; }
         .gp-label.is-in{ animation:gp-in .42s cubic-bezier(.2,.7,.3,1) both; }
         .gp-label.is-out{ animation:gp-out .32s ease both; }
         @keyframes gp-in{ from{ opacity:0; transform:translateY(12px); } to{ opacity:1; transform:translateY(0); } }
