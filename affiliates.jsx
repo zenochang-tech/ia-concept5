@@ -1397,8 +1397,8 @@ function ScaleApi() {
 const HIW_STEPS = [
   { t: 'Find offers', d: 'Browse 4,000+ offers across 500+ brands, with the rates and terms up front.', img: 'hiw-aff-1.png' },
   { t: 'Add links, or pull the datafeed', d: 'Drop trackable links into your content in a couple of clicks, or feed live product data into your site to run at scale.', img: 'hiw-aff-2.png' },
-  { t: 'Earn on every sale', d: 'Every click that leads to a purchase earns commission, and older posts keep earning too.', img: 'hiw-aff-3.png' },
-  { t: 'Get paid', d: 'Withdraw your earnings, sooner with Express Withdrawal.', img: 'hiw-aff-4.png' },
+  { t: 'Earn on every sale', d: 'When someone buys through your link, the sale is credited to you.', img: 'hiw-aff-3.png' },
+  { t: 'Get paid', d: 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.', img: 'hiw-aff-4.png' },
 ];
 function HowItWorks() {
   return (

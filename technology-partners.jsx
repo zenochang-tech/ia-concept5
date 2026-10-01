@@ -1491,8 +1491,8 @@ function WhyEarn() {
 const HIW_STEPS = [
   { t: 'Connect the API', d: 'Integrate once, and pull offers, links, and tracking straight into your product.', img: 'hiw-tech-1.png' },
   { t: 'Surface relevant offers', d: 'Show cashback and deals your users actually want, inside your own UI.', img: 'hiw-tech-2.png' },
-  { t: 'Earn on every sale', d: 'When a user buys through your product, the sale is tracked to you.', img: 'hiw-tech-3.png' },
-  { t: 'Get paid', d: 'Withdraw in your local currency, sooner with Express Withdrawal.', img: 'hiw-tech-4.png' },
+  { t: 'Earn on every sale', d: 'When a user buys through your product, the sale is credited to you.', img: 'hiw-tech-3.png' },
+  { t: 'Get paid', d: 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.', img: 'hiw-tech-4.png' },
 ];
 function HowItWorks() {
   return (
