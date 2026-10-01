@@ -1181,10 +1181,10 @@ function AppDownload() {
    with prev/next peeking at 40% opacity. Parallels the creator phone coverflow.
    Placeholder browser chrome until real site mockups (aff-site-1..4.png) land. */
 const AFF_SITES = [
-  { key: 'blog', label: 'Blog', img: null, tint: 'linear-gradient(135deg,#f1ece6,#e4ddd2)' },
-  { key: 'cashback', label: 'Cashback', img: null, tint: 'linear-gradient(135deg,#e8f0ea,#d6e5db)' },
-  { key: 'coupon', label: 'Coupon', img: null, tint: 'linear-gradient(135deg,#f4ece7,#ecd9cd)' },
-  { key: 'compare', label: 'Comparison', img: null, tint: 'linear-gradient(135deg,#e9ebf3,#d6dcec)' },
+  { key: 'blog', label: 'Blog', img: 'aff-site-1.png', tint: 'linear-gradient(135deg,#f1ece6,#e4ddd2)' },
+  { key: 'cashback', label: 'Cashback', img: 'aff-site-2.png', tint: 'linear-gradient(135deg,#e8f0ea,#d6e5db)' },
+  { key: 'coupon', label: 'Coupon', img: 'aff-site-3.png', tint: 'linear-gradient(135deg,#f4ece7,#ecd9cd)' },
+  { key: 'compare', label: 'Comparison', img: 'aff-site-4.png', tint: 'linear-gradient(135deg,#e9ebf3,#d6dcec)' },
 ];
 function AffFlow() {
   const N = AFF_SITES.length;
@@ -1221,17 +1221,14 @@ function AffFlow() {
     <div className="afc" role="group" aria-label="Affiliate site types: blog, cashback, coupon and comparison">
       {AFF_SITES.map((s, i) => (
         <div key={s.key} ref={(el) => (refs.current[i] = el)} className="afc-item" aria-hidden={((i - active + N) % N) !== 0}>
-          {s.img
-            ? <img className="afc-shot" src={`media/figma/${s.img}`} alt={`${s.label} affiliate site`} loading="lazy" />
-            : (
-              <div className="afc-win">
-                <div className="afc-bar"><span className="afc-dots"><i /><i /><i /></span><span className="afc-url">{s.label} Site</span></div>
-                <div className="afc-body" style={{ background: s.tint }}>
-                  <span className="afc-hero" />
-                  <span className="afc-line w1" /><span className="afc-line w2" /><span className="afc-line w3" />
-                </div>
-              </div>
-            )}
+          <div className="afc-win">
+            <div className="afc-bar"><span className="afc-dots"><i /><i /><i /></span><span className="afc-url">{s.label} Site</span></div>
+            <div className="afc-body">
+              {s.img
+                ? <img className="afc-shot" src={`media/figma/${s.img}`} alt={`${s.label} affiliate site`} loading="lazy" />
+                : <div className="afc-ph" style={{ background: s.tint }}><span className="afc-hero" /><span className="afc-line w1" /><span className="afc-line w2" /><span className="afc-line w3" /></div>}
+            </div>
+          </div>
         </div>
       ))}
     </div>
@@ -1277,14 +1274,14 @@ function BuiltKinds() {
           transform:translate(-50%,-50%); transform-origin:center;
           transition:left .7s cubic-bezier(.45,0,.15,1), opacity .7s ease, transform .7s cubic-bezier(.45,0,.15,1);
           will-change:left,opacity,transform; }
-        .afc-shot, .afc-win{ width:100%; height:100%; border-radius:12px; overflow:hidden; display:block;
+        .afc-win{ width:100%; height:100%; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;
           box-shadow:0 20px 44px rgba(15,28,46,.18); background:#fff; }
-        .afc-shot{ object-fit:cover; }
-        .afc-win{ display:flex; flex-direction:column; }
         .afc-bar{ display:flex; align-items:center; gap:8px; padding:7px 10px; background:#f3f1ee; border-bottom:1px solid var(--warm-100); flex:0 0 auto; }
         .afc-dots{ display:flex; gap:4px; } .afc-dots i{ width:7px; height:7px; border-radius:50%; background:#d8d3cc; }
         .afc-url{ flex:1; font:500 10px/1 var(--font-body); color:var(--warm-500); background:#fff; border-radius:5px; padding:4px 8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-        .afc-body{ flex:1; padding:16px; display:flex; flex-direction:column; gap:8px; justify-content:flex-start; }
+        .afc-body{ flex:1; position:relative; overflow:hidden; background:#fff; }
+        .afc-shot{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top center; display:block; }
+        .afc-ph{ position:absolute; inset:0; padding:16px; display:flex; flex-direction:column; gap:8px; }
         .afc-hero{ height:46%; border-radius:8px; background:rgba(15,28,46,.07); margin-bottom:4px; }
         .afc-line{ height:7px; border-radius:4px; background:rgba(15,28,46,.08); }
         .afc-line.w1{ width:72%; } .afc-line.w2{ width:52%; } .afc-line.w3{ width:62%; }
