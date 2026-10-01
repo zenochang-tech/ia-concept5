@@ -1439,6 +1439,57 @@ const HIW_STEPS = [
   { t: 'Earn on every sale', d: 'When a follower buys through your link, the sale is credited to you.', img: 'hiw-creator-3.png' },
   { t: 'Get paid', d: 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.', img: 'hiw-creator-4.png' },
 ];
+// Card 1 (Pick a brand): a 4x2 grid of brand logos where one logo is "active" at
+// a time; a single timer advances the playhead row by row (0..7) and loops.
+const BG_COUNT = 8;
+const BG_DWELL = 520;       // ms at full active state
+const BG_ROWPAUSE = 160;    // extra dwell on the last logo of each row (index 3 and 7)
+function BrandGrid() {
+  const [active, setActive] = React.useState(0);
+  const activeRef = React.useRef(0);
+  const hoverRef = React.useRef(false);
+  const visibleRef = React.useRef(true);
+  const timerRef = React.useRef(null);
+  const wrapRef = React.useRef(null);
+  const ctrl = React.useRef({ play: () => {}, stop: () => {} });
+  React.useEffect(() => {
+    if (prefersReduced()) return;                 // static grid, no loop
+    const stop = () => { if (timerRef.current) { clearTimeout(timerRef.current); timerRef.current = null; } };
+    const schedule = () => {
+      const i = activeRef.current;
+      const delay = BG_DWELL + (i === 3 || i === 7 ? BG_ROWPAUSE : 0);
+      timerRef.current = setTimeout(() => {
+        timerRef.current = null;
+        const next = (activeRef.current + 1) % BG_COUNT;
+        activeRef.current = next;
+        setActive(next);
+        if (!hoverRef.current && visibleRef.current && !document.hidden) schedule();
+      }, delay);
+    };
+    const play = () => { if (!hoverRef.current && visibleRef.current && !document.hidden && !timerRef.current) schedule(); };
+    ctrl.current = { play, stop };
+    const io = new IntersectionObserver((e) => {
+      visibleRef.current = e[0].isIntersecting;
+      if (visibleRef.current) play(); else stop();
+    }, { threshold: 0.2 });
+    if (wrapRef.current) io.observe(wrapRef.current);
+    const onVis = () => { if (document.hidden) stop(); else play(); };
+    document.addEventListener('visibilitychange', onVis);
+    play();
+    return () => { stop(); io.disconnect(); document.removeEventListener('visibilitychange', onVis); ctrl.current = { play: () => {}, stop: () => {} }; };
+  }, []);
+  const enter = (i) => { hoverRef.current = true; ctrl.current.stop(); activeRef.current = i; setActive(i); };
+  const leave = () => { hoverRef.current = false; ctrl.current.play(); };
+  return (
+    <div className="bg-grid" ref={wrapRef} onMouseLeave={leave} aria-hidden="true">
+      {Array.from({ length: BG_COUNT }).map((_, i) => (
+        <span className={'bg-logo' + (i === active ? ' is-active' : '')} key={i} onMouseEnter={() => enter(i)}>
+          <img src={`media/figma/brand-logos${i + 1}.png`} alt="" loading="lazy" />
+        </span>
+      ))}
+    </div>
+  );
+}
 // Card 4 (Get paid): one pill whose currency steps USD -> MYR -> EUR, each code
 // fading up & out then the next fading in from below (echoes the publisher tier pill, no icon).
 const GP_CURR = [
@@ -1474,7 +1525,7 @@ function HowItWorks() {
         <div className="hiw-grid">
           {HIW_STEPS.map((s, i) => (
             <div className="hiw-step" key={s.t} data-reveal data-reveal-delay={i + 1}>
-              <div className={'hiw-card' + (s.t === 'Get paid' ? ' hiw-card-pay' : '')}>{s.t === 'Get paid' ? <GetPaidPill /> : (s.img ? <img src={`media/figma/${s.img}`} alt="" loading="lazy" onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }} /> : null)}</div>
+              <div className={'hiw-card' + (s.t === 'Get paid' ? ' hiw-card-pay' : '')}>{i === 0 ? <BrandGrid /> : (s.t === 'Get paid' ? <GetPaidPill /> : (s.img ? <img src={`media/figma/${s.img}`} alt="" loading="lazy" onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }} /> : null))}</div>
               <h3 className="hiw-ct">{i + 1}. {s.t}</h3>
               <p className="hiw-cd">{s.d}</p>
             </div>
@@ -1488,6 +1539,16 @@ function HowItWorks() {
         .hiw-step{ min-width:0; }
         .hiw-card{ height:178px; border-radius:21px; background:linear-gradient(180deg,#f4f4f0 47%,#e9e9e8 111%); overflow:hidden; display:flex; align-items:center; justify-content:center; }
         .hiw-card img{ width:100%; height:100%; object-fit:cover; display:block; }
+        .bg-grid{ --bg-cell:50px; --bg-gap:13px; --bg-inactive:0.746;
+          display:grid; grid-template-columns:repeat(4,var(--bg-cell)); grid-auto-rows:var(--bg-cell); gap:var(--bg-gap);
+          justify-content:center; align-content:center; }
+        .bg-logo{ width:var(--bg-cell); height:var(--bg-cell); display:flex; align-items:center; justify-content:center;
+          transform:scale(var(--bg-inactive)); opacity:.45; will-change:transform,opacity;
+          transition:transform .32s cubic-bezier(.4,0,.2,1), opacity .32s cubic-bezier(.4,0,.2,1); }
+        .bg-logo.is-active{ transform:scale(1); opacity:1;
+          transition:transform .32s cubic-bezier(.34,1.26,.64,1), opacity .32s cubic-bezier(.4,0,.2,1); }
+        .bg-logo img{ width:100%; height:100%; object-fit:contain; display:block; }
+        @media (prefers-reduced-motion: reduce){ .bg-logo{ transform:none; opacity:1; transition:none; } }
         .hiw-card-pay{ position:relative; }
         .gp-pill{ position:absolute; left:24px; top:50%; transform:translateY(-50%);
           display:inline-flex; align-items:center; justify-content:flex-start; width:420px; flex:0 0 auto; box-sizing:border-box;
