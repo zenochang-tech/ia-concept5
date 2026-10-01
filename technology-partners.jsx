@@ -1529,7 +1529,7 @@ function HowItWorks() {
         <div className="hiw-grid">
           {HIW_STEPS.map((s, i) => (
             <div className="hiw-step" key={s.t} data-reveal data-reveal-delay={i + 1}>
-              <div className="hiw-card">{s.t === 'Get paid' ? <GetPaidPill /> : (s.img ? <img src={`media/figma/${s.img}`} alt="" loading="lazy" onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }} /> : null)}</div>
+              <div className={'hiw-card' + (s.t === 'Get paid' ? ' hiw-card-pay' : '')}>{s.t === 'Get paid' ? <GetPaidPill /> : (s.img ? <img src={`media/figma/${s.img}`} alt="" loading="lazy" onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }} /> : null)}</div>
               <h3 className="hiw-ct">{i + 1}. {s.t}</h3>
               <p className="hiw-cd">{s.d}</p>
             </div>
@@ -1543,9 +1543,11 @@ function HowItWorks() {
         .hiw-step{ min-width:0; }
         .hiw-card{ height:178px; border-radius:21px; background:linear-gradient(180deg,#f4f4f0 47%,#e9e9e8 111%); overflow:hidden; display:flex; align-items:center; justify-content:center; }
         .hiw-card img{ width:100%; height:100%; object-fit:cover; display:block; }
-        .gp-pill{ display:inline-flex; align-items:center; justify-content:center; min-width:156px; box-sizing:border-box;
-          background:#fff; border-radius:60px; padding:16px 34px; box-shadow:0 8px 18px rgba(15,28,46,.10);
-          font-family:var(--font-display); font-weight:800; font-size:30px; letter-spacing:.005em; color:var(--warm-900); white-space:nowrap; }
+        .hiw-card-pay{ position:relative; }
+        .gp-pill{ position:absolute; left:24px; top:50%; transform:translateY(-50%);
+          display:inline-flex; align-items:center; justify-content:flex-start; width:420px; flex:0 0 auto; box-sizing:border-box;
+          background:#fff; border-radius:60px; padding:18px 30px; box-shadow:0 8px 18px rgba(15,28,46,.10);
+          font-family:var(--font-display); font-weight:800; font-size:32px; letter-spacing:.005em; color:var(--warm-900); white-space:nowrap; }
         .gp-label{ font-style:normal; display:inline-block; }
         .gp-label.is-in{ animation:gp-in .42s cubic-bezier(.2,.7,.3,1) both; }
         .gp-label.is-out{ animation:gp-out .32s ease both; }
