@@ -1500,14 +1500,14 @@ function HowItWorks() {
         .hiw-step{ min-width:0; }
         .hiw-card{ height:178px; border-radius:21px; background:linear-gradient(180deg,#f4f4f0 47%,#e9e9e8 111%); overflow:hidden; display:flex; align-items:center; justify-content:center; }
         .hiw-card img{ width:100%; height:100%; object-fit:cover; display:block; }
-        .bg-grid{ --bg-cell:50px; --bg-gap:13px; --bg-inactive:0.746;
+        .bg-grid{ --bg-cell:50px; --bg-gap:6px; --bg-inactive:0.746;
           display:grid; grid-template-columns:repeat(4,var(--bg-cell)); grid-auto-rows:var(--bg-cell); gap:var(--bg-gap);
           justify-content:center; align-content:center; }
         .bg-logo{ width:var(--bg-cell); height:var(--bg-cell); display:flex; align-items:center; justify-content:center;
           transform:scale(var(--bg-inactive)); opacity:.45; will-change:transform,opacity;
-          transition:transform .32s cubic-bezier(.4,0,.2,1), opacity .32s cubic-bezier(.4,0,.2,1); }
+          transition:transform .384s cubic-bezier(.4,0,.2,1), opacity .384s cubic-bezier(.4,0,.2,1); }
         .bg-logo.is-active{ transform:scale(1); opacity:1;
-          transition:transform .32s cubic-bezier(.34,1.26,.64,1), opacity .32s cubic-bezier(.4,0,.2,1); }
+          transition:transform .384s cubic-bezier(.34,1.26,.64,1), opacity .384s cubic-bezier(.4,0,.2,1); }
         .bg-logo img{ width:100%; height:100%; object-fit:contain; display:block; }
         @media (prefers-reduced-motion: reduce){ .bg-logo{ transform:none; opacity:1; transition:none; } }
         .hiw-card-pay{ position:relative; }
