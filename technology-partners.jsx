@@ -1177,51 +1177,92 @@ const MADE_POINTS = [
   ['Runs inside your own product.', 'One API integration puts offers, links, and tracking inside your app, web platform, or software, all in your own UI and on your own terms.'],
   ['Real-time, hands-off.', 'Postback pushes every conversion to your server the moment it happens, so your systems stay in sync without anyone logging in to check.'],
 ];
-/* Animated "Built for teams that build" visual: centre phone (partner app) with
-   four coded cards (API, datafeed, postback, conversion) fading in/out in two
-   looping phases around it. Replaces the old static image. */
+/* Animated "Built for teams that build" visual (from the Figma storyboard): the
+   partner app phone sits centred in a tinted square (same box as the creator page),
+   and coded cards reveal in a looping sequence.
+   Phase A: API card types in BEHIND the phone, then the datafeed card slides in.
+   Phase B: Postback URL card, then the conversion card (check + title first, then
+   the details expand). Reduced motion shows a static resting state. */
+const BV_CODE = 'GET /v2/offers\n200 OK {\n  "commission": 8.0,\n  "status": "active"\n}';
+const BV_FEED = [
+  { img: 'df-prod-1.png', n: 'N°04 Silk Satin Shirt', p: '$780' },
+  { img: 'df-prod-2.png', n: 'N°22 Calfskin Frame Bag', p: '$2,400' },
+  { img: 'df-prod-3.png', n: 'N°11 Wool Crepe Blazer', p: '$1,600' },
+];
 function BuiltViz() {
   const reduced = prefersReduced();
-  const [step, setStep] = React.useState(0);
+  const [s, setS] = React.useState({ api: false, type: 0, feed: false, post: false, convT: false, convD: false });
   React.useEffect(() => {
-    if (reduced) return;
-    const id = setInterval(() => setStep((s) => (s + 1) % 2), 4200);
-    return () => clearInterval(id);
+    if (reduced) { setS({ api: true, type: BV_CODE.length, feed: true, post: false, convT: false, convD: false }); return; }
+    let alive = true;
+    const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+    (async () => {
+      while (alive) {
+        setS({ api: false, type: 0, feed: false, post: false, convT: false, convD: false });
+        await sleep(450); if (!alive) return;
+        setS((v) => ({ ...v, api: true })); await sleep(560); if (!alive) return;   // API card in (behind phone)
+        for (let i = 1; i <= BV_CODE.length; i++) { if (!alive) return; setS((v) => ({ ...v, type: i })); await sleep(26); }  // typing
+        await sleep(480); if (!alive) return;
+        setS((v) => ({ ...v, feed: true })); await sleep(2900); if (!alive) return; // datafeed in + hold
+        setS((v) => ({ ...v, api: false, feed: false })); await sleep(700); if (!alive) return;
+        setS((v) => ({ ...v, post: true })); await sleep(1500); if (!alive) return; // postback in
+        setS((v) => ({ ...v, convT: true })); await sleep(780); if (!alive) return; // conversion check + title
+        setS((v) => ({ ...v, convD: true })); await sleep(2900); if (!alive) return; // details expand + hold
+        setS((v) => ({ ...v, post: false, convT: false, convD: false })); await sleep(700);
+      }
+    })();
+    return () => { alive = false; };
   }, [reduced]);
-  const a = step === 0 ? ' in' : '';
-  const b = step === 1 ? ' in' : '';
-  const FEED = [['N°04 Silk Satin Shirt', '$780'], ['N°22 Calfskin Frame Bag', '$2,400'], ['N°11 Wool Crepe Blazer', '$1,600']];
+  const done = s.type >= BV_CODE.length;
   return (
     <div className="bv" aria-hidden="true">
+      {/* API card — sits BEHIND the phone, text types in */}
+      <div className={'bv-card bv-api' + (s.api ? ' in' : '')}>
+        <div className="bv-dots"><i /><i /><i /></div>
+        {done ? (
+          <div className="bv-code">
+            <div><span className="c-mut">GET</span> <span className="c-str">/v2/offers</span></div>
+            <div><span className="c-ok">200 OK</span> {'{'}</div>
+            <div className="bv-ind"><span className="c-key">"commission"</span>: <span className="c-num">8.0</span>,</div>
+            <div className="bv-ind"><span className="c-key">"status"</span>: <span className="c-str">"active"</span></div>
+            <div>{'}'}</div>
+          </div>
+        ) : (
+          <pre className="bv-code bv-typing">{BV_CODE.slice(0, s.type)}<span className="bv-caret" /></pre>
+        )}
+      </div>
+
+      {/* Phone — always on, in front of the API card */}
       <div className="bv-phone"><img src="media/figma/ready-to-wear-mockup.png" alt="A fashion store app with Involve offers and tracking built in" loading="lazy" /></div>
 
-      {/* Phase A — API + datafeed */}
-      <div className={'bv-card bv-api' + a}>
-        <div className="bv-dots"><i /><i /><i /></div>
-        <div className="bv-code">
-          <div><span className="c-mut">GET</span> <span className="c-str">/v2/offers</span></div>
-          <div><span className="c-ok">200 OK</span>  {'{'}</div>
-          <div className="bv-ind"><span className="c-key">"commission"</span>: <span className="c-num">8.0</span>,</div>
-          <div className="bv-ind"><span className="c-key">"status"</span>: <span className="c-str">"active"</span></div>
-          <div>{'}'}</div>
-        </div>
-      </div>
-      <div className={'bv-card bv-feed' + a}>
+      {/* Datafeed card (bottom-right) */}
+      <div className={'bv-card bv-feed' + (s.feed ? ' in' : '')}>
         <div className="bv-feed-h">Live datafeed</div>
-        {FEED.map(([n, p]) => (
-          <div className="bv-row" key={n}><span className="bv-thumb" /><span className="bv-row-n">{n}</span><span className="bv-row-p">{p}</span></div>
+        {BV_FEED.map((it) => (
+          <div className="bv-row" key={it.n}><span className="bv-thumb"><img src={`media/figma/${it.img}`} alt="" loading="lazy" /></span><span className="bv-row-n">{it.n}</span><span className="bv-row-p">{it.p}</span></div>
         ))}
       </div>
 
-      {/* Phase B — postback + conversion */}
-      <div className={'bv-card bv-post' + b}>
+      {/* Postback card (top-right) */}
+      <div className={'bv-card bv-post' + (s.post ? ' in' : '')}>
         <div className="bv-post-h">Postback URL</div>
         <code className="bv-url">https://maison.com/pb?order={'{id}'}&amp;amt={'{total}'}</code>
         <div className="bv-post-s"><span className="bv-dot-ok" /> 200 &middot; delivered</div>
       </div>
-      <div className={'bv-card bv-conv' + b}>
-        <span className="bv-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg></span>
-        <div><div className="bv-conv-t">Conversion tracked</div><div className="bv-conv-d">Order #10482 &middot; $780 &middot; +$62 earned</div></div>
+
+      {/* Conversion card (bottom-left) — check + title first, details expand after */}
+      <div className={'bv-card bv-conv' + (s.convT ? ' in' : '')}>
+        <div className="bv-conv-top">
+          <span className="bv-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg></span>
+          <span className="bv-conv-t">Conversion tracked</span>
+          <span className="bv-conv-ago">0.4s ago</span>
+        </div>
+        <div className={'bv-conv-dw' + (s.convD ? ' in' : '')}>
+          <div className="bv-conv-d">
+            <div className="bv-conv-prod"><b>Wool Crepe Blazer</b> <span className="bv-conv-id">#525546348</span></div>
+            <div className="bv-conv-com">Commission (8%) &middot; $128.00</div>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -1257,43 +1298,54 @@ function MadeFor() {
         .mf-pt{ font-family:var(--font-display); font-weight:800; font-size:19px; letter-spacing:-.01em; color:var(--warm-900); }
         .mf-pd{ margin-top:8px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); max-width:520px; }
         .mf-visual{ position:relative; }
-        /* ---- animated phone + floating tool cards (API / datafeed / postback / conversion) ---- */
-        .bv{ position:relative; width:100%; max-width:440px; margin-inline:auto; padding:6% 0; }
-        .bv-phone{ position:relative; width:58%; margin:0 auto; aspect-ratio:338/712; border-radius:26px; overflow:hidden;
-          box-shadow:0 30px 60px rgba(15,28,46,.22), 0 0 0 1px rgba(15,28,46,.05); background:#fff; }
-        .bv-phone img{ width:100%; height:100%; object-fit:cover; display:block; }
-        .bv-card{ position:absolute; z-index:3; border-radius:14px; box-shadow:0 18px 40px rgba(15,28,46,.16);
-          opacity:0; transform:translateY(16px) scale(.96); transition:opacity .5s ease, transform .6s cubic-bezier(.22,1,.36,1); }
+        /* ---- animated phone + tool cards in a tinted square (same box as the creator page) ---- */
+        .bv{ position:relative; width:100%; max-width:476px; margin-inline:auto; aspect-ratio:476/445;
+          border-radius:24px; overflow:hidden; background:linear-gradient(180deg,#f4f4f0 47%,#e9e9e8 111%); }
+        .bv-phone{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:42%; aspect-ratio:338/712; z-index:2; }
+        .bv-phone img{ width:100%; height:100%; object-fit:cover; display:block; filter:drop-shadow(0 18px 34px rgba(15,28,46,.20)); }
+        .bv-card{ position:absolute; border-radius:14px; box-shadow:0 18px 40px rgba(15,28,46,.16);
+          opacity:0; transform:translateY(14px) scale(.96); transition:opacity .5s ease, transform .6s cubic-bezier(.22,1,.36,1); }
         .bv-card.in{ opacity:1; transform:none; }
-        .bv-api{ top:3%; left:-5%; width:46%; background:#1c1c20; padding:11px 13px 13px; }
-        .bv-feed{ bottom:5%; right:-5%; width:51%; background:#fff; padding:12px 13px; transition-delay:.12s; }
-        .bv-post{ top:6%; right:-6%; width:52%; background:#fff; padding:12px 13px; }
-        .bv-conv{ bottom:8%; left:-6%; width:54%; background:#fff; padding:11px 13px; display:flex; align-items:center; gap:10px; transition-delay:.12s; }
-        /* API code card */
+        .bv-api{ z-index:1; top:13%; left:2%; width:45%; background:#1c1c20; padding:11px 13px 13px; }   /* behind the phone */
+        .bv-feed{ z-index:3; bottom:7%; right:2%; width:47%; background:#fff; padding:12px 13px; }
+        .bv-post{ z-index:3; top:9%; right:2%; width:49%; background:#fff; padding:12px 13px; }
+        .bv-conv{ z-index:3; bottom:9%; left:2%; width:53%; background:#fff; padding:11px 13px; }
+        /* API code card (types in) */
         .bv-dots{ display:flex; gap:5px; margin-bottom:8px; }
         .bv-dots i{ width:8px; height:8px; border-radius:50%; }
         .bv-dots i:nth-child(1){ background:#ff5f57; } .bv-dots i:nth-child(2){ background:#febc2e; } .bv-dots i:nth-child(3){ background:#28c840; }
-        .bv-code{ font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:11px; line-height:1.6; color:#cfd1d4; white-space:nowrap; }
+        .bv-code{ font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:11px; line-height:1.6; color:#cfd1d4; }
+        .bv-typing{ margin:0; white-space:pre; min-height:4.8em; }
+        .bv-caret{ display:inline-block; width:6px; height:1em; background:#cfd1d4; margin-left:1px; vertical-align:-2px; animation:bvBlink 1s steps(1) infinite; }
+        @keyframes bvBlink{ 50%{ opacity:0; } }
         .bv-ind{ padding-left:12px; }
         .c-mut{ color:#8a8d93; } .c-ok{ color:#28c840; } .c-key{ color:#7fb0ff; } .c-str{ color:#f0a35e; } .c-num{ color:#c08cff; }
         /* datafeed list card */
         .bv-feed-h, .bv-post-h{ font:700 10px/1 var(--font-body); letter-spacing:.09em; text-transform:uppercase; color:var(--warm-400); margin-bottom:9px; }
         .bv-row{ display:flex; align-items:center; gap:9px; padding:5px 0; }
         .bv-row + .bv-row{ border-top:1px solid var(--warm-100); }
-        .bv-thumb{ width:26px; height:26px; border-radius:7px; background:linear-gradient(135deg,#eceae6,#d6d1c8); flex:0 0 auto; }
+        .bv-thumb{ width:26px; height:26px; border-radius:7px; overflow:hidden; background:linear-gradient(135deg,#eceae6,#d6d1c8); flex:0 0 auto; }
+        .bv-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
         .bv-row-n{ flex:1; min-width:0; font:500 12px/1.2 var(--font-body); color:var(--warm-900); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
         .bv-row-p{ font:700 12px/1 var(--font-body); color:var(--warm-900); }
         /* postback card */
         .bv-url{ display:block; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:10.5px; line-height:1.45; color:var(--midnight-light); word-break:break-all; }
         .bv-post-s{ display:flex; align-items:center; gap:6px; margin-top:9px; font:600 11px/1 var(--font-body); color:var(--warm-500); }
         .bv-dot-ok{ width:7px; height:7px; border-radius:50%; background:#2fb563; }
-        /* conversion card */
-        .bv-check{ flex:0 0 auto; width:30px; height:30px; border-radius:50%; background:#e7f7ee; color:#1f9254; display:flex; align-items:center; justify-content:center; }
-        .bv-check svg{ width:16px; height:16px; }
-        .bv-conv-t{ font:800 13px/1.1 var(--font-display); color:var(--warm-900); }
-        .bv-conv-d{ margin-top:3px; font:500 11px/1.3 var(--font-body); color:var(--warm-500); }
-        @media (prefers-reduced-motion: reduce){ .bv-card{ transition:none; } }
-        @media (max-width:860px){ .mf-grid{ grid-template-columns:1fr; gap:32px; } .mf-visual{ order:-1; width:100%; max-width:440px; margin-inline:auto; } }
+        /* conversion card — check + title, then details expand */
+        .bv-conv-top{ display:flex; align-items:center; gap:9px; }
+        .bv-check{ flex:0 0 auto; width:24px; height:24px; border-radius:50%; background:#1f9254; color:#fff; display:flex; align-items:center; justify-content:center; }
+        .bv-check svg{ width:13px; height:13px; }
+        .bv-conv-t{ flex:1; font:800 13px/1.1 var(--font-display); color:var(--warm-900); }
+        .bv-conv-ago{ font:400 10px/1 var(--font-body); color:var(--warm-400); }
+        .bv-conv-dw{ display:grid; grid-template-rows:0fr; opacity:0; transition:grid-template-rows .45s ease, opacity .3s ease; }
+        .bv-conv-dw.in{ grid-template-rows:1fr; opacity:1; }
+        .bv-conv-d{ overflow:hidden; }
+        .bv-conv-prod{ margin-top:9px; font:400 11.5px/1.35 var(--font-body); color:var(--warm-900); }
+        .bv-conv-prod b{ font-weight:700; } .bv-conv-id{ color:var(--warm-400); }
+        .bv-conv-com{ margin-top:2px; font:500 11px/1.35 var(--font-body); color:var(--warm-500); }
+        @media (prefers-reduced-motion: reduce){ .bv-card{ transition:none; } .bv-conv-dw{ transition:none; } .bv-caret{ animation:none; } }
+        @media (max-width:860px){ .mf-grid{ grid-template-columns:1fr; gap:32px; } .mf-visual{ order:-1; width:100%; max-width:476px; margin-inline:auto; } }
       `}</style>
     </section>
   );
