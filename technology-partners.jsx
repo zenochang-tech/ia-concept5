@@ -30,7 +30,7 @@ function PubHero() {
       <div className="wrap ph-wrap">
         <div className="ph-copy">
           <span className="ph-eyebrow" data-reveal>For Technology Partners</span>
-          <h1 className="ph-title" data-reveal data-reveal-delay="1">Turn your product's users into revenue.</h1>
+          <h1 className="ph-title" data-reveal data-reveal-delay="1">Turn the product you've built into revenue.</h1>
           <p className="ph-sub" data-reveal data-reveal-delay="2">Whether you run an app, a web platform, or your own software, integrate once and earn when your users act on the offers and cashback you surface, all through our API.</p>
           <div className="ph-actions" data-reveal data-reveal-delay="3">
             <a href="/partners/" className="btn btn-primary btn-lg">Start Earning <Arrow /></a>
@@ -1100,7 +1100,7 @@ function PubCTA() {
       <span className="pc-topfade" aria-hidden="true" />
       <span className="pc-wash" aria-hidden="true" />
       <div className="wrap pc-inner">
-        <h2 className="pc-title" data-reveal>Start monetising your product today.</h2>
+        <h2 className="pc-title" data-reveal>Turn your product into revenue.</h2>
         <a href="https://app.involve.asia/v2/create-account" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="1">Start Earning <Arrow /></a>
       </div>
       <style>{`

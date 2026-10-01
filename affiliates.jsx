@@ -30,7 +30,7 @@ function PubHero() {
       <div className="wrap ph-wrap">
         <div className="ph-copy">
           <span className="ph-eyebrow" data-reveal>For Affiliate Partners</span>
-          <h1 className="ph-title" data-reveal data-reveal-delay="1">Turn your website's traffic into income.</h1>
+          <h1 className="ph-title" data-reveal data-reveal-delay="1">Turn the site you already run into income.</h1>
           <p className="ph-sub" data-reveal data-reveal-delay="2">From a blog with a few links to a cashback site running at volume. Earn on what your readers and members buy, with the offers, feeds, and tools to match.</p>
           <div className="ph-actions" data-reveal data-reveal-delay="3">
             <a href="/partners/" className="btn btn-primary btn-lg">Start Earning <Arrow /></a>
@@ -1101,7 +1101,7 @@ function PubCTA() {
       <span className="pc-topfade" aria-hidden="true" />
       <span className="pc-wash" aria-hidden="true" />
       <div className="wrap pc-inner">
-        <h2 className="pc-title" data-reveal>Grow your affiliate site, faster.</h2>
+        <h2 className="pc-title" data-reveal>Grow the site you already run.</h2>
         <a href="https://app.involve.asia/v2/create-account" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="1">Start Earning <Arrow /></a>
       </div>
       <style>{`
@@ -1306,7 +1306,7 @@ function WhyChoose() {
   return (
     <section id="aff-why" className="wy-sec">
       <div className="wrap">
-        <h2 className="wy-title" data-reveal>Why affiliate sites choose Involve.</h2>
+        <h2 className="wy-title" data-reveal>Why affiliate sites earn with Involve.</h2>
         <div className="wy-grid">
           {AFF_WHY.map((c, i) => (
             <div className="wy-col" key={c.t} data-reveal data-reveal-delay={(i % 3) + 1}>
