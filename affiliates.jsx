@@ -1396,14 +1396,14 @@ function ScaleApi() {
 /* ---------- Affiliates §4b — "How it works" (3 numbered steps) — Figma 2546:45012 ---------- */
 const HIW_STEPS = [
   { t: 'Find offers', d: 'Browse 4,000+ offers across 500+ brands, with the rates and terms up front.', img: 'hiw-aff-1.png' },
-  { t: 'Add links, or pull the datafeed', d: 'Drop trackable links into your content in a couple of clicks, or feed live product data into your site to run at scale.', img: 'hiw-aff-2.png' },
-  { t: 'Earn on every sale', d: 'When someone buys through your link, the sale is credited to you.', img: 'hiw-aff-3.png' },
+  { t: 'Add links, or pull the datafeed', d: 'Drop trackable links into your content in a couple of clicks, or feed live product data into your site to run at scale.', img: 'htr-affiliate-card02.png' },
+  { t: 'Earn on every sale', d: 'When someone buys through your link, the sale is credited to you.', img: 'htr-allpartner-card03.png' },
   { t: 'Get paid', d: 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.', img: 'hiw-aff-4.png' },
 ];
 // Card 1 (Pick a brand): a 4x2 grid of brand logos where one logo is "active" at
 // a time; a single timer advances the playhead row by row (0..7) and loops.
 const BG_COUNT = 8;
-const BG_DWELL = 520;       // ms at full active state
+const BG_DWELL = 2000;      // ms each logo stays active before advancing
 const BG_ROWPAUSE = 160;    // extra dwell on the last logo of each row (index 3 and 7)
 function BrandGrid() {
   const [active, setActive] = React.useState(0);

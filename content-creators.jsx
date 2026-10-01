@@ -1435,14 +1435,14 @@ function WhyEarn() {
 /* ---------- CC §2b — "How it works" (3 numbered steps) — Figma 2546:45011 ---------- */
 const HIW_STEPS = [
   { t: 'Pick a brand', d: 'Browse 500+ brands and choose products that fit your audience.', img: 'hiw-creator-1.png' },
-  { t: 'Share your link', d: 'Drop a trackable link in your bio, stories, or captions, or share a promo code.', img: 'hiw-creator-2.png' },
-  { t: 'Earn on every sale', d: 'When a follower buys through your link, the sale is credited to you.', img: 'hiw-creator-3.png' },
+  { t: 'Share your link', d: 'Drop a trackable link in your bio, stories, or captions, or share a promo code.', img: 'htr-creator-card02.png' },
+  { t: 'Earn on every sale', d: 'When a follower buys through your link, the sale is credited to you.', img: 'htr-allpartner-card03.png' },
   { t: 'Get paid', d: 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.', img: 'hiw-creator-4.png' },
 ];
 // Card 1 (Pick a brand): a 4x2 grid of brand logos where one logo is "active" at
 // a time; a single timer advances the playhead row by row (0..7) and loops.
 const BG_COUNT = 8;
-const BG_DWELL = 520;       // ms at full active state
+const BG_DWELL = 2000;      // ms each logo stays active before advancing
 const BG_ROWPAUSE = 160;    // extra dwell on the last logo of each row (index 3 and 7)
 function BrandGrid() {
   const [active, setActive] = React.useState(0);
