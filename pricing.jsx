@@ -1890,7 +1890,7 @@ function PricingApp() {
         <PubHero />
         <PricingPlans />
         <PricingCompare />
-        <PricingAudit />
+        {/* <PricingAudit /> hidden per request */}
         <PricingEssentials />
         <PricingHow />
         <PubFAQ />

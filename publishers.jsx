@@ -1200,7 +1200,7 @@ function PublisherApp() {
         <PubLogos />
         <PubAudience />
         <PubPlatform />
-        <PubEarn />
+        {/* <PubEarn /> hidden per request */}
         <PubBuilt />
         <PubVoices />
         <PubFAQ />

@@ -777,7 +777,6 @@ const NAV = [
         ['Publisher overview', 'for-publishers.html'],
         ['Brand Directory', 'https://app.involve.asia/directory'],
         ['Success Stories', 'https://involve.asia/blog/category/partners/success-stories-partners/'],
-        ['Earnings Estimate', 'earnings-estimate.html'],
       ]},
       { head: "Who it's for", links: [
         ['Creator partners', 'content-creators.html'],
