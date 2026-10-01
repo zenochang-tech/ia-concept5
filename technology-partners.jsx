@@ -1588,7 +1588,7 @@ function HowItWorks() {
         .hiw-card img{ width:100%; height:100%; object-fit:cover; display:block; }
         /* card 1 — code editor card cropped off the right & bottom of the frame */
         .hiw-card-api{ position:relative; }
-        .ac-card{ position:absolute; top:26px; left:16px; width:300px; min-height:180px; box-sizing:border-box;
+        .ac-card{ position:absolute; top:26px; left:32px; width:300px; min-height:180px; box-sizing:border-box;
           background:#1c1c20; border-radius:16px 16px 0 0; padding:13px 15px 16px; box-shadow:0 18px 40px rgba(15,28,46,.18); }
         .ac-head{ display:flex; align-items:center; gap:10px; margin-bottom:12px; }
         .ac-dots{ display:flex; gap:5px; } .ac-dots i{ width:8px; height:8px; border-radius:50%; }
