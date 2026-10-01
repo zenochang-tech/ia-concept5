@@ -1434,10 +1434,10 @@ function WhyEarn() {
 }
 /* ---------- CC §2b — "How it works" (3 numbered steps) — Figma 2546:45011 ---------- */
 const HIW_STEPS = [
-  ['01', 'Pick a brand', 'Browse 500+ brands and choose products that fit your audience.'],
-  ['02', 'Share your link', 'Drop a trackable link in your bio, stories, or captions, or share a promo code.'],
-  ['03', 'Earn on every sale', 'When a follower buys through your link, the sale is credited to you.'],
-  ['04', 'Get paid', 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.'],
+  { t: 'Pick a brand', d: 'Browse 500+ brands and choose products that fit your audience.', img: 'hiw-creator-1.png' },
+  { t: 'Share your link', d: 'Drop a trackable link in your bio, stories, or captions, or share a promo code.', img: 'hiw-creator-2.png' },
+  { t: 'Earn on every sale', d: 'When a follower buys through your link, the sale is credited to you.', img: 'hiw-creator-3.png' },
+  { t: 'Get paid', d: 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.', img: 'hiw-creator-4.png' },
 ];
 function HowItWorks() {
   return (
@@ -1445,11 +1445,11 @@ function HowItWorks() {
       <div className="wrap">
         <h2 className="hiw-title" data-reveal>How you earn.</h2>
         <div className="hiw-grid">
-          {HIW_STEPS.map(([n, t, d], i) => (
-            <div className="hiw-step" key={n} data-reveal data-reveal-delay={i + 1}>
-              <span className="hiw-num" aria-hidden="true">{n}</span>
-              <h3 className="hiw-ct">{t}</h3>
-              <p className="hiw-cd">{d}</p>
+          {HIW_STEPS.map((s, i) => (
+            <div className="hiw-step" key={s.t} data-reveal data-reveal-delay={i + 1}>
+              <div className="hiw-card">{s.img ? <img src={`media/figma/${s.img}`} alt="" loading="lazy" onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }} /> : null}</div>
+              <h3 className="hiw-ct">{i + 1}. {s.t}</h3>
+              <p className="hiw-cd">{s.d}</p>
             </div>
           ))}
         </div>
@@ -1457,12 +1457,13 @@ function HowItWorks() {
       <style>{`
         .hiw-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
         .hiw-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
-        .hiw-grid{ margin-top:clamp(34px,5.5vh,58px); display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(26px,3vw,44px); }
+        .hiw-grid{ margin-top:clamp(34px,5.5vh,58px); display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(20px,2.2vw,32px); }
         .hiw-step{ min-width:0; }
-        .hiw-num{ display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:50%; background:var(--ember); color:#fff; font-family:var(--font-display); font-weight:800; font-size:17px; letter-spacing:-.01em; }
-        .hiw-ct{ margin-top:clamp(20px,3vh,28px); font-family:var(--font-display); font-weight:800; font-size:20px; letter-spacing:-.01em; color:var(--warm-900); }
-        .hiw-cd{ margin-top:10px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); max-width:340px; }
-        @media (max-width:900px){ .hiw-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(26px,4vw,40px); } }
+        .hiw-card{ height:178px; border-radius:21px; background:linear-gradient(180deg,#f4f4f0 47%,#e9e9e8 111%); overflow:hidden; display:flex; align-items:center; justify-content:center; }
+        .hiw-card img{ width:100%; height:100%; object-fit:cover; display:block; }
+        .hiw-ct{ margin-top:22px; font-family:var(--font-display); font-weight:800; font-size:21px; line-height:1.38; letter-spacing:-.02em; color:var(--warm-900); }
+        .hiw-cd{ margin-top:14px; font:400 16px/1.31 var(--font-body); color:var(--warm-600); }
+        @media (max-width:900px){ .hiw-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(24px,3vw,32px); } }
         @media (max-width:520px){ .hiw-grid{ grid-template-columns:1fr; gap:clamp(24px,4vh,34px); max-width:440px; } }
       `}</style>
     </section>
