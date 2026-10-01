@@ -1494,54 +1494,46 @@ const HIW_STEPS = [
   { t: 'Earn on every sale', d: 'When a user buys through your product, the sale is credited to you.', img: 'htr-allpartner-card03.png' },
   { t: 'Get paid', d: 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.', img: 'hiw-tech-4.png' },
 ];
-// Card 1 (Pick a brand): a 4x2 grid of brand logos where one logo is "active" at
-// a time; a single timer advances the playhead row by row (0..7) and loops.
-const BG_COUNT = 8;
-const BG_DWELL = 2000;      // ms each logo stays active before advancing
-const BG_ROWPAUSE = 160;    // extra dwell on the last logo of each row (index 3 and 7)
-function BrandGrid() {
-  const [active, setActive] = React.useState(0);
-  const activeRef = React.useRef(0);
-  const hoverRef = React.useRef(false);
-  const visibleRef = React.useRef(true);
-  const timerRef = React.useRef(null);
-  const wrapRef = React.useRef(null);
-  const ctrl = React.useRef({ play: () => {}, stop: () => {} });
+// Card 1 (Connect the API): a code editor card that bleeds off the right & bottom
+// of the frame (cropped), with the request lines typing in then a JSON response
+// section revealing, on a loop. All values are placeholders, not real credentials.
+const AC_REQ = '// Initialize connection with Involve API\nGET https://api.example.com/v2/offers\nAuthorization: Bearer ia_app_key_••••••';
+function ApiCard() {
+  const reduced = prefersReduced();
+  const [n, setN] = React.useState(0);
+  const [resp, setResp] = React.useState(false);
   React.useEffect(() => {
-    if (prefersReduced()) return;                 // static grid, no loop
-    const stop = () => { if (timerRef.current) { clearTimeout(timerRef.current); timerRef.current = null; } };
-    const schedule = () => {
-      const i = activeRef.current;
-      const delay = BG_DWELL + (i === 3 || i === 7 ? BG_ROWPAUSE : 0);
-      timerRef.current = setTimeout(() => {
-        timerRef.current = null;
-        const next = (activeRef.current + 1) % BG_COUNT;
-        activeRef.current = next;
-        setActive(next);
-        if (!hoverRef.current && visibleRef.current && !document.hidden) schedule();
-      }, delay);
-    };
-    const play = () => { if (!hoverRef.current && visibleRef.current && !document.hidden && !timerRef.current) schedule(); };
-    ctrl.current = { play, stop };
-    const io = new IntersectionObserver((e) => {
-      visibleRef.current = e[0].isIntersecting;
-      if (visibleRef.current) play(); else stop();
-    }, { threshold: 0.2 });
-    if (wrapRef.current) io.observe(wrapRef.current);
-    const onVis = () => { if (document.hidden) stop(); else play(); };
-    document.addEventListener('visibilitychange', onVis);
-    play();
-    return () => { stop(); io.disconnect(); document.removeEventListener('visibilitychange', onVis); ctrl.current = { play: () => {}, stop: () => {} }; };
-  }, []);
-  const enter = (i) => { hoverRef.current = true; ctrl.current.stop(); activeRef.current = i; setActive(i); };
-  const leave = () => { hoverRef.current = false; ctrl.current.play(); };
+    if (reduced) { setN(AC_REQ.length); setResp(true); return; }
+    let alive = true;
+    const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+    (async () => {
+      while (alive) {
+        setN(0); setResp(false); await sleep(520); if (!alive) return;
+        for (let i = 1; i <= AC_REQ.length; i++) { if (!alive) return; setN(i); await sleep(24); }  // type request
+        await sleep(560); if (!alive) return;
+        setResp(true); await sleep(2600); if (!alive) return;                                       // reveal JSON response + hold
+      }
+    })();
+    return () => { alive = false; };
+  }, [reduced]);
+  const done = n >= AC_REQ.length;
   return (
-    <div className="bg-grid" ref={wrapRef} onMouseLeave={leave} aria-hidden="true">
-      {Array.from({ length: BG_COUNT }).map((_, i) => (
-        <span className={'bg-logo' + (i === active ? ' is-active' : '')} key={i} onMouseEnter={() => enter(i)}>
-          <img src={`media/figma/brand-logos${i + 1}.png`} alt="" loading="lazy" />
-        </span>
-      ))}
+    <div className="ac-card" aria-hidden="true">
+      <div className="ac-head"><span className="ac-dots"><i /><i /><i /></span><span className="ac-file">involve_asia_api_v2.json</span></div>
+      {done ? (
+        <div className="ac-code">
+          <div className="ac-mut">// Initialize connection with Involve API</div>
+          <div><span className="ac-kw">GET</span> <span className="ac-url">https://api.example.com/v2/offers</span></div>
+          <div>Authorization: Bearer <span className="ac-key">ia_app_key_{'••••••'}</span></div>
+          <div className={'ac-resp' + (resp ? ' in' : '')}>
+            <div className="ac-div" />
+            <div className="ac-mut">// JSON Response</div>
+            <div>{'{'}</div>
+          </div>
+        </div>
+      ) : (
+        <pre className="ac-code ac-typing">{AC_REQ.slice(0, n)}<span className="ac-caret" /></pre>
+      )}
     </div>
   );
 }
@@ -1580,7 +1572,7 @@ function HowItWorks() {
         <div className="hiw-grid">
           {HIW_STEPS.map((s, i) => (
             <div className="hiw-step" key={s.t} data-reveal data-reveal-delay={i + 1}>
-              <div className={'hiw-card' + (s.t === 'Get paid' ? ' hiw-card-pay' : '')}>{i === 0 ? <BrandGrid /> : (s.t === 'Get paid' ? <GetPaidPill /> : (s.img ? <img src={`media/figma/${s.img}`} alt="" loading="lazy" onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }} /> : null))}</div>
+              <div className={'hiw-card' + (i === 0 ? ' hiw-card-api' : '') + (s.t === 'Get paid' ? ' hiw-card-pay' : '')}>{i === 0 ? <ApiCard /> : (s.t === 'Get paid' ? <GetPaidPill /> : (s.img ? <img src={`media/figma/${s.img}`} alt="" loading="lazy" onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }} /> : null))}</div>
               <h3 className="hiw-ct">{i + 1}. {s.t}</h3>
               <p className="hiw-cd">{s.d}</p>
             </div>
@@ -1594,16 +1586,26 @@ function HowItWorks() {
         .hiw-step{ min-width:0; }
         .hiw-card{ height:178px; border-radius:21px; background:linear-gradient(180deg,#f4f4f0 47%,#e9e9e8 111%); overflow:hidden; display:flex; align-items:center; justify-content:center; }
         .hiw-card img{ width:100%; height:100%; object-fit:cover; display:block; }
-        .bg-grid{ --bg-cell:50px; --bg-gap:6px; --bg-inactive:0.746;
-          display:grid; grid-template-columns:repeat(4,var(--bg-cell)); grid-auto-rows:var(--bg-cell); gap:var(--bg-gap);
-          justify-content:center; align-content:center; }
-        .bg-logo{ width:var(--bg-cell); height:var(--bg-cell); display:flex; align-items:center; justify-content:center;
-          transform:scale(var(--bg-inactive)); opacity:.45; will-change:transform,opacity;
-          transition:transform .384s cubic-bezier(.4,0,.2,1), opacity .384s cubic-bezier(.4,0,.2,1); }
-        .bg-logo.is-active{ transform:scale(1); opacity:1;
-          transition:transform .384s cubic-bezier(.34,1.26,.64,1), opacity .384s cubic-bezier(.4,0,.2,1); }
-        .bg-logo img{ width:100%; height:100%; object-fit:contain; display:block; }
-        @media (prefers-reduced-motion: reduce){ .bg-logo{ transform:none; opacity:1; transition:none; } }
+        /* card 1 — code editor card cropped off the right & bottom of the frame */
+        .hiw-card-api{ position:relative; }
+        .ac-card{ position:absolute; top:26px; left:16px; width:300px; min-height:180px; box-sizing:border-box;
+          background:#1c1c20; border-radius:16px 16px 0 0; padding:13px 15px 16px; box-shadow:0 18px 40px rgba(15,28,46,.18); }
+        .ac-head{ display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+        .ac-dots{ display:flex; gap:5px; } .ac-dots i{ width:8px; height:8px; border-radius:50%; }
+        .ac-dots i:nth-child(1){ background:#ff5f57; } .ac-dots i:nth-child(2){ background:#febc2e; } .ac-dots i:nth-child(3){ background:#28c840; }
+        .ac-file{ font:400 10px/1 ui-monospace,SFMono-Regular,Menlo,monospace; color:#8a8d93; }
+        .ac-code{ font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:9px; line-height:1.85; color:#e6e7e9; white-space:pre; }
+        .ac-typing{ margin:0; min-height:5.2em; }
+        .ac-mut{ color:#7d8089; }
+        .ac-kw{ color:#e6e7e9; }
+        .ac-url{ color:#5bd66f; }
+        .ac-key{ color:#e6e7e9; }
+        .ac-caret{ display:inline-block; width:5px; height:1em; background:#cfd1d4; margin-left:1px; vertical-align:-1px; animation:acBlink 1s steps(1) infinite; }
+        @keyframes acBlink{ 50%{ opacity:0; } }
+        .ac-div{ height:1px; background:rgba(255,255,255,.12); margin:9px 0; }
+        .ac-resp{ opacity:0; transform:translateY(6px); transition:opacity .4s ease, transform .4s ease; }
+        .ac-resp.in{ opacity:1; transform:none; }
+        @media (prefers-reduced-motion: reduce){ .ac-resp{ transition:none; } .ac-caret{ animation:none; } }
         .hiw-card-pay{ position:relative; }
         .gp-pill{ position:absolute; left:24px; top:50%; transform:translateY(-50%);
           display:inline-flex; align-items:center; justify-content:flex-start; width:420px; flex:0 0 auto; box-sizing:border-box;
