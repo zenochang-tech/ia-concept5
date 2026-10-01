@@ -1489,7 +1489,7 @@ function WhyEarn() {
 }
 /* ---------- CC §2b — "How it works" (3 numbered steps) — Figma 2546:45011 ---------- */
 const HIW_STEPS = [
-  { t: 'Connect the API', d: 'Integrate once, and pull offers, links, and tracking straight into your product.', img: 'hiw-tech-1.png' },
+  { t: 'Connect the API', d: 'Integrate once, and bring product data, trackable links, and real-time conversions into your own product.', img: 'hiw-tech-1.png' },
   { t: 'Surface relevant offers', d: 'Show cashback and deals your users actually want, inside your own UI.', img: 'htr-tech-card02.png' },
   { t: 'Earn on every sale', d: 'When a user buys through your product, the sale is credited to you.', img: 'htr-allpartner-card03.png' },
   { t: 'Get paid', d: 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.', img: 'hiw-tech-4.png' },
