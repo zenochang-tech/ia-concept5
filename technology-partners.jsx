@@ -1177,6 +1177,55 @@ const MADE_POINTS = [
   ['Runs inside your own product.', 'One API integration puts offers, links, and tracking inside your app, web platform, or software, all in your own UI and on your own terms.'],
   ['Real-time, hands-off.', 'Postback pushes every conversion to your server the moment it happens, so your systems stay in sync without anyone logging in to check.'],
 ];
+/* Animated "Built for teams that build" visual: centre phone (partner app) with
+   four coded cards (API, datafeed, postback, conversion) fading in/out in two
+   looping phases around it. Replaces the old static image. */
+function BuiltViz() {
+  const reduced = prefersReduced();
+  const [step, setStep] = React.useState(0);
+  React.useEffect(() => {
+    if (reduced) return;
+    const id = setInterval(() => setStep((s) => (s + 1) % 2), 4200);
+    return () => clearInterval(id);
+  }, [reduced]);
+  const a = step === 0 ? ' in' : '';
+  const b = step === 1 ? ' in' : '';
+  const FEED = [['N°04 Silk Satin Shirt', '$780'], ['N°22 Calfskin Frame Bag', '$2,400'], ['N°11 Wool Crepe Blazer', '$1,600']];
+  return (
+    <div className="bv" aria-hidden="true">
+      <div className="bv-phone"><img src="media/figma/ready-to-wear-mockup.png" alt="A fashion store app with Involve offers and tracking built in" loading="lazy" /></div>
+
+      {/* Phase A — API + datafeed */}
+      <div className={'bv-card bv-api' + a}>
+        <div className="bv-dots"><i /><i /><i /></div>
+        <div className="bv-code">
+          <div><span className="c-mut">GET</span> <span className="c-str">/v2/offers</span></div>
+          <div><span className="c-ok">200 OK</span>  {'{'}</div>
+          <div className="bv-ind"><span className="c-key">"commission"</span>: <span className="c-num">8.0</span>,</div>
+          <div className="bv-ind"><span className="c-key">"status"</span>: <span className="c-str">"active"</span></div>
+          <div>{'}'}</div>
+        </div>
+      </div>
+      <div className={'bv-card bv-feed' + a}>
+        <div className="bv-feed-h">Live datafeed</div>
+        {FEED.map(([n, p]) => (
+          <div className="bv-row" key={n}><span className="bv-thumb" /><span className="bv-row-n">{n}</span><span className="bv-row-p">{p}</span></div>
+        ))}
+      </div>
+
+      {/* Phase B — postback + conversion */}
+      <div className={'bv-card bv-post' + b}>
+        <div className="bv-post-h">Postback URL</div>
+        <code className="bv-url">https://maison.com/pb?order={'{id}'}&amp;amt={'{total}'}</code>
+        <div className="bv-post-s"><span className="bv-dot-ok" /> 200 &middot; delivered</div>
+      </div>
+      <div className={'bv-card bv-conv' + b}>
+        <span className="bv-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg></span>
+        <div><div className="bv-conv-t">Conversion tracked</div><div className="bv-conv-d">Order #10482 &middot; $780 &middot; +$62 earned</div></div>
+      </div>
+    </div>
+  );
+}
 function MadeFor() {
   return (
     <section id="cc-made" className="mf-sec">
@@ -1194,8 +1243,8 @@ function MadeFor() {
               ))}
             </div>
           </div>
-          <div className="mf-visual">
-            <div className="mf-photo" data-reveal><img src="media/figma/tech-partner-app-img.png" alt="Involve offers and cashback surfaced inside a partner's own product" loading="lazy" /></div>
+          <div className="mf-visual" data-reveal>
+            <BuiltViz />
           </div>
         </div>
       </div>
@@ -1208,26 +1257,43 @@ function MadeFor() {
         .mf-pt{ font-family:var(--font-display); font-weight:800; font-size:19px; letter-spacing:-.01em; color:var(--warm-900); }
         .mf-pd{ margin-top:8px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); max-width:520px; }
         .mf-visual{ position:relative; }
-        .mf-photo img{ width:100%; height:auto; border-radius:20px; display:block; }
-        .mf-ph{ aspect-ratio:16/13; border-radius:20px; background:var(--warm-100); border:2px dashed var(--warm-300); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; }
-        .mf-ph b{ font-family:var(--font-display); font-weight:800; font-size:20px; color:var(--warm-800); }
-        .mf-ph i{ font-style:normal; font:500 13px/1 var(--font-body); color:var(--warm-400); }
-        /* floating UI spills outside the photo edges */
-        /* coded "Serum M" product card (frosted glass frame, Figma style) */
-        .mf-prod{ position:absolute; top:-2%; left:-5%; width:33%; }
-        .mf-prod-card{ aspect-ratio:133/157; border-radius:16px; padding:6% 7%; display:flex; flex-direction:column;
-          background:rgba(255,255,255,.30); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
-          box-shadow:0 18px 36px rgba(15,28,46,.20), inset 0 0 0 1px rgba(255,255,255,.42); }
-        .mf-prod-lbl{ padding-left:2%; font:400 13px/1.1 var(--font-body); color:#fff; text-shadow:0 4px 10px rgba(0,0,0,.28); }
-        .mf-prod-tile{ margin-top:7%; flex:1; border-radius:10px; overflow:hidden; }
-        .mf-prod-tile img{ width:100%; height:100%; object-fit:cover; display:block; }
-        .mf-icons{ position:absolute; bottom:-3%; left:61%; width:47%; }
-        .mf-icons img{ width:100%; height:auto; display:block; filter:drop-shadow(0 10px 20px rgba(15,28,46,.20)); }
-        /* subtle, minimal staggered entrance for the floating UI (gentler than the global reveal) */
-        .mf-prod[data-reveal], .mf-icons[data-reveal]{ transform:translateY(14px) scale(.96); }
-        .mf-prod[data-reveal].in, .mf-icons[data-reveal].in{ transform:none; }
-        @media (max-width:860px){ .mf-grid{ grid-template-columns:1fr; gap:32px; } .mf-visual{ order:-1; max-width:440px; margin-inline:auto; }
-          .mf-prod{ left:-3%; top:-4%; width:32%; } .mf-icons{ left:56%; width:46%; bottom:2%; } }
+        /* ---- animated phone + floating tool cards (API / datafeed / postback / conversion) ---- */
+        .bv{ position:relative; width:100%; max-width:440px; margin-inline:auto; padding:6% 0; }
+        .bv-phone{ position:relative; width:58%; margin:0 auto; aspect-ratio:338/712; border-radius:26px; overflow:hidden;
+          box-shadow:0 30px 60px rgba(15,28,46,.22), 0 0 0 1px rgba(15,28,46,.05); background:#fff; }
+        .bv-phone img{ width:100%; height:100%; object-fit:cover; display:block; }
+        .bv-card{ position:absolute; z-index:3; border-radius:14px; box-shadow:0 18px 40px rgba(15,28,46,.16);
+          opacity:0; transform:translateY(16px) scale(.96); transition:opacity .5s ease, transform .6s cubic-bezier(.22,1,.36,1); }
+        .bv-card.in{ opacity:1; transform:none; }
+        .bv-api{ top:3%; left:-5%; width:46%; background:#1c1c20; padding:11px 13px 13px; }
+        .bv-feed{ bottom:5%; right:-5%; width:51%; background:#fff; padding:12px 13px; transition-delay:.12s; }
+        .bv-post{ top:6%; right:-6%; width:52%; background:#fff; padding:12px 13px; }
+        .bv-conv{ bottom:8%; left:-6%; width:54%; background:#fff; padding:11px 13px; display:flex; align-items:center; gap:10px; transition-delay:.12s; }
+        /* API code card */
+        .bv-dots{ display:flex; gap:5px; margin-bottom:8px; }
+        .bv-dots i{ width:8px; height:8px; border-radius:50%; }
+        .bv-dots i:nth-child(1){ background:#ff5f57; } .bv-dots i:nth-child(2){ background:#febc2e; } .bv-dots i:nth-child(3){ background:#28c840; }
+        .bv-code{ font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:11px; line-height:1.6; color:#cfd1d4; white-space:nowrap; }
+        .bv-ind{ padding-left:12px; }
+        .c-mut{ color:#8a8d93; } .c-ok{ color:#28c840; } .c-key{ color:#7fb0ff; } .c-str{ color:#f0a35e; } .c-num{ color:#c08cff; }
+        /* datafeed list card */
+        .bv-feed-h, .bv-post-h{ font:700 10px/1 var(--font-body); letter-spacing:.09em; text-transform:uppercase; color:var(--warm-400); margin-bottom:9px; }
+        .bv-row{ display:flex; align-items:center; gap:9px; padding:5px 0; }
+        .bv-row + .bv-row{ border-top:1px solid var(--warm-100); }
+        .bv-thumb{ width:26px; height:26px; border-radius:7px; background:linear-gradient(135deg,#eceae6,#d6d1c8); flex:0 0 auto; }
+        .bv-row-n{ flex:1; min-width:0; font:500 12px/1.2 var(--font-body); color:var(--warm-900); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .bv-row-p{ font:700 12px/1 var(--font-body); color:var(--warm-900); }
+        /* postback card */
+        .bv-url{ display:block; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:10.5px; line-height:1.45; color:var(--midnight-light); word-break:break-all; }
+        .bv-post-s{ display:flex; align-items:center; gap:6px; margin-top:9px; font:600 11px/1 var(--font-body); color:var(--warm-500); }
+        .bv-dot-ok{ width:7px; height:7px; border-radius:50%; background:#2fb563; }
+        /* conversion card */
+        .bv-check{ flex:0 0 auto; width:30px; height:30px; border-radius:50%; background:#e7f7ee; color:#1f9254; display:flex; align-items:center; justify-content:center; }
+        .bv-check svg{ width:16px; height:16px; }
+        .bv-conv-t{ font:800 13px/1.1 var(--font-display); color:var(--warm-900); }
+        .bv-conv-d{ margin-top:3px; font:500 11px/1.3 var(--font-body); color:var(--warm-500); }
+        @media (prefers-reduced-motion: reduce){ .bv-card{ transition:none; } }
+        @media (max-width:860px){ .mf-grid{ grid-template-columns:1fr; gap:32px; } .mf-visual{ order:-1; width:100%; max-width:440px; margin-inline:auto; } }
       `}</style>
     </section>
   );
