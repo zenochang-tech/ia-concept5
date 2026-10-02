@@ -274,7 +274,7 @@ function PricingAudit() {
             <h2 className="pa-title">Not sure which plan fits? Get a free growth audit.</h2>
             <p className="pa-sub">Drop your website and we'll show your reach, the plan that fits, and publishers ready to promote you.</p>
           </div>
-          <a href="/advertisers/" className="btn btn-primary btn-lg pa-cta">Get my free audit <Arrow /></a>
+          <a href="/advertisers/" className="btn btn-advertiser btn-lg pa-cta">Get my free audit <Arrow /></a>
         </div>
       </div>
       <style>{`
@@ -576,7 +576,7 @@ function PubAudience() {
         .au-sub{ margin-top:14px; max-width:620px; font-size:16px; line-height:1.4; color:var(--warm-600); }
         .au-bar{ position:relative; width:134px; height:12px; border-radius:160px; background:var(--warm-200); flex:0 0 auto; cursor:pointer; touch-action:none; }
         .au-bar.dragging{ cursor:grabbing; }
-        .au-bar-thumb{ position:absolute; left:0; top:0; height:12px; width:66px; border-radius:160px; background:var(--ember); will-change:transform,width; pointer-events:none; }
+        .au-bar-thumb{ position:absolute; left:0; top:0; height:12px; width:66px; border-radius:160px; background:var(--midnight-light); will-change:transform,width; pointer-events:none; }
         .au-scroll{ margin-top:clamp(24px,3.4vh,40px); overflow-x:auto; overflow-y:hidden; cursor:grab; scrollbar-width:none; -ms-overflow-style:none;
           padding-inline:max(32px, calc((100% - var(--maxw)) / 2 + 32px)); }
         .au-scroll::-webkit-scrollbar{ display:none; }
@@ -686,9 +686,9 @@ function PubSteps() {
               </linearGradient>
               {/* on-plate colour = two soft radial globs (no linear seam): ember near cursor, midnight opposite */}
               <radialGradient ref={faceERef} id="hsFaceE" gradientUnits="userSpaceOnUse" cx="96" cy="100" r="250">
-                <stop offset="0" stopColor="#F05826" stopOpacity="0.24" />
-                <stop offset="0.45" stopColor="#F05826" stopOpacity="0.10" />
-                <stop offset="1" stopColor="#F05826" stopOpacity="0" />
+                <stop offset="0" stopColor="#3D5A80" stopOpacity="0.24" />
+                <stop offset="0.45" stopColor="#3D5A80" stopOpacity="0.10" />
+                <stop offset="1" stopColor="#3D5A80" stopOpacity="0" />
               </radialGradient>
               <radialGradient ref={faceMRef} id="hsFaceM" gradientUnits="userSpaceOnUse" cx="264" cy="260" r="250">
                 <stop offset="0" stopColor="#6A9CDF" stopOpacity="0.24" />
@@ -696,9 +696,9 @@ function PubSteps() {
                 <stop offset="1" stopColor="#6A9CDF" stopOpacity="0" />
               </radialGradient>
               <radialGradient ref={gradRef} id="hsEdge" gradientUnits="userSpaceOnUse" cx="180" cy="-200" r="150">
-                <stop offset="0" stopColor="#F05826" stopOpacity="1" />
-                <stop offset="0.45" stopColor="#F05826" stopOpacity="0.6" />
-                <stop offset="1" stopColor="#F05826" stopOpacity="0" />
+                <stop offset="0" stopColor="#3D5A80" stopOpacity="1" />
+                <stop offset="0.45" stopColor="#3D5A80" stopOpacity="0.6" />
+                <stop offset="1" stopColor="#3D5A80" stopOpacity="0" />
               </radialGradient>
               <clipPath id="hsClip"><path d={HEX_PATH} /></clipPath>
               <filter id="hsFaceBlur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="16" /></filter>
@@ -799,7 +799,7 @@ function PubEarn() {
             style={{ '--pct': pct + '%' }} />
           <p className="pe-note">{offerCommissionLabel(offer)} · cost-per-sale (CPS)</p>
           <p className="pe-disc">*Estimates only, actual earnings vary by your traffic and niche.</p>
-          <a href="/partners/" className="btn btn-primary btn-lg pe-cta">Start Earning Today <Arrow /></a>
+          <a href="/partners/" className="btn btn-advertiser btn-lg pe-cta">Start Earning Today <Arrow /></a>
           <p className="pe-forecast-link">Want a number based on your real channels?<br /><a href="/partners/">Get your personalized forecast</a></p>
         </div>
         <div className="pe-cards" data-reveal data-reveal-delay="1">
@@ -824,16 +824,16 @@ function PubEarn() {
         .pe-title{ font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
         .pe-amt{ color:var(--warm-900); }
         .pe-sub{ margin-top:16px; font-size:clamp(17px,1.7vw,24px); line-height:1.35; color:var(--warm-600); }
-        .pe-sub b{ color:var(--ember); font-weight:600; }
+        .pe-sub b{ color:var(--midnight-light); font-weight:600; }
         .pe-slider{ -webkit-appearance:none; appearance:none; width:min(486px,100%); height:12px; margin-top:26px; border-radius:60px; outline:none; cursor:pointer;
-          background:linear-gradient(90deg, #F05826 0%, #c43e18 var(--pct), #d9d9d9 var(--pct), #d9d9d9 100%); }
-        .pe-slider::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none; width:26px; height:26px; border-radius:50%; background:#fff; border:3px solid #F05826; box-shadow:0 4px 10px rgba(15,28,46,.22); cursor:grab; }
-        .pe-slider::-moz-range-thumb{ width:26px; height:26px; border-radius:50%; background:#fff; border:3px solid #F05826; box-shadow:0 4px 10px rgba(15,28,46,.22); cursor:grab; }
+          background:linear-gradient(90deg, #3D5A80 0%, #243856 var(--pct), #d9d9d9 var(--pct), #d9d9d9 100%); }
+        .pe-slider::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none; width:26px; height:26px; border-radius:50%; background:#fff; border:3px solid #3D5A80; box-shadow:0 4px 10px rgba(15,28,46,.22); cursor:grab; }
+        .pe-slider::-moz-range-thumb{ width:26px; height:26px; border-radius:50%; background:#fff; border:3px solid #3D5A80; box-shadow:0 4px 10px rgba(15,28,46,.22); cursor:grab; }
         .pe-note{ margin-top:14px; font:italic 500 16px/1.4 var(--font-body); color:var(--warm-600); }
         .pe-disc{ margin-top:8px; font:400 13px/1.4 var(--font-body); color:var(--warm-500, #9a938c); }
         .pe-cta{ margin-top:22px; }
         .pe-forecast-link{ margin-top:18px; font:500 16px/1.5 var(--font-body); color:var(--warm-600); }
-        .pe-forecast-link a{ color:var(--ember); text-decoration:underline; }
+        .pe-forecast-link a{ color:var(--midnight-light); text-decoration:underline; }
         /* offer cards */
         .pe-cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
         .of-card{ display:flex; flex-direction:column; background:#fff; border:1px solid var(--warm-200); border-radius:var(--r-lg); padding:6px 6px 0; text-align:left; font:inherit; color:inherit; -webkit-appearance:none; appearance:none; cursor:pointer;
@@ -1170,7 +1170,7 @@ function PubVoices() {
       <style>{`
         .tv-sec{ background:var(--warm-50); padding:clamp(28px,4.14vh,55px) 0 clamp(67px,9.66vh,132px); }
         .tv-panel{ position:relative; max-width:1273px; margin:0 auto; padding:clamp(48px,7vh,90px) clamp(20px,4vw,56px) clamp(40px,6vh,72px); border-radius:clamp(28px,4vw,64px); overflow:hidden;
-          background:linear-gradient(156deg, rgba(240,88,38,.16) 37%, rgba(106,156,223,.16) 85%), #fff; }
+          background:linear-gradient(156deg, rgba(61,90,128,.16) 37%, rgba(106,156,223,.16) 85%), #fff; }
         .tv-title{ text-align:center; font-size:clamp(24px,3vw,34px); line-height:1.1; letter-spacing:-.03em; color:var(--warm-900); }
         .tv-sub{ text-align:center; margin-top:14px; font-size:16px; color:var(--warm-700); }
         .tv-stage{ position:relative; margin-top:clamp(28px,4vh,44px); min-height:392px; }
@@ -1253,7 +1253,7 @@ function PubFAQ() {
         .fq-item.open .fq-a-wrap{ grid-template-rows:1fr; }
         .fq-a{ overflow:hidden; }
         .fq-a p{ margin:0 24px; padding-bottom:24px; font:400 16px/1.5 var(--font-body); color:#3a3a4a; }
-        .fq-a a{ color:var(--ember); font-weight:600; text-decoration:underline; text-underline-offset:2px; }
+        .fq-a a{ color:var(--midnight-light); font-weight:600; text-decoration:underline; text-underline-offset:2px; }
         .fq-a a:hover{ opacity:.82; }
       `}</style>
     </section>
@@ -1323,7 +1323,7 @@ function PubCTA() {
       <div className="wrap pc-inner">
         <h2 className="pc-title" data-reveal>Not sure where to start? We'll help.</h2>
         <p className="pc-sub" data-reveal data-reveal-delay="1">Book a quick call and our team will map out the fastest way to grow your brand with Involve.</p>
-        <a href="/advertisers/" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="2">Talk to us <Arrow /></a>
+        <a href="/advertisers/" className="btn btn-advertiser btn-lg pc-btn" data-reveal data-reveal-delay="2">Talk to us <Arrow /></a>
       </div>
       <style>{`
         /* even top/bottom padding (content vertically centred), layered midnight background */
@@ -1365,7 +1365,7 @@ function AppDownload() {
         .adl-card, .adl-bubble{ position:absolute; right:0; bottom:0; transition:opacity .3s ease, transform .34s cubic-bezier(.22,1,.36,1); }
         /* expanded card (sized down ~20%) */
         .adl-card{ transform-origin:bottom right; width:min(183px, calc(100vw - 32px));
-          background:linear-gradient(100.6deg, #F05826 0%, #C43E18 100%); border-radius:13px 13px 0 13px;
+          background:linear-gradient(100.6deg, #3D5A80 0%, #243856 100%); border-radius:13px 13px 0 13px;
           box-shadow:0 15px 36px rgba(15,28,46,.24); padding:18px 18px 16px; display:flex; flex-direction:column; align-items:center; text-align:center; }
         .adl-title{ font-family:var(--font-display); font-weight:800; font-size:14.5px; line-height:1.15; color:#fff; }
         .adl-sub{ margin-top:6px; font:400 11.5px/1.28 var(--font-body); color:rgba(255,255,255,.92); }
@@ -1375,10 +1375,10 @@ function AppDownload() {
         .adl-dismiss:hover{ opacity:.85; }
         /* collapsed teardrop bubble (points to the bottom-right corner) */
         .adl-bubble{ width:64px; height:64px; padding:0; border:none; cursor:pointer;
-          background:linear-gradient(104.8deg, #F05826 0%, #C43E18 100%); border-radius:50% 50% 0 50%;
-          box-shadow:0 10px 22px rgba(240,88,38,.34); display:flex; align-items:center; justify-content:center; }
+          background:linear-gradient(104.8deg, #3D5A80 0%, #243856 100%); border-radius:50% 50% 0 50%;
+          box-shadow:0 10px 22px rgba(61,90,128,.34); display:flex; align-items:center; justify-content:center; }
         .adl-bubble img{ width:34px; height:34px; object-fit:contain; }
-        .adl-bubble:hover{ transform:translateY(-2px); box-shadow:0 14px 28px rgba(240,88,38,.42); }
+        .adl-bubble:hover{ transform:translateY(-2px); box-shadow:0 14px 28px rgba(61,90,128,.42); }
         /* toggle: show card when open, bubble when closed */
         .adl .adl-card{ opacity:0; transform:scale(.9) translateY(8px); pointer-events:none; }
         .adl .adl-bubble{ opacity:1; transform:scale(1); pointer-events:auto; }
