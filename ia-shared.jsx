@@ -250,7 +250,7 @@ function Nav({ getStartedTone = 'midnight' }) {
         .btn .arw{display:inline-block;margin-left:6px;}
         .btn:hover .arw{transform:translateX(3px);}
         /* Mega items — Concept 3 look with real descriptions */
-        .mega4-item b{display:block;font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--warm-900);transition:color .2s cubic-bezier(.4,0,.2,1);}
+        .mega4-item b{display:block;font-family:var(--font-body);font-weight:700;font-size:15px;color:var(--warm-900);transition:color .2s cubic-bezier(.4,0,.2,1);}
         .mega4-item .d{display:block;font-size:13px;color:var(--warm-400);margin-top:6px;line-height:1.45;}
         .mega4-item:hover b{color:var(--ember);}
         /* grouped column dropdowns (Advertisers / Publishers) */
@@ -258,7 +258,7 @@ function Nav({ getStartedTone = 'midnight' }) {
         .mega4-head{display:block;font:700 11px/1 var(--font-body);letter-spacing:.08em;text-transform:uppercase;color:var(--warm-400);margin-bottom:11px;}
         .mega4-divider{display:block;height:1px;background:#E8E8E2;margin:0 0 12px;}
         .mega4-link{display:block;padding:8px 0;}
-        .mega4-link b{font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--warm-900);transition:color .2s cubic-bezier(.4,0,.2,1);}
+        .mega4-link b{font-family:var(--font-body);font-weight:700;font-size:15px;color:var(--warm-900);transition:color .2s cubic-bezier(.4,0,.2,1);}
         a.mega4-link:hover b{color:var(--ember);}
         .mega4-soon{cursor:default;}
         .mega4-soon b{color:var(--warm-400);}

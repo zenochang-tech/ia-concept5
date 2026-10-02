@@ -267,7 +267,7 @@ function AboutMission() {
         .am-eyebrow{ display:inline-block; font:700 13px/1 var(--font-body); letter-spacing:.14em; text-transform:uppercase; color:var(--ember); }
         .am-title{ margin-top:16px; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
         .am-mv{ margin-top:clamp(28px,4vh,44px); display:grid; grid-template-columns:1fr 1fr; gap:clamp(20px,2.5vw,28px); }
-        .am-card{ border-radius:20px; padding:clamp(26px,3vw,38px); }
+        .am-card{ border-radius:var(--r-xl); padding:clamp(26px,3vw,38px); }
         .am-mission{ background:linear-gradient(158deg,#fbe9df 0%,#f7f1ec 100%); }
         .am-vision{ background:linear-gradient(158deg,#e6eef9 0%,#f1f4f9 100%); }
         .am-kick{ display:inline-block; font:700 12px/1 var(--font-body); letter-spacing:.12em; text-transform:uppercase; color:var(--warm-800); }
@@ -375,7 +375,7 @@ function AboutRegions() {
         .ar-title{ margin-top:16px; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
         .ar-sub{ margin-top:12px; max-width:600px; font:400 clamp(16px,1.3vw,18px)/1.5 var(--font-body); color:var(--warm-600); }
         .ar-grid{ margin-top:clamp(30px,5vh,52px); display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(18px,2vw,24px); }
-        .ar-card{ border:1px solid var(--warm-200); border-radius:16px; background:#fff; padding:clamp(22px,2.4vw,30px); min-width:0; }
+        .ar-card{ border:1px solid var(--warm-200); border-radius:var(--r-lg); background:#fff; padding:clamp(22px,2.4vw,30px); min-width:0; }
         .ar-hq{ border-color:transparent; background:linear-gradient(158deg,#fbe9df 0%,#f7f1ec 100%); grid-column:span 1; }
         .ar-cardhead{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
         .ar-cardhead h3{ font-family:var(--font-display); font-weight:800; font-size:19px; letter-spacing:-.01em; color:var(--warm-900); }

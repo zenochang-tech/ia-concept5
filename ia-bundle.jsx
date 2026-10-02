@@ -1004,14 +1004,14 @@ function Nav({ getStartedTone = 'midnight' }) {
         .btn .arw{display:inline-block;margin-left:6px;}
         .btn:hover .arw{transform:translateX(3px);}
         /* Mega items — Concept 3 look with real descriptions */
-        .mega4-item b{display:block;font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--warm-900);transition:color .2s cubic-bezier(.4,0,.2,1);}
+        .mega4-item b{display:block;font-family:var(--font-body);font-weight:700;font-size:15px;color:var(--warm-900);transition:color .2s cubic-bezier(.4,0,.2,1);}
         .mega4-item .d{display:block;font-size:13px;color:var(--warm-400);margin-top:6px;line-height:1.45;}
         .mega4-item:hover b{color:var(--ember);}
         .mega4-col{width:200px;}
         .mega4-head{display:block;font:700 11px/1 var(--font-body);letter-spacing:.08em;text-transform:uppercase;color:var(--warm-400);margin-bottom:11px;}
         .mega4-divider{display:block;height:1px;background:#E8E8E2;margin:0 0 12px;}
         .mega4-link{display:block;padding:8px 0;}
-        .mega4-link b{font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--warm-900);transition:color .2s cubic-bezier(.4,0,.2,1);}
+        .mega4-link b{font-family:var(--font-body);font-weight:700;font-size:15px;color:var(--warm-900);transition:color .2s cubic-bezier(.4,0,.2,1);}
         a.mega4-link:hover b{color:var(--ember);}
         .mega4-soon{cursor:default;}
         .mega4-soon b{color:var(--warm-400);}
@@ -1418,7 +1418,7 @@ function Hero({ dark = false, hex = 3, emphasis = 'equal' }) {
         /* single payout notification — top-left of the figure */
         /* desktop: sits BEHIND the hero figure (img z-index:1) so it tucks behind the people; mobile brings it to the front */
         .hero2-payouts{ position:absolute; z-index:0; top:6%; left:-6%; width:min(230px,60%); }
-        .pcard{ background:rgba(255,255,255,.88); border-radius:12px; box-shadow:var(--shadow-lg); padding:13px 16px; display:flex; flex-direction:column; gap:2px; max-width:200px; will-change:transform,opacity; transition:opacity .34s ease, transform .34s ease; }
+        .pcard{ background:rgba(255,255,255,.88); border-radius:var(--r-lg); box-shadow:var(--shadow-lg); padding:13px 16px; display:flex; flex-direction:column; gap:2px; max-width:200px; will-change:transform,opacity; transition:opacity .34s ease, transform .34s ease; }
         .pcard.is-swapping{ opacity:0; transform:translateY(5px); }
         @media (prefers-reduced-motion: reduce){ .pcard{ transition:none; } }
         /* fonts matched to the advertiser "Sales Driven" card (.hs-label / .hs-sub / .hs-num) */
@@ -1691,7 +1691,7 @@ function KeepsMoving() {
         /* cards */
         .km-card{ position:absolute; transform:translate(-50%,-50%); display:inline-flex; align-items:center; gap:.55em; background:#fff; border:1px solid var(--warm-100);
           border-radius:1.43em; box-shadow:0 .36em .5em rgba(15,28,46,.08); padding:.75em 1.05em; white-space:nowrap;
-          font-family:var(--font-display); font-weight:700; color:var(--warm-900); font-size:1em; }
+          font-family:var(--font-body); font-weight:700; color:var(--warm-900); font-size:1em; }
         .km-card img{ display:block; }
         .km-ico{ width:2.25em; height:2.25em; object-fit:contain; border-radius:.5em; }
         .km-amt{ font-size:1.5em; letter-spacing:-.02em; }
@@ -1815,7 +1815,7 @@ function LiveDirectory() {
         .lb-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
         .lb-card{ position:relative; min-width:0; aspect-ratio:298/334; border-radius:8px; overflow:hidden; display:flex; flex-direction:column;
           text-decoration:none; transition:transform .22s cubic-bezier(.22,1,.36,1), box-shadow .22s; }
-        .lb-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-lg); }
+        .lb-card:hover{ box-shadow:var(--shadow-lg); }
         .lb-bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:blur(6.4px); transform:scale(1.06); }
         .lb-scrim{ position:absolute; inset:0; background:rgba(0,0,0,.48); }
         /* "New" corner badge (green, tl+br rounded) */
@@ -2332,7 +2332,7 @@ function SupportBanner() {
         .sup-desc{ margin-top:16px; color:var(--warm-600); font-size:16px; line-height:1.5; max-width:560px; }
         .sup-badge{ margin-top:26px; }
         .sup-badge-lbl{ font:600 15px/1.4 var(--font-body); color:var(--warm-900); }
-        .sup-quote-card{ margin-top:12px; background:#fff; border-radius:14px; padding:16px 18px; box-shadow:0 10px 30px rgba(15,28,46,.06); max-width:540px; }
+        .sup-quote-card{ margin-top:12px; background:#fff; border-radius:var(--r-lg); padding:16px 18px; box-shadow:0 10px 30px rgba(15,28,46,.06); max-width:540px; }
         .sup-quote{ font-style:normal; color:var(--warm-600); font-size:16px; line-height:1.5; }
         .sup-verified{ margin-top:6px; color:var(--ember); font-weight:700; font-size:14px; }
         /* hexagon portrait + chat bubbles */
@@ -2589,7 +2589,7 @@ function SuccessSlider() {
         /* Positioning is GSAP-driven on desktop (see SuccessSlider); NO CSS transition here —
            it would fight GSAP's per-frame transform writes. Fallback path sets inline slots. */
         .rr-slotpos{ position:absolute; left:50%; top:50%; width:30cqw; height:38cqw; max-width:362px; max-height:456px; will-change:transform, opacity; }
-        .rr-card{ position:relative; width:100%; height:100%; border-radius:16px; overflow:hidden; box-shadow:0 10px 24px rgba(15,28,46,.14); font-size:1.35cqw; background:#fff; transition:filter .4s ease; }
+        .rr-card{ position:relative; width:100%; height:100%; border-radius:var(--r-lg); overflow:hidden; box-shadow:0 10px 24px rgba(15,28,46,.14); font-size:1.35cqw; background:#fff; transition:filter .4s ease; }
         /* Front card (featured) stays sharp; the 2nd/3rd queue cards blur back. */
         .rr-slotpos:not(.rr-featured) .rr-card{ filter:blur(4px); }
         .rr-card-bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:fill; }
@@ -2697,10 +2697,10 @@ function BlogSection() {
         .bg-readall-m svg{ transition:transform .2s ease; }
         .bg-readall-m:hover svg{ transform:translateX(3px); }
         .bg-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:clamp(28px,3.6vh,44px); }
-        .bg-card{ position:relative; min-width:0; aspect-ratio:304/202; border:1px solid #d2d2cc; border-radius:12px; background:#fff; overflow:hidden;
+        .bg-card{ position:relative; min-width:0; aspect-ratio:304/202; border:1px solid #d2d2cc; border-radius:var(--r-lg); background:#fff; overflow:hidden;
           display:flex; flex-direction:column; gap:12px; padding:clamp(16px,1.4vw,22px); text-decoration:none;
           transition:transform .22s cubic-bezier(.22,1,.36,1), box-shadow .22s ease, border-color .22s ease; }
-        .bg-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:#c4c4bd; }
+        .bg-card:hover{ box-shadow:var(--shadow-lg); border-color:#c4c4bd; }
         .bg-card-tag{ align-self:flex-start; display:inline-flex; padding:5px 11px; border-radius:9999px; font:700 11px/1 var(--font-body); letter-spacing:.01em; }
         .bg-card-tag.pub{ background:rgba(240,88,38,.10); color:var(--ember); }
         .bg-card-tag.adv{ background:rgba(61,90,128,.13); color:var(--midnight-light); }
@@ -3751,7 +3751,7 @@ function CaseStudies() {
         .case-stat .n{font-family:var(--font-display); font-weight:800; font-size:56px; line-height:1; letter-spacing:-.03em;}
         .case-stat .u{font-family:var(--font-display); font-weight:800; font-size:20px;}
         .case-line{margin-top:8px; font:600 15px/1.4 var(--font-body); color:var(--warm-900); transition:color .45s ease;}
-        .case-tag{font:700 12px/1 var(--font-display); color:var(--warm-900); margin-bottom:9px; transition:color .45s ease;}
+        .case-tag{font:700 12px/1 var(--font-body); color:var(--warm-900); margin-bottom:9px; transition:color .45s ease;}
         .case-desc{margin:0; font-size:13.5px; line-height:1.5; color:var(--warm-600); transition:color .45s ease;}
         /* PHOTO ONLY ON THE ACTIVE CARD: rendered on every card but cross-faded — opacity 0
            on non-active (card stays plain-white / text-only), opacity 1 only when active. */
