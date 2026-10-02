@@ -70,13 +70,13 @@ function DownloadHero() {
         /* QR + stores card */
         .dl-qrcard{ margin-top:clamp(26px,4vh,40px); display:grid; grid-template-columns:auto 1fr; column-gap:clamp(20px,2.5vw,34px); row-gap:14px; align-items:center;
           grid-template-areas:"qr text" "qr stores";
-          background:#fff; border-radius:20px; padding:clamp(22px,2.4vw,30px); box-shadow:0 12px 34px rgba(15,28,46,.07); max-width:600px; }
+          background:#fff; border-radius:var(--r-xl); padding:clamp(22px,2.4vw,30px); box-shadow:0 12px 34px rgba(15,28,46,.07); max-width:600px; }
         .dl-qr-link{ grid-area:qr; display:block; align-self:center; }
-        .dl-qr{ width:clamp(120px,11vw,150px); height:auto; display:block; border-radius:8px; }
+        .dl-qr{ width:clamp(120px,11vw,150px); height:auto; display:block; border-radius:var(--r-lg); }
         .dl-qr-txt{ grid-area:text; align-self:end; font-family:var(--font-display); font-weight:800; font-size:clamp(18px,1.6vw,21px); line-height:1.25; letter-spacing:-.02em; color:var(--warm-900); max-width:220px; }
         .dl-txt-m{ display:none; }
         .dl-stores{ grid-area:stores; align-self:start; display:flex; gap:8px; }
-        .dl-store{ display:inline-flex; align-items:center; gap:8px; height:48px; padding:0 12px; background:#000; border:1px solid #a6a6a6; border-radius:7px; text-decoration:none; }
+        .dl-store{ display:inline-flex; align-items:center; gap:8px; height:48px; padding:0 12px; background:#000; border:1px solid #a6a6a6; border-radius:var(--r-md); text-decoration:none; }
         .dl-store-ic{ width:auto; height:24px; display:block; }
         .dl-store-ic-apple{ height:22px; }
         .dl-store-txt{ display:flex; flex-direction:column; justify-content:center; color:#fff; line-height:1; }

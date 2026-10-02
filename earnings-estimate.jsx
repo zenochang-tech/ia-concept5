@@ -66,7 +66,7 @@ function EarningsHero() {
         .ee-alt a:hover{ opacity:.85; }
         @media (max-width:600px){
           .ee-wrap{ min-height:calc(100vh - 64px); padding-top:clamp(40px,9vh,80px); }
-          .ee-form{ flex-direction:column; gap:10px; border-radius:20px; padding:12px; }
+          .ee-form{ flex-direction:column; gap:10px; border-radius:var(--r-xl); padding:12px; }
           .ee-input{ width:100%; text-align:center; padding:12px 10px; }
           .ee-cta{ width:100%; justify-content:center; }
           .ee-sub br, .ee-alt br{ display:none; }

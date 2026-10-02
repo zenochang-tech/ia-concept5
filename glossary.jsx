@@ -186,7 +186,7 @@ function GlossaryList() {
         .gl-terms{ list-style:none; padding:0; margin:0; }
         .gl-terms a{ display:inline-block; padding:6px 0; font:400 16px/1.4 var(--font-body); color:var(--warm-900); text-decoration:none; transition:color .15s ease; }
         .gl-terms a:hover{ color:var(--ember); }
-        .gl-more{ margin-top:12px; display:inline-flex; align-items:center; gap:7px; padding:8px 16px; border:1px solid var(--warm-300); border-radius:9999px; background:#fff; font:600 13px/1 var(--font-body); color:var(--warm-900); cursor:pointer; transition:border-color .15s ease, color .15s ease; }
+        .gl-more{ margin-top:12px; display:inline-flex; align-items:center; gap:7px; padding:8px 16px; border:1px solid var(--warm-300); border-radius:var(--r-full); background:#fff; font:600 13px/1 var(--font-body); color:var(--warm-900); cursor:pointer; transition:border-color .15s ease, color .15s ease; }
         .gl-more:hover{ border-color:var(--warm-900); }
         .gl-more svg{ transition:transform .2s ease; }
         .gl-more:hover svg{ transform:translateX(3px); }

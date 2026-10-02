@@ -264,7 +264,7 @@ function Nav({ getStartedTone = 'midnight' }) {
         .mega4-soon b{color:var(--warm-400);}
         .mega4-soon em{font-style:normal;font-size:12px;color:var(--warm-400);margin-left:7px;}
         /* right-side feature card in the mega panel: image + dark scrim overlay, whole card clickable */
-        .mega4-feat{ position:relative; display:block; margin-left:auto; flex:0 0 clamp(260px,24vw,320px); height:clamp(224px,23vh,254px); border-radius:16px; overflow:hidden; text-decoration:none; box-shadow:0 12px 30px rgba(15,28,46,.14); }
+        .mega4-feat{ position:relative; display:block; margin-left:auto; flex:0 0 clamp(260px,24vw,320px); height:clamp(224px,23vh,254px); border-radius:var(--r-xl); overflow:hidden; text-decoration:none; box-shadow:0 12px 30px rgba(15,28,46,.14); }
         .mega4-feat img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; will-change:transform; transition:transform .5s cubic-bezier(.22,1,.36,1); }
         .mega4-feat:hover img{ transform:scale(1.05); }
         .mega4-feat-scrim{ display:none; }
