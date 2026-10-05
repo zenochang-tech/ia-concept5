@@ -21,10 +21,10 @@ function PubHero() {
   return (
     <section id="pub-hero" className="ph-sec">
       <div className="ph-hexdeco" aria-hidden="true">
-        <img className="phd phd1" src="media/figma/pub-hero-deco1.svg" alt="" />
-        <img className="phd phd2" src="media/figma/pub-hero-deco2.svg" alt="" />
-        <img className="phd phd3" src="media/figma/pub-hero-deco3.svg" alt="" />
-        <img className="phd phd4" src="media/figma/pub-hero-deco4.svg" alt="" />
+        <img className="phd phd1" src="media/figma/pub-hero-deco1.svg?v=2" alt="" />
+        <img className="phd phd2" src="media/figma/pub-hero-deco2.svg?v=2" alt="" />
+        <img className="phd phd3" src="media/figma/pub-hero-deco3.svg?v=2" alt="" />
+        <img className="phd phd4" src="media/figma/pub-hero-deco4.svg?v=2" alt="" />
       </div>
       <span className="ph-basefade" aria-hidden="true" />
       <div className="wrap ph-wrap">
