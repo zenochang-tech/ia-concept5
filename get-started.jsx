@@ -1249,9 +1249,9 @@ function PubVoices() {
         </div>
       </div>
       <style>{`
-        .tv-sec{ background:var(--warm-100); padding:clamp(28px,4.14vh,55px) 0 clamp(67px,9.66vh,132px); }
+        .tv-sec{ background:var(--warm-50); padding:clamp(28px,4.14vh,55px) 0 clamp(67px,9.66vh,132px); }
         .tv-panel{ position:relative; max-width:1273px; margin:0 auto; padding:clamp(48px,7vh,90px) clamp(20px,4vw,56px) clamp(40px,6vh,72px); border-radius:clamp(28px,4vw,64px); overflow:hidden;
-          background:linear-gradient(156deg, rgba(240,88,38,.16) 37%, rgba(106,156,223,.16) 85%), #fff; }
+          background:var(--warm-100); }
         .tv-title{ text-align:center; font-size:clamp(24px,3vw,34px); line-height:1.1; letter-spacing:-.03em; color:var(--warm-900); }
         .tv-sub{ text-align:center; margin-top:14px; font-size:16px; color:var(--warm-700); }
         .tv-stage{ position:relative; margin-top:clamp(28px,4vh,44px); min-height:392px; }

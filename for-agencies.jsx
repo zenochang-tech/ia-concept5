@@ -959,9 +959,9 @@ function PubVoices() {
         </div>
       </div>
       <style>{`
-        .tv-sec{ background:var(--warm-100); padding:clamp(28px,4.14vh,55px) 0 clamp(67px,9.66vh,132px); }
+        .tv-sec{ background:var(--warm-50); padding:clamp(28px,4.14vh,55px) 0 clamp(67px,9.66vh,132px); }
         .tv-panel{ position:relative; max-width:1273px; margin:0 auto; padding:clamp(48px,7vh,90px) clamp(20px,4vw,56px) clamp(40px,6vh,72px); border-radius:clamp(28px,4vw,64px); overflow:hidden;
-          background:linear-gradient(156deg, rgba(240,88,38,.16) 37%, rgba(106,156,223,.16) 85%), #fff; }
+          background:var(--warm-100); }
         .tv-title{ text-align:center; font-size:clamp(24px,3vw,34px); line-height:1.1; letter-spacing:-.03em; color:var(--warm-900); }
         .tv-sub{ text-align:center; margin-top:14px; font-size:16px; color:var(--warm-700); }
         .tv-stage{ position:relative; margin-top:clamp(28px,4vh,44px); min-height:392px; }
@@ -1098,7 +1098,7 @@ function PubCtaHexField() {
   }, [paths]);
   return (
     <svg ref={svgRef} className="pc-hexfield" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-      <g fill="#FAC9B9">{paths.map((d, i) => <path key={i} className="hx" d={d} />)}</g>
+      <g fill="var(--warm-200)">{paths.map((d, i) => <path key={i} className="hx" d={d} />)}</g>
     </svg>
   );
 }
@@ -1114,7 +1114,7 @@ function PubCTA() {
       </div>
       <style>{`
         .pc-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(96px,16vh,200px) 0 clamp(104px,17vh,210px); }
-        .pc-hexfield{ position:absolute; left:0; top:50%; transform:translateY(-44%) scaleY(-1); width:100%; height:auto; z-index:0; pointer-events:none; opacity:.385;
+        .pc-hexfield{ position:absolute; left:0; top:50%; transform:translateY(-44%) scaleY(-1); width:100%; height:auto; z-index:0; pointer-events:none; opacity:.6;
           -webkit-mask-image:linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent); mask-image:linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent); }
         .pc-hexfield .hx{ will-change:transform; }
         /* gradient blend into the section above */
