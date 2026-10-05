@@ -49,7 +49,7 @@ function PubHero() {
         </div>
 
         <div className="ph-visual" data-reveal data-reveal-delay="1">
-          <img className="ph-hexbg" src="media/figma/advertiser-slider-background.png" alt="" aria-hidden="true" />
+          <span className="ph-hexbg" aria-hidden="true" />
           {/* Slide 0 — dashboard */}
           <div className={on(0)} aria-hidden={slide !== 0}>
             <img className="ph-hexart" src="media/figma/slider-adv-new1.png" alt="Advertiser dashboard with gross sales, commission paid and performance trends" loading="eager" />
@@ -111,8 +111,9 @@ function PubHero() {
         /* aspect matches the Figma hexagon (437×492) so the pointy-top hex reads regular, not stretched-wide */
         .ph-visual{ position:relative; aspect-ratio:1/1; max-width:520px; width:100%; margin-left:auto; }
         /* shared hexagon backdrop behind every slide */
-        .ph-hexbg{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; z-index:0; display:block;
-          filter:drop-shadow(0 34px 60px rgba(15,28,46,.12)); }
+        .ph-hexbg{ position:absolute; inset:0; z-index:0; background:var(--warm-200);
+          -webkit-mask:url('media/figma/advertiser-slider-background.png') center/contain no-repeat; mask:url('media/figma/advertiser-slider-background.png') center/contain no-repeat;
+          filter:drop-shadow(0 34px 60px rgba(15,28,46,.10)); }
         /* pre-exported hexagon slide graphic (transparent corners), shown at natural proportions */
         .ph-hexart{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; z-index:1; display:block; }
         .ph-hexglow{ position:absolute; inset:2% 2% 2% 2%; z-index:0; pointer-events:none;
