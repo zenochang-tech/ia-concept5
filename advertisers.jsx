@@ -116,7 +116,7 @@ function PubHero() {
         /* pre-exported hexagon slide graphic (transparent corners), shown at natural proportions */
         .ph-hexart{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; z-index:1; display:block; }
         .ph-hexglow{ position:absolute; inset:2% 2% 2% 2%; z-index:0; pointer-events:none;
-          background:radial-gradient(circle at 50% 46%, rgba(61,90,128,.20), rgba(61,90,128,0) 62%); filter:blur(6px); }
+          background:radial-gradient(circle at 50% 46%, rgba(232,232,226,.55), rgba(232,232,226,0) 62%); filter:blur(6px); }
         /* soft hex plate behind the photo — rounded pointy-top (r≈38.67), ember → midnight gradient */
         .ph-hexplate{ position:absolute; inset:0; z-index:0; background:var(--warm-100);
           -webkit-mask:url('media/figma/pub-hero-hexclip.svg') center/100% 100% no-repeat; mask:url('media/figma/pub-hero-hexclip.svg') center/100% 100% no-repeat;
@@ -1387,7 +1387,7 @@ function AdvPlatform() {
         .pf-step:not(.on){ opacity:.4; } .pf-step:not(.on):hover{ opacity:.7; }
         /* light ember→cool gradient container; the dashboard sits inset top-left and bleeds off the right */
         .pf-visual{ position:relative; align-self:center; width:100%; aspect-ratio:5/3; overflow:hidden; border-radius:var(--r-xl);
-          background:linear-gradient(150deg, #e6ecf6 0%, #f2f4f9 46%, #d7e1f0 100%); }
+          background:var(--warm-100); }
         .pf-img{ position:absolute; inset:0; width:100%; height:100%;
           object-fit:contain; object-position:center;
           opacity:0; transition:opacity .5s ease; }
@@ -1586,7 +1586,7 @@ function AdvStats() {
         .as-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:0; z-index:1; margin:-11vw 0; }
         .as-stage{ position:relative; width:100%; max-width:1440px; margin:0 auto; aspect-ratio:1440/1172; }
         .as-hexcell{ position:absolute; width:27.89%; aspect-ratio:1/1; }
-        .as-heximg{ position:absolute; top:0.72%; left:6.7%; width:86.6%; height:98.56%; transform:rotate(-90deg); display:block; opacity:.3; }
+        .as-heximg{ position:absolute; top:0.72%; left:6.7%; width:86.6%; height:98.56%; transform:rotate(-90deg); display:block; opacity:.6; }
         .as-heading{ position:absolute; left:8.13%; top:45.6%; transform:translateY(-50%); z-index:2;
           font-family:var(--font-display); font-weight:800; font-size:clamp(26px,2.78vw,40px); line-height:1.15; letter-spacing:-.03em; color:var(--warm-900); }
         .as-stat{ position:absolute; z-index:2; display:flex; flex-direction:column; }
