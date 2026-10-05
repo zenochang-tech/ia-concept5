@@ -39,7 +39,7 @@ function PricingHexField() {
   }, []);
   return (
     <svg className="prh-hexfield" viewBox={vb} preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <g fill="#C7DFFF">{paths.map((d, i) => <path key={i} className="hx" d={d} />)}</g>
+      <g fill="var(--warm-200)">{paths.map((d, i) => <path key={i} className="hx" d={d} />)}</g>
     </svg>
   );
 }
@@ -1390,7 +1390,7 @@ function PubCtaHexField() {
   }, [paths]);
   return (
     <svg ref={svgRef} className="pc-hexfield" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-      <g fill="#C7DFFF">{paths.map((d, i) => <path key={i} className="hx" d={d} />)}</g>
+      <g fill="var(--warm-200)">{paths.map((d, i) => <path key={i} className="hx" d={d} />)}</g>
     </svg>
   );
 }
