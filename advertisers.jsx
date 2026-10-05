@@ -1591,10 +1591,10 @@ function AdvStats() {
         .as-heading{ position:absolute; left:8.13%; top:45.6%; transform:translateY(-50%); z-index:2;
           font-family:var(--font-display); font-weight:800; font-size:clamp(26px,2.78vw,40px); line-height:1.15; letter-spacing:-.03em; color:var(--warm-900); }
         .as-stat{ position:absolute; z-index:2; display:flex; flex-direction:column; }
-        .as-stat b{ font-family:var(--font-body); font-weight:700; font-size:clamp(40px,5.18vw,74px); line-height:1; letter-spacing:-.03em; color:#3d5a80; }
+        .as-stat b{ font-family:var(--font-body); font-weight:700; font-size:clamp(40px,5.18vw,54px); line-height:1; letter-spacing:-.03em; color:#3d5a80; }
         .as-stat span{ margin-top:8px; font-family:var(--font-body); font-weight:400; font-size:clamp(17px,1.94vw,28px); line-height:1.15; letter-spacing:-.02em; color:var(--warm-900); white-space:nowrap; }
-        .as-s500{ left:50%; top:46.5%; }
-        .as-s11m{ left:26.67%; top:62.2%; }
+        .as-s500{ left:48%; top:47.5%; }
+        .as-s11m{ left:24.67%; top:63.2%; }
         .as-s32b{ left:79.69%; top:63.3%; transform:translateX(-50%); }
         @media (max-width:860px){
           /* hexagons are hidden on mobile, so drop the negative overlap margin and give the section real breathing room */
