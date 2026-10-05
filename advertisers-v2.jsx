@@ -118,7 +118,7 @@ function PubHero() {
         .ph-hexglow{ position:absolute; inset:2% 2% 2% 2%; z-index:0; pointer-events:none;
           background:radial-gradient(circle at 50% 46%, rgba(61,90,128,.20), rgba(61,90,128,0) 62%); filter:blur(6px); }
         /* soft hex plate behind the photo — rounded pointy-top (r≈38.67), ember → midnight gradient */
-        .ph-hexplate{ position:absolute; inset:0; z-index:0; background:linear-gradient(158deg,#fbe9df 0%,#f5f2ee 48%,#e6eef9 100%);
+        .ph-hexplate{ position:absolute; inset:0; z-index:0; background:var(--warm-100);
           -webkit-mask:url('media/figma/pub-hero-hexclip.svg') center/100% 100% no-repeat; mask:url('media/figma/pub-hero-hexclip.svg') center/100% 100% no-repeat;
           filter:drop-shadow(0 26px 54px rgba(15,28,46,.10)); }
         /* ---- fade slider: each slide (photo + its UI) cross-fades in/out ---- */

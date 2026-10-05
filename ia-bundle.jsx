@@ -605,8 +605,8 @@ function HexHeroField({ intensity = 3 }) {
         <Hexagon size={560} strokeOnly grad gradDur={11} sw={1.6} strokeOpacity={0.4} style={{ transform: 'translate(-50%,-50%)', position: 'absolute' }} />
       </div>
       {/* small accent hexagons — gradient borders, de-synced durations so they shimmer organically */}
-      <Hexagon size={58} fill="var(--ember-tint)" grad gradDur={7} sw={2} className="hero-hex-a" style={{ position: 'absolute', top: '18%', left: '13%' }} />
-      <Hexagon size={40} fill="var(--midnight-light-tint)" grad gradDur={8.5} sw={2} className="hero-hex-b" style={{ position: 'absolute', bottom: '16%', right: '15%' }} />
+      <Hexagon size={58} fill="var(--warm-100)" grad gradDur={7} sw={2} className="hero-hex-a" style={{ position: 'absolute', top: '18%', left: '13%' }} />
+      <Hexagon size={40} fill="var(--warm-100)" grad gradDur={8.5} sw={2} className="hero-hex-b" style={{ position: 'absolute', bottom: '16%', right: '15%' }} />
       <Hexagon size={26} fill="none" grad gradDur={6} sw={2} className="hero-hex-a" style={{ position: 'absolute', top: '24%', right: '24%' }} />
       <style>{`
         .hero-hex-breathe{transform:translate(-50%,-50%);animation:hexBreathe 11s ease-in-out infinite;}
