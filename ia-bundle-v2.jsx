@@ -2394,7 +2394,7 @@ function SuccessSlider() {
         </div>
       </div>
       <style>{`
-        .rr-sec{ background:var(--warm-50); overflow:hidden; }
+        .rr-sec{ background:var(--warm-100); overflow:hidden; }
         .rr-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:24px; flex-wrap:wrap; }
         .rr-title{ font-size:clamp(32px,4.6vw,56px); line-height:1.02; letter-spacing:-.02em; }
         .rr-sub{ margin-top:12px; color:var(--warm-600); font-size:16px; }
