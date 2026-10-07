@@ -1698,7 +1698,7 @@ function Verified() {
               </ul>
             </div>
             <div className="vf-visual" data-reveal data-reveal-delay="1">
-              <img src="media/figma/hwt-verified-trans.png" alt="A conversion approvals table showing each order verified or rejected before payout" loading="lazy" />
+              <img src="media/figma/hwt-verified-trans.png" alt="A conversion approvals table showing each order verified or rejected before payout" loading="eager" />
             </div>
           </div>
         </div>
