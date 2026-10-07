@@ -1316,25 +1316,28 @@ function PubCtaHexField() {
 function PubCTA() {
   return (
     <section id="pub-cta" className="pc-sec">
-      <span className="pc-bg" aria-hidden="true">
-        <img className="pc-bg-hex" src="media/figma/pricing-cta-bg-hex.png" alt="" />
-        <img className="pc-bg-grad" src="media/figma/pricing-cta-bg-grad.png" alt="" />
-      </span>
+      <PubCtaHexField />
+      <span className="pc-topfade" aria-hidden="true" />
+      <span className="pc-wash" aria-hidden="true" />
       <div className="wrap pc-inner">
         <h2 className="pc-title" data-reveal>Not sure where to start? We'll help.</h2>
         <p className="pc-sub" data-reveal data-reveal-delay="1">Book a quick call and our team will map out the fastest way to grow your brand with Involve.</p>
         <a href="/advertisers/" className="btn btn-advertiser btn-lg pc-btn" data-reveal data-reveal-delay="2">Talk to us <Arrow /></a>
       </div>
       <style>{`
-        /* even top/bottom padding (content vertically centred), layered midnight background */
-        .pc-sec{ position:relative; overflow:hidden; background:#0f1c2e; padding:clamp(88px,13vh,124px) 0; }
-        .pc-bg{ position:absolute; inset:0; z-index:0; pointer-events:none; }
-        .pc-bg-hex{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.4; }
-        .pc-bg-grad{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+        .pc-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(96px,16vh,200px) 0 clamp(104px,17vh,210px); }
+        .pc-hexfield{ position:absolute; left:0; top:50%; transform:translateY(-44%) scaleY(-1); width:100%; height:auto; z-index:0; pointer-events:none; opacity:.6;
+          -webkit-mask-image:linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent); mask-image:linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent); }
+        .pc-hexfield .hx{ will-change:transform; }
+        .pc-topfade{ position:absolute; left:0; right:0; top:0; height:clamp(200px,26%,340px); z-index:0; pointer-events:none;
+          background:linear-gradient(180deg, var(--warm-50) 0%, rgba(250,250,248,.6) 45%, rgba(250,250,248,0) 100%); }
+        .pc-wash{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:760px; height:420px; z-index:0; pointer-events:none;
+          background:radial-gradient(ellipse at center, var(--warm-50) 32%, rgba(250,250,248,0) 72%); }
         .pc-inner{ position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; text-align:center; }
-        .pc-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.15; letter-spacing:-.03em; color:#fff; max-width:820px; }
-        .pc-sub{ margin-top:14px; font:400 16px/1.5 var(--font-body); color:rgba(255,255,255,.72); max-width:620px; }
-        .pc-btn{ margin-top:28px; }
+        .pc-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.15; letter-spacing:-.03em; color:var(--warm-900); max-width:900px; }
+        .pc-sub{ margin-top:14px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); max-width:620px; }
+        .pc-btn{ margin-top:26px; }
+        @media (max-width:700px){ .pc-sec{ padding:clamp(60px,9vh,84px) 0 clamp(68px,10vh,96px); } }
       `}</style>
     </section>
   );
