@@ -41,7 +41,7 @@ function PubHero() {
         <div className="ph-visual" data-reveal data-reveal-delay="1">
           <span className="ph-hexglow" aria-hidden="true" />
           <span className="ph-hexplate" aria-hidden="true" />
-          <div className="ph-photo ph-photo-fill"><img src="media/figma/tech-partner-hero-img.png" alt="A technology partner integrating Involve offers into their own product" loading="eager" /></div>
+          <div className="ph-photo ph-photo-fill"><img src="media/figma/tech-partner-hero-img.png?v=2" alt="A technology partner integrating Involve offers into their own product" loading="eager" /></div>
         </div>
       </div>
 
