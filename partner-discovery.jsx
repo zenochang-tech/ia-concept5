@@ -1570,7 +1570,7 @@ function ConsolidatedView() {
         .dv-pd{ margin-top:8px; font:400 15px/1.5 var(--font-body); color:var(--warm-600); max-width:440px; }
         .dv-visual{ position:relative; }
         .dv-glow{ position:absolute; inset:4% -6% -8% 4%; z-index:0; pointer-events:none; background:radial-gradient(58% 58% at 68% 60%, rgba(61,90,128,.14), rgba(61,90,128,0) 70%); filter:blur(8px); }
-        .dv-visual img{ position:relative; z-index:1; width:100%; height:auto; display:block; border-radius:var(--r-xl); filter:drop-shadow(0 16px 32px rgba(15,28,46,.16)); }
+        .dv-visual img{ position:relative; z-index:1; width:100%; height:auto; display:block; border-radius:var(--r-xl); filter:drop-shadow(0 10px 30px rgba(15,28,46,.10)) drop-shadow(0 4px 8px rgba(15,28,46,.06)); }
         @media (max-width:860px){ .dv-grid{ grid-template-columns:1fr; gap:32px; } .dv-visual{ max-width:520px; margin-inline:auto; } }
       `}</style>
     </section>
