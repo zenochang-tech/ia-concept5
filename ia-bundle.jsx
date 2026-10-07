@@ -910,7 +910,7 @@ function Nav({ getStartedTone = 'midnight' }) {
       borderBottom: `1px solid ${dark ? 'rgba(255,255,255,.10)' : 'transparent'}`,
       transition: 'background .3s, border-color .3s, box-shadow .3s',
     }} onMouseLeave={scheduleClose}>
-      <div className="wrap" style={{ display: 'flex', alignItems: 'center', height: 74, gap: 24, position: 'relative' }}>
+      <div className="wrap" style={{ display: 'flex', alignItems: 'center', height: dark ? 62 : 74, gap: 24, position: 'relative', transition: 'height .3s' }}>
         <a href="#hero" aria-label="Involve Asia home" style={{ display: 'flex', alignItems: 'center', flex: '0 0 auto', zIndex: 2, position: 'relative' }}>
           <img src={R('logoMidnight', "https://ia-design-system.vercel.app/assets/logo/wordmark-midnight.png")} alt="Involve Asia" width="132" height="28" style={{ height: 28, width: 'auto', transition: 'opacity .35s ease', opacity: dark ? 0 : 1 }} />
           <img src={R('logoWhite', "https://ia-design-system.vercel.app/assets/logo/wordmark-white.png")} alt="" aria-hidden="true" width="132" height="28" style={{ height: 28, width: 'auto', position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', transition: 'opacity .35s ease', opacity: dark ? 1 : 0 }} />
