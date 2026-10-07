@@ -1713,7 +1713,7 @@ function Verified() {
         .vf-list li{ display:flex; align-items:center; gap:12px; font:500 15px/1.4 var(--font-body); color:var(--warm-900); }
         .vf-ok{ flex:0 0 auto; width:22px; height:22px; border-radius:50%; background:#dcfce7; color:#047857; display:flex; align-items:center; justify-content:center; }
         .vf-ok svg{ width:14px; height:14px; }
-        .vf-visual{ border-radius:var(--r-xl); overflow:hidden; background:var(--warm-100); aspect-ratio:1158/700; display:flex; align-items:center; justify-content:center; padding:clamp(14px,2vw,28px); }
+        .vf-visual{ border-radius:var(--r-xl); overflow:hidden; background:var(--warm-100); aspect-ratio:1158/700; display:flex; align-items:center; justify-content:center; }
         .vf-visual img{ display:block; width:100%; height:100%; object-fit:contain; }
         /* status table (kept for reference; the section now uses a provided image) */
         .vf-visual .vf-table{ border-radius:var(--r-xl); overflow:hidden; background:var(--warm-50); border:1px solid var(--warm-200); }
