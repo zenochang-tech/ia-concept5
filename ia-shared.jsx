@@ -141,22 +141,25 @@ function Nav({ getStartedTone = 'midnight' }) {
   const scheduleClose = () => { clearTimeout(closeT.current); closeT.current = setTimeout(() => setOpen(null), 140); };
   const R = (k, fb) => (window.__resources && window.__resources[k]) || fb;
   const gsClass = getStartedTone === 'adv' ? 'btn-advertiser' : 'btn-primary';  // Concept 3 leads with the ember CTA
+  // Design-system chrome: the sticky nav is solid Midnight (not a blurred glass) once
+  // scrolled, over a dark section, or with the mobile menu open. Transparent only at the top.
+  const dark = onDark || scrolled || mobile;
 
   return (
     <React.Fragment>
-    <header ref={navRef} className={`hdr4${onDark ? ' nav-on-dark' : ''}${scrolled ? ' solid' : ''}`} style={{
+    <header ref={navRef} className={`hdr4${dark ? ' nav-on-dark' : ''}${scrolled ? ' solid' : ''}`} style={{
       position: 'sticky', top: 0, zIndex: 100,
-      background: onDark ? 'rgba(15,28,46,.72)' : ((scrolled || mobile) ? 'rgba(248,250,250,.82)' : 'transparent'),
-      backdropFilter: (onDark || scrolled || mobile) ? 'saturate(180%) blur(14px)' : 'none',
-      WebkitBackdropFilter: (onDark || scrolled || mobile) ? 'saturate(180%) blur(14px)' : 'none',
-      boxShadow: (scrolled && !onDark) ? '0 1px 0 var(--warm-200)' : 'none',
-      borderBottom: `1px solid ${onDark ? 'rgba(255,255,255,.10)' : 'transparent'}`,
+      background: dark ? 'var(--midnight)' : 'transparent',
+      backdropFilter: 'none',
+      WebkitBackdropFilter: 'none',
+      boxShadow: 'none',
+      borderBottom: `1px solid ${dark ? 'rgba(255,255,255,.10)' : 'transparent'}`,
       transition: 'background .3s, border-color .3s, box-shadow .3s',
     }} onMouseLeave={scheduleClose}>
       <div className="wrap" style={{ display: 'flex', alignItems: 'center', height: 74, gap: 24, position: 'relative' }}>
         <a href="index.html" aria-label="Involve Asia home" style={{ display: 'flex', alignItems: 'center', flex: '0 0 auto', zIndex: 2, position: 'relative' }}>
-          <img src={R('logoMidnight', "https://ia-design-system.vercel.app/assets/logo/wordmark-midnight.png")} alt="Involve Asia" width="132" height="28" style={{ height: 28, width: 'auto', transition: 'opacity .35s ease', opacity: onDark ? 0 : 1 }} />
-          <img src={R('logoWhite', "https://ia-design-system.vercel.app/assets/logo/wordmark-white.png")} alt="" aria-hidden="true" width="132" height="28" style={{ height: 28, width: 'auto', position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', transition: 'opacity .35s ease', opacity: onDark ? 1 : 0 }} />
+          <img src={R('logoMidnight', "https://ia-design-system.vercel.app/assets/logo/wordmark-midnight.png")} alt="Involve Asia" width="132" height="28" style={{ height: 28, width: 'auto', transition: 'opacity .35s ease', opacity: dark ? 0 : 1 }} />
+          <img src={R('logoWhite', "https://ia-design-system.vercel.app/assets/logo/wordmark-white.png")} alt="" aria-hidden="true" width="132" height="28" style={{ height: 28, width: 'auto', position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', transition: 'opacity .35s ease', opacity: dark ? 1 : 0 }} />
         </a>
 
         {/* Left-aligned primary nav (Concept 3) */}
