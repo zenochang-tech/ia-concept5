@@ -37,7 +37,7 @@ const glossaryIsLocal = (t) => ((typeof window !== 'undefined' && window.__GLOSS
 const glossaryHref = (t) => glossaryIsLocal(t) ? `glossary-term/${glossarySlug(t)}/` : `https://involve.asia/glossary-term/${glossarySlug(t)}/`;
 
 /* Decorative honeycomb backdrop — same hex field as the pricing hero (pub-cta-hexfield.svg),
-   but filled with the homepage hero's flowing ember→blue gradient (#F05826 → #6A9CDF). */
+   filled flat with warm-100 (#F4F4F0) to match the About page hero honeycomb. */
 let __glGradN = 0;
 function GlossaryHexField() {
   const [paths, setPaths] = React.useState([]);
@@ -62,11 +62,11 @@ function GlossaryHexField() {
     <svg className="gh-hexfield" viewBox={vb} preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <defs>
         <linearGradient id={gid} gradientUnits="userSpaceOnUse" x1={W * 0.12} y1={H * 0.30} x2={W * 0.92} y2={H * 0.80}>
-          <stop offset="0" stopColor="#F05826" />
-          <stop offset="1" stopColor="#6A9CDF" />
+          <stop offset="0" stopColor="#F4F4F0" />
+          <stop offset="1" stopColor="#F4F4F0" />
         </linearGradient>
       </defs>
-      <g fill={`url(#${gid})`}>{paths.map((d, i) => <path key={i} className="hx" d={d} />)}</g>
+      <g fill="var(--warm-100)">{paths.map((d, i) => <path key={i} className="hx" d={d} />)}</g>
     </svg>
   );
 }
@@ -82,7 +82,7 @@ function GlossaryHero() {
       <style>{`
         .gh-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(44px,8vh,92px) 0 clamp(16px,2.4vh,30px); text-align:center; }
         .gh-honey{ position:absolute; left:0; top:0; width:100%; height:100%; z-index:0; pointer-events:none; }
-        .gh-hexfield{ position:absolute; inset:0; width:100%; height:100%; opacity:.128;
+        .gh-hexfield{ position:absolute; inset:0; width:100%; height:100%; opacity:1;
           -webkit-mask-image:radial-gradient(120% 100% at 50% 34%, #000 0%, #000 42%, transparent 78%);
           mask-image:radial-gradient(120% 100% at 50% 34%, #000 0%, #000 42%, transparent 78%); }
         .gh-hexfield .hx{ fill-opacity:.9; }
@@ -90,7 +90,7 @@ function GlossaryHero() {
         .gh-eyebrow{ display:inline-block; font:700 14px/1 var(--font-body); letter-spacing:.02em; color:var(--warm-900); }
         .gh-title{ margin:16px auto 0; max-width:840px; font-size:clamp(30px,4.8vw,56px); line-height:1.06; letter-spacing:-.03em; color:var(--warm-900); }
         .gh-sub{ margin:20px auto 0; max-width:760px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); }
-        @media (max-width:600px){ .gh-sec{ text-align:left; } .gh-title, .gh-sub{ margin-left:0; } .gh-hexfield{ left:56%; opacity:.06; } }
+        @media (max-width:600px){ .gh-sec{ text-align:left; } .gh-title, .gh-sub{ margin-left:0; } .gh-hexfield{ left:56%; opacity:1; } }
       `}</style>
     </section>
   );

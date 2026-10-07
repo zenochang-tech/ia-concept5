@@ -46,11 +46,11 @@ const NAV = [
         ['How We Track', 'how-we-track.html'],
       ]},
     ]},
-  { label: 'Resources', href: '/blog/',
-    feat: { head: 'The Involve blog', desc: 'Guides, trends, and affiliate marketing insights.', cta: 'Read the blog', href: '/blog/', img: 'media/webp/sub-card-resources.webp', scrim: 'linear-gradient(26.17deg, rgba(3, 3, 3, 0.32) 19.76%, rgba(2, 2, 2, 0.1024) 55.25%)' },
+  { label: 'Resources', href: 'https://involve.asia/blog/',
+    feat: { head: 'The Involve blog', desc: 'Guides, trends, and affiliate marketing insights.', cta: 'Read the blog', href: 'https://involve.asia/blog/', img: 'media/webp/sub-card-resources.webp', scrim: 'linear-gradient(26.17deg, rgba(3, 3, 3, 0.32) 19.76%, rgba(2, 2, 2, 0.1024) 55.25%)' },
     columns: [
       { head: 'Learn', links: [
-        ['Blog', '/blog/'],
+        ['Blog', 'https://involve.asia/blog/'],
         ['Glossary', 'glossary.html'],
       ]},
       { head: 'Support', links: [
@@ -345,7 +345,7 @@ function Arrow({ s = 16 }) {
 const FOOT = [
   { h: 'For Publishers', links: [['Overview','/partners/overview'],['All Brands Directory','https://app.involve.asia/directory'],['Express Withdrawal','/partners/express-withdrawal/'],['Developer API','/partners/api-overview/'],['Data Feed','datafeed.html']] },
   { h: 'For Advertisers', links: [['Overview','/advertisers/'],['How We Track','/advertisers/how-we-track/'],['Partner Discovery','/advertisers/partner-discovery/'],['Automation','/advertisers/automation/'],['Case Studies','/advertisers/case-studies/']] },
-  { h: 'Involve', links: [['About Us','/about/'],['Careers','https://career.involve.asia/'],['Blog','/blog/'],['Support','https://helpcentre.involve.asia/'],['Terms & Conditions','terms-conditions.html'],['Privacy Policy','https://app.involve.asia/publisher/privacypolicy']] },
+  { h: 'Involve', links: [['About Us','/about/'],['Careers','https://career.involve.asia/'],['Blog','https://involve.asia/blog/'],['Support','https://helpcentre.involve.asia/'],['Terms & Conditions','terms-conditions.html'],['Privacy Policy','https://app.involve.asia/publisher/privacypolicy']] },
 ];
 const SOCIAL = [['Facebook','https://www.facebook.com/involveasia'],['Twitter','https://twitter.com/InvolveAsia'],['Instagram','https://www.instagram.com/involveasia/'],['LinkedIn','https://www.linkedin.com/company/involve-asia/']];
 function Footer() {
