@@ -1552,7 +1552,7 @@ function HowItWorks() {
         .hiw-card-pay{ position:relative; }
         .gp-pill{ position:absolute; left:24px; top:50%; transform:translateY(-50%);
           display:inline-flex; align-items:center; justify-content:flex-start; width:420px; flex:0 0 auto; box-sizing:border-box;
-          background:#fff; border-radius:var(--r-full); padding:18px 30px; box-shadow:0 8px 18px rgba(15,28,46,.10);
+          background:#fff; border-radius:var(--r-xl); padding:18px 30px; box-shadow:0 8px 18px rgba(15,28,46,.10);
           font-family:var(--font-display); font-weight:800; font-size:32px; letter-spacing:.005em; color:var(--warm-900); white-space:nowrap; }
         .gp-label{ font-style:normal; display:inline-block; }
         .gp-amt{ color:var(--warm-300); margin-left:0.198em; }
