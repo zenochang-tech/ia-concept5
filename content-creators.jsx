@@ -1304,7 +1304,7 @@ function MadeFor() {
 /* ---------- CC §3 — "Built for the way you create." (tab view, reused from the
    publisher overview's platform stepper — pf-* pattern). One tab per tool. ---------- */
 const CREATE_TABS = [
-  { key: 'app', t: 'Mobile app', d: 'Generate links and grab codes on the go. Share to your socials in seconds, and check your clicks, conversions, and earnings from your phone.', img: 'creator-partner-53-slide1.png',
+  { key: 'app', t: 'Mobile app', d: 'Generate links and grab codes on the go. Share to your socials in seconds, and check your clicks, conversions, and earnings from your phone.', img: 'creator-partner-53-slide1.png?v=2',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="6" y="2" width="12" height="20" rx="3" /><path d="M11 18h2" /></svg> },
   { key: 'code', t: 'Code Generator', d: "Get a unique code to share where links don't work, like your Instagram captions. Your audience uses it at checkout and the sale tracks back to you.", img: 'creator-partner-slide2.png',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0l-7.2-7.2a2 2 0 0 1-.6-1.4V4a1 1 0 0 1 1-1h7.8a2 2 0 0 1 1.4.6l7.6 7.6a2 2 0 0 1 0 2.6Z" /><path d="M7.5 7.5h.01" /></svg> },
