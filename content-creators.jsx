@@ -1208,10 +1208,10 @@ function MadeForCarousel() {
         el.style.left = '175%';
         void el.offsetWidth;                           // commit the jump without animating it
         el.style.transition = '';
-        el.style.left = '112.5%';
+        el.style.left = '103.125%';
       } else {
         el.style.transition = animate ? '' : 'none';
-        el.style.left = d === 0 ? '50%' : (d === 2 ? '-12.5%' : '112.5%');
+        el.style.left = d === 0 ? '50%' : (d === 2 ? '-3.125%' : '103.125%');
       }
       el.style.opacity = d === 0 ? '1' : '0.32';
       el.style.zIndex = d === 0 ? '3' : '1';
@@ -1278,7 +1278,7 @@ function MadeFor() {
         .mf-cv{ position:relative; width:100%; max-width:476px; margin-inline:auto; aspect-ratio:476/445;
           border-radius:var(--r-xl); overflow:hidden; background:var(--warm-100); }
         /* top-anchored + taller than the frame, so the bottom crops against the rounded container (Figma) */
-        .mf-cv-screen{ position:absolute; top:8%; left:50%; width:49%; aspect-ratio:224/452;
+        .mf-cv-screen{ position:absolute; top:8%; left:50%; width:38%; aspect-ratio:224/452;
           transform:translateX(-50%); transition:left .8s cubic-bezier(.45,0,.15,1), opacity .8s ease;
           will-change:left,opacity; }
         .mf-cv-frame{ position:absolute; inset:0; border-radius:var(--r-xl); overflow:hidden;
