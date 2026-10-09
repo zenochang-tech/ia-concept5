@@ -132,7 +132,7 @@ function PubHero() {
         /* frosted glass box behind every UI element (matches Figma) */
         .ph-glass{ position:absolute; padding:7px; border-radius:var(--r-xl); background:rgba(255,255,255,.30);
           -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); box-shadow:0 14px 34px rgba(15,28,46,.12); }
-        .ph-g-link{ border-radius:var(--r-full); padding:6px; top:22%; right:-6%; }
+        .ph-g-link{ border-radius:var(--r-xl); padding:6px; top:22%; right:-6%; }
         .ph-g-prod{ left:-3%; bottom:12%; width:26%; max-width:120px; }
         .ph-g-sales{ right:-3%; bottom:8%; }
         .ph-g-conv{ right:-7%; top:15%; }
