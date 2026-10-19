@@ -1182,22 +1182,38 @@ const MADE_POINTS = [
    the recycled screen re-enters from off-stage right. Fixed sequence, right→left loop.
    Placeholder frames/icons until real assets land — swap `img`/`icon` below. */
 const SOCIAL_SCREENS = [
-  { key: 'tiktok',    label: 'TikTok',    img: 'creator-social-1.webp', icon: 'creator-icon-1.svg', tint: 'linear-gradient(155deg,#26262b,#3c3c44)' },
-  { key: 'instagram', label: 'Instagram', img: 'creator-social-2.webp', icon: 'creator-icon-2.svg', tint: 'linear-gradient(155deg,#feda75,#d62976 52%,#5b51d8)' },
-  { key: 'youtube',   label: 'YouTube',   img: 'creator-social-3.webp', icon: 'creator-icon-3.svg', tint: 'linear-gradient(155deg,#ff5b5b,#c1121f)' },
+  { key: 'tiktok',    label: 'TikTok',    video: 'tiktok-live-vid.mp4',     img: 'creator-social-1.webp', icon: 'creator-icon-1.svg', tint: 'linear-gradient(155deg,#26262b,#3c3c44)' },
+  { key: 'instagram', label: 'Instagram', video: 'instagram-story-vid.mp4', img: 'creator-social-2.webp', icon: 'creator-icon-2.svg', tint: 'linear-gradient(155deg,#feda75,#d62976 52%,#5b51d8)' },
+  { key: 'youtube',   label: 'YouTube',   video: 'youtube-vid.mp4',         img: 'creator-social-3.webp', icon: 'creator-icon-3.svg', tint: 'linear-gradient(155deg,#ff5b5b,#c1121f)' },
 ];
-const MADEFOR_MS = 3000;
+const MADEFOR_MS = 5000;   // matches the 5s clips so each video plays fully before advancing
 function MadeForCarousel() {
   const N = SOCIAL_SCREENS.length;
   const reduced = prefersReduced();
   const [active, setActive] = React.useState(0);
   const refs = React.useRef([]);
+  const videoRefs = React.useRef([]);
   const first = React.useRef(true);
   React.useEffect(() => {
     if (reduced) return;
     const id = setInterval(() => setActive(a => (a + 1) % N), MADEFOR_MS);
     return () => clearInterval(id);
   }, [reduced, N]);
+  /* Play the active slide's video from the start; pause every other.
+     When a slide becomes active again it restarts from 0. */
+  React.useEffect(() => {
+    if (reduced) return;                               // reduced motion: leave videos paused on their poster frame
+    videoRefs.current.forEach((v, i) => {
+      if (!v) return;
+      if (i === active) {
+        try { v.currentTime = 0; } catch (e) {}
+        const p = v.play();
+        if (p && p.catch) p.catch(() => {});
+      } else {
+        v.pause();
+      }
+    });
+  }, [active, reduced]);
   React.useLayoutEffect(() => {
     const animate = !first.current && !reduced;
     refs.current.forEach((el, i) => {
@@ -1229,10 +1245,15 @@ function MadeForCarousel() {
         return (
           <div key={s.key} ref={el => (refs.current[i] = el)}
                className={`mf-cv-screen${d === 0 ? ' is-center' : ''}`} aria-hidden={d !== 0}>
-            <div className="mf-cv-frame" style={s.img ? undefined : { background: s.tint }}>
-              {s.img
-                ? <img src={`media/figma/${s.img}`} alt={`${s.label} preview`} loading="lazy" />
-                : <span className="mf-cv-ph">{s.label}</span>}
+            <div className="mf-cv-frame" style={(s.video || s.img) ? undefined : { background: s.tint }}>
+              {s.video
+                ? <video ref={el => (videoRefs.current[i] = el)}
+                         src={`media/video/${s.video}`}
+                         poster={s.img ? `media/figma/${s.img}` : undefined}
+                         muted playsInline preload="auto" aria-label={`${s.label} preview`} />
+                : s.img
+                  ? <img src={`media/figma/${s.img}`} alt={`${s.label} preview`} loading="lazy" />
+                  : <span className="mf-cv-ph">{s.label}</span>}
             </div>
             <div className="mf-cv-icon" aria-hidden="true">
               {s.icon
@@ -1283,7 +1304,7 @@ function MadeFor() {
           will-change:left,opacity; }
         .mf-cv-frame{ position:absolute; inset:0; border-radius:var(--r-xl); overflow:hidden;
           box-shadow:-5px 4px 9px rgba(0,0,0,.16); }
-        .mf-cv-frame img{ width:100%; height:100%; object-fit:cover; object-position:top center; display:block; }
+        .mf-cv-frame img, .mf-cv-frame video{ width:100%; height:100%; object-fit:cover; object-position:top center; display:block; }
         .mf-cv-ph{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
           color:rgba(255,255,255,.94); font-family:var(--font-display); font-weight:800; font-size:clamp(15px,2.6vw,20px); letter-spacing:-.01em; }
         /* platform icon tile on the top-left of the screen; pops in on centre, shrinks/fades on the way out */
