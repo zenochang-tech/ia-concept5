@@ -1309,14 +1309,8 @@ function HeroHexField() {
   }, [paths]);
   return (
     <svg ref={svgRef} className="hexfield" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-      <defs>
-        <linearGradient id="hexGrad" gradientUnits="userSpaceOnUse" x1={W * 0.12} y1={H * 0.32} x2={W * 0.92} y2={H * 0.78}>
-          <stop offset="0" stopColor="#F05826" />
-          <stop offset="1" stopColor="#6A9CDF" />
-        </linearGradient>
-      </defs>
-      <g opacity="0.269" fill="url(#hexGrad)">
-        {paths.map((d, i) => <path key={i} className="hx" d={d} fillOpacity="0.32" />)}
+      <g fill="var(--warm-100)">
+        {paths.map((d, i) => <path key={i} className="hx" d={d} />)}
       </g>
     </svg>
   );
@@ -1350,8 +1344,7 @@ function Hero({ dark = false, hex = 3, emphasis = 'equal' }) {
 
   return (
     <section id="hero" className="hero2-sec" style={{ background: 'var(--warm-50)', color: 'var(--warm-900)', position: 'relative', overflow: 'hidden', paddingTop: 'clamp(48px,6vh,76px)', paddingBottom: 0 }}>
-      {/* soft ember (bottom-left) + blue (bottom-right) colour glows, and the interactive honeycomb */}
-      <div className="hero2-glow" aria-hidden="true" />
+      {/* interactive honeycomb */}
       <HeroHexField />
       <div className="wrap hero2" style={{ position: 'relative', zIndex: 1 }}>
         <div className="hero2-grid">
@@ -1409,11 +1402,6 @@ function Hero({ dark = false, hex = 3, emphasis = 'equal' }) {
         /* inside the content wrap now, so break out to full viewport width; layered above the figure (z1), below the copy (z3) */
         .hero2-basefade{ position:absolute; left:50%; width:100vw; transform:translateX(-50%); bottom:0; height:clamp(200px,34%,360px); z-index:2; pointer-events:none;
           background:linear-gradient(to bottom, rgba(250,250,248,0) 0%, rgba(250,250,248,0) 34%, rgba(250,250,248,.6) 66%, rgba(250,250,248,.95) 86%, var(--warm-50) 100%); }
-        /* soft ember (bottom-left) + blue (bottom-right) colour glows */
-        .hero2-glow{ position:absolute; inset:0; z-index:0; pointer-events:none;
-          background:
-            radial-gradient(44% 48% at 10% 94%, rgba(240,88,38,.15), rgba(240,88,38,0) 70%),
-            radial-gradient(48% 52% at 92% 90%, rgba(106,156,223,.20), rgba(106,156,223,0) 70%); }
         /* interactive honeycomb field behind the figures (now the right column) — exact Figma hexes, cursor-repelled */
         .hexfield{ position:absolute; left:76%; top:46%; transform:translate(-50%,-50%); width:min(448px,40%); height:auto; z-index:0; pointer-events:none; }
         .hexfield .hx{ will-change:transform; }
