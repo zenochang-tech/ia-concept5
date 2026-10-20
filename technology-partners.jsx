@@ -1360,14 +1360,22 @@ const CREATE_TABS = [
   { key: 'datafeed', t: 'Datafeed Manager', d: 'Pull live product data like prices, offers, and stock to surface catalogues inside your product.', img: 'aff-partner-slide1.png?v=2',
     ic: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3" /><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" /><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" /></svg> },
 ];
-const CREATE_TABS_MS = 5000;
+const CREATE_TABS_MS = 12000;
 function BuiltCreate() {
   const [active, setActive] = React.useState(0);
-  React.useEffect(() => {
-    if (prefersReduced()) return;
-    const t = setTimeout(() => setActive((a) => (a + 1) % CREATE_TABS.length), CREATE_TABS_MS);
-    return () => clearTimeout(t);
-  }, [active]);
+  // Which step the mouse is over (index or null). Hovering the active step's
+  // content pauses the rail; the image beside it doesn't. Touch taps are ignored
+  // so the pause can't get stuck on mobile.
+  const [hover, setHover] = React.useState(null);
+  const paused = hover === active;
+  const hoverProps = (k) => ({
+    onPointerEnter: (e) => { if (e.pointerType === 'mouse') setHover(k); },
+    onPointerLeave: (e) => { if (e.pointerType === 'mouse') setHover(null); },
+  });
+  // The rail-fill animation is the timer: advancing on its animationend keeps the
+  // bar and the slide change in sync, and pausing the animation pauses both.
+  // Under reduced motion the animation is off, so there's no auto-advance.
+  const next = () => setActive((a) => (a + 1) % CREATE_TABS.length);
   return (
     <section id="cc-create" className="pf-sec cct-sec">
       <div className="wrap">
@@ -1378,10 +1386,10 @@ function BuiltCreate() {
             {CREATE_TABS.map((s, i) => {
               const on = i === active;
               return (
-                <button type="button" className={'pf-step' + (on ? ' on' : '')} key={s.key} onClick={() => setActive(i)} aria-expanded={on}>
-                  <span className="pf-rail" aria-hidden="true"><span className="pf-rail-track" />{on && <span className="pf-rail-fill" key={active} />}</span>
+                <button type="button" className={'pf-step' + (on ? ' on' : '')} key={s.key} onClick={() => setActive(i)} aria-expanded={on} {...hoverProps(i)}>
+                  <span className="pf-rail" aria-hidden="true"><span className="pf-rail-track" />{on && <span className="pf-rail-fill" key={active} onAnimationEnd={next} style={{ animationPlayState: paused ? 'paused' : 'running' }} />}</span>
                   <span className="pf-step-body">
-                    <span className="pf-step-t"><span className="pf-step-ic" aria-hidden="true">{s.ic}</span>{s.t}</span>
+                    <span className="pf-step-t">{s.t}</span>
                     <span className="pf-step-dw"><span className="pf-step-d">{s.d}</span></span>
                     <span className="pf-step-fig"><span className="pf-step-fig-in"><img className="cct-img-m" src={`media/figma/${s.img}`} alt="" loading="lazy" /></span></span>
                   </span>
@@ -1404,16 +1412,14 @@ function BuiltCreate() {
         .pf-steps{ display:flex; flex-direction:column; }
         .pf-step{ position:relative; display:flex; gap:20px; align-items:stretch; text-align:left; background:none; border:none; cursor:pointer; padding:30px 0; width:100%; }
         .pf-step + .pf-step{ border-top:1px solid var(--warm-200); }
-        .pf-rail{ position:relative; width:8px; flex:0 0 auto; align-self:stretch; }
+        .pf-rail{ position:relative; width:4px; flex:0 0 auto; align-self:stretch; }
         .pf-rail-track{ position:absolute; inset:0; border-radius:var(--r-full); background:var(--warm-200); opacity:0; transition:opacity .3s ease; }
-        .pf-rail-fill{ position:absolute; left:0; top:0; width:8px; border-radius:var(--r-full); background:var(--ember); height:0; }
+        .pf-rail-fill{ position:absolute; left:0; top:0; width:4px; border-radius:var(--r-full); background:var(--ember); height:0; }
         .pf-step.on .pf-rail-track{ opacity:1; }
         .pf-step.on .pf-rail-fill{ animation:cctFill ${CREATE_TABS_MS}ms linear forwards; }
         @keyframes cctFill{ from{ height:0; } to{ height:100%; } }
         .pf-step-body{ min-width:0; }
         .pf-step-t{ display:flex; align-items:center; gap:11px; font-family:var(--font-display); font-weight:800; font-size:21px; letter-spacing:-.02em; color:var(--warm-900); }
-        .pf-step-ic{ display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; flex:0 0 auto; color:var(--ember); }
-        .pf-step-ic svg{ width:24px; height:24px; }
         .pf-step-dw{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .4s ease; }
         .pf-step.on .pf-step-dw{ grid-template-rows:1fr; }
         .pf-step-d{ overflow:hidden; margin-top:0; font:400 16px/1.5 var(--font-body); color:var(--warm-600); }

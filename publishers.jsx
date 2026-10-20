@@ -357,7 +357,7 @@ const PUB_PLATFORM = [
   { key: 'track', t: 'Track your earnings', d: 'Watch your clicks, sales, and commissions update in real time, on web or the app.', img: 'publisher-feature-03.png' },
   { key: 'paid', t: 'Get paid', d: 'Withdraw in your preferred currency once your conversions are validated, or sooner with Express Withdrawal.', img: 'publisher-feature-04.png' },
 ];
-const PUB_PLATFORM_MS = 5000;
+const PUB_PLATFORM_MS = 12000;
 function PubPlatform() {
   const isMobile = () => typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width:900px)').matches;
   const mobileRef = React.useRef(isMobile());
@@ -365,12 +365,20 @@ function PubPlatform() {
   // Desktop starts on the first card + auto-advances; mobile starts all-closed and opens the
   // first card only when the section scrolls into view (then stays tap-to-open, no auto-advance).
   const [active, setActive] = React.useState(() => (mobileRef.current ? -1 : 0));
-  React.useEffect(() => {
-    if (mobileRef.current) return;                // no auto-advance on mobile
-    if (prefersReduced()) return;                 // no auto-advance under reduced motion
-    const t = setTimeout(() => setActive((a) => (a + 1) % PUB_PLATFORM.length), PUB_PLATFORM_MS);
-    return () => clearTimeout(t);
-  }, [active]);
+  // Which step the mouse is over (index or null). Hovering the active step's
+  // content pauses the rail; the image beside it doesn't. Touch taps are ignored
+  // so the pause can't get stuck on mobile.
+  const [hover, setHover] = React.useState(null);
+  const paused = hover === active;
+  const hoverProps = (k) => ({
+    onPointerEnter: (e) => { if (e.pointerType === 'mouse') setHover(k); },
+    onPointerLeave: (e) => { if (e.pointerType === 'mouse') setHover(null); },
+  });
+  // The rail-fill animation is the timer: advancing on its animationend keeps the
+  // bar and the slide change in sync, and pausing the animation pauses both.
+  // Under reduced motion the animation is off, so there's no auto-advance.
+  // No auto-advance on mobile (the rail is hidden there too).
+  const next = () => { if (!mobileRef.current) setActive((a) => (a + 1) % PUB_PLATFORM.length); };
   // Mobile: open the FIRST card once, when the section enters the viewport (entrance animation).
   React.useEffect(() => {
     if (!mobileRef.current) return;
@@ -393,10 +401,10 @@ function PubPlatform() {
             {PUB_PLATFORM.map((s, i) => {
               const on = i === active;
               return (
-                <button type="button" className={'pf-step' + (on ? ' on' : '')} key={s.key} onClick={() => setActive(i)} aria-expanded={on}>
+                <button type="button" className={'pf-step' + (on ? ' on' : '')} key={s.key} onClick={() => setActive(i)} aria-expanded={on} {...hoverProps(i)}>
                   <span className="pf-rail" aria-hidden="true">
                     <span className="pf-rail-track" />
-                    {on && <span className="pf-rail-fill" key={active} />}
+                    {on && <span className="pf-rail-fill" key={active} onAnimationEnd={next} style={{ animationPlayState: paused ? 'paused' : 'running' }} />}
                   </span>
                   <span className="pf-step-body">
                     <span className="pf-step-t">{s.t}</span>
@@ -422,9 +430,9 @@ function PubPlatform() {
         .pf-steps{ display:flex; flex-direction:column; }
         .pf-step{ position:relative; display:flex; gap:20px; align-items:stretch; text-align:left; background:none; border:none; cursor:pointer; padding:34px 0; width:100%; }
         .pf-step + .pf-step{ border-top:1px solid var(--warm-200); }
-        .pf-rail{ position:relative; width:8px; flex:0 0 auto; align-self:stretch; }
+        .pf-rail{ position:relative; width:4px; flex:0 0 auto; align-self:stretch; }
         .pf-rail-track{ position:absolute; inset:0; border-radius:var(--r-full); background:var(--warm-200); opacity:0; transition:opacity .3s ease; }
-        .pf-rail-fill{ position:absolute; left:0; top:0; width:8px; border-radius:var(--r-full); background:var(--ember); height:0; }
+        .pf-rail-fill{ position:absolute; left:0; top:0; width:4px; border-radius:var(--r-full); background:var(--ember); height:0; }
         .pf-step.on .pf-rail-track{ opacity:1; }
         .pf-step.on .pf-rail-fill{ animation:pfFill ${PUB_PLATFORM_MS}ms linear forwards; }
         @keyframes pfFill{ from{ height:0; } to{ height:100%; } }
