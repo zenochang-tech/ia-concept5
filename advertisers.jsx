@@ -1291,7 +1291,7 @@ const ADV_PLATFORM = [
     img: 'Adv-feature-slide01.png',
   },
   {
-    key: 'reward', t: 'Or we recruit them for you.',
+    key: 'reward', t: 'Request publisher recruitment',
     d: 'Prefer a hand? Our team runs recruitment campaigns and introduces publishers that fit your brand, and you approve who joins.',
     img: 'Adv-feature-slide02.png',
   },
