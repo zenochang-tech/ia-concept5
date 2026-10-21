@@ -999,6 +999,11 @@ function Nav({ getStartedTone = 'midnight' }) {
 
       <style>{`
         .lang-menu{transform-origin:top right; animation:navPanel .18s cubic-bezier(.22,1,.36,1) both;}
+        /* The sticky nav is transparent over the hero, so let the hero's decoration (hexagons,
+           floating cards) run up behind it instead of being cut off at the nav line. Sides and
+           bottom stay clipped (overflow-x:clip also keeps horizontal scroll away). */
+        main > section:first-child{ overflow:visible !important; overflow-x:clip !important; clip-path:inset(-100vh 0 0 0); }
+        main > section:first-child .ph-hexdeco{ overflow:visible; }
         @keyframes navPanel{from{opacity:0;transform:translateY(-8px) scale(.985)}to{opacity:1;transform:none}}
         .nav-item:hover{background:var(--warm-100);}
         .nav-desk a{color:var(--warm-600);}
