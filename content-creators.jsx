@@ -1184,8 +1184,8 @@ const MADE_POINTS = [
    Placeholder frames/icons until real assets land — swap `img`/`icon` below. */
 const SOCIAL_SCREENS = [
   { key: 'tiktok',    label: 'TikTok',    video: 'tiktok-live-vid.mp4',     img: 'creator-social-1.webp', icon: 'creator-icon-1.svg', tint: 'linear-gradient(155deg,#26262b,#3c3c44)' },
-  { key: 'instagram', label: 'Instagram', video: 'instagram-story-vid.mp4', img: 'creator-social-2.webp', icon: 'creator-icon-2.svg', tint: 'linear-gradient(155deg,#feda75,#d62976 52%,#5b51d8)' },
   { key: 'youtube',   label: 'YouTube',   video: 'youtube-vid.mp4',         img: 'creator-social-3.webp', icon: 'creator-icon-3.svg', tint: 'linear-gradient(155deg,#ff5b5b,#c1121f)' },
+  { key: 'instagram', label: 'Instagram', video: 'instagram-story-vid.mp4', img: 'creator-social-2.webp', icon: 'creator-icon-2.svg', tint: 'linear-gradient(155deg,#feda75,#d62976 52%,#5b51d8)' },
 ];
 const MADEFOR_MS = 5000;   // matches the 5s clips so each video plays fully before advancing
 function MadeForCarousel() {
@@ -1240,7 +1240,7 @@ function MadeForCarousel() {
     }
   }, [active, reduced, N]);
   return (
-    <div className="mf-cv" role="group" aria-roledescription="carousel" aria-label="The same creator sharing a product across TikTok, Instagram and YouTube">
+    <div className="mf-cv" role="group" aria-roledescription="carousel" aria-label="The same creator sharing a product across TikTok, YouTube and Instagram">
       {SOCIAL_SCREENS.map((s, i) => {
         const d = (i - active + N) % N;
         return (
