@@ -764,6 +764,7 @@ function TierPill() {
     </div>
   );
 }
+const BE_TILE_BRANDS = ['CapCut', 'UOB', 'TikTok', 'Udemy', 'Shopee', 'PUMA', 'Huawei', 'Xiaomi'];   // pub-be-t1..8.png, in order
 function PubBuilt() {
   return (
     <section id="pub-built" className="be-sec">
@@ -781,7 +782,7 @@ function PubBuilt() {
             <div className="be-card">
               <div className="be-logos">
                 {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-                  <span className="be-tile" key={n}><img src={`media/figma/pub-be-t${n}.png`} alt="" loading="lazy" /></span>
+                  <span className="be-tile" key={n}><img src={`media/figma/pub-be-t${n}.png`} alt={BE_TILE_BRANDS[n - 1]} loading="lazy" /></span>
                 ))}
               </div>
             </div>
@@ -1358,7 +1359,7 @@ function AdvPlatform() {
                   <span className="pf-step-body">
                     <span className="pf-step-t">{s.t}</span>
                     <span className="pf-step-dw"><span className="pf-step-d">{s.d}</span></span>
-                    <span className="pf-step-fig"><span className="pf-step-fig-in"><img className="pf-step-fig-img" src={`media/figma/${s.img}`} alt="" loading="lazy" /></span></span>
+                    <span className="pf-step-fig"><span className="pf-step-fig-in"><img className="pf-step-fig-img" src={`media/figma/${s.img}`} alt={s.t} loading="lazy" /></span></span>
                   </span>
                 </button>
               );
@@ -1366,7 +1367,7 @@ function AdvPlatform() {
           </div>
           <div className="pf-visual">
             {ADV_PLATFORM.map((s, i) => (
-              <img key={s.key} className={'pf-img' + (i === active ? ' on' : '')} src={`media/figma/${s.img}`} alt="" loading="lazy" aria-hidden={i !== active} />
+              <img key={s.key} className={'pf-img' + (i === active ? ' on' : '')} src={`media/figma/${s.img}`} alt={s.t} loading="lazy" aria-hidden={i !== active} />
             ))}
           </div>
         </div>

@@ -1317,7 +1317,7 @@ function AdvPlatform() {
           </div>
           <div className="pf-visual">
             {ADV_PLATFORM.map((s, i) => (
-              <img key={s.key} className={'pf-img' + (i === active ? ' on' : '')} src={`media/figma/${s.img}`} alt="" loading="lazy" aria-hidden={i !== active} />
+              <img key={s.key} className={'pf-img' + (i === active ? ' on' : '')} src={`media/figma/${s.img}`} alt={s.t} loading="lazy" aria-hidden={i !== active} />
             ))}
           </div>
         </div>

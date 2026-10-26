@@ -716,6 +716,7 @@ function TierPill() {
     </div>
   );
 }
+const BE_TILE_BRANDS = ['CapCut', 'UOB', 'TikTok', 'Udemy', 'Shopee', 'PUMA', 'Huawei', 'Xiaomi'];   // pub-be-t1..8.png, in order
 function PubBuilt() {
   return (
     <section id="pub-built" className="be-sec">
@@ -733,7 +734,7 @@ function PubBuilt() {
             <div className="be-card">
               <div className="be-logos">
                 {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-                  <span className="be-tile" key={n}><img src={`media/figma/pub-be-t${n}.png`} alt="" loading="lazy" /></span>
+                  <span className="be-tile" key={n}><img src={`media/figma/pub-be-t${n}.png`} alt={BE_TILE_BRANDS[n - 1]} loading="lazy" /></span>
                 ))}
               </div>
             </div>

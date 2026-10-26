@@ -5,3 +5,7 @@
 *.bak
 *.bak-*
 *.orig
+
+# build tooling + output (dist/ is built and published by GitHub Actions)
+node_modules/
+dist/

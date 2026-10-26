@@ -409,7 +409,7 @@ function PubPlatform() {
                   <span className="pf-step-body">
                     <span className="pf-step-t">{s.t}</span>
                     <span className="pf-step-dw"><span className="pf-step-d">{s.d}</span></span>
-                    <span className="pf-step-fig"><span className="pf-step-fig-in"><img className="pf-step-fig-img" src={`media/figma/${s.img}`} alt="" loading="lazy" /></span></span>
+                    <span className="pf-step-fig"><span className="pf-step-fig-in"><img className="pf-step-fig-img" src={`media/figma/${s.img}`} alt={s.t} loading="lazy" /></span></span>
                   </span>
                 </button>
               );
@@ -418,7 +418,7 @@ function PubPlatform() {
           </div>
           <div className="pf-visual">
             {PUB_PLATFORM.map((s, i) => (
-              <img key={s.key} className={'pf-img' + (i === active ? ' on' : '')} src={`media/figma/${s.img}`} alt="" loading="lazy" aria-hidden={i !== active} />
+              <img key={s.key} className={'pf-img' + (i === active ? ' on' : '')} src={`media/figma/${s.img}`} alt={s.t} loading="lazy" aria-hidden={i !== active} />
             ))}
           </div>
         </div>
