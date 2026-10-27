@@ -140,7 +140,7 @@ function PubHero() {
         .ph-g-pay-b{ left:-8%; top:26%; }
         .ph-slide.is-active .ph-slide-ui > .ph-g-pay-b{ opacity:.62; }   /* second payout sits behind, fainter */
         /* inner white cards / pills */
-        .ph-link{ display:inline-flex; align-items:center; gap:9px; background:#fff; border-radius:var(--r-full); padding:9px 16px 9px 9px;
+        .ph-link{ display:inline-flex; align-items:center; gap:9px; background:#fff; border-radius:var(--r-lg); padding:9px 16px 9px 9px;
           box-shadow:0 2px 6px rgba(15,28,46,.08); font:600 14px/1 var(--font-body); color:var(--warm-900); white-space:nowrap; }
         .ph-link-ic{ display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:var(--r-full);
           background:var(--warm-100); color:var(--warm-700); flex:0 0 auto; }
