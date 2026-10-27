@@ -1496,10 +1496,10 @@ function WhyEarn() {
 }
 /* ---------- CC §2b — "How it works" (3 numbered steps) — Figma 2546:45011 ---------- */
 const HIW_STEPS = [
-  { t: 'Connect the API', d: 'Integrate once, and bring product data, trackable links, and real-time conversions into your own product.', img: 'hiw-tech-1.png' },
-  { t: 'Surface relevant offers', d: 'Show cashback and deals your users actually want, inside your own UI.', img: 'htr-tech-card02.png' },
-  { t: 'Earn on every sale', d: 'When a user buys through your product, the sale is credited to you.', img: 'htr-allpartner-card03.png' },
-  { t: 'Get paid', d: 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.', img: 'hiw-tech-4.png' },
+  { t: 'Connect the API', d: 'Integrate once, and bring product data, trackable links, and real-time conversions into your own product.', img: 'general-hye-01.png' },
+  { t: 'Surface relevant offers', d: 'Show cashback and deals your users actually want, inside your own UI.', img: 'tp-hye-02.png' },
+  { t: 'Earn on every sale', d: 'When a user buys through your product, the sale is credited to you.', img: 'general-hye-03.png' },
+  { t: 'Get paid', d: 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.', img: 'general-hye-04.png' },
 ];
 // Card 1 (Connect the API): a code editor card that bleeds off the right & bottom
 // of the frame (cropped), with the request lines typing in then a JSON response
@@ -1579,7 +1579,7 @@ function HowItWorks() {
         <div className="hiw-grid">
           {HIW_STEPS.map((s, i) => (
             <div className="hiw-step" key={s.t} data-reveal data-reveal-delay={i + 1}>
-              <div className={'hiw-card' + (i === 0 ? ' hiw-card-api' : '') + (s.t === 'Get paid' ? ' hiw-card-pay' : '')}>{i === 0 ? <ApiCard /> : (s.t === 'Get paid' ? <GetPaidPill /> : (s.img ? <img src={`media/figma/${s.img}`} alt="" loading="lazy" onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }} /> : null))}</div>
+              <div className="hiw-card"><img src={`media/figma/${s.img}`} alt="" loading="lazy" onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }} /></div>
               <h3 className="hiw-ct">{i + 1}. {s.t}</h3>
               <p className="hiw-cd">{s.d}</p>
             </div>
@@ -1591,8 +1591,8 @@ function HowItWorks() {
         .hiw-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
         .hiw-grid{ margin-top:clamp(34px,5.5vh,58px); display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(20px,2.2vw,32px); }
         .hiw-step{ min-width:0; }
-        .hiw-card{ height:178px; border-radius:var(--r-xl); background:var(--warm-100); overflow:hidden; display:flex; align-items:center; justify-content:center; }
-        .hiw-card img{ width:100%; height:100%; object-fit:cover; display:block; }
+        .hiw-card{ height:178px; border-radius:var(--r-lg); background:var(--warm-100); overflow:hidden; display:flex; align-items:center; justify-content:center; }
+        .hiw-card img{ width:100%; height:100%; object-fit:cover; object-position:left center; display:block; }   /* art bleeds off the right; keep its left inset */
         /* card 1 — code editor card cropped off the right & bottom of the frame */
         .hiw-card-api{ position:relative; }
         .ac-card{ position:absolute; top:26px; left:32px; width:300px; min-height:180px; box-sizing:border-box;

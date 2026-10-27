@@ -1396,10 +1396,10 @@ function ScaleApi() {
 }
 /* ---------- Affiliates §4b — "How it works" (3 numbered steps) — Figma 2546:45012 ---------- */
 const HIW_STEPS = [
-  { t: 'Find offers', d: 'Browse 4,000+ offers across 500+ brands, with the rates and terms up front.', img: 'hiw-aff-1.png' },
-  { t: 'Add links, or pull the datafeed', d: 'Drop trackable links into your content in a couple of clicks, or feed live product data into your site to run at scale.', img: 'htr-affiliate-card02.png' },
-  { t: 'Earn on every sale', d: 'When someone buys through your link, the sale is credited to you.', img: 'htr-allpartner-card03.png' },
-  { t: 'Get paid', d: 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.', img: 'hiw-aff-4.png' },
+  { t: 'Find offers', d: 'Browse 4,000+ offers across 500+ brands, with the rates and terms up front.', img: 'general-hye-01.png' },
+  { t: 'Add links, or pull the datafeed', d: 'Drop trackable links into your content in a couple of clicks, or feed live product data into your site to run at scale.', img: 'affp-hye-02.png' },
+  { t: 'Earn on every sale', d: 'When someone buys through your link, the sale is credited to you.', img: 'general-hye-03.png' },
+  { t: 'Get paid', d: 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.', img: 'general-hye-04.png' },
 ];
 // Card 1 (Pick a brand): a 4x2 grid of brand logos where one logo is "active" at
 // a time; a single timer advances the playhead row by row (0..7) and loops.
@@ -1487,7 +1487,7 @@ function HowItWorks() {
         <div className="hiw-grid">
           {HIW_STEPS.map((s, i) => (
             <div className="hiw-step" key={s.t} data-reveal data-reveal-delay={i + 1}>
-              <div className={'hiw-card' + (s.t === 'Get paid' ? ' hiw-card-pay' : '')}>{i === 0 ? <BrandGrid /> : (s.t === 'Get paid' ? <GetPaidPill /> : (s.img ? <img src={`media/figma/${s.img}`} alt="" loading="lazy" onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }} /> : null))}</div>
+              <div className="hiw-card"><img src={`media/figma/${s.img}`} alt="" loading="lazy" onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }} /></div>
               <h3 className="hiw-ct">{i + 1}. {s.t}</h3>
               <p className="hiw-cd">{s.d}</p>
             </div>
@@ -1499,8 +1499,8 @@ function HowItWorks() {
         .hiw-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
         .hiw-grid{ margin-top:clamp(34px,5.5vh,58px); display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(20px,2.2vw,32px); }
         .hiw-step{ min-width:0; }
-        .hiw-card{ height:178px; border-radius:var(--r-xl); background:var(--warm-100); overflow:hidden; display:flex; align-items:center; justify-content:center; }
-        .hiw-card img{ width:100%; height:100%; object-fit:cover; display:block; }
+        .hiw-card{ height:178px; border-radius:var(--r-lg); background:var(--warm-100); overflow:hidden; display:flex; align-items:center; justify-content:center; }
+        .hiw-card img{ width:100%; height:100%; object-fit:cover; object-position:left center; display:block; }   /* art bleeds off the right; keep its left inset */
         .bg-grid{ --bg-cell:50px; --bg-gap:6px; --bg-inactive:0.746;
           display:grid; grid-template-columns:repeat(4,var(--bg-cell)); grid-auto-rows:var(--bg-cell); gap:var(--bg-gap);
           justify-content:center; align-content:center; }

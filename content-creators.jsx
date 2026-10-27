@@ -1181,11 +1181,11 @@ const MADE_POINTS = [
    Motion (per Figma node 3134:4169): each screen slides in from the right to centre,
    its platform icon pops up; on the way out to the left the icon shrinks and fades;
    the recycled screen re-enters from off-stage right. Fixed sequence, right→left loop.
-   Placeholder frames/icons until real assets land — swap `img`/`icon` below. */
+   `img` is each video's poster: its first frame (shown on the peeking slides before they play). */
 const SOCIAL_SCREENS = [
-  { key: 'tiktok',    label: 'TikTok',    video: 'tiktok-live-vid.mp4',     img: 'creator-social-1.webp', icon: 'creator-icon-1.svg', tint: 'linear-gradient(155deg,#26262b,#3c3c44)' },
-  { key: 'youtube',   label: 'YouTube',   video: 'youtube-vid.mp4',         img: 'creator-social-3.webp', icon: 'creator-icon-3.svg', tint: 'linear-gradient(155deg,#ff5b5b,#c1121f)' },
-  { key: 'instagram', label: 'Instagram', video: 'instagram-story-vid.mp4', img: 'creator-social-2.webp', icon: 'creator-icon-2.svg', tint: 'linear-gradient(155deg,#feda75,#d62976 52%,#5b51d8)' },
+  { key: 'tiktok',    label: 'TikTok',    video: 'tiktok-live-vid.mp4',     img: 'creator-social-tiktok-poster.webp', icon: 'creator-icon-1.svg', tint: 'linear-gradient(155deg,#26262b,#3c3c44)' },
+  { key: 'youtube',   label: 'YouTube',   video: 'youtube-vid.mp4',         img: 'creator-social-youtube-poster.webp', icon: 'creator-icon-3.svg', tint: 'linear-gradient(155deg,#ff5b5b,#c1121f)' },
+  { key: 'instagram', label: 'Instagram', video: 'instagram-story-vid.mp4', img: 'creator-social-instagram-poster.webp', icon: 'creator-icon-2.svg', tint: 'linear-gradient(155deg,#feda75,#d62976 52%,#5b51d8)' },
 ];
 const MADEFOR_MS = 5000;   // matches the 5s clips so each video plays fully before advancing
 function MadeForCarousel() {
@@ -1462,10 +1462,10 @@ function WhyEarn() {
 }
 /* ---------- CC §2b — "How it works" (3 numbered steps) — Figma 2546:45011 ---------- */
 const HIW_STEPS = [
-  { t: 'Pick a brand', d: 'Browse 500+ brands and choose products that fit your audience.', img: 'hiw-creator-1.png' },
-  { t: 'Share your link', d: 'Drop a trackable link in your bio, stories, or captions, or share a promo code.', img: 'htr-creator-card02.png' },
-  { t: 'Earn on every sale', d: 'When a follower buys through your link, the sale is credited to you.', img: 'htr-allpartner-card03.png' },
-  { t: 'Get paid', d: 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.', img: 'hiw-creator-4.png' },
+  { t: 'Pick a brand', d: 'Browse 500+ brands and choose products that fit your audience.', img: 'general-hye-01.png' },
+  { t: 'Share your link', d: 'Drop a trackable link in your bio, stories, or captions, or share a promo code.', img: 'cc-hye-02.png' },
+  { t: 'Earn on every sale', d: 'When a follower buys through your link, the sale is credited to you.', img: 'general-hye-03.png' },
+  { t: 'Get paid', d: 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.', img: 'general-hye-04.png' },
 ];
 // Card 1 (Pick a brand): a 4x2 grid of brand logos where one logo is "active" at
 // a time; a single timer advances the playhead row by row (0..7) and loops.
@@ -1553,7 +1553,7 @@ function HowItWorks() {
         <div className="hiw-grid">
           {HIW_STEPS.map((s, i) => (
             <div className="hiw-step" key={s.t} data-reveal data-reveal-delay={i + 1}>
-              <div className={'hiw-card' + (s.t === 'Get paid' ? ' hiw-card-pay' : '')}>{i === 0 ? <BrandGrid /> : (s.t === 'Get paid' ? <GetPaidPill /> : (s.img ? <img src={`media/figma/${s.img}`} alt="" loading="lazy" onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }} /> : null))}</div>
+              <div className="hiw-card"><img src={`media/figma/${s.img}`} alt="" loading="lazy" onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }} /></div>
               <h3 className="hiw-ct">{i + 1}. {s.t}</h3>
               <p className="hiw-cd">{s.d}</p>
             </div>
@@ -1565,8 +1565,8 @@ function HowItWorks() {
         .hiw-title{ text-align:center; font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
         .hiw-grid{ margin-top:clamp(34px,5.5vh,58px); display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(20px,2.2vw,32px); }
         .hiw-step{ min-width:0; }
-        .hiw-card{ height:178px; border-radius:var(--r-xl); background:var(--warm-100); overflow:hidden; display:flex; align-items:center; justify-content:center; }
-        .hiw-card img{ width:100%; height:100%; object-fit:cover; display:block; }
+        .hiw-card{ height:178px; border-radius:var(--r-lg); background:var(--warm-100); overflow:hidden; display:flex; align-items:center; justify-content:center; }
+        .hiw-card img{ width:100%; height:100%; object-fit:cover; object-position:left center; display:block; }   /* art bleeds off the right; keep its left inset */
         .bg-grid{ --bg-cell:50px; --bg-gap:6px; --bg-inactive:0.746;
           display:grid; grid-template-columns:repeat(4,var(--bg-cell)); grid-auto-rows:var(--bg-cell); gap:var(--bg-gap);
           justify-content:center; align-content:center; }
