@@ -7,7 +7,7 @@
 
 // Shared UI comes from ia-shared.jsx (pulled off window so this works regardless
 // of how Babel-standalone scopes each script tag).
-const { Nav, Footer, Arrow, BackToTop, useSmoothScroll, useScrollReveal } = window;
+const { Nav, Footer, Arrow, BackToTop, useSmoothScroll, useScrollReveal, FinalCta, Faq, LogoMarquee } = window;
 
 /* ---------- Section 1 — Hero ---------------------------------------------- */
 /* Decorative honeycomb reused from the final CTA (pub-cta-hexfield.svg), rendered faint blue. */
@@ -349,102 +349,8 @@ function PricingHow() {
   );
 }
 /* ---------- Section 2 — Logo strip ---------------------------------------- */
-const PUB_LOGOS = [
-  ['Apple', 'pub-logo-apple.png', 42],
-  ['Nike', 'pub-logo-nike.png', 34],
-  ['SHEIN', 'pub-logo-shein.png', 22],
-  ['UOB', 'pub-logo-uob.png', 26],
-  ['TikTok Shop', 'pub-logo-tiktokshop.png', 60],
-  ['airasia', 'pub-logo-airasia.png', 30],
-  ['Klook', 'pub-logo-klook.png', 54],
-];
 function PubLogos() {
-  const trackRef = React.useRef(null);
-  const marqRef = React.useRef(null);
-  const [reps, setReps] = React.useState(2);
-  // Repeat the logo set until one loop spans at least the visible strip width, so the
-  // marquee never shows a blank gap before the next copy scrolls in.
-  React.useEffect(() => {
-    const track = trackRef.current, marq = marqRef.current;
-    if (!track || !marq) return;
-    const imgs = Array.prototype.slice.call(track.querySelectorAll('img'));
-    const fit = () => {
-      if (imgs.some((im) => !im.complete)) return;         // wait until the logos are measurable
-      const baseW = track.scrollWidth / (2 * reps);
-      if (baseW < 40) return;
-      const need = Math.min(8, Math.max(1, Math.ceil((marq.clientWidth + 8) / baseW)));
-      if (need !== reps) setReps(need);
-    };
-    fit();
-    imgs.forEach((im) => im.addEventListener('load', fit));
-    window.addEventListener('resize', fit);
-    const ro = window.ResizeObserver ? new ResizeObserver(fit) : null;
-    if (ro) { ro.observe(track); ro.observe(marq); }
-    return () => { imgs.forEach((im) => im.removeEventListener('load', fit)); window.removeEventListener('resize', fit); if (ro) ro.disconnect(); };
-  }, [reps]);
-  // Auto-sliding + draggable marquee, ported from the homepage TrustStrip. Content is
-  // duplicated so wrapping the offset into (-half, 0] loops seamlessly. Reduced-motion =
-  // static, drag-only.
-  React.useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const norm = (o, half) => { if (!half) return 0; o %= half; if (o > 0) o -= half; return o; };
-    const SPEED = 30;                                    // px/sec — subtle
-    const s = { offset: 0, half: el.scrollWidth / 2 || 1, dragging: false, startX: 0, startOffset: 0 };
-    const draw = () => { el.style.transform = `translate3d(${s.offset.toFixed(1)}px,0,0)`; };
-    const row = el.parentElement;
-    const onDown = (e) => { s.dragging = true; s.startX = e.clientX; s.startOffset = s.offset; row.classList.add('grabbing'); try { row.setPointerCapture(e.pointerId); } catch (_) {} };
-    const onMove = (e) => { if (!s.dragging) return; s.offset = norm(s.startOffset + (e.clientX - s.startX), s.half); draw(); };
-    const onUp = (e) => { if (!s.dragging) return; s.dragging = false; row.classList.remove('grabbing'); try { row.releasePointerCapture(e.pointerId); } catch (_) {} };
-    row.addEventListener('pointerdown', onDown);
-    row.addEventListener('pointermove', onMove);
-    row.addEventListener('pointerup', onUp);
-    row.addEventListener('pointercancel', onUp);
-    row.addEventListener('lostpointercapture', onUp);
-    const onResize = () => { s.half = el.scrollWidth / 2 || 1; };
-    let raf = 0, last = null;
-    if (reduce) { draw(); }
-    else {
-      const tick = (now) => {
-        if (last == null) last = now;
-        const dt = Math.min(0.05, (now - last) / 1000); last = now;
-        if (!s.dragging) s.offset = norm(s.offset - SPEED * dt, s.half);
-        draw();
-        raf = requestAnimationFrame(tick);
-      };
-      raf = requestAnimationFrame(tick);
-      window.addEventListener('resize', onResize);
-    }
-    return () => { if (raf) cancelAnimationFrame(raf); window.removeEventListener('resize', onResize); row.removeEventListener('pointerdown', onDown); row.removeEventListener('pointermove', onMove); row.removeEventListener('pointerup', onUp); row.removeEventListener('pointercancel', onUp); row.removeEventListener('lostpointercapture', onUp); };
-  }, [reps]);
-  const oneLoop = [];
-  for (let k = 0; k < reps; k++) oneLoop.push(...PUB_LOGOS);
-  const dup = [...oneLoop, ...oneLoop];
-  return (
-    <section id="pub-logos" className="pl-sec">
-      <div className="wrap">
-        <p className="pl-cap" data-reveal>Trusted by brands your customers already know, across retail, travel, beauty, and finance.</p>
-      </div>
-      <div className="pl-marquee" ref={marqRef} data-reveal data-reveal-delay="1">
-        <div ref={trackRef} className="pl-track">
-          {dup.map(([name, file, h], i) => (
-            <img key={i} className="pl-logo" src={`media/figma/${file}`} alt={`${name} logo`} style={{ height: h }} draggable="false" />
-          ))}
-        </div>
-      </div>
-      <style>{`
-        .pl-sec{ background:var(--warm-50); padding:clamp(28px,4vh,48px) 0 clamp(20px,3vh,36px); }
-        .pl-cap{ text-align:center; color:var(--warm-600); font-size:16px; line-height:1.5; max-width:718px; margin:0 auto; }
-        .pl-marquee{ margin-top:clamp(22px,3.4vh,38px); overflow:hidden; width:100%; cursor:grab; touch-action:pan-y; user-select:none;
-          -webkit-mask-image:linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-          mask-image:linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-        .pl-marquee.grabbing{ cursor:grabbing; }
-        .pl-track{ display:flex; align-items:center; gap:clamp(40px,5.5vw,84px); width:max-content; will-change:transform; }
-        .pl-logo{ display:block; width:auto; object-fit:contain; opacity:.9; flex:0 0 auto; -webkit-user-drag:none; user-drag:none; pointer-events:none; }
-      `}</style>
-    </section>
-  );
+  return <LogoMarquee caption="Trusted by brands your customers already know, across retail, travel, beauty, and finance." />;
 }
 
 /* ---------- Section 8 — "Questions, answered." (FAQ accordion) ------------
@@ -467,131 +373,22 @@ const PUB_FAQ = [
   ['How are results tracked?',
     'Every click and conversion is tracked to the publisher who drove it, and verified before payout.'],
 ];
-function PubFAQ() {
-  const [open, setOpen] = React.useState(() => new Set([0]));
-  const toggle = (i) => setOpen((prev) => { const n = new Set(prev); n.has(i) ? n.delete(i) : n.add(i); return n; });
-  return (
-    <section id="pub-faq" className="fq-sec">
-      <div className="wrap">
-        <h2 className="fq-title" data-reveal>Pricing questions, answered.</h2>
-        <div className="fq-list" data-reveal data-reveal-delay="1">
-          {PUB_FAQ.map(([q, a], i) => {
-            const isOpen = open.has(i);
-            return (
-              <div className={'fq-item' + (isOpen ? ' open' : '')} key={i}>
-                <button type="button" className="fq-q" onClick={() => toggle(i)} aria-expanded={isOpen}>
-                  <span>{q}</span>
-                  <span className="fq-ic" aria-hidden="true"><i /><i /></span>
-                </button>
-                <div className="fq-a-wrap"><div className="fq-a"><p>{a}</p></div></div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      <style>{`
-        .fq-sec{ background:var(--warm-50); padding:clamp(67px,9.66vh,132px) 0 clamp(77px,12.42vh,160px); }
-        .fq-title{ text-align:center; font-size:clamp(22px,2.6vw,30px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
-        .fq-list{ margin-top:clamp(32px,5vh,60px); display:flex; flex-direction:column; gap:12px; max-width:1160px; margin-inline:auto; }
-        .fq-item{ background:#fff; border:1px solid #e5e7eb; border-radius:var(--r-lg); }
-        .fq-q{ width:100%; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:24px; background:none; border:none; cursor:pointer; text-align:left; font:700 18px/1.35 var(--font-body); color:#111122; }
-        .fq-ic{ position:relative; width:18px; height:18px; flex:0 0 auto; }
-        .fq-ic i{ position:absolute; background:#111110; border-radius:var(--r-sm); }
-        .fq-ic i:nth-child(1){ left:0; right:0; top:8px; height:2px; }
-        .fq-ic i:nth-child(2){ top:0; bottom:0; left:8px; width:2px; transition:transform .25s ease; }
-        .fq-item.open .fq-ic i:nth-child(2){ transform:scaleY(0); }
-        .fq-a-wrap{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .3s ease; }
-        .fq-item.open .fq-a-wrap{ grid-template-rows:1fr; }
-        .fq-a{ overflow:hidden; }
-        .fq-a p{ margin:0 24px; padding-bottom:24px; font:400 16px/1.5 var(--font-body); color:#3a3a4a; }
+const PUB_FAQ_CSS = `
         .fq-a a{ color:var(--midnight-light); font-weight:600; text-decoration:underline; text-underline-offset:2px; }
-        .fq-a a:hover{ opacity:.82; }
-      `}</style>
-    </section>
-  );
+      `;
+function PubFAQ() {
+  return <Faq items={PUB_FAQ} title="Pricing questions, answered." css={PUB_FAQ_CSS} />;
 }
 
-/* ---------- Section 9 — Final CTA + interactive honeycomb ------------------
-   Decorative honeycomb (pub-cta-hexfield.svg = 229 pre-split ember hexes). Reuses the
-   homepage hero interaction: hexes are pushed radially away from the cursor and ease back. */
-function PubCtaHexField() {
-  const svgRef = React.useRef(null);
-  const [paths, setPaths] = React.useState([]);
-  const W = 1204.11, H = 1189.86;
-  React.useEffect(() => {
-    let alive = true;
-    fetch('media/figma/pub-cta-hexfield.svg').then((r) => r.text()).then((txt) => {
-      if (!alive) return;
-      const out = []; const re = /<path\b([^>]*)>/g; let m;
-      while ((m = re.exec(txt))) {
-        const attrs = m[1], dm = /\bd="([^"]+)"/.exec(attrs), fm = /\bfill="([^"]+)"/.exec(attrs);
-        if (dm && fm && fm[1].toUpperCase() === '#FAC9B9') out.push(dm[1]);
-      }
-      setPaths(out);
-    }).catch(() => {});
-    return () => { alive = false; };
-  }, []);
-  React.useLayoutEffect(() => {
-    const svg = svgRef.current;
-    if (!svg || !paths.length || prefersReduced()) return;
-    const sec = svg.closest('.pc-sec') || svg.parentElement;
-    const hexes = Array.from(svg.querySelectorAll('.hx')).map((el) => { const b = el.getBBox(); return { el, cx: b.x + b.width / 2, cy: b.y + b.height / 2, dx: 0, dy: 0 }; });
-    const R = 175, MAXPUSH = 34;
-    let mx = -9999, my = -9999, active = false, raf = 0;
-    const frame = () => {
-      let moving = false;
-      for (const h of hexes) {
-        let tx = 0, ty = 0;
-        if (active) {
-          const ddx = h.cx - mx, ddy = h.cy - my, dist = Math.hypot(ddx, ddy);
-          if (dist < R && dist > 0.01) { const f = 1 - dist / R, push = MAXPUSH * f * f, inv = push / dist; tx = ddx * inv; ty = ddy * inv; }
-        }
-        h.dx += (tx - h.dx) * 0.2; h.dy += (ty - h.dy) * 0.2;
-        if (Math.abs(h.dx) > 0.06 || Math.abs(h.dy) > 0.06) { h.el.setAttribute('transform', `translate(${h.dx.toFixed(2)} ${h.dy.toFixed(2)})`); moving = true; }
-        else if (h.dx !== 0 || h.dy !== 0) { h.dx = 0; h.dy = 0; h.el.removeAttribute('transform'); }
-      }
-      if (active || moving) raf = requestAnimationFrame(frame); else raf = 0;
-    };
-    // SVG is CSS-flipped vertically (scaleY(-1)), so invert the screen→viewBox Y mapping.
-    const onMove = (e) => { const r = svg.getBoundingClientRect(); mx = (e.clientX - r.left) * (W / r.width); my = H - (e.clientY - r.top) * (H / r.height); active = true; if (!raf) raf = requestAnimationFrame(frame); };
-    const onLeave = () => { active = false; if (!raf) raf = requestAnimationFrame(frame); };
-    sec.addEventListener('mousemove', onMove); sec.addEventListener('mouseleave', onLeave);
-    return () => { sec.removeEventListener('mousemove', onMove); sec.removeEventListener('mouseleave', onLeave); if (raf) cancelAnimationFrame(raf); };
-  }, [paths]);
-  return (
-    <svg ref={svgRef} className="pc-hexfield" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-      <g fill="var(--warm-200)">{paths.map((d, i) => <path key={i} className="hx" d={d} />)}</g>
-    </svg>
-  );
-}
-function PubCTA() {
-  return (
-    <section id="pub-cta" className="pc-sec">
-      <PubCtaHexField />
-      <span className="pc-topfade" aria-hidden="true" />
-      <span className="pc-wash" aria-hidden="true" />
-      <div className="wrap pc-inner">
-        <h2 className="pc-title" data-reveal>Not sure where to start? We'll help.</h2>
-        <p className="pc-sub" data-reveal data-reveal-delay="1">Book a quick call and our team will map out the fastest way to grow your brand with Involve.</p>
-        <a href="/advertisers/" className="btn btn-advertiser btn-lg pc-btn" data-reveal data-reveal-delay="2">Talk to us <Arrow /></a>
-      </div>
-      <style>{`
+/* ---------- Final CTA (shared FinalCta, ia-sections.jsx) ----------------- */
+const PUB_CTA_CSS = `
         .pc-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(96px,16vh,200px) 0 clamp(104px,17vh,210px); }
-        .pc-hexfield{ position:absolute; left:0; top:50%; transform:translateY(-44%) scaleY(-1); width:100%; height:auto; z-index:0; pointer-events:none; opacity:.6;
-          -webkit-mask-image:linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent); mask-image:linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent); }
-        .pc-hexfield .hx{ will-change:transform; }
-        .pc-topfade{ position:absolute; left:0; right:0; top:0; height:clamp(200px,26%,340px); z-index:0; pointer-events:none;
-          background:linear-gradient(180deg, var(--warm-50) 0%, rgba(250,250,248,.6) 45%, rgba(250,250,248,0) 100%); }
-        .pc-wash{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:760px; height:420px; z-index:0; pointer-events:none;
-          background:radial-gradient(ellipse at center, var(--warm-50) 32%, rgba(250,250,248,0) 72%); }
-        .pc-inner{ position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; text-align:center; }
         .pc-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.15; letter-spacing:-.03em; color:var(--warm-900); max-width:900px; }
         .pc-sub{ margin-top:14px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); max-width:620px; }
-        .pc-btn{ margin-top:26px; }
         @media (max-width:700px){ .pc-sec{ padding:clamp(60px,9vh,84px) 0 clamp(68px,10vh,96px); } }
-      `}</style>
-    </section>
-  );
+      `;
+function PubCTA() {
+  return <FinalCta title="Not sure where to start? We'll help." sub="Book a quick call and our team will map out the fastest way to grow your brand with Involve." href="/advertisers/" tone="advertiser" label="Talk to us" css={PUB_CTA_CSS} />;
 }
 
 function PricingApp() {

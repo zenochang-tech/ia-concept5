@@ -7,18 +7,13 @@
 
 // Shared UI comes from ia-shared.jsx (pulled off window so this works regardless
 // of how Babel-standalone scopes each script tag).
-const { Nav, Footer, Arrow, BackToTop, useSmoothScroll, useScrollReveal } = window;
+const { Nav, Footer, Arrow, BackToTop, useSmoothScroll, useScrollReveal, PlatformTabs, FinalCta, Testimonials, Faq, AppDownload, HeroHexDeco, HERO_HEXDECO_CSS, NumberedSteps } = window;
 
 /* ---------- Section 1 — Hero ---------------------------------------------- */
 function PubHero() {
   return (
     <section id="pub-hero" className="ph-sec">
-      <div className="ph-hexdeco" aria-hidden="true">
-        <img className="phd phd1" src="media/figma/pub-hero-deco1.svg?v=2" alt="" />
-        <img className="phd phd2" src="media/figma/pub-hero-deco2.svg?v=2" alt="" />
-        <img className="phd phd3" src="media/figma/pub-hero-deco3.svg?v=2" alt="" />
-        <img className="phd phd4" src="media/figma/pub-hero-deco4.svg?v=2" alt="" />
-      </div>
+      <HeroHexDeco />
       <span className="ph-basefade" aria-hidden="true" />
       <div className="wrap ph-wrap">
         <div className="ph-copy">
@@ -43,14 +38,7 @@ function PubHero() {
 
       <style>{`
         .ph-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(40px,6vh,84px) 0 clamp(56px,9vh,116px); }
-        /* decorative hexagons (Figma Polygon 64–67) — same size as the slider hexagon (492px), faint */
-        .ph-hexdeco{ position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
-        .phd{ position:absolute; width:492px; height:auto; }
-        .phd1{ top:-68%; right:-7%; }
-        .phd2{ top:6%; right:-26%; }
-        .phd3{ left:31%; bottom:-59%; }
-        .phd4{ left:-14%; bottom:-54%; }
-        @media (max-width:900px){ .ph-hexdeco{ display:none; } }
+        ${HERO_HEXDECO_CSS}
         /* gradient blend from the hero into the logo strip below */
         .ph-basefade{ position:absolute; left:0; right:0; bottom:0; height:clamp(120px,24%,240px); z-index:0; pointer-events:none;
           background:linear-gradient(180deg, rgba(250,250,248,0) 0%, rgba(250,250,248,.65) 55%, var(--warm-50) 100%); }
@@ -139,74 +127,7 @@ const PUB_PLATFORM = [
   { key: 'cashback', t: 'Cashback and rewards apps', d: 'Reward your users with cashback and points on the brands they already buy, and earn a share of every qualifying purchase.', img: 'app-stepper-cashback.png' },
   { key: 'content', t: 'Content and community apps', d: 'Recommend products that fit your content and community, and earn a commission whenever your audience buys through your app.', img: 'app-stepper-content.png' },
 ];
-const PUB_PLATFORM_MS = 12000;
-function PubPlatform() {
-  const isMobile = () => typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width:900px)').matches;
-  const mobileRef = React.useRef(isMobile());
-  const secRef = React.useRef(null);
-  // Desktop starts on the first card + auto-advances; mobile starts all-closed and opens the
-  // first card only when the section scrolls into view (then stays tap-to-open, no auto-advance).
-  const [active, setActive] = React.useState(() => (mobileRef.current ? -1 : 0));
-  // Which step the mouse is over (index or null). Hovering the active step's
-  // content pauses the rail; the image beside it doesn't. Touch taps are ignored
-  // so the pause can't get stuck on mobile.
-  const [hover, setHover] = React.useState(null);
-  const paused = hover === active;
-  const hoverProps = (k) => ({
-    onPointerEnter: (e) => { if (e.pointerType === 'mouse') setHover(k); },
-    onPointerLeave: (e) => { if (e.pointerType === 'mouse') setHover(null); },
-  });
-  // The rail-fill animation is the timer: advancing on its animationend keeps the
-  // bar and the slide change in sync, and pausing the animation pauses both.
-  // Under reduced motion the animation is off, so there's no auto-advance.
-  // No auto-advance on mobile (the rail is hidden there too).
-  const next = () => { if (!mobileRef.current) setActive((a) => (a + 1) % PUB_PLATFORM.length); };
-  // Mobile: open the FIRST card once, when the section enters the viewport (entrance animation).
-  React.useEffect(() => {
-    if (!mobileRef.current) return;
-    const el = secRef.current;
-    if (!el) return;
-    if (prefersReduced() || !('IntersectionObserver' in window)) { setActive(0); return; }
-    const io = new IntersectionObserver((es) => {
-      if (es[0].isIntersecting) { setActive((a) => (a < 0 ? 0 : a)); io.disconnect(); }
-    }, { threshold: 0.3 });
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-  return (
-    <section id="pub-platform" className="pf-sec" ref={secRef}>
-      <div className="wrap">
-        <div className="pf-grid" data-reveal>
-          <div className="pf-left">
-          <h2 className="pf-title">Built for any app with an engaged audience.</h2>
-          <p className="pf-sub">If your users act on what you show them, you can earn from it. Connect once through our API, and relevant offers and tracking run in the background.</p>
-          <div className="pf-steps">
-            {PUB_PLATFORM.map((s, i) => {
-              const on = i === active;
-              return (
-                <button type="button" className={'pf-step' + (on ? ' on' : '')} key={s.key} onClick={() => setActive(i)} aria-expanded={on} {...hoverProps(i)}>
-                  <span className="pf-rail" aria-hidden="true">
-                    <span className="pf-rail-track" />
-                    {on && <span className="pf-rail-fill" key={active} onAnimationEnd={next} style={{ animationPlayState: paused ? 'paused' : 'running' }} />}
-                  </span>
-                  <span className="pf-step-body">
-                    <span className="pf-step-t">{s.t}</span>
-                    <span className="pf-step-dw"><span className="pf-step-d">{s.d}</span></span>
-                    <span className="pf-step-fig"><span className="pf-step-fig-in"><img className="pf-step-fig-img" src={`media/figma/${s.img}`} alt={s.t} loading="lazy" /></span></span>
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-          </div>
-          <div className="pf-visual">
-            {PUB_PLATFORM.map((s, i) => (
-              <img key={s.key} className={'pf-img' + (i === active ? ' on' : '')} src={`media/figma/${s.img}`} alt={s.t} loading="lazy" aria-hidden={i !== active} />
-            ))}
-          </div>
-        </div>
-      </div>
-      <style>{`
+const PUB_PLATFORM_CSS = `
         .pf-sec{ background:var(--warm-50); padding:clamp(77px,11.11vh,152px) 0 clamp(89px,14.28vh,191px); overflow:hidden; }
         .pf-title{ text-align:left; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
         .pf-sub{ text-align:left; margin-top:16px; max-width:540px; font-size:16px; line-height:1.4; color:var(--warm-600); }
@@ -214,26 +135,14 @@ function PubPlatform() {
         .pf-left{ display:flex; flex-direction:column; }
         .pf-steps{ margin-top:clamp(26px,4vh,44px); display:flex; flex-direction:column; }
         .pf-step{ position:relative; display:flex; gap:20px; align-items:stretch; text-align:left; background:none; border:none; cursor:pointer; padding:34px 0; width:100%; }
-        .pf-step + .pf-step{ border-top:1px solid var(--warm-200); }
-        .pf-rail{ position:relative; width:4px; flex:0 0 auto; align-self:stretch; }
-        .pf-rail-track{ position:absolute; inset:0; border-radius:var(--r-full); background:var(--warm-200); opacity:0; transition:opacity .3s ease; }
         .pf-rail-fill{ position:absolute; left:0; top:0; width:4px; border-radius:var(--r-full); background:var(--ember); height:0; }
-        .pf-step.on .pf-rail-track{ opacity:1; }
-        .pf-step.on .pf-rail-fill{ animation:pfFill ${PUB_PLATFORM_MS}ms linear forwards; }
-        @keyframes pfFill{ from{ height:0; } to{ height:100%; } }
-        .pf-step-body{ min-width:0; }
         .pf-step-t{ display:block; font-family:var(--font-display); font-weight:800; font-size:21px; letter-spacing:-.02em; color:var(--warm-900); transition:opacity .3s ease; }
-        .pf-step-dw{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .4s ease; }
-        .pf-step.on .pf-step-dw{ grid-template-rows:1fr; }
-        .pf-step-d{ overflow:hidden; margin-top:0; font:400 16px/1.5 var(--font-body); color:var(--warm-600); }
         .pf-step.on .pf-step-d{ margin-top:14px; }
         .pf-step-d a{ color:var(--ember); font-weight:600; text-decoration:underline; text-underline-offset:2px; }
-        .pf-step:not(.on){ opacity:.4; } .pf-step:not(.on):hover{ opacity:.7; }
         /* contained phone-mockup card; each tab's app screen cross-fades in place */
         .pf-visual{ position:relative; width:100%; max-width:360px; margin:0 auto; aspect-ratio:692/1226; }
         .pf-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain;
           opacity:0; transition:opacity .5s ease; filter:drop-shadow(0 24px 46px rgba(15,28,46,.14)); }
-        .pf-img.on{ opacity:1; }
         .pf-step-fig{ display:none; }
         @media (max-width:900px){
           .pf-grid{ grid-template-columns:1fr; gap:0; }
@@ -248,143 +157,18 @@ function PubPlatform() {
           .pf-step.on .pf-step-fig{ grid-template-rows:1fr; }
           .pf-step-fig-in{ overflow:hidden; min-height:0; }
           .pf-step-fig-img{ display:block; width:100%; max-width:230px; height:auto; margin:18px auto 0; filter:drop-shadow(0 16px 30px rgba(15,28,46,.14)); }
-        }
-        @media (prefers-reduced-motion: reduce){ .pf-rail-fill{ animation:none; height:100%; } .pf-img{ transition:none; } .pf-step-fig{ transition:none; } }
-      `}</style>
-    </section>
+        }`;
+function PubPlatform() {
+  return (
+    <PlatformTabs id="pub-platform" items={PUB_PLATFORM} split mobileCards figClass="pf-step-fig-img" css={PUB_PLATFORM_CSS}
+      title="Built for any app with an engaged audience."
+      sub="If your users act on what you show them, you can earn from it. Connect once through our API, and relevant offers and tracking run in the background." />
   );
 }
 
-/* ---------- Section 7 — "Hear from publishers like you." (testimonials) --- */
-// Testimonials sourced from involve.asia/partners/overview — `quote` is the most impactful
-// line pulled from each; `body` is the full testimonial.
-const PUB_VOICES = [
-  {
-    quote: 'I used Involve to start a side income, but now my website generates me a full-time income.',
-    body: 'I used Involve to start a side income, but now my website is able to generate me a full-time income. It’s also much better from any site that I have worked with. I like that Involve has strong offers from brands from Southeast Asia, which my audience is.',
-    name: 'Tyha Abdullah', avatar: 'publisher-tyhaAbdullah.png', initials: 'TA',
-  },
-  {
-    quote: 'Who would have thought that we would make 5-figure income in just 2 months.',
-    body: 'Who would have thought that we would be able to make 5 figure income in just 2 months, definitely Affiliate Marketing with Involve Asia can help us make money online more easily.',
-    name: 'Media Terkini', avatar: 'publisher-MediaTerkini.png', initials: 'MT',
-  },
-  {
-    quote: 'There are branded products to promote, and it’s risk-free.',
-    body: 'It’s a good chance for people who want to start Affiliate Marketing by using Involve Asia. There are branded products to promote, and it’s risk-free. I don’t see why people wouldn’t want to try.',
-    name: 'Weng Hoon', avatar: 'pub-voice-wenghonn.png',
-  },
-  {
-    quote: 'For the first time, I hit 5-digits in commissions and peaked during the 11.11 Sales.',
-    body: 'I started to push in promoting Offers at the beginning of 2020 on my website and Facebook page. Later, in July 2020, for the first time, I hit 5-digits in commissions and peaked in November during the 11.11 Sales.',
-    name: 'Promocodes.My', avatar: 'publisher-promoCodesMy.png', initials: 'PM',
-  },
-  {
-    quote: 'Involve Asia is always the perfect choice for us to gain commission from our promoted products.',
-    body: 'Involve Asia is always the perfect choice for Vocket in order for us to gain commission from our promoted products. Most importantly, with Involve Asia we gain conversions directly from the promoted products with their affiliate links.',
-    name: 'The Vocket', avatar: 'publisher-vocket.png', initials: 'TV',
-  },
-  {
-    quote: 'We couldn’t have done it without this valuable partnership.',
-    body: 'Thanks to Involve Asia support, then only we can continue to provide high-quality content to our audience while earning a decent affiliate commission. We couldn’t have done it without this valuable partnership.',
-    name: 'My Weekend Plan', avatar: 'publisher-weekendPlan.png', initials: 'MW',
-  },
-  {
-    quote: 'I find it user-friendly and convenient to browse and search for Offers in the dashboard.',
-    body: 'With Involve Asia, I find it user-friendly and convenient to browse and search for Offers in the dashboard. The filters provide me options to choose from so I can promote suitable Offers for my followers.',
-    name: 'MY Great Sales', avatar: 'publisher-myGreatSales.png', initials: 'MG',
-  },
-  {
-    quote: 'Such a good overall experience with IA — very friendly & professional.',
-    body: 'Had such a good overall experience with IA esp Jia who assisted us – very friendly & professional consultations. She was thorough & informative. IA helps increase and gain pretty good income from the generated link.',
-    name: 'Siakap Keli', avatar: 'publisher-siakapkeli.png', initials: 'SK',
-  },
-  {
-    quote: 'It’s a win-win situation.',
-    body: 'Keep making videos that are informational, not just for yourself, but for your audience too. Your audience believes in you and this is one way for them to support their favorite YouTubers while also helping themselves purchase products. It’s a win-win situation.',
-    name: 'Fazli Halim', avatar: 'publisher-fazlihalim.png', initials: 'FH',
-  },
-];
+/* ---------- Testimonials (shared Testimonials, ia-sections.jsx) --------- */
 function PubVoices() {
-  const [i, setI] = React.useState(0);
-  const N = PUB_VOICES.length;
-  const mod = (n) => ((n % N) + N) % N;
-  const go = (d) => setI((v) => mod(v + d));
-  // auto-advance every 4.5s; timer resets whenever the slide changes (manual or auto)
-  React.useEffect(() => {
-    if (prefersReduced()) return;
-    const t = setTimeout(() => setI((v) => mod(v + 1)), 4500);
-    return () => clearTimeout(t);
-  }, [i]);
-  const DX = 300;   // horizontal gap between neighbouring card positions (px)
-  return (
-    <section id="pub-voices" className="tv-sec">
-      <div className="tv-panel">
-        <h2 className="tv-title" data-reveal>Hear from publishers like you.</h2>
-        <p className="tv-sub" data-reveal data-reveal-delay="1">Real people earning on the platform, in their own words.</p>
-        <div className="tv-stage" data-reveal data-reveal-delay="1">
-          {/* every card is positioned by its offset from the active index; changing `i` slides them all */}
-          {PUB_VOICES.map((v, j) => {
-            let d = (j - i + N) % N; if (d > N / 2) d -= N;          // signed shortest distance
-            const near = Math.abs(d);
-            const scale = d === 0 ? 1 : near === 1 ? 0.92 : 0.88;
-            const ty = d === 0 ? '0%' : '20%';                       // neighbours sit 20% lower
-            const op = d === 0 ? 1 : near === 1 ? 0.3 : 0;           // neighbours faint; further hidden
-            const z = d === 0 ? 3 : near === 1 ? 2 : 1;
-            const style = {
-              transform: `translateX(-50%) translateX(${d * DX}px) translateY(${ty}) scale(${scale})`,
-              opacity: op, zIndex: z, pointerEvents: d === 0 ? 'auto' : 'none',
-            };
-            return (
-              <article key={j} className={'tv-card' + (d === 0 ? ' is-active' : '')} style={style} aria-hidden={d !== 0}>
-                <p className="tv-quote">&ldquo;{v.quote}&rdquo;</p>
-                <p className="tv-body">{v.body}</p>
-                <div className="tv-author">
-                  {v.avatar
-                    ? <img className="tv-avatar" src={`media/figma/${v.avatar}`} alt="" />
-                    : <span className="tv-avatar tv-avatar-mono" aria-hidden="true">{v.initials}</span>}
-                  <span className="tv-name">{v.name}</span>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-        <div className="tv-nav" data-reveal data-reveal-delay="1">
-          <button type="button" className="tv-arrow" onClick={() => go(-1)} aria-label="Previous testimonial">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M11 18l-6-6 6-6" /></svg>
-          </button>
-          <button type="button" className="tv-arrow" onClick={() => go(1)} aria-label="Next testimonial">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-          </button>
-        </div>
-      </div>
-      <style>{`
-        .tv-sec{ background:var(--warm-50); padding:clamp(28px,4.14vh,55px) 0 clamp(67px,9.66vh,132px); }
-        .tv-panel{ position:relative; max-width:1273px; margin:0 auto; padding:clamp(48px,7vh,90px) clamp(20px,4vw,56px) clamp(40px,6vh,72px); border-radius:clamp(28px,4vw,64px); overflow:hidden;
-          background:var(--warm-100); }
-        .tv-title{ text-align:center; font-size:clamp(24px,3vw,34px); line-height:1.1; letter-spacing:-.03em; color:var(--warm-900); }
-        .tv-sub{ text-align:center; margin-top:14px; font-size:16px; color:var(--warm-700); }
-        .tv-stage{ position:relative; margin-top:clamp(28px,4vh,44px); min-height:392px; }
-        .tv-card{ position:absolute; left:50%; top:0; width:min(535px,86vw); height:322px; box-sizing:border-box; transform-origin:center top;
-          background:#fff; border:1.4px solid #f4f4f0; border-radius:var(--r-xl); box-shadow:0 6px 14px rgba(0,0,0,.08); padding:30px 32px; display:flex; flex-direction:column; gap:18px;
-          transition:transform .62s cubic-bezier(.32,.72,0,1), opacity .62s cubic-bezier(.32,.72,0,1); will-change:transform,opacity; }
-        .tv-card.is-active{ box-shadow:0 16px 40px rgba(15,28,46,.14); }
-        .tv-quote{ font:700 16px/1.32 var(--font-body); color:var(--warm-700); }
-        .tv-body{ font:400 16px/1.32 var(--font-body); color:var(--warm-700); }
-        .tv-author{ display:flex; align-items:center; gap:16px; margin-top:auto; }   /* pin to bottom of the fixed-height card */
-        .tv-avatar{ width:56px; height:56px; border-radius:50%; object-fit:cover; flex:0 0 auto; }
-        .tv-avatar-mono{ display:flex; align-items:center; justify-content:center; background:linear-gradient(150deg,#fbe4d8,#e7edf7); color:var(--warm-900);
-          font-family:var(--font-display); font-weight:800; font-size:19px; letter-spacing:-.01em; }
-        .tv-name{ font-family:var(--font-body); font-weight:700; font-size:16px; color:var(--warm-900); }
-        .tv-nav{ display:flex; justify-content:center; gap:16px; margin-top:clamp(20px,3vh,34px); }
-        .tv-arrow{ width:44px; height:44px; border-radius:50%; border:none; background:var(--warm-900); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:opacity .15s, transform .15s; }
-        .tv-arrow:hover{ opacity:.85; }
-        .tv-arrow:active{ transform:scale(.94); }
-        @media (max-width:900px){ .tv-card{ width:min(440px,88vw); } .tv-card:not(.is-active){ opacity:0 !important; } }
-        @media (prefers-reduced-motion: reduce){ .tv-card{ transition:none; } }
-      `}</style>
-    </section>
-  );
+  return <Testimonials />;
 }
 
 /* ---------- Section 8 — "Questions, answered." (FAQ accordion) ------------
@@ -400,181 +184,14 @@ const PUB_FAQ = [
     'You will need a developer to connect the API. The docs cover every endpoint.'],
 ];
 function PubFAQ() {
-  const [open, setOpen] = React.useState(() => new Set([0]));
-  const toggle = (i) => setOpen((prev) => { const n = new Set(prev); n.has(i) ? n.delete(i) : n.add(i); return n; });
-  return (
-    <section id="pub-faq" className="fq-sec">
-      <div className="wrap">
-        <h2 className="fq-title" data-reveal>Questions, answered.</h2>
-        <div className="fq-list" data-reveal data-reveal-delay="1">
-          {PUB_FAQ.map(([q, a], i) => {
-            const isOpen = open.has(i);
-            return (
-              <div className={'fq-item' + (isOpen ? ' open' : '')} key={i}>
-                <button type="button" className="fq-q" onClick={() => toggle(i)} aria-expanded={isOpen}>
-                  <span>{q}</span>
-                  <span className="fq-ic" aria-hidden="true"><i /><i /></span>
-                </button>
-                <div className="fq-a-wrap"><div className="fq-a"><p>{a}</p></div></div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      <style>{`
-        .fq-sec{ background:var(--warm-50); padding:clamp(67px,9.66vh,132px) 0 clamp(77px,12.42vh,160px); }
-        .fq-title{ text-align:center; font-size:clamp(22px,2.6vw,30px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
-        .fq-list{ margin-top:clamp(32px,5vh,60px); display:flex; flex-direction:column; gap:12px; max-width:1160px; margin-inline:auto; }
-        .fq-item{ background:#fff; border:1px solid #e5e7eb; border-radius:var(--r-lg); }
-        .fq-q{ width:100%; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:24px; background:none; border:none; cursor:pointer; text-align:left; font:700 18px/1.35 var(--font-body); color:#111122; }
-        .fq-ic{ position:relative; width:18px; height:18px; flex:0 0 auto; }
-        .fq-ic i{ position:absolute; background:#111110; border-radius:var(--r-sm); }
-        .fq-ic i:nth-child(1){ left:0; right:0; top:8px; height:2px; }
-        .fq-ic i:nth-child(2){ top:0; bottom:0; left:8px; width:2px; transition:transform .25s ease; }
-        .fq-item.open .fq-ic i:nth-child(2){ transform:scaleY(0); }
-        .fq-a-wrap{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .3s ease; }
-        .fq-item.open .fq-a-wrap{ grid-template-rows:1fr; }
-        .fq-a{ overflow:hidden; }
-        .fq-a p{ margin:0 24px; padding-bottom:24px; font:400 16px/1.5 var(--font-body); color:#3a3a4a; }
-        .fq-a a{ color:var(--ember); font-weight:600; text-decoration:underline; text-underline-offset:2px; }
-        .fq-a a:hover{ opacity:.82; }
-      `}</style>
-    </section>
-  );
+  return <Faq items={PUB_FAQ} />;
 }
 
-/* ---------- Section 9 — Final CTA + interactive honeycomb ------------------
-   Decorative honeycomb (pub-cta-hexfield.svg = 229 pre-split ember hexes). Reuses the
-   homepage hero interaction: hexes are pushed radially away from the cursor and ease back. */
-function PubCtaHexField() {
-  const svgRef = React.useRef(null);
-  const [paths, setPaths] = React.useState([]);
-  const W = 1204.11, H = 1189.86;
-  React.useEffect(() => {
-    let alive = true;
-    fetch('media/figma/pub-cta-hexfield.svg').then((r) => r.text()).then((txt) => {
-      if (!alive) return;
-      const out = []; const re = /<path\b([^>]*)>/g; let m;
-      while ((m = re.exec(txt))) {
-        const attrs = m[1], dm = /\bd="([^"]+)"/.exec(attrs), fm = /\bfill="([^"]+)"/.exec(attrs);
-        if (dm && fm && fm[1].toUpperCase() === '#FAC9B9') out.push(dm[1]);
-      }
-      setPaths(out);
-    }).catch(() => {});
-    return () => { alive = false; };
-  }, []);
-  React.useLayoutEffect(() => {
-    const svg = svgRef.current;
-    if (!svg || !paths.length || prefersReduced()) return;
-    const sec = svg.closest('.pc-sec') || svg.parentElement;
-    const hexes = Array.from(svg.querySelectorAll('.hx')).map((el) => { const b = el.getBBox(); return { el, cx: b.x + b.width / 2, cy: b.y + b.height / 2, dx: 0, dy: 0 }; });
-    const R = 175, MAXPUSH = 34;
-    let mx = -9999, my = -9999, active = false, raf = 0;
-    const frame = () => {
-      let moving = false;
-      for (const h of hexes) {
-        let tx = 0, ty = 0;
-        if (active) {
-          const ddx = h.cx - mx, ddy = h.cy - my, dist = Math.hypot(ddx, ddy);
-          if (dist < R && dist > 0.01) { const f = 1 - dist / R, push = MAXPUSH * f * f, inv = push / dist; tx = ddx * inv; ty = ddy * inv; }
-        }
-        h.dx += (tx - h.dx) * 0.2; h.dy += (ty - h.dy) * 0.2;
-        if (Math.abs(h.dx) > 0.06 || Math.abs(h.dy) > 0.06) { h.el.setAttribute('transform', `translate(${h.dx.toFixed(2)} ${h.dy.toFixed(2)})`); moving = true; }
-        else if (h.dx !== 0 || h.dy !== 0) { h.dx = 0; h.dy = 0; h.el.removeAttribute('transform'); }
-      }
-      if (active || moving) raf = requestAnimationFrame(frame); else raf = 0;
-    };
-    // SVG is CSS-flipped vertically (scaleY(-1)), so invert the screen→viewBox Y mapping.
-    const onMove = (e) => { const r = svg.getBoundingClientRect(); mx = (e.clientX - r.left) * (W / r.width); my = H - (e.clientY - r.top) * (H / r.height); active = true; if (!raf) raf = requestAnimationFrame(frame); };
-    const onLeave = () => { active = false; if (!raf) raf = requestAnimationFrame(frame); };
-    sec.addEventListener('mousemove', onMove); sec.addEventListener('mouseleave', onLeave);
-    return () => { sec.removeEventListener('mousemove', onMove); sec.removeEventListener('mouseleave', onLeave); if (raf) cancelAnimationFrame(raf); };
-  }, [paths]);
-  return (
-    <svg ref={svgRef} className="pc-hexfield" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-      <g fill="var(--warm-200)">{paths.map((d, i) => <path key={i} className="hx" d={d} />)}</g>
-    </svg>
-  );
-}
+/* ---------- Final CTA (shared FinalCta, ia-sections.jsx) ----------------- */
 function PubCTA() {
-  return (
-    <section id="pub-cta" className="pc-sec">
-      <PubCtaHexField />
-      <span className="pc-topfade" aria-hidden="true" />
-      <span className="pc-wash" aria-hidden="true" />
-      <div className="wrap pc-inner">
-        <h2 className="pc-title" data-reveal>Start monetizing your app today.</h2>
-        <a href="https://app.involve.asia/v2/create-account" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="1">Start Earning <Arrow /></a>
-      </div>
-      <style>{`
-        .pc-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(96px,16vh,200px) 0 clamp(104px,17vh,210px); }
-        .pc-hexfield{ position:absolute; left:0; top:50%; transform:translateY(-44%) scaleY(-1); width:100%; height:auto; z-index:0; pointer-events:none; opacity:.6;
-          -webkit-mask-image:linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent); mask-image:linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent); }
-        .pc-hexfield .hx{ will-change:transform; }
-        /* gradient blend into the section above */
-        .pc-topfade{ position:absolute; left:0; right:0; top:0; height:clamp(200px,26%,340px); z-index:0; pointer-events:none;
-          background:linear-gradient(180deg, var(--warm-50) 0%, rgba(250,250,248,.6) 45%, rgba(250,250,248,0) 100%); }
-        .pc-wash{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:760px; height:420px; z-index:0; pointer-events:none;
-          background:radial-gradient(ellipse at center, var(--warm-50) 32%, rgba(250,250,248,0) 72%); }
-        .pc-inner{ position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; text-align:center; }
-        .pc-title{ font-size:clamp(24px,3vw,34px); line-height:1.15; letter-spacing:-.03em; color:var(--warm-900); max-width:900px; }
-        .pc-btn{ margin-top:26px; }
-        @media (max-width:700px){ .pc-sec{ padding:clamp(60px,9vh,84px) 0 clamp(68px,10vh,96px); } }
-      `}</style>
-    </section>
-  );
+  return <FinalCta title="Start monetizing your app today." />;
 }
 
-/* ---------- Sticky app-download QR (collapsible; sits above Back-to-Top) ---- */
-function AppDownload() {
-  const [open, setOpen] = React.useState(() => {
-    // stay dismissed across publisher pages within the same browser session
-    try { return sessionStorage.getItem('ia-appdl-dismissed') !== '1'; } catch (e) { return true; }
-  });
-  return (
-    <div className={'adl' + (open ? ' adl-open' : '')}>
-      <div className="adl-card" role="dialog" aria-label="Download the Involve Asia app" aria-hidden={!open}>
-        <h3 className="adl-title">Scan to start earning</h3>
-        <p className="adl-sub">Sign up and track your earnings on the app.</p>
-        <span className="adl-qr"><img src="media/figma/pub-app-qr.png" alt="QR code to download the Involve Asia app" /></span>
-        <button type="button" className="adl-dismiss" onClick={() => { try { sessionStorage.setItem('ia-appdl-dismissed', '1'); } catch (e) {} setOpen(false); }}>Maybe later</button>
-      </div>
-      <button type="button" className="adl-bubble" onClick={() => setOpen(true)} aria-label="Get the Involve Asia app" aria-hidden={open} tabIndex={open ? -1 : 0}>
-        <img src="media/figma/pub-app-icon.png" alt="" aria-hidden="true" />
-      </button>
-      <style>{`
-        /* app CTA now sits in the very bottom-right corner … */
-        .adl{ position:fixed; right:clamp(16px,2.5vw,28px); bottom:clamp(16px,2.5vw,28px); z-index:95; }
-        @media (max-width:600px){ .adl{ display:none !important; } }
-        /* … and the Back-to-Top button is pushed up above it (scoped to this page via body specificity) */
-        body .b2t{ bottom:calc(clamp(16px,2.5vw,28px) + 76px); }
-        .adl-card, .adl-bubble{ position:absolute; right:0; bottom:0; transition:opacity .3s ease, transform .34s cubic-bezier(.22,1,.36,1); }
-        /* expanded card (sized down ~20%) */
-        .adl-card{ transform-origin:bottom right; width:min(183px, calc(100vw - 32px));
-          background:linear-gradient(100.6deg, #F05826 0%, #C43E18 100%); border-radius:13px 13px 0 13px;
-          box-shadow:0 15px 36px rgba(15,28,46,.24); padding:18px 18px 16px; display:flex; flex-direction:column; align-items:center; text-align:center; }
-        .adl-title{ font-family:var(--font-display); font-weight:800; font-size:14.5px; line-height:1.15; color:#fff; }
-        .adl-sub{ margin-top:6px; font:400 11.5px/1.28 var(--font-body); color:rgba(255,255,255,.92); }
-        .adl-qr{ margin-top:13px; width:100%; aspect-ratio:1/1; background:#fff; border-radius:var(--r-lg); display:flex; align-items:center; justify-content:center; }
-        .adl-qr img{ width:88%; height:88%; object-fit:contain; }
-        .adl-dismiss{ margin-top:13px; background:none; border:none; cursor:pointer; font:400 12px/1 var(--font-body); color:#fff; text-decoration:underline; text-underline-offset:2px; }
-        .adl-dismiss:hover{ opacity:.85; }
-        /* collapsed teardrop bubble (points to the bottom-right corner) */
-        .adl-bubble{ width:64px; height:64px; padding:0; border:none; cursor:pointer;
-          background:linear-gradient(104.8deg, #F05826 0%, #C43E18 100%); border-radius:50% 50% 0 50%;
-          box-shadow:0 10px 22px rgba(240,88,38,.34); display:flex; align-items:center; justify-content:center; }
-        .adl-bubble img{ width:34px; height:34px; object-fit:contain; }
-        .adl-bubble:hover{ transform:translateY(-2px); box-shadow:0 14px 28px rgba(240,88,38,.42); }
-        /* toggle: show card when open, bubble when closed */
-        .adl .adl-card{ opacity:0; transform:scale(.9) translateY(8px); pointer-events:none; }
-        .adl .adl-bubble{ opacity:1; transform:scale(1); pointer-events:auto; }
-        .adl.adl-open .adl-card{ opacity:1; transform:scale(1) translateY(0); pointer-events:auto; }
-        .adl.adl-open .adl-bubble{ opacity:0; transform:scale(.6); pointer-events:none; }
-        @media (prefers-reduced-motion: reduce){ .adl-card, .adl-bubble{ transition:opacity .2s ease; } }
-      `}</style>
-    </div>
-  );
-}
 /* ---------- App-owners §3 — "Earn from what your users already do." (3 cards) ---------- */
 const EARN_CARDS = [
   ['app-earn-1.png', 'Earn on every sale', 'Recommend products and services your users want, and earn a commission whenever they buy.'],
@@ -680,33 +297,7 @@ const HIW_STEPS = [
   ['04', 'Get paid', 'Withdraw in your local currency once sales are validated, or sooner with Express Withdrawal.'],
 ];
 function HowItWorks() {
-  return (
-    <section id="ao-how" className="hiw-sec">
-      <div className="wrap">
-        <h2 className="hiw-title" data-reveal>How you earn.</h2>
-        <div className="hiw-grid">
-          {HIW_STEPS.map(([n, t, d], i) => (
-            <div className="hiw-step" key={n} data-reveal data-reveal-delay={i + 1}>
-              <span className="hiw-num" aria-hidden="true">{n}</span>
-              <h3 className="hiw-ct">{t}</h3>
-              <p className="hiw-cd">{d}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-      <style>{`
-        .hiw-sec{ background:var(--warm-50); padding:clamp(40px,7vh,88px) 0; }
-        .hiw-title{ font-family:var(--font-display); font-weight:800; font-size:clamp(24px,3vw,34px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
-        .hiw-grid{ margin-top:clamp(34px,5.5vh,58px); display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(26px,3vw,44px); }
-        .hiw-step{ min-width:0; }
-        .hiw-num{ display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:50%; background:var(--ember); color:#fff; font-family:var(--font-display); font-weight:800; font-size:17px; letter-spacing:-.01em; }
-        .hiw-ct{ margin-top:clamp(20px,3vh,28px); font-family:var(--font-display); font-weight:800; font-size:20px; letter-spacing:-.01em; color:var(--warm-900); }
-        .hiw-cd{ margin-top:10px; font:400 16px/1.5 var(--font-body); color:var(--warm-600); max-width:340px; }
-        @media (max-width:900px){ .hiw-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(26px,4vw,40px); } }
-        @media (max-width:520px){ .hiw-grid{ grid-template-columns:1fr; gap:clamp(24px,4vh,34px); max-width:440px; } }
-      `}</style>
-    </section>
-  );
+  return <NumberedSteps id="ao-how" title="How you earn." steps={HIW_STEPS} />;
 }
 /* ---------- App-owners §4c — "Why app owners build on Involve." (3 icon columns) ---------- */
 const WB_ICONS = {

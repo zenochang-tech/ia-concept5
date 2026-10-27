@@ -7,18 +7,13 @@
 
 // Shared UI comes from ia-shared.jsx (pulled off window so this works regardless
 // of how Babel-standalone scopes each script tag).
-const { Nav, Footer, Arrow, BackToTop, useSmoothScroll, useScrollReveal } = window;
+const { Nav, Footer, Arrow, BackToTop, useSmoothScroll, useScrollReveal, FinalCta, HeroHexDeco, HERO_HEXDECO_CSS } = window;
 
 /* ---------- Section 1 — Hero ---------------------------------------------- */
 function PubHero() {
   return (
     <section id="pub-hero" className="ph-sec">
-      <div className="ph-hexdeco" aria-hidden="true">
-        <img className="phd phd1" src="media/figma/pub-hero-deco1.svg?v=2" alt="" />
-        <img className="phd phd2" src="media/figma/pub-hero-deco2.svg?v=2" alt="" />
-        <img className="phd phd3" src="media/figma/pub-hero-deco3.svg?v=2" alt="" />
-        <img className="phd phd4" src="media/figma/pub-hero-deco4.svg?v=2" alt="" />
-      </div>
+      <HeroHexDeco />
       <span className="ph-basefade" aria-hidden="true" />
       <div className="wrap ph-wrap">
         <div className="ph-copy">
@@ -46,14 +41,7 @@ function PubHero() {
 
       <style>{`
         .ph-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(40px,6vh,84px) 0 clamp(56px,9vh,116px); }
-        /* decorative hexagons (Figma Polygon 64–67) — same size as the slider hexagon (492px), faint */
-        .ph-hexdeco{ position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
-        .phd{ position:absolute; width:492px; height:auto; }
-        .phd1{ top:-68%; right:-7%; }
-        .phd2{ top:6%; right:-26%; }
-        .phd3{ left:31%; bottom:-59%; }
-        .phd4{ left:-14%; bottom:-54%; }
-        @media (max-width:900px){ .ph-hexdeco{ display:none; } }
+        ${HERO_HEXDECO_CSS}
         /* gradient blend from the hero into the logo strip below */
         .ph-basefade{ position:absolute; left:0; right:0; bottom:0; height:clamp(120px,24%,240px); z-index:0; pointer-events:none;
           background:linear-gradient(180deg, rgba(250,250,248,0) 0%, rgba(250,250,248,.65) 55%, var(--warm-50) 100%); }
@@ -146,86 +134,9 @@ function PubHero() {
   );
 }
 
-/* ---------- Section 9 — Final CTA + interactive honeycomb ------------------
-   Decorative honeycomb (pub-cta-hexfield.svg = 229 pre-split ember hexes). Reuses the
-   homepage hero interaction: hexes are pushed radially away from the cursor and ease back. */
-function PubCtaHexField() {
-  const svgRef = React.useRef(null);
-  const [paths, setPaths] = React.useState([]);
-  const W = 1204.11, H = 1189.86;
-  React.useEffect(() => {
-    let alive = true;
-    fetch('media/figma/pub-cta-hexfield.svg').then((r) => r.text()).then((txt) => {
-      if (!alive) return;
-      const out = []; const re = /<path\b([^>]*)>/g; let m;
-      while ((m = re.exec(txt))) {
-        const attrs = m[1], dm = /\bd="([^"]+)"/.exec(attrs), fm = /\bfill="([^"]+)"/.exec(attrs);
-        if (dm && fm && fm[1].toUpperCase() === '#FAC9B9') out.push(dm[1]);
-      }
-      setPaths(out);
-    }).catch(() => {});
-    return () => { alive = false; };
-  }, []);
-  React.useLayoutEffect(() => {
-    const svg = svgRef.current;
-    if (!svg || !paths.length || prefersReduced()) return;
-    const sec = svg.closest('.pc-sec') || svg.parentElement;
-    const hexes = Array.from(svg.querySelectorAll('.hx')).map((el) => { const b = el.getBBox(); return { el, cx: b.x + b.width / 2, cy: b.y + b.height / 2, dx: 0, dy: 0 }; });
-    const R = 175, MAXPUSH = 34;
-    let mx = -9999, my = -9999, active = false, raf = 0;
-    const frame = () => {
-      let moving = false;
-      for (const h of hexes) {
-        let tx = 0, ty = 0;
-        if (active) {
-          const ddx = h.cx - mx, ddy = h.cy - my, dist = Math.hypot(ddx, ddy);
-          if (dist < R && dist > 0.01) { const f = 1 - dist / R, push = MAXPUSH * f * f, inv = push / dist; tx = ddx * inv; ty = ddy * inv; }
-        }
-        h.dx += (tx - h.dx) * 0.2; h.dy += (ty - h.dy) * 0.2;
-        if (Math.abs(h.dx) > 0.06 || Math.abs(h.dy) > 0.06) { h.el.setAttribute('transform', `translate(${h.dx.toFixed(2)} ${h.dy.toFixed(2)})`); moving = true; }
-        else if (h.dx !== 0 || h.dy !== 0) { h.dx = 0; h.dy = 0; h.el.removeAttribute('transform'); }
-      }
-      if (active || moving) raf = requestAnimationFrame(frame); else raf = 0;
-    };
-    // SVG is CSS-flipped vertically (scaleY(-1)), so invert the screen→viewBox Y mapping.
-    const onMove = (e) => { const r = svg.getBoundingClientRect(); mx = (e.clientX - r.left) * (W / r.width); my = H - (e.clientY - r.top) * (H / r.height); active = true; if (!raf) raf = requestAnimationFrame(frame); };
-    const onLeave = () => { active = false; if (!raf) raf = requestAnimationFrame(frame); };
-    sec.addEventListener('mousemove', onMove); sec.addEventListener('mouseleave', onLeave);
-    return () => { sec.removeEventListener('mousemove', onMove); sec.removeEventListener('mouseleave', onLeave); if (raf) cancelAnimationFrame(raf); };
-  }, [paths]);
-  return (
-    <svg ref={svgRef} className="pc-hexfield" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-      <g fill="var(--warm-200)">{paths.map((d, i) => <path key={i} className="hx" d={d} />)}</g>
-    </svg>
-  );
-}
+/* ---------- Final CTA (shared FinalCta, ia-sections.jsx) ----------------- */
 function PubCTA() {
-  return (
-    <section id="pub-cta" className="pc-sec">
-      <PubCtaHexField />
-      <span className="pc-topfade" aria-hidden="true" />
-      <span className="pc-wash" aria-hidden="true" />
-      <div className="wrap pc-inner">
-        <h2 className="pc-title" data-reveal>Scale your program without scaling the work.</h2>
-        <a href="/advertisers/" className="btn btn-advertiser btn-lg pc-btn" data-reveal data-reveal-delay="1">Grow my brand <Arrow /></a>
-      </div>
-      <style>{`
-        .pc-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(96px,16vh,200px) 0 clamp(104px,17vh,210px); }
-        .pc-hexfield{ position:absolute; left:0; top:50%; transform:translateY(-44%) scaleY(-1); width:100%; height:auto; z-index:0; pointer-events:none; opacity:.6;
-          -webkit-mask-image:linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent); mask-image:linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent); }
-        .pc-hexfield .hx{ will-change:transform; }
-        /* gradient blend into the section above */
-        .pc-topfade{ position:absolute; left:0; right:0; top:0; height:clamp(200px,26%,340px); z-index:0; pointer-events:none;
-          background:linear-gradient(180deg, var(--warm-50) 0%, rgba(250,250,248,.6) 45%, rgba(250,250,248,0) 100%); }
-        .pc-wash{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:760px; height:420px; z-index:0; pointer-events:none;
-          background:radial-gradient(ellipse at center, var(--warm-50) 32%, rgba(250,250,248,0) 72%); }
-        .pc-inner{ position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; text-align:center; }
-        .pc-title{ font-size:clamp(24px,3vw,34px); line-height:1.15; letter-spacing:-.03em; color:var(--warm-900); max-width:900px; }
-        .pc-btn{ margin-top:26px; }
-        @media (max-width:700px){ .pc-sec{ padding:clamp(60px,9vh,84px) 0 clamp(68px,10vh,96px); } }
-      `}</style>
-    </section>
-  );
+  return <FinalCta title="Scale your program without scaling the work." href="/advertisers/" tone="advertiser" label="Grow my brand" />;
 }
 
 /* ---------- Automation §2 — "Set it up once, let it run." (3 image columns) ---------- */

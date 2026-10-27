@@ -7,7 +7,7 @@
 
 // Shared UI comes from ia-shared.jsx (pulled off window so this works regardless
 // of how Babel-standalone scopes each script tag).
-const { Nav, Footer, Arrow, BackToTop, useSmoothScroll, useScrollReveal } = window;
+const { Nav, Footer, Arrow, BackToTop, useSmoothScroll, useScrollReveal, PlatformTabs, FinalCta, HeroHexDeco, HERO_HEXDECO_CSS, LogoMarquee } = window;
 
 /* ---------- Section 1 — Hero ---------------------------------------------- */
 function PubHero() {
@@ -23,12 +23,7 @@ function PubHero() {
   const on = (i) => 'ph-slide' + (slide === i ? ' is-active' : '');
   return (
     <section id="pub-hero" className="ph-sec">
-      <div className="ph-hexdeco" aria-hidden="true">
-        <img className="phd phd1" src="media/figma/pub-hero-deco1.svg?v=2" alt="" />
-        <img className="phd phd2" src="media/figma/pub-hero-deco2.svg?v=2" alt="" />
-        <img className="phd phd3" src="media/figma/pub-hero-deco3.svg?v=2" alt="" />
-        <img className="phd phd4" src="media/figma/pub-hero-deco4.svg?v=2" alt="" />
-      </div>
+      <HeroHexDeco />
       <span className="ph-basefade" aria-hidden="true" />
       <div className="wrap ph-wrap">
         <div className="ph-copy">
@@ -80,14 +75,10 @@ function PubHero() {
 
       <style>{`
         .ph-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(40px,6vh,84px) 0 clamp(56px,9vh,116px); }
-        /* decorative hexagons (Figma Polygon 64–67) — same size as the slider hexagon (492px), faint */
-        .ph-hexdeco{ position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
-        .phd{ position:absolute; width:492px; height:auto; }
+        ${HERO_HEXDECO_CSS}
         .phd1{ top:-62%; right:-10%; }
         .phd2{ top:6%; right:-30%; }
         .phd3{ left:32%; bottom:-54%; }
-        .phd4{ left:-14%; bottom:-54%; }
-        @media (max-width:900px){ .ph-hexdeco{ display:none; } }
         /* gradient blend from the hero into the logo strip below */
         .ph-basefade{ position:absolute; left:0; right:0; bottom:0; height:clamp(120px,24%,240px); z-index:0; pointer-events:none;
           background:linear-gradient(180deg, rgba(250,250,248,0) 0%, rgba(250,250,248,.65) 55%, var(--warm-50) 100%); }
@@ -212,159 +203,17 @@ function PubHero() {
 }
 
 /* ---------- Section 2 — Logo strip ---------------------------------------- */
-const PUB_LOGOS = [
-  ['Apple', 'pub-logo-apple.png', 42],
-  ['Nike', 'pub-logo-nike.png', 34],
-  ['SHEIN', 'pub-logo-shein.png', 22],
-  ['UOB', 'pub-logo-uob.png', 26],
-  ['TikTok Shop', 'pub-logo-tiktokshop.png', 60],
-  ['airasia', 'pub-logo-airasia.png', 30],
-  ['Klook', 'pub-logo-klook.png', 54],
-];
 function PubLogos() {
-  const trackRef = React.useRef(null);
-  // Auto-sliding + draggable marquee, ported from the homepage TrustStrip. Content is
-  // duplicated so wrapping the offset into (-half, 0] loops seamlessly. Reduced-motion =
-  // static, drag-only.
-  React.useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const norm = (o, half) => { if (!half) return 0; o %= half; if (o > 0) o -= half; return o; };
-    const SPEED = 30;                                    // px/sec — subtle
-    const s = { offset: 0, half: el.scrollWidth / 2 || 1, dragging: false, startX: 0, startOffset: 0 };
-    const draw = () => { el.style.transform = `translate3d(${s.offset.toFixed(1)}px,0,0)`; };
-    const row = el.parentElement;
-    const onDown = (e) => { s.dragging = true; s.startX = e.clientX; s.startOffset = s.offset; row.classList.add('grabbing'); try { row.setPointerCapture(e.pointerId); } catch (_) {} };
-    const onMove = (e) => { if (!s.dragging) return; s.offset = norm(s.startOffset + (e.clientX - s.startX), s.half); draw(); };
-    const onUp = (e) => { if (!s.dragging) return; s.dragging = false; row.classList.remove('grabbing'); try { row.releasePointerCapture(e.pointerId); } catch (_) {} };
-    row.addEventListener('pointerdown', onDown);
-    row.addEventListener('pointermove', onMove);
-    row.addEventListener('pointerup', onUp);
-    row.addEventListener('pointercancel', onUp);
-    row.addEventListener('lostpointercapture', onUp);
-    const onResize = () => { s.half = el.scrollWidth / 2 || 1; };
-    let raf = 0, last = null;
-    if (reduce) { draw(); }
-    else {
-      const tick = (now) => {
-        if (last == null) last = now;
-        const dt = Math.min(0.05, (now - last) / 1000); last = now;
-        if (!s.dragging) s.offset = norm(s.offset - SPEED * dt, s.half);
-        draw();
-        raf = requestAnimationFrame(tick);
-      };
-      raf = requestAnimationFrame(tick);
-      window.addEventListener('resize', onResize);
-    }
-    return () => { if (raf) cancelAnimationFrame(raf); window.removeEventListener('resize', onResize); row.removeEventListener('pointerdown', onDown); row.removeEventListener('pointermove', onMove); row.removeEventListener('pointerup', onUp); row.removeEventListener('pointercancel', onUp); row.removeEventListener('lostpointercapture', onUp); };
-  }, []);
-  const dup = [...PUB_LOGOS, ...PUB_LOGOS];
-  return (
-    <section id="pub-logos" className="pl-sec">
-      <div className="wrap">
-        <p className="pl-cap" data-reveal>Trusted by brands your customers already know, across retail, travel, beauty, and finance.</p>
-      </div>
-      <div className="pl-marquee" data-reveal data-reveal-delay="1">
-        <div ref={trackRef} className="pl-track">
-          {dup.map(([name, file, h], i) => (
-            <img key={i} className="pl-logo" src={`media/figma/${file}`} alt={`${name} logo`} style={{ height: h }} draggable="false" />
-          ))}
-        </div>
-      </div>
-      <style>{`
-        .pl-sec{ background:var(--warm-50); padding:clamp(28px,4vh,48px) 0 clamp(20px,3vh,36px); }
-        .pl-cap{ text-align:center; color:var(--warm-600); font-size:16px; line-height:1.5; max-width:718px; margin:0 auto; }
-        .pl-marquee{ margin-top:clamp(22px,3.4vh,38px); overflow:hidden; width:100%; cursor:grab; touch-action:pan-y; user-select:none;
-          -webkit-mask-image:linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-          mask-image:linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-        .pl-marquee.grabbing{ cursor:grabbing; }
-        .pl-track{ display:flex; align-items:center; gap:clamp(40px,5.5vw,84px); width:max-content; will-change:transform; }
-        .pl-logo{ display:block; width:auto; object-fit:contain; opacity:.9; flex:0 0 auto; -webkit-user-drag:none; user-drag:none; pointer-events:none; }
-      `}</style>
-    </section>
-  );
+  return <LogoMarquee caption="Trusted by brands your customers already know, across retail, travel, beauty, and finance." fill={false} />;
 }
 
-/* ---------- Section 9 — Final CTA + interactive honeycomb ------------------
-   Decorative honeycomb (pub-cta-hexfield.svg = 229 pre-split ember hexes). Reuses the
-   homepage hero interaction: hexes are pushed radially away from the cursor and ease back. */
-function PubCtaHexField() {
-  const svgRef = React.useRef(null);
-  const [paths, setPaths] = React.useState([]);
-  const W = 1204.11, H = 1189.86;
-  React.useEffect(() => {
-    let alive = true;
-    fetch('media/figma/pub-cta-hexfield.svg').then((r) => r.text()).then((txt) => {
-      if (!alive) return;
-      const out = []; const re = /<path\b([^>]*)>/g; let m;
-      while ((m = re.exec(txt))) {
-        const attrs = m[1], dm = /\bd="([^"]+)"/.exec(attrs), fm = /\bfill="([^"]+)"/.exec(attrs);
-        if (dm && fm && fm[1].toUpperCase() === '#FAC9B9') out.push(dm[1]);
-      }
-      setPaths(out);
-    }).catch(() => {});
-    return () => { alive = false; };
-  }, []);
-  React.useLayoutEffect(() => {
-    const svg = svgRef.current;
-    if (!svg || !paths.length || prefersReduced()) return;
-    const sec = svg.closest('.pc-sec') || svg.parentElement;
-    const hexes = Array.from(svg.querySelectorAll('.hx')).map((el) => { const b = el.getBBox(); return { el, cx: b.x + b.width / 2, cy: b.y + b.height / 2, dx: 0, dy: 0 }; });
-    const R = 175, MAXPUSH = 34;
-    let mx = -9999, my = -9999, active = false, raf = 0;
-    const frame = () => {
-      let moving = false;
-      for (const h of hexes) {
-        let tx = 0, ty = 0;
-        if (active) {
-          const ddx = h.cx - mx, ddy = h.cy - my, dist = Math.hypot(ddx, ddy);
-          if (dist < R && dist > 0.01) { const f = 1 - dist / R, push = MAXPUSH * f * f, inv = push / dist; tx = ddx * inv; ty = ddy * inv; }
-        }
-        h.dx += (tx - h.dx) * 0.2; h.dy += (ty - h.dy) * 0.2;
-        if (Math.abs(h.dx) > 0.06 || Math.abs(h.dy) > 0.06) { h.el.setAttribute('transform', `translate(${h.dx.toFixed(2)} ${h.dy.toFixed(2)})`); moving = true; }
-        else if (h.dx !== 0 || h.dy !== 0) { h.dx = 0; h.dy = 0; h.el.removeAttribute('transform'); }
-      }
-      if (active || moving) raf = requestAnimationFrame(frame); else raf = 0;
-    };
-    // SVG is CSS-flipped vertically (scaleY(-1)), so invert the screen→viewBox Y mapping.
-    const onMove = (e) => { const r = svg.getBoundingClientRect(); mx = (e.clientX - r.left) * (W / r.width); my = H - (e.clientY - r.top) * (H / r.height); active = true; if (!raf) raf = requestAnimationFrame(frame); };
-    const onLeave = () => { active = false; if (!raf) raf = requestAnimationFrame(frame); };
-    sec.addEventListener('mousemove', onMove); sec.addEventListener('mouseleave', onLeave);
-    return () => { sec.removeEventListener('mousemove', onMove); sec.removeEventListener('mouseleave', onLeave); if (raf) cancelAnimationFrame(raf); };
-  }, [paths]);
-  return (
-    <svg ref={svgRef} className="pc-hexfield" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-      <g fill="var(--warm-200)">{paths.map((d, i) => <path key={i} className="hx" d={d} />)}</g>
-    </svg>
-  );
-}
-function PubCTA() {
-  return (
-    <section id="pub-cta" className="pc-sec">
-      <PubCtaHexField />
-      <span className="pc-topfade" aria-hidden="true" />
-      <span className="pc-wash" aria-hidden="true" />
-      <div className="wrap pc-inner">
-        <h2 className="pc-title" data-reveal>Start growing your business with the right plan today.</h2>
-        <a href="/advertisers/" className="btn btn-advertiser btn-lg pc-btn" data-reveal data-reveal-delay="1">See plans and pricing <Arrow /></a>
-      </div>
-      <style>{`
+/* ---------- Final CTA (shared FinalCta, ia-sections.jsx) ----------------- */
+const PUB_CTA_CSS = `
         .pc-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(199px,33.12vh,365px) 0 clamp(232px,35.88vh,430px); }
-        .pc-hexfield{ position:absolute; left:0; top:50%; transform:translateY(-44%) scaleY(-1); width:100%; height:auto; z-index:0; pointer-events:none; opacity:.6;
-          -webkit-mask-image:linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent); mask-image:linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent); }
-        .pc-hexfield .hx{ will-change:transform; }
-        /* gradient blend into the section above */
-        .pc-topfade{ position:absolute; left:0; right:0; top:0; height:clamp(200px,26%,340px); z-index:0; pointer-events:none;
-          background:linear-gradient(180deg, var(--warm-50) 0%, rgba(250,250,248,.6) 45%, rgba(250,250,248,0) 100%); }
-        .pc-wash{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:760px; height:420px; z-index:0; pointer-events:none;
-          background:radial-gradient(ellipse at center, var(--warm-50) 32%, rgba(250,250,248,0) 72%); }
-        .pc-inner{ position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; text-align:center; }
         .pc-title{ font-size:clamp(30px,4vw,48px); line-height:1.15; letter-spacing:-.03em; color:var(--warm-900); max-width:900px; }
-        .pc-btn{ margin-top:26px; }
-      `}</style>
-    </section>
-  );
+      `;
+function PubCTA() {
+  return <FinalCta title="Start growing your business with the right plan today." href="/advertisers/" tone="advertiser" label="See plans and pricing" css={PUB_CTA_CSS} />;
 }
 
 /* ---------- Advertiser Section 3 — "Whatever your goal, grow it here." ------ */
@@ -440,75 +289,17 @@ const ADV_PLATFORM = [
     img: 'adv-plat-4.png',
   },
 ];
-const ADV_PLATFORM_MS = 12000;
-function AdvPlatform() {
-  const [active, setActive] = React.useState(0);
-  // Which step the mouse is over (index or null). Hovering the active step's
-  // content pauses the rail; the image beside it doesn't. Touch taps are ignored
-  // so the pause can't get stuck on mobile.
-  const [hover, setHover] = React.useState(null);
-  const paused = hover === active;
-  const hoverProps = (k) => ({
-    onPointerEnter: (e) => { if (e.pointerType === 'mouse') setHover(k); },
-    onPointerLeave: (e) => { if (e.pointerType === 'mouse') setHover(null); },
-  });
-  // The rail-fill animation is the timer: advancing on its animationend keeps the
-  // bar and the slide change in sync, and pausing the animation pauses both.
-  // Under reduced motion the animation is off, so there's no auto-advance.
-  const next = () => setActive((a) => (a + 1) % ADV_PLATFORM.length);
-  return (
-    <section id="adv-platform" className="pf-sec">
-      <div className="wrap">
-        <h2 className="pf-title" data-reveal>One platform, everything you need to run your program</h2>
-        <p className="pf-sub" data-reveal data-reveal-delay="1">Find publishers, launch offers, share your creatives, and track every sale, all in one place.</p>
-        <div className="pf-grid" data-reveal data-reveal-delay="1">
-          <div className="pf-steps">
-            {ADV_PLATFORM.map((s, i) => {
-              const on = i === active;
-              return (
-                <button type="button" className={'pf-step' + (on ? ' on' : '')} key={s.key} onClick={() => setActive(i)} aria-expanded={on} {...hoverProps(i)}>
-                  <span className="pf-rail" aria-hidden="true">
-                    <span className="pf-rail-track" />
-                    {on && <span className="pf-rail-fill" key={active} onAnimationEnd={next} style={{ animationPlayState: paused ? 'paused' : 'running' }} />}
-                  </span>
-                  <span className="pf-step-body">
-                    <span className="pf-step-t">{s.t}</span>
-                    <span className="pf-step-dw"><span className="pf-step-d">{s.d}</span></span>
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-          <div className="pf-visual">
-            {ADV_PLATFORM.map((s, i) => (
-              <img key={s.key} className={'pf-img' + (i === active ? ' on' : '')} src={`media/figma/${s.img}`} alt={s.t} loading="lazy" aria-hidden={i !== active} />
-            ))}
-          </div>
-        </div>
-      </div>
-      <style>{`
+const ADV_PLATFORM_CSS = `
         .pf-sec{ background:var(--warm-50); padding:clamp(77px,11.11vh,152px) 0 clamp(89px,14.28vh,191px); overflow:hidden; }
         .pf-title{ text-align:center; font-size:clamp(30px,4vw,48px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
         .pf-sub{ text-align:center; margin-top:14px; font-size:16px; line-height:1.4; color:var(--warm-600); }
         .pf-grid{ margin-top:clamp(40px,6vh,72px); display:grid; grid-template-columns:minmax(0,447px) 1fr; gap:clamp(32px,4vw,64px); align-items:center; }
         .pf-steps{ display:flex; flex-direction:column; }
         .pf-step{ position:relative; display:flex; gap:20px; align-items:stretch; text-align:left; background:none; border:none; cursor:pointer; padding:34px 0; width:100%; }
-        .pf-step + .pf-step{ border-top:1px solid var(--warm-200); }
-        .pf-rail{ position:relative; width:4px; flex:0 0 auto; align-self:stretch; }
-        .pf-rail-track{ position:absolute; inset:0; border-radius:var(--r-full); background:var(--warm-200); opacity:0; transition:opacity .3s ease; }
         .pf-rail-fill{ position:absolute; left:0; top:0; width:4px; border-radius:var(--r-full); background:var(--midnight-light); height:0; }
-        .pf-step.on .pf-rail-track{ opacity:1; }
-        .pf-step.on .pf-rail-fill{ animation:pfFill ${ADV_PLATFORM_MS}ms linear forwards; }
-        @keyframes pfFill{ from{ height:0; } to{ height:100%; } }
-        .pf-step-body{ min-width:0; }
         .pf-step-t{ display:block; font-family:var(--font-display); font-weight:800; font-size:21px; letter-spacing:-.02em; color:var(--warm-900); transition:opacity .3s ease; }
-        .pf-step-dw{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .4s ease; }
-        .pf-step.on .pf-step-dw{ grid-template-rows:1fr; }
-        .pf-step-d{ overflow:hidden; margin-top:0; font:400 16px/1.5 var(--font-body); color:var(--warm-600); }
         .pf-step.on .pf-step-d{ margin-top:14px; }
         .pf-step-d a{ color:var(--midnight-light); font-weight:600; text-decoration:underline; text-underline-offset:2px; }
-        /* inactive steps fade back (header only) */
-        .pf-step:not(.on){ opacity:.4; } .pf-step:not(.on):hover{ opacity:.7; }
         /* light ember→cool gradient container; the dashboard sits inset top-left and bleeds off the right */
         .pf-visual{ position:relative; aspect-ratio:1152/632; border-radius:var(--r-xl); overflow:hidden;
           background:var(--warm-100); }
@@ -517,14 +308,15 @@ function AdvPlatform() {
           width:calc(100% - clamp(20px,3.2vw,40px)); height:calc(100% - clamp(20px,3.2vw,40px));
           object-fit:cover; object-position:left top; border-radius:16px 0 0 0;
           opacity:0; transition:opacity .5s ease; }
-        .pf-img.on{ opacity:1; }
         @media (max-width:900px){
           .pf-grid{ grid-template-columns:1fr; gap:28px; }
           .pf-visual{ order:-1; }
-        }
-        @media (prefers-reduced-motion: reduce){ .pf-rail-fill{ animation:none; height:100%; } .pf-img{ transition:none; } }
-      `}</style>
-    </section>
+        }`;
+function AdvPlatform() {
+  return (
+    <PlatformTabs id="adv-platform" items={ADV_PLATFORM} css={ADV_PLATFORM_CSS}
+      title="One platform, everything you need to run your program"
+      sub="Find publishers, launch offers, share your creatives, and track every sale, all in one place." />
   );
 }
 /* ---------- "Traffic Validation" animated graphic (canvas) -----------------

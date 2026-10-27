@@ -7,7 +7,7 @@
 
 // Shared UI comes from ia-shared.jsx (pulled off window so this works regardless
 // of how Babel-standalone scopes each script tag).
-const { Nav, Footer, Arrow, BackToTop, useSmoothScroll, useScrollReveal } = window;
+const { Nav, Footer, Arrow, BackToTop, useSmoothScroll, useScrollReveal, LogoMarquee } = window;
 
 /* ---------- Section 1 — Hero ---------------------------------------------- */
 /* Decorative honeycomb reused from the final CTA (pub-cta-hexfield.svg), rendered faint blue. */
@@ -145,102 +145,8 @@ function PubHero() {
 }
 
 /* ---------- Section 2 — Logo strip ---------------------------------------- */
-const PUB_LOGOS = [
-  ['Apple', 'pub-logo-apple.png', 42],
-  ['Nike', 'pub-logo-nike.png', 34],
-  ['SHEIN', 'pub-logo-shein.png', 22],
-  ['UOB', 'pub-logo-uob.png', 26],
-  ['TikTok Shop', 'pub-logo-tiktokshop.png', 60],
-  ['airasia', 'pub-logo-airasia.png', 30],
-  ['Klook', 'pub-logo-klook.png', 54],
-];
 function PubLogos() {
-  const trackRef = React.useRef(null);
-  const marqRef = React.useRef(null);
-  const [reps, setReps] = React.useState(2);
-  // Repeat the logo set until one loop spans at least the visible strip width, so the
-  // marquee never shows a blank gap before the next copy scrolls in.
-  React.useEffect(() => {
-    const track = trackRef.current, marq = marqRef.current;
-    if (!track || !marq) return;
-    const imgs = Array.prototype.slice.call(track.querySelectorAll('img'));
-    const fit = () => {
-      if (imgs.some((im) => !im.complete)) return;         // wait until the logos are measurable
-      const baseW = track.scrollWidth / (2 * reps);
-      if (baseW < 40) return;
-      const need = Math.min(8, Math.max(1, Math.ceil((marq.clientWidth + 8) / baseW)));
-      if (need !== reps) setReps(need);
-    };
-    fit();
-    imgs.forEach((im) => im.addEventListener('load', fit));
-    window.addEventListener('resize', fit);
-    const ro = window.ResizeObserver ? new ResizeObserver(fit) : null;
-    if (ro) { ro.observe(track); ro.observe(marq); }
-    return () => { imgs.forEach((im) => im.removeEventListener('load', fit)); window.removeEventListener('resize', fit); if (ro) ro.disconnect(); };
-  }, [reps]);
-  // Auto-sliding + draggable marquee, ported from the homepage TrustStrip. Content is
-  // duplicated so wrapping the offset into (-half, 0] loops seamlessly. Reduced-motion =
-  // static, drag-only.
-  React.useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const norm = (o, half) => { if (!half) return 0; o %= half; if (o > 0) o -= half; return o; };
-    const SPEED = 30;                                    // px/sec — subtle
-    const s = { offset: 0, half: el.scrollWidth / 2 || 1, dragging: false, startX: 0, startOffset: 0 };
-    const draw = () => { el.style.transform = `translate3d(${s.offset.toFixed(1)}px,0,0)`; };
-    const row = el.parentElement;
-    const onDown = (e) => { s.dragging = true; s.startX = e.clientX; s.startOffset = s.offset; row.classList.add('grabbing'); try { row.setPointerCapture(e.pointerId); } catch (_) {} };
-    const onMove = (e) => { if (!s.dragging) return; s.offset = norm(s.startOffset + (e.clientX - s.startX), s.half); draw(); };
-    const onUp = (e) => { if (!s.dragging) return; s.dragging = false; row.classList.remove('grabbing'); try { row.releasePointerCapture(e.pointerId); } catch (_) {} };
-    row.addEventListener('pointerdown', onDown);
-    row.addEventListener('pointermove', onMove);
-    row.addEventListener('pointerup', onUp);
-    row.addEventListener('pointercancel', onUp);
-    row.addEventListener('lostpointercapture', onUp);
-    const onResize = () => { s.half = el.scrollWidth / 2 || 1; };
-    let raf = 0, last = null;
-    if (reduce) { draw(); }
-    else {
-      const tick = (now) => {
-        if (last == null) last = now;
-        const dt = Math.min(0.05, (now - last) / 1000); last = now;
-        if (!s.dragging) s.offset = norm(s.offset - SPEED * dt, s.half);
-        draw();
-        raf = requestAnimationFrame(tick);
-      };
-      raf = requestAnimationFrame(tick);
-      window.addEventListener('resize', onResize);
-    }
-    return () => { if (raf) cancelAnimationFrame(raf); window.removeEventListener('resize', onResize); row.removeEventListener('pointerdown', onDown); row.removeEventListener('pointermove', onMove); row.removeEventListener('pointerup', onUp); row.removeEventListener('pointercancel', onUp); row.removeEventListener('lostpointercapture', onUp); };
-  }, [reps]);
-  const oneLoop = [];
-  for (let k = 0; k < reps; k++) oneLoop.push(...PUB_LOGOS);
-  const dup = [...oneLoop, ...oneLoop];
-  return (
-    <section id="pub-logos" className="pl-sec">
-      <div className="wrap">
-        <p className="pl-cap" data-reveal>Trusted by brands your customers already know, across retail, travel, beauty, and finance.</p>
-      </div>
-      <div className="pl-marquee" ref={marqRef} data-reveal data-reveal-delay="1">
-        <div ref={trackRef} className="pl-track">
-          {dup.map(([name, file, h], i) => (
-            <img key={i} className="pl-logo" src={`media/figma/${file}`} alt={`${name} logo`} style={{ height: h }} draggable="false" />
-          ))}
-        </div>
-      </div>
-      <style>{`
-        .pl-sec{ background:var(--warm-50); padding:clamp(28px,4vh,48px) 0 clamp(20px,3vh,36px); }
-        .pl-cap{ text-align:center; color:var(--warm-600); font-size:16px; line-height:1.5; max-width:718px; margin:0 auto; }
-        .pl-marquee{ margin-top:clamp(22px,3.4vh,38px); overflow:hidden; width:100%; cursor:grab; touch-action:pan-y; user-select:none;
-          -webkit-mask-image:linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-          mask-image:linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-        .pl-marquee.grabbing{ cursor:grabbing; }
-        .pl-track{ display:flex; align-items:center; gap:clamp(40px,5.5vw,84px); width:max-content; will-change:transform; }
-        .pl-logo{ display:block; width:auto; object-fit:contain; opacity:.9; flex:0 0 auto; -webkit-user-drag:none; user-drag:none; pointer-events:none; }
-      `}</style>
-    </section>
-  );
+  return <LogoMarquee caption="Trusted by brands your customers already know, across retail, travel, beauty, and finance." />;
 }
 
 function PricingApp() {

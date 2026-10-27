@@ -7,18 +7,13 @@
 
 // Shared UI comes from ia-shared.jsx (pulled off window so this works regardless
 // of how Babel-standalone scopes each script tag).
-const { Nav, Footer, Arrow, BackToTop, useSmoothScroll, useScrollReveal } = window;
+const { Nav, Footer, Arrow, BackToTop, useSmoothScroll, useScrollReveal, FinalCta, Faq, AppDownload, HeroHexDeco, HERO_HEXDECO_CSS } = window;
 
 /* ---------- Section 1 — Hero ---------------------------------------------- */
 function PubHero() {
   return (
     <section id="pub-hero" className="ph-sec">
-      <div className="ph-hexdeco" aria-hidden="true">
-        <img className="phd phd1" src="media/figma/pub-hero-deco1.svg?v=2" alt="" />
-        <img className="phd phd2" src="media/figma/pub-hero-deco2.svg?v=2" alt="" />
-        <img className="phd phd3" src="media/figma/pub-hero-deco3.svg?v=2" alt="" />
-        <img className="phd phd4" src="media/figma/pub-hero-deco4.svg?v=2" alt="" />
-      </div>
+      <HeroHexDeco />
       <span className="ph-basefade" aria-hidden="true" />
       <div className="wrap ph-wrap">
         <div className="ph-copy">
@@ -40,14 +35,7 @@ function PubHero() {
 
       <style>{`
         .ph-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(40px,6vh,84px) 0 clamp(56px,9vh,116px); }
-        /* decorative hexagons (Figma Polygon 64–67) — same size as the slider hexagon (492px), faint */
-        .ph-hexdeco{ position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
-        .phd{ position:absolute; width:492px; height:auto; }
-        .phd1{ top:-68%; right:-7%; }
-        .phd2{ top:6%; right:-26%; }
-        .phd3{ left:31%; bottom:-59%; }
-        .phd4{ left:-14%; bottom:-54%; }
-        @media (max-width:900px){ .ph-hexdeco{ display:none; } }
+        ${HERO_HEXDECO_CSS}
         /* gradient blend from the hero into the logo strip below */
         .ph-basefade{ position:absolute; left:0; right:0; bottom:0; height:clamp(120px,24%,240px); z-index:0; pointer-events:none;
           background:linear-gradient(180deg, rgba(250,250,248,0) 0%, rgba(250,250,248,.65) 55%, var(--warm-50) 100%); }
@@ -153,181 +141,14 @@ const PUB_FAQ = [
     'A team member with programming experience to set it up.'],
 ];
 function PubFAQ() {
-  const [open, setOpen] = React.useState(() => new Set([0]));
-  const toggle = (i) => setOpen((prev) => { const n = new Set(prev); n.has(i) ? n.delete(i) : n.add(i); return n; });
-  return (
-    <section id="pub-faq" className="fq-sec">
-      <div className="wrap">
-        <h2 className="fq-title" data-reveal>Questions, answered.</h2>
-        <div className="fq-list" data-reveal data-reveal-delay="1">
-          {PUB_FAQ.map(([q, a], i) => {
-            const isOpen = open.has(i);
-            return (
-              <div className={'fq-item' + (isOpen ? ' open' : '')} key={i}>
-                <button type="button" className="fq-q" onClick={() => toggle(i)} aria-expanded={isOpen}>
-                  <span>{q}</span>
-                  <span className="fq-ic" aria-hidden="true"><i /><i /></span>
-                </button>
-                <div className="fq-a-wrap"><div className="fq-a"><p>{a}</p></div></div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      <style>{`
-        .fq-sec{ background:var(--warm-50); padding:clamp(67px,9.66vh,132px) 0 clamp(77px,12.42vh,160px); }
-        .fq-title{ text-align:center; font-size:clamp(22px,2.6vw,30px); line-height:1.12; letter-spacing:-.03em; color:var(--warm-900); }
-        .fq-list{ margin-top:clamp(32px,5vh,60px); display:flex; flex-direction:column; gap:12px; max-width:1160px; margin-inline:auto; }
-        .fq-item{ background:#fff; border:1px solid #e5e7eb; border-radius:var(--r-lg); }
-        .fq-q{ width:100%; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:24px; background:none; border:none; cursor:pointer; text-align:left; font:700 18px/1.35 var(--font-body); color:#111122; }
-        .fq-ic{ position:relative; width:18px; height:18px; flex:0 0 auto; }
-        .fq-ic i{ position:absolute; background:#111110; border-radius:var(--r-sm); }
-        .fq-ic i:nth-child(1){ left:0; right:0; top:8px; height:2px; }
-        .fq-ic i:nth-child(2){ top:0; bottom:0; left:8px; width:2px; transition:transform .25s ease; }
-        .fq-item.open .fq-ic i:nth-child(2){ transform:scaleY(0); }
-        .fq-a-wrap{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .3s ease; }
-        .fq-item.open .fq-a-wrap{ grid-template-rows:1fr; }
-        .fq-a{ overflow:hidden; }
-        .fq-a p{ margin:0 24px; padding-bottom:24px; font:400 16px/1.5 var(--font-body); color:#3a3a4a; }
-        .fq-a a{ color:var(--ember); font-weight:600; text-decoration:underline; text-underline-offset:2px; }
-        .fq-a a:hover{ opacity:.82; }
-      `}</style>
-    </section>
-  );
+  return <Faq items={PUB_FAQ} />;
 }
 
-/* ---------- Section 9 — Final CTA + interactive honeycomb ------------------
-   Decorative honeycomb (pub-cta-hexfield.svg = 229 pre-split ember hexes). Reuses the
-   homepage hero interaction: hexes are pushed radially away from the cursor and ease back. */
-function PubCtaHexField() {
-  const svgRef = React.useRef(null);
-  const [paths, setPaths] = React.useState([]);
-  const W = 1204.11, H = 1189.86;
-  React.useEffect(() => {
-    let alive = true;
-    fetch('media/figma/pub-cta-hexfield.svg').then((r) => r.text()).then((txt) => {
-      if (!alive) return;
-      const out = []; const re = /<path\b([^>]*)>/g; let m;
-      while ((m = re.exec(txt))) {
-        const attrs = m[1], dm = /\bd="([^"]+)"/.exec(attrs), fm = /\bfill="([^"]+)"/.exec(attrs);
-        if (dm && fm && fm[1].toUpperCase() === '#FAC9B9') out.push(dm[1]);
-      }
-      setPaths(out);
-    }).catch(() => {});
-    return () => { alive = false; };
-  }, []);
-  React.useLayoutEffect(() => {
-    const svg = svgRef.current;
-    if (!svg || !paths.length || prefersReduced()) return;
-    const sec = svg.closest('.pc-sec') || svg.parentElement;
-    const hexes = Array.from(svg.querySelectorAll('.hx')).map((el) => { const b = el.getBBox(); return { el, cx: b.x + b.width / 2, cy: b.y + b.height / 2, dx: 0, dy: 0 }; });
-    const R = 175, MAXPUSH = 34;
-    let mx = -9999, my = -9999, active = false, raf = 0;
-    const frame = () => {
-      let moving = false;
-      for (const h of hexes) {
-        let tx = 0, ty = 0;
-        if (active) {
-          const ddx = h.cx - mx, ddy = h.cy - my, dist = Math.hypot(ddx, ddy);
-          if (dist < R && dist > 0.01) { const f = 1 - dist / R, push = MAXPUSH * f * f, inv = push / dist; tx = ddx * inv; ty = ddy * inv; }
-        }
-        h.dx += (tx - h.dx) * 0.2; h.dy += (ty - h.dy) * 0.2;
-        if (Math.abs(h.dx) > 0.06 || Math.abs(h.dy) > 0.06) { h.el.setAttribute('transform', `translate(${h.dx.toFixed(2)} ${h.dy.toFixed(2)})`); moving = true; }
-        else if (h.dx !== 0 || h.dy !== 0) { h.dx = 0; h.dy = 0; h.el.removeAttribute('transform'); }
-      }
-      if (active || moving) raf = requestAnimationFrame(frame); else raf = 0;
-    };
-    // SVG is CSS-flipped vertically (scaleY(-1)), so invert the screen→viewBox Y mapping.
-    const onMove = (e) => { const r = svg.getBoundingClientRect(); mx = (e.clientX - r.left) * (W / r.width); my = H - (e.clientY - r.top) * (H / r.height); active = true; if (!raf) raf = requestAnimationFrame(frame); };
-    const onLeave = () => { active = false; if (!raf) raf = requestAnimationFrame(frame); };
-    sec.addEventListener('mousemove', onMove); sec.addEventListener('mouseleave', onLeave);
-    return () => { sec.removeEventListener('mousemove', onMove); sec.removeEventListener('mouseleave', onLeave); if (raf) cancelAnimationFrame(raf); };
-  }, [paths]);
-  return (
-    <svg ref={svgRef} className="pc-hexfield" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-      <g fill="var(--warm-200)">{paths.map((d, i) => <path key={i} className="hx" d={d} />)}</g>
-    </svg>
-  );
-}
+/* ---------- Final CTA (shared FinalCta, ia-sections.jsx) ----------------- */
 function PubCTA() {
-  return (
-    <section id="pub-cta" className="pc-sec">
-      <PubCtaHexField />
-      <span className="pc-topfade" aria-hidden="true" />
-      <span className="pc-wash" aria-hidden="true" />
-      <div className="wrap pc-inner">
-        <h2 className="pc-title" data-reveal>Start building with the API.</h2>
-        <a href="https://app.involve.asia/v2/create-account" className="btn btn-primary btn-lg pc-btn" data-reveal data-reveal-delay="1">Apply for an API Key <Arrow /></a>
-      </div>
-      <style>{`
-        .pc-sec{ position:relative; overflow:hidden; background:var(--warm-50); padding:clamp(96px,16vh,200px) 0 clamp(104px,17vh,210px); }
-        .pc-hexfield{ position:absolute; left:0; top:50%; transform:translateY(-44%) scaleY(-1); width:100%; height:auto; z-index:0; pointer-events:none; opacity:.6;
-          -webkit-mask-image:linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent); mask-image:linear-gradient(180deg, transparent, #000 16%, #000 84%, transparent); }
-        .pc-hexfield .hx{ will-change:transform; }
-        /* gradient blend into the section above */
-        .pc-topfade{ position:absolute; left:0; right:0; top:0; height:clamp(200px,26%,340px); z-index:0; pointer-events:none;
-          background:linear-gradient(180deg, var(--warm-50) 0%, rgba(250,250,248,.6) 45%, rgba(250,250,248,0) 100%); }
-        .pc-wash{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:760px; height:420px; z-index:0; pointer-events:none;
-          background:radial-gradient(ellipse at center, var(--warm-50) 32%, rgba(250,250,248,0) 72%); }
-        .pc-inner{ position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; text-align:center; }
-        .pc-title{ font-size:clamp(24px,3vw,34px); line-height:1.15; letter-spacing:-.03em; color:var(--warm-900); max-width:900px; }
-        .pc-btn{ margin-top:26px; }
-        @media (max-width:700px){ .pc-sec{ padding:clamp(60px,9vh,84px) 0 clamp(68px,10vh,96px); } }
-      `}</style>
-    </section>
-  );
+  return <FinalCta title="Start building with the API." label="Apply for an API Key" />;
 }
 
-/* ---------- Sticky app-download QR (collapsible; sits above Back-to-Top) ---- */
-function AppDownload() {
-  const [open, setOpen] = React.useState(() => {
-    // stay dismissed across publisher pages within the same browser session
-    try { return sessionStorage.getItem('ia-appdl-dismissed') !== '1'; } catch (e) { return true; }
-  });
-  return (
-    <div className={'adl' + (open ? ' adl-open' : '')}>
-      <div className="adl-card" role="dialog" aria-label="Download the Involve Asia app" aria-hidden={!open}>
-        <h3 className="adl-title">Scan to start earning</h3>
-        <p className="adl-sub">Sign up and track your earnings on the app.</p>
-        <span className="adl-qr"><img src="media/figma/pub-app-qr.png" alt="QR code to download the Involve Asia app" /></span>
-        <button type="button" className="adl-dismiss" onClick={() => { try { sessionStorage.setItem('ia-appdl-dismissed', '1'); } catch (e) {} setOpen(false); }}>Maybe later</button>
-      </div>
-      <button type="button" className="adl-bubble" onClick={() => setOpen(true)} aria-label="Get the Involve Asia app" aria-hidden={open} tabIndex={open ? -1 : 0}>
-        <img src="media/figma/pub-app-icon.png" alt="" aria-hidden="true" />
-      </button>
-      <style>{`
-        /* app CTA now sits in the very bottom-right corner … */
-        .adl{ position:fixed; right:clamp(16px,2.5vw,28px); bottom:clamp(16px,2.5vw,28px); z-index:95; }
-        @media (max-width:600px){ .adl{ display:none !important; } }
-        /* … and the Back-to-Top button is pushed up above it (scoped to this page via body specificity) */
-        body .b2t{ bottom:calc(clamp(16px,2.5vw,28px) + 76px); }
-        .adl-card, .adl-bubble{ position:absolute; right:0; bottom:0; transition:opacity .3s ease, transform .34s cubic-bezier(.22,1,.36,1); }
-        /* expanded card (sized down ~20%) */
-        .adl-card{ transform-origin:bottom right; width:min(183px, calc(100vw - 32px));
-          background:linear-gradient(100.6deg, #F05826 0%, #C43E18 100%); border-radius:13px 13px 0 13px;
-          box-shadow:0 15px 36px rgba(15,28,46,.24); padding:18px 18px 16px; display:flex; flex-direction:column; align-items:center; text-align:center; }
-        .adl-title{ font-family:var(--font-display); font-weight:800; font-size:14.5px; line-height:1.15; color:#fff; }
-        .adl-sub{ margin-top:6px; font:400 11.5px/1.28 var(--font-body); color:rgba(255,255,255,.92); }
-        .adl-qr{ margin-top:13px; width:100%; aspect-ratio:1/1; background:#fff; border-radius:var(--r-lg); display:flex; align-items:center; justify-content:center; }
-        .adl-qr img{ width:88%; height:88%; object-fit:contain; }
-        .adl-dismiss{ margin-top:13px; background:none; border:none; cursor:pointer; font:400 12px/1 var(--font-body); color:#fff; text-decoration:underline; text-underline-offset:2px; }
-        .adl-dismiss:hover{ opacity:.85; }
-        /* collapsed teardrop bubble (points to the bottom-right corner) */
-        .adl-bubble{ width:64px; height:64px; padding:0; border:none; cursor:pointer;
-          background:linear-gradient(104.8deg, #F05826 0%, #C43E18 100%); border-radius:50% 50% 0 50%;
-          box-shadow:0 10px 22px rgba(240,88,38,.34); display:flex; align-items:center; justify-content:center; }
-        .adl-bubble img{ width:34px; height:34px; object-fit:contain; }
-        .adl-bubble:hover{ transform:translateY(-2px); box-shadow:0 14px 28px rgba(240,88,38,.42); }
-        /* toggle: show card when open, bubble when closed */
-        .adl .adl-card{ opacity:0; transform:scale(.9) translateY(8px); pointer-events:none; }
-        .adl .adl-bubble{ opacity:1; transform:scale(1); pointer-events:auto; }
-        .adl.adl-open .adl-card{ opacity:1; transform:scale(1) translateY(0); pointer-events:auto; }
-        .adl.adl-open .adl-bubble{ opacity:0; transform:scale(.6); pointer-events:none; }
-        @media (prefers-reduced-motion: reduce){ .adl-card, .adl-bubble{ transition:opacity .2s ease; } }
-      `}</style>
-    </div>
-  );
-}
 /* ---------- API §2 — "Automate the work, scale your earnings." (4 cards) ---------- */
 const AUTO_CARDS = [
   ['api-auto-1.png', 'Get the latest promotion data', 'Commission rates and payout terms for every offer you have access to.'],
